@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"/>
-<title>请稍候</title></head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><style type="text/css">
+<!--
+html{height:100%}
+body,td,th {color:#000000;}
+body{background-color:#F4F5F7;height:100%;}
+.holo{color:#00a1d6} .currentPage{height:4px;background-color:#00a1d6} .pagetext{height:auto;width:auto;padding-left:10px;padding-right:10px;position:relative;top:33%;text-align:center}
+.floating{position:fixed;_position:absolute;top:0px;z-index:295;}
+a:visited,a:link fl{color:#000000} a:hover fl{color:#00a1d6} .float-left{float:left;margin-right:16px;height:66px;cursor: pointer;}
+-->
+</style>
+<title>瑞兽谷</title></head>
 <body>
-<script type="text/javascript">
-document.location="./home/index.html";
-</script>
+<div align="center" style="height:100%">
+	<div style="width:1100px;height:303px">
+		<img src="./img/Header_Starbound.png" width="1100" height="224"/>
+		<div id="float" align="left" style="width:1080px;background-color:white;height:66px;padding-left:20px;margin-bottom:10px">
+			<div class="float-left">
+				<div style="height:62px">
+					<div align="center" class="holo pagetext">
+						动态
+					</div>
+				</div>
+				<div class="currentPage"></div>
+			</div>
+			<a  target="show"><!--href="index.html"-->
+				<fl class="float-left" onclick="later()">
+					<div class="pagetext">
+						公告
+					</div>
+				</fl>
+			</a>
+			
+			<a  target="show"><!--href="./home/about.html"-->
+				<fl class="float-left" onclick="later()">
+					<div class="pagetext">
+						关于我的博客
+					</div>
+				</fl>
+			</a>
+		</div>
+	</div>
+	<script language="javascript">
+		function later(){alert('你过一段时间再点这个好嘛！')}
+		(function(){
+			var oDiv=document.getElementById("float");
+			var H=0,iE6;
+			var Y=oDiv;
+			while(Y){H+=Y.offsetTop;Y=Y.offsetParent};
+			iE6=window.ActiveXObject&&!window.XMLHttpRequest;
+				window.onscroll=function()
+				{
+					var s=document.body.scrollTop||document.documentElement.scrollTop;
+					if(s>H){oDiv.className="floating";if(iE6){oDiv.style.top=(s-H)+"px";}}
+					else{oDiv.className="";}
+				};
+		})();
+	</script>
+	<iframe name="show" style="height:125%;width:1100px;margin-bottom:50px" scrolling="no" frameborder="0" src="home/index.html" />
+</div>
 </body>
 </html>
