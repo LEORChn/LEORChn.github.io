@@ -1,13 +1,72 @@
 <!DOCTYPE html>
-<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>瑞兽谷</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<title>瑞兽谷</title><style type="text/css">
+<!--
+html{height:100%}
+body,td,th {color:#000000;}
+body{background-color:#F4F5F7;height:100%;}
+.holo{color:#00a1d6} .curPage{height:4px;background-color:#00a1d6} .pht{height:62px;width:auto;padding-left:10px;padding-right:10px;position:relative;top:33%;text-align:center}
+.float{background-color:#F4F5F7} .floating{background-color:#00a1d6;position:fixed;_position:absolute;top:0px;z-index:295;}
+.nav{margin-bottom:9px} nav{width:1080px;background-color:white;height:65px;padding-left:20px;margin-bottom:1px}
+fl{color:#000000} fl:hover{color:#00a1d6} fl{float:left;margin-right:16px;height:66px;cursor: pointer;}
+-->
+</style>
 </head>
-<frameset rows="306,*" frameborder="no" border="0" framespacing="0">
-	<frame src="model.html" name="menu" scrolling="No" noresize="noresize"/>
-	<frame src="home/index.html" name="show" scrolling="yes"/>
-</frameset>
-<noframes><body>
+<body>
+<div align="center" style="height:100%">
+	<div style="width:1100px;height:303px">
+		<img src="img/Header_Starbound.png" width="1100" height="224"/>
+		<div id="float">
+			<nav class="navin">
+				<fl id="pf0" onclick="jump(0)">
+					<div class="pht">动态</div><!--PageHoderText-->
+					<div id="pagehoder0"></div>
+				</fl>
+				<fl id="pf1" onclick="jump(1)"><!--href="index.html"-->
+					<div class="pht">公告</div>
+					<div id="pagehoder1"></div>
+				</fl>
+				<fl id="pf2" onclick="jump(2)"><!--href="./home/about.html"-->
+					<div class="pht">关于我的博客</div>
+					<div id="pagehoder2" ></div>
+				</fl>
+			</nav>
+		</div>
+	</div>
+	<div id="jsnotice">请开启 JavaScript 脚本。</div>
+	<iframe name="show" style="height:125%;width:1100px;margin-bottom:50px" scrolling="no" frameborder="0"></iframe>
+</div>
+	<script language="javascript">
+		curpage=-1;
+		function jump(i){
+			if(i==curpage)return;
+			switch(i){
+				case 0: url("home/index.html"); break;
+				case 1: url("home/news.html"); break;
+				case 2: url("home/about.html"); break;
+			} remove(); set(i);
+		}//src="home/index.html"
+		function set(i){ fv("pagehoder"+i).className="curPage"; fv("pf"+i).className="holo"; curpage=i; }
+		function remove(){ if(curpage==-1)return; fv("pagehoder"+curpage).className=""; fv("pf"+curpage).className=""; }
+		function url(u){ window.parent.show.location.href=u;}
+		function fv(id){return document.getElementById(id);}
+		(function(){
+			var oDiv=fv('float');
+			var H=0,iE6;
+			var Y=oDiv;
+			while(Y){H+=Y.offsetTop;Y=Y.offsetParent};
+			iE6=window.ActiveXObject&&!window.XMLHttpRequest;
+			window.onscroll=function(){
+				var s=document.body.scrollTop||document.documentElement.scrollTop;
+				if(s>H){oDiv.className="floating nav";if(iE6){oDiv.style.top=(s-H)+"px";}
+				}else{oDiv.className="float nav";}
+			};
+			var jsn=fv('jsnotice');
+			if(jsn) jsn.parentNode.removeChild(jsn);
+			jump(0);
+		})();
+	</script>
 </body>
-</noframes></html>
+</html>
