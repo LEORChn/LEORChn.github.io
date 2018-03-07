@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>转载者存档</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style type="text/css">
+<!--
+body,td,th {color:#000000;}
+body{background-color:#F4F5F7;margin:0px}
+.divider{;height:3px;background:#999999;margin-top:5px;margin-bottom:60px}
+a{text-decoration: none} 
+-->
+</style></head>
+
+<body>
+<div align="center">
+	<div style="width:100%;height:auto">
+		<div align="left" style="background-color:white;padding:20px">
+			文章转载者存档<a id="api_licensed" href="/api/licensed.json">（json接口）</a>
+			<br><br><br>
+			<table border="1">
+			<tr>
+				<td>文章原文</td>
+				<td>转载方式</td>
+				<td>转载者</td>
+				<td>转载地址</td>
+				<td>初审时间</td>
+				<td>复审时间</td>
+				<td>备注</td>
+			</tr>
+			</table><div id="loadnotice">正在加载数据</div>
+			<br>
+			<br>
+		</div>
+	</div>
+</div>
+<script language="javascript">var xmlHttp=null;function chttp(){if(xmlHttp)return true;if(window.XMLHttpRequest)xmlHttp=new XMLHttpRequest();else if(window.ActiveXObject)xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");if(xmlHttp)return true;}
+function http(method,url,reqhead,formed){
+	if(chttp()){
+		xmlHttp.open(method.toUpperCase(),url, false);
+		xmlHttp.send(formed);
+		return xmlHttp.responseText;
+	}
+}</script>
+<script language="javascript">
+	function url(u){window.location.href=u;}
+	function fv(id){return document.getElementById(id);}
+	function ft(tag){return document.getElementsByTagName(tag);}
+	function create(tag){return document.createElement(tag);}
+	function gettype(text){
+		switch(text){case'full':return'全文';case'pic':return'图片化';case'pay':return'付费';}
+	}
+	(function(){
+		var tb,tr,td,u=location.href.split('?');
+		u=fv('api_licensed').href;
+		u=eval('('+http('get',u,'','')+')').art;
+		td=fv('loadnotice'); if(td)td.parentNode.removeChild(td);
+		tb=ft('table')[0];
+		for(var i=0,len=u.length;i<len;i++){
+			tr=tb.insertRow();
+			tr.innerHTML='<td><a target="_blank" href="http://'+u[i].o[1]+'">'+u[i].o[0]+'</a></td><td>'
+			+gettype(u[i].t)+'</td><td>'
+			+u[i].l+'</td><td>'+u[i].lw[0]+'<a target="_blank" href="http://'
+			+u[i].lw[1]+'">\n'+u[i].lw[1]+'</a></td><td>'
+			+u[i].c[0]+'</td><td>'
+			+u[i].c[1]+'</td><td>'
+			+u[i].r+'</td>';
+			tb.appendChild(tr);
+		}
+	})();
+</script>
+</body>
+</html>

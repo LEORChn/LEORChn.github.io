@@ -1,0 +1,17 @@
+{'stat':200,'ver':1,
+'define_article':{
+	'origin':'o',
+	'type':'t',
+	'licensedPeople':'l',
+	'licensedWebsite':'lw',
+	'censortedTime':'c',
+	'remark':'r'
+},'art':[{
+	'o':['我的网站：文章标题','leorchn.github.io'],
+	't':'full',
+	'l':'测试员',
+	'lw':['测试站','user.qzone.qq.com'],
+	'c':[889027200,1514736000],
+	'r':'test 中文测试'
+	}//{'o':[],'t':'','l':'','lw':[],'c':[],'r':''}
+]}

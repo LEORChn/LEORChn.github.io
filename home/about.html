@@ -4,21 +4,47 @@
 <title>关于我的博客</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style type="text/css">
 <!--
-body,td,th {color:#000000;}
-body{background-color:#F4F5F7;margin:0px}
-ss{color:#999999;font:"宋体";font-size:48px} 
+body,td,th {color:#000000}
+body{background-color:#F4F5F7;margin:0px;min-height:240px}
+.divider{height:3px;background:#999999;margin-top:65px}
+.androido{position:absolute;left:calc(100% - 190px);top:-30px;width:240px;height=270px}
 -->
 </style></head>
 
 <body>
-<div align="center">
-	<div style="width:1100px;height:auto">
-		<div align="left" style="background-color:white;padding:20px">
-			关于我的博客
-			<br><br><br>
-			暂时还不知道想在这个页面说什么。
-		</div>
+<div align="center" style="width:100%;height:auto">
+	<div align="left" style="background-color:white;padding:20px">
+		<androido></androido>
+		关于我的博客
+		<br><br>
+		<br>全栈程序
+		<br>保持着对Android的热爱
+		<br>厌恶蓝绿厂
+		<br>
 	</div>
 </div>
+<script type="text/javascript">
+function fv(id){return document.getElementById(id);}
+function ft(tag){return document.getElementsByTagName(tag);}
+function fc(cname){return document.getElementsByClassName(cname);}
+(function(){
+	vprepare(ft('androido')[0]);
+})();
+function vprepare(v){
+	var ua=navigator.userAgent.toLowerCase();
+	unsup:for(;;){
+		for(;;){
+			if(ua.indexOf(' mobile ')>0)break;
+			if(ua.indexOf(' applewebkit/')>0)break unsup;
+		}
+		v.outerHTML='<img class="androido" src="https://developer.android.google.cn/about/versions/oreo/images/oreo-superhero_2x.png">'
+		return;
+	}
+	v.outerHTML='<video id="androido" class="androido" src="https://developer.android.google.cn/about/versions/oreo/images/oreo-superhero.webm" autoplay="">'
+	v=fv('androido');
+	v.onended=function(){if(this.title=='')return;this.currentTime=4.3;this.play();}
+	v.onclick=function(){this.title='androido'; if(this.ended)this.onended();else if(this.paused)this.play();else this.pause(); }
+}
+</script>
 </body>
 </html>

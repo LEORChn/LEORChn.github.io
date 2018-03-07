@@ -6,7 +6,7 @@
 <!--
 html{height:100%}
 body,td,th {color:#000000;}
-body{background-color:#F4F5F7;margin:0px 0px}
+body{background-color:#F4F5F7;margin:0px 0px} a{color:#0000FF;cursor:pointer} a.noline{text-decoration: none}
 float{height:67px;display:block} .floating{background-color:#00a1d6;position:fixed;top:0px;z-index:295;}
 nav{width:1080px;background-color:white;height:66px;padding-left:20px}
 fl:hover{color:#00a1d6} fl{color:#000000;float:left;margin-right:16px;height:66px;cursor:pointer;}
@@ -18,7 +18,9 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 <body>
 <div align="center">
 	<div class="device" style="width:1100px;height:303px">
-		<p class="device" style="margin:0 0;overflow:hidden"> <img src="img/Header_Starbound.png" width="1100" height="224" draggable="false"> </p>
+		<p class="device" style="margin:0 0;overflow:hidden">
+			<img id="header" src="img/Header_Starbound.png" width="1100" height="224" draggable="false">
+		</p>
 		<a id="loadpage"></a>
 		<float style="visibility:hidden">
 			<nav class="device">
@@ -36,52 +38,73 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 			var w=window.parent.show;
 			if (w.document.body) ifr.style.height=w.document.documentElement.scrollHeight+'px';
 		} </script>
-	<iframe name="show" style="width:1100px;margin-bottom:100px" scrolling="no" frameborder="0" onload="iload(this)"></iframe>
+	<iframe name="show" style="width:1100px" scrolling="no" frameborder="0" onload="iload(this)"></iframe><br><a class="noline" onClick="url('home/agreement_1.html')">文章转载协议</a>
+	<a class="noline" onClick="url('home/licensed.html')">（查看转载者存档）</a><br><div style="height:100px"></div>
 </div>
-	<script language="javascript">
-		curpage=-1;
-		function jump(i){
-			if(i==curpage)return;
-			switch(i){
-				case 0: url("home/index.html"); break;
-				case 1: url("home/news.html"); break;
-				case 2: url("home/about.html"); break;
-			} remove(); set(i);
-		}//src="home/index.html"
-		function set(i){ ft('fl')[i].className="curPage"; curpage=i; }
-		function remove(){ if(curpage==-1)return; ft('fl')[curpage].className=""; }
-		function url(u){ window.parent.show.location.href=u;}
-		function fv(id){return document.getElementById(id);}
-		function ft(tag){return document.getElementsByTagName(tag);}
-		function fc(cname){return document.getElementsByClassName(cname);}
-		(function(){
-			var oDiv=ft('float')[0], H=0, iE6, Y=oDiv;//导航栏悬浮
-			while(Y){H+=Y.offsetTop;Y=Y.offsetParent}; 
-			iE6=window.ActiveXObject&&!window.XMLHttpRequest;
-			window.onscroll=function(){
-				var s=document.body.scrollTop||document.documentElement.scrollTop;
-				if(s>H){oDiv.className="floating";if(iE6){oDiv.style.top=(s-H)+"px";}
-				}else{oDiv.className="";}
-			};
-			var jsn=ft('jsnotice')[0]; if(jsn) jsn.parentNode.removeChild(jsn); //删除请求启用JS提示
-			oDiv.style.visibility='';//显示导航栏
-			jump(0); //加载页面
-			var vs=ft('pht');//绘制导航栏文字垂直居中
-			for(var i=0,len=vs.length;i<len;i++){
-				var v=vs[i];
-				v.style.paddingTop=v.style.paddingBottom=(62-v.offsetHeight)/2+'px';
+<script language="javascript">
+	curpage=-1;
+	function jump(i){
+		if(i==curpage)return;
+		switch(i){
+			case 0: url('home/index.html'); break;
+			case 1: url('home/news.html'); break;
+			case 2: url('home/about.html'); break;
+		} set(i);
+	}//src="home/index.html"
+	function set(i){ ft('fl')[i].className="curPage"; curpage=i;}
+	function remove(){ if(curpage==-1)return; ft('fl')[curpage].className=""; curpage=-1;}
+	function url(u){remove(); totop(); window.parent.show.location.href=u;}
+	function totop(){scrollTo(0,0);}
+	function fv(id){return document.getElementById(id);}
+	function ft(tag){return document.getElementsByTagName(tag);}
+	function fc(cname){return document.getElementsByClassName(cname);}
+	function loadpage(){
+		var u=location.href.split('?');
+		if(u.length==2){
+			switch(u[1]){
+				case'agreement_1': url('home/agreement_1.html');//cok_a('page',u[1]); jump(2);
+				case'archive_lic': url('home/licensed.html');
 			}
-			var dw=document.documentElement.clientWidth;//适配设备宽度
-			if(dw<1100){
-				var d=fc('device');
-				d[1].style.width=0+'px';
-				d[0].style.width=
-				d[1].style.paddingRight=
-				oDiv.style.width=
-				ft('iframe')[0].style.width=dw+'px';
-				d[2].style.width=dw-20+'px';
-			}
-		})();
-	</script>
+			history.replaceState(history.state,'',u[0]);
+			return;
+		}
+		jump(0);
+	}
+	(function(){
+		var oDiv=ft('float')[0];
+		var jsn=ft('jsnotice')[0]; if(jsn) jsn.parentNode.removeChild(jsn); //删除请求启用JS提示
+		loadpage(); //加载页面
+		var vs=ft('pht');//绘制导航栏文字垂直居中
+		for(var i=0,len=vs.length;i<len;i++){
+			var v=vs[i];
+			v.style.paddingTop=v.style.paddingBottom=(62-v.offsetHeight)/2+'px';
+		}
+		var dw=document.documentElement.clientWidth;//适配设备宽度
+		if(dw<1100){
+			var d=fc('device');//上半整体,头图,导航栏
+			d[1].style.width='0px';
+			d[0].style.width=
+			d[1].style.paddingRight=
+			oDiv.style.width=
+			ft('iframe')[0].style.width=dw+'px';
+			d[2].style.width=dw-20+'px';
+			var hideheight=Math.max((1100-dw)/(1100-240)*-135,-135);
+			fv('header').style.marginTop=hideheight+'px';
+			d[0].style.height=303+hideheight+'px';
+		}
+		initNavigate(oDiv);
+	})();
+	function initNavigate(oDiv){
+		var H=0, iE6, Y=oDiv;//导航栏悬浮
+		while(Y){H+=Y.offsetTop;Y=Y.offsetParent}; 
+		iE6=window.ActiveXObject&&!window.XMLHttpRequest;
+		window.onscroll=function(){
+			var s=document.body.scrollTop||document.documentElement.scrollTop;
+			if(s>H){oDiv.className="floating";if(iE6){oDiv.style.top=(s-H)+"px";}
+			}else{oDiv.className="";}
+		};
+		oDiv.style.visibility='';//显示导航栏
+	}
+</script>
 </body>
 </html>

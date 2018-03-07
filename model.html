@@ -1,46 +1,34 @@
 <!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><style type="text/css">
+<title>model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style type="text/css">
 <!--
 body,td,th {color:#000000;}
-body{background-color:#F4F5F7;}
-.holo{color:#00a1d6} .currentPage{height:4px;background-color:#00a1d6} .pagetext{height:auto;width:auto;padding-left:10px;padding-right:10px;position:relative;top:33%;text-align:center}
-
-a:visited,a:link fl{color:#000000} a:hover fl{color:#00a1d6} .float-left{float:left;margin-right:16px;height:66px;cursor: pointer;}
+body{background-color:#F4F5F7;margin:0px}
+.divider{;height:3px;background:#999999;margin-top:5px;margin-bottom:60px}
+ss{color:#999999;font:"宋体";font-size:48px} 
 -->
-</style>
-</head>
+</style></head>
+
 <body>
-<script language="javascript">function later(){alert('你过一段时间再点这个好嘛！')}</script>
 <div align="center">
-	<div style="width:1100px;height:auto">
-		<img src="./img/Header_Starbound.png" width="1100" height="224"/>
-		<div align="left" style="background-color:white;height:66px;padding-left:20px;margin-bottom:10px">
-			<div class="float-left">
-				<div style="height:62px">
-					<div align="center" class="holo pagetext">
-						动态
-					</div>
-				</div>
-				<div class="currentPage"></div>
-			</div>
-			<a  target="show"><!--href="index.html"-->
-				<fl class="float-left" onclick="later()">
-					<div class="pagetext">
-						公告
-					</div>
-				</fl>
-			</a>
-			
-			<a  target="show"><!--href="./home/about.html"-->
-				<fl class="float-left" onclick="later()">
-					<div class="pagetext">
-						关于我的博客
-					</div>
-				</fl>
-			</a>
+	<div style="width:100%;height:auto">
+		<div align="left" style="background-color:white;padding:20px">
+			关于我的博客
+			<br><br><br>
+			暂时还不知道想在这里说什么。
+			<br><a name="article_reprint_agreement"></a>
+			<div class="divider" id="article_reprint_agreement"></div>
+			<br>文章转载协议<a href="#article_reprint_agreement">（查看转载者存档）</a>
 		</div>
 	</div>
 </div>
+<script language="javascript">
+	function url(u){window.location.href=u;}
+	(function(){
+		var u=location.href.split('?');
+	})();
+</script>
 </body>
 </html>
