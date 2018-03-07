@@ -62,7 +62,7 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 		var u=location.href.split('?');
 		if(u.length==2){
 			switch(u[1]){
-				case'agreement_1': url('home/agreement_1.html');//cok_a('page',u[1]); jump(2);
+				case'agreement_1': url('home/agreement_1.html');break;
 				case'archive_lic': url('home/licensed.html');
 			}
 			history.replaceState(history.state,'',u[0]);
