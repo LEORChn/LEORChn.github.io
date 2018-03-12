@@ -4,12 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 <title>瑞兽谷</title><style type="text/css">
 <!--
+::-webkit-scrollbar{display:none}
 html{height:100%}
 body,td,th {color:#000000;}
 body{background-color:#F4F5F7;margin:0px 0px} a{color:#0000FF;cursor:pointer} a.noline{text-decoration: none}
 float{height:67px;display:block} .floating{background-color:#00a1d6;position:fixed;top:0px;z-index:295;}
-nav{width:1080px;background-color:white;height:66px;padding-left:20px}
-fl:hover{color:#00a1d6} fl{color:#000000;float:left;margin-right:16px;height:66px;cursor:pointer;}
+nav{min-width:600px;background-color:white;height:66px;padding-left:4px}
+fl:hover{color:#00a1d6} fl{color:#000000;float:left;margin-left:16px;height:66px;cursor:pointer;}
 pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relative;display:block}
 .curPage{background-color:#00a1d6;color:#00a1d6}
 -->
@@ -22,13 +23,16 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 			<img id="header" src="img/Header_Starbound.png" width="1100" height="224" draggable="false">
 		</p>
 		<a id="loadpage"></a>
-		<float style="visibility:hidden">
-			<nav class="device">
+		<float class="device" style="visibility:hidden;overflow:scroll">
+			<nav>
 				<fl onclick="jump(0)"><!--PageForm-->
-					<pht>动态</pht><!--PageHoderText (normal)-->
+					<pht>动态</pht><!--PageHolderText (normal)-->
 				</fl>
 				<fl onclick="jump(1)"><pht>公告</pht></fl>
 				<fl onclick="jump(2)"><pht>关于我的博客</pht></fl>
+				<fl onclick="jump(3)"><pht>My Activities</pht></fl>
+				<fl onclick="jump(4)"><pht>Secret Zone</pht></fl>
+				<fl onclick="jump(5)"><pht></pht></fl>
 			</nav>
 		</float>
 	</div>
@@ -49,6 +53,8 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 			case 0: url('home/index.html'); break;
 			case 1: url('home/news.html'); break;
 			case 2: url('home/about.html'); break;
+			case 3: url('home/myactivities.html'); break;
+			default: url('javascript:alert("not open now");');
 		} set(i);
 	}//src="home/index.html"
 	function set(i){ ft('fl')[i].className="curPage"; curpage=i;}
@@ -87,7 +93,7 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 			d[1].style.paddingRight=
 			oDiv.style.width=
 			ft('iframe')[0].style.width=dw+'px';
-			d[2].style.width=dw-20+'px';
+			d[2].style.width=dw+'px';
 			var hideheight=Math.max((1100-dw)/(1100-240)*-135,-135);
 			fv('header').style.marginTop=hideheight+'px';
 			d[0].style.height=303+hideheight+'px';

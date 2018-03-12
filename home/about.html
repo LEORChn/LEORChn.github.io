@@ -6,23 +6,23 @@
 <!--
 body,td,th {color:#000000}
 body{background-color:#F4F5F7;margin:0px;min-height:240px}
-.divider{height:3px;background:#999999;margin-top:65px}
+.h1{font-size:24px;padding-top:24px}
 .androido{position:absolute;left:calc(100% - 190px);top:-30px;width:240px;height=270px}
 -->
 </style></head>
 
 <body>
 <div align="center" style="width:100%;height:auto">
-	<div align="left" style="background-color:white;padding:20px">
-		<androido></androido>
-		关于我的博客
-		<br><br>
+	<div align="left" style="background-color:white;padding:0px 20px 20px">
+		<div id="androido"></div>
+		<div class="h1">关于我的博客</div>
 		<br>全栈程序
 		<br>保持着对Android的热爱
 		<br>厌恶蓝绿厂
 		<br>想亲眼看看极光
 		<br>想体验网警工作
-		<br>
+		<div class="h1">捐赠</div>
+		<br><a href="/img/donate.png" download="*.png"><img src="/img/donate.png" style="width:240px;cursor:pointer" /></a>
 	</div>
 </div>
 <script type="text/javascript">
@@ -30,7 +30,7 @@ function fv(id){return document.getElementById(id);}
 function ft(tag){return document.getElementsByTagName(tag);}
 function fc(cname){return document.getElementsByClassName(cname);}
 (function(){
-	vprepare(ft('androido')[0]);
+	vprepare(fv('androido'));
 })();
 function vprepare(v){
 	var ua=navigator.userAgent.toLowerCase();
@@ -46,6 +46,15 @@ function vprepare(v){
 	v=fv('androido');
 	v.onended=function(){if(this.title=='')return;this.currentTime=4.3;this.play();}
 	v.onclick=function(){this.title='androido'; if(this.ended)this.onended();else if(this.paused)this.play();else this.pause(); }
+}
+function download(url,fname){
+	var pom = document.createElement('a');
+	pom.setAttribute('href', 'data:application/octet-stream,' + encodeURIComponent(url));
+	pom.setAttribute('download', fname);
+	pom.style.display = 'none';
+	document.body.appendChild(pom);
+	pom.click();
+	document.body.removeChild(pom);
 }
 </script>
 </body>
