@@ -40,6 +40,7 @@ function vprepare(v){
 			if(ua.indexOf(' applewebkit/')>0)break unsup;
 		}
 		v.outerHTML='<img class="androido" src="https://developer.android.google.cn/about/versions/oreo/images/oreo-superhero_2x.png">'
+		fc('androido')[0].onclick=function(){this.style.visibility='hidden';};
 		return;
 	}
 	v.outerHTML='<video id="androido" class="androido" src="https://developer.android.google.cn/about/versions/oreo/images/oreo-superhero.webm" autoplay="">'

@@ -23,7 +23,7 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 			<img id="header" src="img/Header_Starbound.png" width="1100" height="224" draggable="false">
 		</p>
 		<a id="loadpage"></a>
-		<float class="device" style="visibility:hidden;overflow:scroll">
+		<float class="device" style="visibility:hidden;overflow:scroll;width:1100px">
 			<nav>
 				<fl onclick="jump(0)"><!--PageForm-->
 					<pht>动态</pht><!--PageHolderText (normal)-->
@@ -64,17 +64,19 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 	function fv(id){return document.getElementById(id);}
 	function ft(tag){return document.getElementsByTagName(tag);}
 	function fc(cname){return document.getElementsByClassName(cname);}
+	function gquery(n){
+		var r=location.search.match(new RegExp("[\?\&]"+n+"=([^\&]+)","i"));
+		return r==null||r.length<1?'':r[1];
+	}
 	function loadpage(){
-		var u=location.href.split('?');
-		if(u.length==2){
-			switch(u[1]){
-				case'agreement_1': url('home/agreement_1.html');break;
-				case'archive_lic': url('home/licensed.html');
-			}
-			history.replaceState(history.state,'',u[0]);
-			return;
+		var u=gquery('p')||location.href.split('?')[1];
+		switch(u){
+			case'about': jump(2);break;
+			case'agreement_1': url('home/agreement_1.html');break;
+			case'archive_lic': url('home/licensed.html');break;
+			default: jump(0);return;
 		}
-		jump(0);
+		history.replaceState(history.state,'',location.origin);
 	}
 	(function(){
 		var oDiv=ft('float')[0];
