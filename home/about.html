@@ -23,8 +23,9 @@ body{background-color:#F4F5F7;margin:0px;min-height:240px}
 		<br>想体验网警工作
 		<div class="h1">捐赠</div>
 		<br>部分应用市场上架软件时需要支付款项，小瑞对您的捐款表示由衷的感谢！
-		<br><a href="/img/donate.png" download="*.png"><img src="/img/donate.png" style="width:240px;cursor:pointer" /></a>
+		<br><a id="wxdonate" href="/img/donate_wx.png" style="background-color:#22AB38;display:block;width:241px;height:270px;margin-bottom:60px"><img src="/img/donate_wx.png" style="height:330px;cursor:pointer;"/></a>
 		<br>支持一下简哔：建议捐3元。其他项目：建议1元起。
+		<br>无论捐多少，都可以发表寄语噢。
 		<br><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=522237296&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:522237296:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
 		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=tYCHh4eGgoeMg-XExJvW2tg" style="text-decoration:none;"><img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_22.png"/></a>
 		<br><a href="mailto:522237296@qq.com">使用其他邮箱软件给我发邮件</a>
@@ -40,13 +41,14 @@ function fv(id){return document.getElementById(id);}
 function ft(tag){return document.getElementsByTagName(tag);}
 function fc(cname){return document.getElementsByClassName(cname);}
 (function(){
-	vprepare(fv('androido'));
+	fv('wxdonate').firstChild.onload=function(){vprepare(fv('androido'));};
+	wxprepare(fv('wxdonate'));
 })();
 function vprepare(v){
 	var ua=navigator.userAgent.toLowerCase();
 	unsup:for(;;){
 		for(;;){
-			if(ua.indexOf(' mobile ')>0)break;
+			if(ua.indexOf(' mobile')>0)break;
 			if(ua.indexOf(' applewebkit/')>0)break unsup;
 		}
 		v.outerHTML='<img class="androido" src="https://developer.android.google.cn/about/versions/oreo/images/oreo-superhero_2x.png">'
@@ -57,6 +59,12 @@ function vprepare(v){
 	v=fv('androido');
 	v.onended=function(){if(this.title=='')return;this.currentTime=4.3;this.play();}
 	v.onclick=function(){this.title='androido'; if(this.ended)this.onended();else if(this.paused)this.play();else this.pause(); }
+}
+function wxprepare(v){
+	var ua=navigator.userAgent.toLowerCase();
+	if(ua.indexOf(' mobile')>0)
+		v.href='wxp://f2f0Pb0JgakNs9OzGSriFCXXMnTkQXc69dnU';
+	else v.download='*.png';
 }
 function download(url,fname){
 	var pom = document.createElement('a');

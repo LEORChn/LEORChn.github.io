@@ -38,14 +38,16 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 	</div>
 	<jsnotice style="width:1100px;display:block"><div align="left">请开启 JavaScript 脚本。</div></jsnotice>
 	<script language="javascript">
-		function iload(ifr){
+		function iload(){
 			var w=window.parent.show;
-			if (w.document.body) ifr.style.height=w.document.documentElement.scrollHeight+'px';
-		} </script>
-	<iframe name="show" style="width:1100px" scrolling="no" frameborder="0" onload="iload(this)"></iframe><br><a class="noline" onClick="url('home/agreement_1.html')">文章转载协议</a>
+			if (w.document.body) w.frameElement.style.height=w.document.documentElement.scrollHeight+'px';
+			if(loading>0)setTimeout(iload,500);
+		}function loadstart(){loading=1;iload();}function loaded(){loading=0;}</script>
+	<iframe name="show" style="width:1100px" scrolling="no" frameborder="0" onload="loaded()"></iframe><br><a class="noline" onClick="url('home/agreement_1.html')">文章转载协议</a>
 	<a class="noline" onClick="url('home/licensed.html')">（查看转载者存档）</a><br><div style="height:100px"></div>
 </div>
 <script language="javascript">
+	loading=0;
 	curpage=-1;
 	function jump(i){
 		if(i==curpage)return;
@@ -59,7 +61,7 @@ pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relat
 	}//src="home/index.html"
 	function set(i){ ft('fl')[i].className="curPage"; curpage=i;}
 	function remove(){ if(curpage==-1)return; ft('fl')[curpage].className=""; curpage=-1;}
-	function url(u){remove(); totop(); window.parent.show.location.href=u;}
+	function url(u){remove(); totop(); loadstart(); window.parent.show.location.href=u;}
 	function totop(){scrollTo(0,0);}
 	function fv(id){return document.getElementById(id);}
 	function ft(tag){return document.getElementsByTagName(tag);}
