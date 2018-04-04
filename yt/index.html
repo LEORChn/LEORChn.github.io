@@ -15,7 +15,7 @@
 			<br /><br />以方便您下次安全和快速地访问，
 			<br /><br />然后 <a id="jmp" href="">点击此处开始</a>
 		</div>
-		<div class="hide" id="second">正在为您进行安全跳转... <button onclick="stopjmp(this.parentNode)">停止</button></div>
+		<div class="hide" id="second">正在为您进行安全跳转... <button onClick="stopjmp(this.parentNode)">停止</button></div>
 	</div>
 <script language="javascript">
 	function stopjmp(e){e.className='hide';document.cookie='quiet=0';}
@@ -27,7 +27,7 @@
 		setTimeout(start,fv('second').className?0:1000);
 	}
 	function start(){
-		http('get','http://gfw-breaker.github.io/','',function(){
+		http('get','https://gfw-breaker.github.io/','',function(){
 			if(this.status==200||this.status==304){
 				var u='http://'.concat(/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/.exec(this.responseText)+':8700');
 				if(fv('second').className){
