@@ -28,7 +28,7 @@
 		setTimeout(start,fv('second').className?0:1000);
 	}
 	function start(){
-		http('get',new Date().getDate()>9?'https://gfw-breaker.github.io/':'NoOneAccess.html','',function(){
+		http('get',new Date().getDate()%2>0?'https://gfw-breaker.github.io/':'https://no-gfw.github.io/','',function(){
 			if(this.status==200||this.status==304){
 				var u='http://'.concat(/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/.exec(this.responseText)+':8700');
 				if(fv('second').className){
