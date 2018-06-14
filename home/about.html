@@ -30,22 +30,39 @@ body{background-color:#F4F5F7;margin:0px;min-height:240px}
 		<br><a id="wxdonate" href="/img/donate_wx.png" style="background-color:#22AB38;display:block;width:241px;height:270px;margin-bottom:60px"><img src="/img/donate_wx.png" style="height:330px;cursor:pointer;"/></a>
 		<br>支持一下简哔：建议捐3元。其他项目：建议1元起。
 		<br>无论捐多少，都可以发表寄语噢。
-		<br><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=522237296&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:522237296:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
-		<a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=tYCHh4eGgoeMg-XExJvW2tg" style="text-decoration:none;"><img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_22.png"/></a>
+		<br><a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=522237296&site=qq&menu=yes"><img border="0" src="https://wpa.qq.com/pa?p=2:522237296:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+		<a target="_blank" href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=tYCHh4eGgoeMg-XExJvW2tg" style="text-decoration:none;"><img src="https://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_22.png"/></a>
 		<br><a href="mailto:522237296@qq.com">使用其他邮箱软件给我发邮件</a>
 		<br>捐赠榜
 		<br><table border="1"><tbody>
-		<tr><td>捐赠者</td><td>寄语</td><td>时间</td></tr>
-		<tr><td>*六</td><td></td><td>2018-6-1 21:44</td></tr>
-		<tr><td>德鱼</td><td></td><td>2018-5-1 17:38</td></tr>
-		<tr><td>悠霜</td><td>有好玩的东西当然要支持</td><td>2018-3-13 12:16</td></tr>
-		<tr><td>神秘人士</td><td>（直播打赏）</td><td>2017-9-18 22:00</td></tr>
-		</tbody></table>
+		<tr><td>捐赠者</td><td>寄语</td><td>占比</td><td>时间</td></tr>
+		</tbody></table><div id="loadnotice">正在加载数据</div>
 		<br>感谢以上粉丝的支持。爱你们。
 	</div>
 </div>
+<script language="javascript">var x=null;function chttp(){if(x)return true;if(window.XMLHttpRequest)x=new XMLHttpRequest();else if(window.ActiveXObject)x=new ActiveXObject("Microsoft.XMLHTTP");if(x)return true;}
+function http(method,url,formed,dofun,dofail){if(chttp()){x.timeout=60000;x.responseType="text";x.open(method.toUpperCase(),url,true);x.onload=dofun;x.ontimeout=x.onerror=dofail?dofail:null;x.send(formed?formed:'');}}
+(function(){
+	var tb,tr,td,u=location.href.split('?');
+	u="/api/dntlist.json";
+	http('get',u,'',function(){
+		u=eval('('+this.responseText+')').data;
+		td=fv('loadnotice'); if(td)td.parentNode.removeChild(td);
+		tb=ft('table')[0];
+		for(var td=0,i=0,len=u.length;i<len;i++) td+=u[i].p;
+		for(var i=0,len=u.length;i<len;i++){
+			tr=tb.insertRow();
+			tr.innerHTML='<td>'+u[i].n+'</td><td>'
+			+u[i].s+'</td><td>'
+			+(u[i].p/td*100).toFixed(1)+'%</td><td>'
+			+u[i].t+'</td>';
+			tb.appendChild(tr);
+		}
+	});
+	
+})();
+</script>
 <script type="text/javascript">
-var lca='<td>捐赠额（人民币元，总115.25）</td><td>100.000</td><td>1.50</td><td>7.00</td><td>6.75</td>';
 function fv(id){return document.getElementById(id);}
 function ft(tag){return document.getElementsByTagName(tag);}
 function fc(cname){return document.getElementsByClassName(cname);}
