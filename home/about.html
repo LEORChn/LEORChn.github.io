@@ -35,16 +35,16 @@ body{background-color:#F4F5F7;margin:0px;min-height:240px}
 		<br><a href="mailto:522237296@qq.com">使用其他邮箱软件给我发邮件</a>
 		<br>捐赠榜
 		<br><table border="1"><tbody>
-		<tr><td>捐赠者</td><td>寄语</td><td>占比</td><td>时间</td></tr>
+		<tr><td>捐赠者</td><td>寄语</td><td>额度</td><td>时间</td></tr>
 		</tbody></table><div id="loadnotice">正在加载数据</div>
 		<br>感谢以上粉丝的支持。爱你们。
 	</div>
 </div>
-<script language="javascript">var x=null;function chttp(){if(x)return true;if(window.XMLHttpRequest)x=new XMLHttpRequest();else if(window.ActiveXObject)x=new ActiveXObject("Microsoft.XMLHTTP");if(x)return true;}
-function http(method,url,formed,dofun,dofail){if(chttp()){x.timeout=60000;x.responseType="text";x.open(method.toUpperCase(),url,true);x.onload=dofun;x.ontimeout=x.onerror=dofail?dofail:null;x.send(formed?formed:'');}}
+<script type="text/javascript">
 (function(){
-	var tb,tr,td,u=location.href.split('?');
-	u="/api/dntlist.json";
+	var tb,tr,td,
+	u=location.origin+"/api/dntlist.json";
+	pl(u);
 	http('get',u,'',function(){
 		u=eval('('+this.responseText+')').data;
 		td=fv('loadnotice'); if(td)td.parentNode.removeChild(td);
@@ -54,7 +54,8 @@ function http(method,url,formed,dofun,dofail){if(chttp()){x.timeout=60000;x.resp
 			tr=tb.insertRow();
 			tr.innerHTML='<td>'+u[i].n+'</td><td>'
 			+u[i].s+'</td><td>'
-			+(u[i].p/td*100).toFixed(1)+'%</td><td>'
+			+(u[i].p<=50?u[i].p:
+			((u[i].p/td*100).toFixed(1)+'%')+'</td><td>'
 			+u[i].t+'</td>';
 			tb.appendChild(tr);
 		}
@@ -63,9 +64,6 @@ function http(method,url,formed,dofun,dofail){if(chttp()){x.timeout=60000;x.resp
 })();
 </script>
 <script type="text/javascript">
-function fv(id){return document.getElementById(id);}
-function ft(tag){return document.getElementsByTagName(tag);}
-function fc(cname){return document.getElementsByClassName(cname);}
 (function(){
 	fv('wxdonate').firstChild.onload=function(){vprepare(fv('androido'));};
 	wxprepare(fv('wxdonate'));
