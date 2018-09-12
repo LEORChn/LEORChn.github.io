@@ -48,7 +48,7 @@ function fc(cname){return document.getElementsByClassName(cname);}
 (function(){
 	var tb,tr,td,
 	u=location.origin+"/api/dntlist.json";
-	pl(u);
+	//pl(u);
 	http('get',u,'',function(){
 		u=eval('('+this.responseText+')').data;
 		td=fv('loadnotice'); if(td)td.parentNode.removeChild(td);
