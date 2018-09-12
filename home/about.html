@@ -41,7 +41,7 @@ body{background-color:#F4F5F7;margin:0px;min-height:240px}
 	</div>
 </div>
 <script type="text/javascript">
-function http(method,url,formed,dofun,dofail){if(chttp()){x.timeout=60000;x.responseType="text";x.open(method.toUpperCase(),url,true);x.onload=dofun;x.ontimeout=x.onerror=dofail?dofail:null;x.send(formed?formed:'');}}
+function http(method,url,formed,dofun,dofail){var x=new XMLHttpRequest();x.timeout=60000;x.responseType="text";x.open(method.toUpperCase(),url,true);x.onload=dofun;x.ontimeout=x.onerror=dofail?dofail:null;x.send(formed?formed:'');}
 function fv(id){return document.getElementById(id);}
 function ft(tag){return document.getElementsByTagName(tag);}
 function fc(cname){return document.getElementsByClassName(cname);}
