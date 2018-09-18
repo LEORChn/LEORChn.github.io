@@ -69,7 +69,7 @@ function jump(i){ // 控制导航栏的跳转事件
 	url(getNavigateMapKey(i));
 }
 function getNavigateMapKey(intOrStr){ // 如果传入数字，返回导航栏对应的网址；如果传入网址，返回导航栏对应的数字索引
-	var t=['home','artwork','home/news.html','home/about.html','home/myactivities.html','home/myactivities.html'];
+	var t=['home/','artwork/','home/news.html','home/about.html','home/myactivities.html','home/myactivities.html'];
 	if(isNaN(intOrStr)){
 		for(var i=0;i<=t.length;i++)
 			if(i==t.length)
