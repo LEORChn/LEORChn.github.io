@@ -1,5 +1,5 @@
 (function(){
-	http('get','/api/rss.php','',function(){
+	http('get',location.origin+'/api/rss.php','',function(){
 		var t=this.responseText,
 			r=newXML(t),
 			x=r.get()[0].get()[0].get('item');
