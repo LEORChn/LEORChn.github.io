@@ -1,0 +1,6 @@
+(function(){
+	initUi();
+})();
+function initUi(){
+	
+}

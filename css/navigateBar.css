@@ -1,0 +1,14 @@
+/*	导航栏和浮动效果
+	float 导航栏最外层使用。这取决于整个导航栏如何跟随浮动
+	.floating 导航栏最外层的class，拥有它时表示正在顶部浮动
+	fl 导航栏的对象使用。平时都是黑色字
+	fl:hover 鼠标指在导航栏的一个对象时，文字变成蓝色
+	pht 导航栏的对象中的文字使用
+	.curPage 表示当前页面的导航栏对象使用的class，拥有它时表示当前是这个页面
+*/
+float{height:67px;display:block} float.adapting{overflow:scroll}
+.floating{background-color:#00a1d6;position:fixed;top:0px;z-index:295;}
+nav{min-width:600px;background-color:white;height:66px;padding-left:4px}
+fl:hover{color:#00a1d6} fl{color:#000000;float:left;margin-left:16px;height:66px;cursor:pointer;}
+pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relative;display:block}
+.curPage{background-color:#00a1d6;color:#00a1d6}

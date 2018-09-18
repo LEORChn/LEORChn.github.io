@@ -1,0 +1,102 @@
+curpage=-1;
+function initLocation(){
+	regOnLocationChanged();
+	if(tryOldPath())return;
+	onLocationChanged();
+	//setATagLinks
+}
+function onLocationChanged(){
+	if(tryOldPath())return; //如果是老版路径，在那个方法里替换为新版路径并退出当前事件，由下一个当前事件来进行触发
+	// 判断导航栏是否应该亮
+	var afterPath=location.href.split('#'),
+		aflen=afterPath.length,
+		afkey=aflen>1?getNavigateMapKey(afterPath[1]):undefined;
+	//pl(afterPath+'\n'+aflen+'\n'+afkey);
+	remove();
+	if(vaild(afkey) && afkey >= 0) set(afkey);
+	// 加载网页
+	http('get',location.href.replace('#','/'),'',function(){
+		var brows=fv('brows');
+		brows.innerHTML=this.responseText;
+		// 开始加载页面JS，通过重新载入JS文件的方式
+		var scs=brows.getElementsByTagName('script');
+		for(var i=0;i<scs.length;i++){
+			var nsc=ct('script');
+			nsc.src=scs[0].src;
+			//nsc.innerText=scs[0].innerText.replace('<br>','');
+			scs[0].remove();
+			brows.appendChild(nsc);
+		}
+	},function(){
+		msgbox('Resourse load error.\nRefresh to retry.');
+	});
+}
+var lastHash;
+function regOnLocationChanged(){
+	if( ('onhashchange' in window) && ((typeof document.documentMode==='undefined') || document.documentMode==8)) {
+    	window.onhashchange = onLocationChanged;
+	}else{
+		lastHash=window.location.hash;
+		setInterval(function(){ // 检测hash值或其中某一段是否更改的函数， 在低版本的iE浏览器中通过window.location.hash取出的指和其它的浏览器不同，要注意
+			if(lastHash != window.location.hash){
+				lastHash=window.location.hash;
+				onLocationChanged();
+			}
+    	}, 300);
+	}
+}
+function tryOldPath(){
+	if(location.hash==''){
+		url('home');
+		return true;
+	}
+	if(! location.href.includes(location.origin+'/?'))return false;
+	var u=gquery('p')||location.href.split('?')[1];
+	//history.replaceState(history.state,'',location.origin);
+	switch(u){
+		case'about': url('home/about.html');break;
+		case'agreement_1': url('home/agreement_1.html');break;
+		case'archive_lic': url('home/licensed.html');break;
+		default: return false;
+	}
+	return true;
+}
+function changeLocation(u){
+	
+}
+function jump(i){ // 控制导航栏的跳转事件
+	if(i==curpage)return;
+	url(getNavigateMapKey(i));
+}
+function getNavigateMapKey(intOrStr){ // 如果传入数字，返回导航栏对应的网址；如果传入网址，返回导航栏对应的数字索引
+	var t=['home','artwork','home/news.html','home/about.html','home/myactivities.html','home/myactivities.html'];
+	if(isNaN(intOrStr)){
+		for(var i=0;i<=t.length;i++)
+			if(i==t.length)
+				return -1;
+			else if(intOrStr==t[i])
+				return i;
+	}else if(intOrStr >= 0 && intOrStr <=t.length)
+		return t[intOrStr];
+	return null;
+}
+function set(i){ // 设置导航栏蓝条
+	ft('fl')[i].className="curPage";
+	curpage=i;
+}
+function remove(){ // 移除导航栏蓝条
+	if(curpage==-1)return;
+	ft('fl')[curpage].className="";
+	curpage=-1;
+}
+function url2(e){
+	if(e.nodeName.toUpperCase()!="A")return;
+	if(e.href.includes('#'))
+		url(e.href.split('#')[1]);
+}
+function url(u){
+	totop();
+	location.href=location.origin+'#'+u;
+	
+}
+function totop(){scrollTo(0,0);}
