@@ -47,7 +47,7 @@ function regOnLocationChanged(){
 }
 function tryOldPath(){
 	if(location.hash==''){
-		url('home');
+		url(getNavigateMapKey(0));
 		return true;
 	}
 	if(! location.href.includes(location.origin+'/?'))return false;
