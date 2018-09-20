@@ -14,6 +14,13 @@
 	<item>
 		<title>状态</title>
 		<c:type>1</c:type>
+		<c:time>2018-9-20 11:08</c:time>
+		<pubDate>Thu, 20 Sep 2018 11:08:00 +0800</pubDate>
+		<description>用一天半时间给作品页增加了预览版本，主要是做排版和分辨率适配。其他很多功能尚未完善。</description>
+	</item>
+	<item>
+		<title>状态</title>
+		<c:type>1</c:type>
 		<c:time>2018-9-18 23:18</c:time>
 		<pubDate>Tue, 18 Sep 2018 23:18:00 +0800</pubDate>
 		<description>用两天时间重构了网站框架。新增了作品页，不过页面数据还在准备中。</description>
