@@ -15,7 +15,7 @@ function onLocationChanged(){
 	remove();
 	if(vaild(afkey) && afkey >= 0) set(afkey);
 	// 加载网页
-	http('get',location.href.replace('#','/'),'',function(){
+	http('get',location.href.replace('#',''),'',function(){
 		var brows=fv('brows');
 		brows.innerHTML=this.responseText;
 		// 开始加载页面JS，通过重新载入JS文件的方式
@@ -95,8 +95,11 @@ function url2(e){
 		url(e.href.split('#')[1]);
 }
 function url(u){
-	totop();
+	toTopIfNeeded();
 	location.href=location.origin+'#'+u;
+	
+}
+function toTopIfNeeded(){
 	
 }
 function totop(){scrollTo(0,0);}

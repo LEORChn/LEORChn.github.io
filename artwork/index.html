@@ -2,15 +2,31 @@
 	<div style="width:100%;height:auto">
 		<div id="blog" align="left" style="background-color:white;padding:0px 20px 20px">
 			<div class="h1">作品集</div><br/>
-			<input type="radio" name="type" id="type_my" value="artwork/my.json" disabled="true"/>
+			<div style="display:inline-block">
+			<input type="radio" name="type" id="type_my" value="artwork/my.json" disabled="disabled"/>
 			<label for="type_my">创作的(暂不开放)</label>
+			</div>
+			<div style="display:inline-block">
 			<input type="radio" name="type" id="type_love" value="artwork/love.json" checked="checked" />
 			<label for="type_love">喜欢的</label>
-			<select id="sort">
-				<option>收藏日期</option>
+			<select id="sort" disabled="disabled">
+				<option>不排序</option>
 				<option>推荐指数</option>
 			</select>
-			<br/><br/>页面数据准备中！过段时间再来吧。
+			</div>
+			<br/><br/><a>上一页</a><a style="margin-left:10px">下一页</a><a style="margin-left:10px">正在浏览 预览版本 页面，有许多功能尚不完善。</a><br/><br/>
+			<style type="text/css">
+				a.item_artwork_root{width:350px;height:256px;display:inline-table;background-color:#F8F8F8;color:#000000}
+				a.item_artwork_root:hover{background-color:#F0F0F0}
+				img.item_artwork{width:180px;height:256px;vertical-align:top;background-size:cover}
+				div.item_artwork{width:100%;display:table-cell;position:relative;padding:0 10px 0 10px}
+				.item_artwork_title{width:calc(100% - 20px);position:absolute;top:5px;font-size:x-large}
+				.item_artwork_desc{margin-top:10px;font-size:medium;}
+				.item_artwork_score_out{position:absolute;bottom:10%}
+				.item_artwork_score_hint{display:inline}
+				.item_artwork_score_in{margin-left:10px;display:inline;color:#FF9900;font-size:xx-large;font-family:fantasy}
+			</style>
+			<p id="group_artwork"></p>
 		</div>
 	</div>
 </div>
