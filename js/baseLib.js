@@ -17,8 +17,14 @@ function addClass(element,name){
 function removeClass(element,name){//这个之后再说
 	if(existsClass(element,name));
 		element.className=element.className.replace('(^|\\s)'+name+'($|\\s)','');
-	//element.className=new RegExp("[^a-zA-Z0-9]"+name+"[^a-zA-Z0-9]").replace(element.className,'');
 }
 function existClass(element,name){
 	return new RegExp('(^|\\s)'+name+'($|\\s)').test(element.className);
+}
+function dynamicLoadCss(url) {
+	var link = ct('link');
+	link.type='text/css';
+	link.rel ='stylesheet';
+	link.href= url;
+	ft('head')[0].appendChild(link);
 }

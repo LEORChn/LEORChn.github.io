@@ -18,6 +18,16 @@ function onLocationChanged(){
 	http('get',location.href.replace('#',''),'',function(){
 		var brows=fv('brows');
 		brows.innerHTML=this.responseText;
+		// 开始加载页面CSS
+		var css=brows.getElementsByTagName('css');
+		for(var i=0;i<css.length;i++){
+			if(fv(css[i].className)) continue; // 已添加过了
+			var nsc=ct('link');
+			nsc.type='text/css';
+			nsc.rel ='stylesheet';
+			nsc.href= css[i].title;
+			ft('head')[0].appendChild(nsc);
+		}
 		// 开始加载页面JS，通过重新载入JS文件的方式
 		var scs=brows.getElementsByTagName('script');
 		for(var i=0;i<scs.length;i++){
