@@ -66,6 +66,7 @@ function itemDataLoad(){
 			artwork_data_sort_rank[i] = artwork_data_sort_random[i] = artwork_data_sort_newadd[i] = i;
 		}
 		artwork_data_sort_random.sort(function(){return Math.random()>.5? -1: 1;});
+		artwork_data_sort_rank.sort(function(){return Math.random()>.5? -1: 1;});
 		artwork_data_sort_rank.sort(function(a,b){return j[a].s > j[b].s? -1: 1;});
 		artwork_data_sort_newadd.sort(function(a,b){return a > b? -1: 1;});
 		//初始化 排序 结束
