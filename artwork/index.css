@@ -5,10 +5,10 @@ img.item_artwork{width:180px;height:256px;vertical-align:top;background-size:cov
 div.item_artwork{width:100%;display:table-cell;position:relative;padding:0 10px 0 10px}
 .item_artwork_title{width:calc(100% - 20px);position:absolute;top:5px;font-size:x-large}
 .item_artwork_desc{margin-top:10px;font-size:medium;}
-.item_artwork_score_out{position:absolute;bottom:10%}
-.item_artwork_score_hint{display:inline}
+.item_artwork_desc_bottom{position:absolute;bottom:5%}
 @font-face{font-family:'impact';src:url('/font/impact.ttf') format('truetype')}
-.item_artwork_score_in{margin-left:10px;display:inline;color:#FF9900;font-size:xx-large;font-family:impact}
+.item_artwork_score_hint{display:inline}
+.item_artwork_score{margin-left:10px;display:inline;color:#FF9900;font-size:xx-large;font-family:impact}
 #pageFlipTop,#pageFlipBottom{margin:20px 0 20px 0}
 .pagePrev{}
 .pageDisplay{margin:0 20px 0 20px;display:inline}

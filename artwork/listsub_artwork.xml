@@ -5,9 +5,10 @@
 			<div class="item_id_title"></div>
 			<div class="item_id_desc item_artwork_desc"></div>
 		</div>
-		<div class="item_artwork_score_out">
+		<div class="item_artwork_desc_bottom">
+			<div class="item_id_length"></div>
 			<div class="item_artwork_score_hint">&#31449;&#38271;&#35780;&#20998;</div>
-			<div class="item_id_score item_artwork_score_in"></div>
+			<div class="item_id_score item_artwork_score"></div>
 		</div>
 	</div>
 </a>

@@ -1,6 +1,10 @@
 var artwork_item_count=0,
 	artwork_page_now=1,
 	artwork_page_total=0,
+	artwork_data_sort=0,
+	artwork_data_sort_random=[],
+	artwork_data_sort_rank=[],
+	artwork_data_sort_newadd=[],
 	j;
 (function(){
 	initUi();
@@ -8,6 +12,15 @@ var artwork_item_count=0,
 function initUi(){
 	initPageFlipper();
 	addItems();
+	initLoveSort();
+}
+function initLoveSort(){
+	fv('sort_love').onclick=function(){
+		if(artwork_data_sort==parseInt(this.value))return;
+		artwork_data_sort=parseInt(this.value);
+		artwork_page_now=1;
+		if(fv('type_love').checked) itemPageLoad();
+	}
 }
 function initPageFlipper(){
 	for(var i=0,a=fc('pagePrev');i<a.length;i++) a[i].onclick= function(){ itemPageLoad(-1); };
@@ -48,6 +61,14 @@ function itemWidthAdaption(){
 function itemDataLoad(){
 	http('get',location.href.replace('#','')+'love.json','',function(){
 		j=eval('('+this.responseText+')');
+		//开始 初始化 排序
+		for(var i=0;i<j.length;i++){
+			artwork_data_sort_rank[i] = artwork_data_sort_random[i] = artwork_data_sort_newadd[i] = i;
+		}
+		artwork_data_sort_random.sort(function(){return Math.random()>.5? -1: 1;});
+		artwork_data_sort_rank.sort(function(a,b){return j[a].s > j[b].s? -1: 1;});
+		artwork_data_sort_newadd.sort(function(a,b){return a > b? -1: 1;});
+		//初始化 排序 结束
 		itemPageLoad();
 	},function(){
 		itemDataLoad();
@@ -60,16 +81,18 @@ function itemPageLoad(m){
 	artwork_page_now=Math.max(artwork_page_now,1);
 	artwork_page_now=Math.min(artwork_page_now,artwork_page_total);
 	var g=fc('item_artwork_root');
+	var sortway=[artwork_data_sort_random, artwork_data_sort_rank, artwork_data_sort_newadd][artwork_data_sort];
 	for(var i=0,s=(artwork_page_now-1)*artwork_item_count,k=s+6;i+s<k;i++){
 		if( (i+s) >= j.length ){
 			g[i].style.display='none'
 			continue;
 		}else g[i].style.display='';
-		var p=j[i+s];
+		var p=j[sortway[i+s]];
 		g[i].getElementsByClassName('item_id_image')[0].style.backgroundImage='url('+location.href.replace('#','')+encodeURI(p.p)+'/index.webp)';
 		g[i].getElementsByClassName('item_id_title')[0].innerText=p.n;
-		g[i].getElementsByClassName('item_id_desc')[0].innerText=p.d;
+		g[i].getElementsByClassName('item_id_desc')[0].innerHTML=p.d;
 		g[i].getElementsByClassName('item_id_score')[0].innerText=processScore(p.s);
+		g[i].getElementsByClassName('item_id_length')[0].innerText=p.l? p.l: '';
 	}
 	if(m != 0)
 		if(m > 0)

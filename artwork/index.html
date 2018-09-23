@@ -24,12 +24,13 @@
 			<div style="display:inline-block">
 				<input type="radio" name="type" id="type_love" value="artwork/love.json" checked="checked" />
 				<label for="type_love">站长喜欢</label>
-				<select id="sort_love" disabled="disabled">
-					<option>不排序</option>
-					<option>推荐指数</option>
+				<select id="sort_love">
+					<option value="0">不排序</option>
+					<option value="1">推荐指数</option>
+					<option value="2">最新添加</option>
 				</select>
 			</div>
-			<div style="display:inline-block"><div style="display:inline;margin:0 10px 0 10px">测试版本号：2</div><a onclick="javascript:alert('测试翻页功能，点击上一页和下一页看看是否会出现问题。')">查看测试任务</a></div>
+			<div style="display:inline-block"><div style="display:inline;margin:0 10px 0 10px">测试版本号：3</div><a onclick="javascript:alert('测试排序功能，看看来回切换排序方式是否会出现问题。')">查看测试任务</a></div>
 			<div id="pageFlipTop"><button class="pagePrev">上一页</button><div class="pageDisplay"></div><button class="pageNext">下一页</button></div>
 			<div id="group_artwork"></div>
 			<div id="pageFlipBottom" style="position:relative;height:40px">
