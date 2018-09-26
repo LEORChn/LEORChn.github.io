@@ -15,7 +15,7 @@ function initUi(){
 	initLoveSort();
 }
 function initLoveSort(){
-	fv('sort_love').onclick=function(){
+	fv('sort_love').onchange=function(){
 		if(artwork_data_sort==parseInt(this.value))return;
 		artwork_data_sort=parseInt(this.value);
 		artwork_page_now=1;
