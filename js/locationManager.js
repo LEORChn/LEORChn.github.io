@@ -55,12 +55,12 @@ function regOnLocationChanged(){
     	}, 300);
 	}
 }
-function tryOldPath(){
-	if(location.hash==''){
+function tryOldPath(){ // 如果成功匹配自定捷径，则返回 true
+	if(location.href.includes(location.origin+'/?'));// 包含 ? 捷径命令，则不再判空
+	else if(location.hash==''){ // 不包含捷径命令，但是路径也是空的
 		url(getNavigateMapKey(0));
 		return true;
-	}
-	if(! location.href.includes(location.origin+'/?'))return false;
+	}else return false; // 没有任何可能的自定捷径，返回 false
 	var u=gquery('p')||location.href.split('?')[1];
 	//history.replaceState(history.state,'',location.origin);
 	switch(u){
