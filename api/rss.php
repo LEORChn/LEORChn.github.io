@@ -9,8 +9,23 @@
 	<atom:link href="https://leorchn.github.io/api/rss.php" rel="self" type="application/rss+xml"></atom:link>
 	<link>https://leorchn.github.io/</link>
 	<description>瑞兽谷最新公告</description>
-	<lastBuildDate>Tue, 18 Sep 2018 23:18:00 +0800</lastBuildDate>
+	<lastBuildDate>Sun, 07 Oct 2018 23:30:00 +0800</lastBuildDate>
 	<generator></generator>
+	<item>
+		<title>状态</title>
+		<c:type>1</c:type>
+		<c:time>2018-10-7 23:30</c:time>
+		<pubDate>Sun, 07 Oct 2018 23:30:00 +0800</pubDate>
+		<description>没想到已经鸽了这么久啊。本来在9月10号那天给老师发完短信之后决定用一个月时间把网站升级到2.0版本来着。估计网站这边还要收集很多资料才能最终成型。最近又在做一个通知管理工具，断断续续做了一周左右时间，谁知道会不会用两周才做完。</description>
+	</item>
+	<item>
+	<item>
+		<title>状态</title>
+		<c:type>1</c:type>
+		<c:time>2018-10-7 22:50</c:time>
+		<pubDate>Sun, 07 Oct 2018 22:50:00 +0800</pubDate>
+		<description>所以说。下午太困了在床上睡了一觉刚刚醒。梦到成为公交司机？（我才不要）在一次驾驶小型公交的时候因为旁边总是有人干扰我于是车祸了，撞到人的那种，但是事故发生时我似乎也并不在车上。好像是提前跳车？于是车因为地上湿滑的路面滑着撞到人了。</description>
+	</item>
 	<item>
 		<title>状态</title>
 		<c:type>1</c:type>
