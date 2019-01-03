@@ -1,0 +1,221 @@
+body {
+	background: #000 url(../images/bg.jpg) no-repeat center top;
+	color: #d6cfc0;
+	font-size: 11pt;
+	line-height: 1.2em;
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+#container {
+	width: 976px;
+	margin: 0 auto;
+}           
+
+#subcontainer {
+	margin-left: -16px;
+}
+
+#logo {
+	background: url(../images/logo.jpg);
+	width: 691px;
+	height: 96px;
+	text-indent: -999em;
+	margin-top: 14px;
+}
+
+#logo.side {
+	background: url(../images/logo-side.jpg);
+}
+
+#logo a.home {
+	display:block;
+	width: 523px; /*691*/
+	height: 96px;
+	float:left;
+}
+
+#dvd {
+	width: 168px;
+	height: 96px;
+	display: block;
+	margin-left: 523px;
+}
+
+#map {
+	background: url(../images/map.jpg);
+	width: 285px;
+	height: 748px;
+	float:right;
+	margin-right: 16px;
+	margin-top: -14px; /* Should equal the negative margin-top of #logo */
+}
+
+#map.hl-synopsis {
+	background-position: 0 0px;
+}
+
+#map.hl-characters {
+	background-position: 0 -417px;
+}
+
+#map.hl-castcrew {
+	background-position: 0 -834px;
+}
+
+#map.hl-media {
+	background-position: 0 -1251px;
+}
+
+#map.media {
+	height: 480px;
+}
+
+#map img {
+	width: 285px;
+	height: 417px;
+	display: block;
+}
+
+#map-bottom {
+	background: url(../images/map-bottom.jpg);
+	width: 285px;
+	height: 331px;
+}
+
+#map-bottom.media {
+	height: 68px;
+	background: url(../images/map-bottom-media.jpg);
+}
+
+#content-left {
+	width: 275px;
+	height: 638px;
+	background: url(../images/side-empty.jpg) right no-repeat;
+	float:left;
+}
+
+#content-main {
+	background: url(../images/parchment.jpg);
+	width: 363px;
+	height: 598px;
+	margin-left: 275px;
+
+	padding-top: 40px;
+	padding-left: 12px;
+
+	padding: 40px 41px 0 12px;
+	/* Padding: top right bottom left */
+	/* left+right+width == img width, same for height */
+}
+
+#crewlist {
+	width: 194px;
+	height: 590px;
+	padding-left: 81px;
+	padding-top: 48px;
+	background: url(../images/side-parchment.jpg);
+}
+
+#crewlist a {
+	display: block;
+	float: left;
+	width: 64px;
+	height: 64px;
+	padding: 1px 0 0 1px;
+	margin-right: 11px;
+	margin-bottom: 11px;
+	background-image: url(../images/border.png);
+}
+
+#crewlist a.selected, #crewlist a:hover {
+	background-image: url(../images/border-hl.png);
+	margin: -11px -1px -1px -11px;
+	padding: 12px;
+}
+
+#side-synopsis {
+	width: 275px;
+	height: 638px;
+	background: url(../images/side-quill.jpg);
+}
+
+#synopsis {
+	height: 411px;
+}
+#synopsis .first {
+	margin-bottom: -12px;
+	margin-right: 1px;
+	margin-left: -7px;
+}
+#signature {
+	width: 180px;
+	height: 62px;
+	background: url(../images/signature.jpg);
+	margin-left: 191px;
+}
+
+#character-list {
+	width: 386px;
+  height: 189px;
+	margin-top: -32px;
+	margin-left: -13px;
+}
+
+
+#media {
+	width: 515px;
+	height: 290px;
+	padding: 45px 72px 40px 104px;
+	background: url(../images/media-top.jpg);
+}
+
+#media-strip {
+	width: 759px;
+	height: 147px;
+	padding: 44px 113px 72px 104px;
+	background: url(../images/media-bottom.jpg);
+}
+
+#thumbstrip {
+	margin-top: 4px;
+	width: 759px;
+	height: 141px;
+	overflow-x: scroll;
+}
+
+#thumb-inner {
+	height: 120px;
+}
+
+#thumbstrip a {
+	display: block;
+	float: left;
+	width: 120px;
+	height: 120px;
+	margin-right: 8px;
+}
+
+/*
+     FILE ARCHIVED ON 16:42:23 Feb 10, 2012 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 12:46:44 Dec 31, 2018.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  LoadShardBlock: 79.421 (3)
+  esindex: 0.014
+  captures_list: 101.006
+  CDXLines.iter: 14.179 (3)
+  PetaboxLoader3.datanode: 134.347 (4)
+  exclusion.robots: 0.208
+  exclusion.robots.policy: 0.193
+  RedisCDXSource: 3.283
+  PetaboxLoader3.resolve: 63.96
+  load_resource: 168.701
+*/

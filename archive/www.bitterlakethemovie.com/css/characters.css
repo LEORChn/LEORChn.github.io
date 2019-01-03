@@ -1,0 +1,104 @@
+
+#character-list a {
+	height: 166px;
+	text-indent: -999em;
+	display: block;
+	float: left;
+}
+
+/* == Winters */
+
+#character-list a#winters {
+	width: 95px;
+	margin-top: 23px;
+	background: url(../images/char-winters.jpg);
+}
+
+#character-list a#winters.hl-winters {
+	background: url(../images/char-winters-hl.jpg);
+}
+
+/* == Dale */
+#character-list a#dale {
+	width: 97px;
+	margin-top: 23px;
+	background: url(../images/char-dale.jpg);
+}
+
+#character-list a#dale.hl-winters {
+	background: url(../images/char-dale-hl-winters.jpg);
+}
+
+#character-list a#dale.hl-dale {
+	background: url(../images/char-dale-hl.jpg);
+}
+
+/* == Arden */
+#character-list a#arden {
+	width: 87px;
+	height: 155px;
+	margin-top: 34px;
+	background: url(../images/char-arden.jpg);
+}
+
+#character-list a#arden.hl-arden {
+	background: url(../images/char-arden-hl.jpg);
+}
+
+#character-list a#arden.hl-dale {
+	background: url(../images/char-arden-hl-dale.jpg);
+}
+
+#character-list a#arden.hl-drraer {
+	background: url(../images/char-arden-hl-drraer.jpg);
+}
+
+/* == Drraer */
+#character-list a#drraer {
+	width: 94px;
+	height: 189px;
+	background: url(../images/char-drraer.jpg);
+}
+
+#character-list a#drraer.hl-drraer {
+	background: url(../images/char-drraer-hl.jpg);
+}
+
+#character-list a#drraer.hl-arden {
+	background: url(../images/char-drraer-hl-arden.jpg);
+}
+
+/* == Headers */
+h2.char {
+	height: 43px;
+	text-indent: -999em;
+	margin-bottom: 11px;
+	background-repeat: no-repeat;
+}
+
+h2.winters { background-image: url(../images/header-char-winters.jpg); }
+h2.dale { background-image: url(../images/header-char-dale.jpg); }
+h2.arden { background-image: url(../images/header-char-arden.jpg); }
+h2.drraer { background-image: url(../images/header-char-drraer.jpg); }
+
+/*
+     FILE ARCHIVED ON 16:58:10 Feb 10, 2012 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 12:46:44 Dec 31, 2018.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  LoadShardBlock: 82.789 (3)
+  esindex: 0.009
+  captures_list: 114.776
+  CDXLines.iter: 10.784 (3)
+  PetaboxLoader3.datanode: 117.573 (4)
+  exclusion.robots: 0.235
+  exclusion.robots.policy: 0.221
+  RedisCDXSource: 18.065
+  PetaboxLoader3.resolve: 85.546
+  load_resource: 128.557
+*/

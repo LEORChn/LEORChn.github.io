@@ -1,0 +1,15 @@
+<a class="item_archive_root" target="_blank">
+	<div class="item_archive_image_loader"></div>
+	<div class="item_archive_image item_id_image"></div>
+	<div class="item_archive">
+		<div class="item_archive_title">
+			<div class="item_id_title"></div>
+			<div class="item_id_desc item_archive_desc"></div>
+		</div>
+		<div class="item_archive_desc_bottom">
+			<div class="item_id_length"></div>
+			<div class="item_archive_score_hint">&#28857;&#20987;&#35775;&#38382;&#38236;&#20687;&#39029;&#38754;</div>
+			<div class="item_id_score item_archive_score"></div>
+		</div>
+	</div>
+</a>

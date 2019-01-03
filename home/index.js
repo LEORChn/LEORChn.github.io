@@ -10,15 +10,18 @@
 				case '0':
 					var a=ct('div');
 					l.appendChild(a);
-					a.outerHTML='<div style="display:inline">'+j.get('description')[0].text()+'</div>';
+					a.outerHTML='<div class="recent_desc">'+j.get('description')[0].text()+'</div>';
 					break;
 				case '1':
-					var a=ct('ss');
+					var a=ct('div');
+					l.appendChild(a);
+					a.outerHTML='<div class="recent_time">'+j.get('c:time')[0].text()+'</div>';a=ct('ss');
+					a=ct('ss');
 					l.appendChild(a);
 					a.outerHTML='<ss>'+unescape('%u201c')+'</ss>';
 					a=ct('div');
 					l.appendChild(a);
-					a.outerHTML='<div style="display:inline;float:right">'+j.get('c:time')[0].text()+'</div><div style="display:inline">'+j.get('description')[0].text()+'</div>';
+					a.outerHTML='<div class="recent_desc">'+j.get('description')[0].text()+'</div>';
 			}
 			l.appendChild(ct('d'));
 		}

@@ -1,0 +1,6 @@
+/* d 标签：分隔符*/
+d{height:1px;background-color:#C0C0C0;margin-top:10px;margin-bottom:10px;display:block}
+/* ss 标签：状态格式形式，包裹住引号*/
+ss{color:#999999;font:"黑体";font-size:48px}
+.recent_time{position:absolute;right:20px}
+.recent_desc{display:inline;line-height:130%}
