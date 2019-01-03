@@ -31,7 +31,7 @@ function set(index){
 	chardetails[index].style.display='';
 	
 	var sideimagelist=['winters','quill','quill','quill'];
-	document.getElementById('content-left').getElementsByTagName('img')[0].style.background='url(images/side-'+sideimagelist[index]+'.jpg)';
+	document.getElementById('content-left').getElementsByTagName('div')[0].style.background='url(images/side-'+sideimagelist[index]+'.jpg)';
 	origHighlight='hl-'+namelist[index];
 	nameindex=index;
 }
