@@ -97,7 +97,7 @@ iframe.bilibili-player{position:absolute;width:517px;height:calc(2 * 61.5px + 29
 <script src="/js/baseLib.js"></script>
 <script>
 var loadedFunctions=0,
-	delayFunctions=[loadVideoContainer, loadMapImage, loadMediaStripImage, loadVideoAndBackground, loadBottomThumbs],
+	delayFunctions=[loadVideoContainer, loadMapBottomImage, loadMapImage, loadMediaStripImage, loadVideoAndBackground, loadBottomThumbs],
 	loadingImages=[],
 	loadingInterval;
 function loadingStatusChange(){
@@ -128,16 +128,20 @@ function setLoadingImages(){
 	}
 }
 function delayItemLoads(){
-	setLoadingImages('images/logo.jpg', 'images/media-top.jpg');
+	setLoadingImages('images/logo.jpg');
 	loadingInterval=setInterval(checkImagesLoaded, 500);
 }
 function loadVideoContainer(){
 	unblockImage(fv('media'));
 	setLoadingImages('images/media-top.jpg');
 }
+function loadMapBottomImage(){
+	unblockImage(fv('map-bottom'));
+	setLoadingImages('images/map-bottom-media.jpg');
+}
 function loadMapImage(){
-	unblockImage(fv('map-bottom'), fv('map'));
-	setLoadingImages('images/map.jpg', 'images/map-bottom-media.jpg');
+	unblockImage(fv('map'));
+	setLoadingImages('images/map.jpg');
 }
 function loadMediaStripImage(){
 	unblockImage(fv('media-strip'));
