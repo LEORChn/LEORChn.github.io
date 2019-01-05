@@ -15,39 +15,32 @@
 	<meta name="title" content="Bitter Lake | trust is a fickle thing..."/>
 	<meta name="description" content="Bitter Lake is the first live action full motion picture to be made in the Furry Fandom and is the second EZwolf and Shay production to date."/>
 	<meta name="keywords" content="Bitter Lake, furry, movie, eurofurence, ezwolf, shay, fox amoore, costumes, clockwork, creatures, qarrezel, wolf, husky, dragon, dog, video"/>
+	<!--慢速连接，对于图片的加载要按顺序解禁-->
+	<style type="text/css">
+	#container.delayLoadImage,#map.delayLoadImage,#map-bottom.delayLoadImage,#media.delayLoadImage,#media-strip.delayLoadImage{background:url(images/transparent.gif)}
+	body.delayLoadImage{background-image:url(images/transparent.gif);background-color:#000}
+	</style>
 </head>
-<body><!--如果慢速连接，先加载这个转圈图片-->
+<body class="delayLoadImage"><!--慢速连接包。先加载这个转圈图片-->
 	<img src="js/slimbox/loading.gif" style="display:none"/>
-	<div id="container">
+	<div id="container" class="delayLoadImage">
 		<div id="subcontainer">
-			<div id="map" class="hl-media media">
+			<div id="map" class="hl-media media delayLoadImage">
 				<img src="images/transparent.gif" usemap="#navigation" alt=""/>
-				<div id="map-bottom" class="media"></div>
+				<div id="map-bottom" class="media delayLoadImage"></div>
 			</div>
-			<div id="logo" class=""><a href="">Bitter lake - trust is a fickle thing</a></div>
+			<div id="logo"><a href="">Bitter lake - trust is a fickle thing</a></div>
 			<div id="content">
-				<div id="media">
+				<div id="media" class="delayLoadImage">
 					<!--修改为显示B站视频-->
 <style>
 div.bilibili-player-holder{width:100%;height:290px;position:relative;overflow:hidden}
 iframe.bilibili-player{position:absolute;width:517px;height:calc(2 * 61.5px + 290px);margin-top:-61.5px}
-
 </style>
 					<div style="width:100%;height:290px;position:relative">
-						<script>function hideplayhint(){document.getElementById('videoplayhint').style.display='none';}function onvideopageload(){document.getElementById('videoloadinggroup').style.display='none';document.getElementById('videoplay').style.display='';setTimeout(hideplayhint,10000);}</script>
 						<div id="videoplay" style="display:none;">
 							<div id="videoplayhint" style="position:absolute;right:0;bottom:0;z-index:1;">请点击播放视频</div>
 							<div class="bilibili-player-holder">
-<script>
-var fr=document.createElement('iframe');
-fr.className='bilibili-player';
-fr.onload=onvideopageload;
-fr.src='https://m.bilibili.com/video/av22182802.html';
-fr.scrolling="no"; fr.style.border="0"; fr.frameborder="no";// framespacing="0" 
-fr.allowfullscreen=true;
-if(window.navigator.userAgent.toLowerCase().contains('mobile')) fr.sandbox='allow-scripts';// block app opening-require when mobile browser
-document.getElementsByClassName('bilibili-player-holder')[0].appendChild(fr);
-</script>
 								<!--iframe class="bilibili-player" sandbox="allow-scripts allow-same-origin" onload="onvideopageload()" src="https://m.bilibili.com/video/av22182802.html" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe-->
 							</div>
 						</div>
@@ -55,7 +48,6 @@ document.getElementsByClassName('bilibili-player-holder')[0].appendChild(fr);
 							<div style="width:32px;height:32px;background:url(js/slimbox/loading.gif);"></div>
 							<div style="text-align:center" id="videoloadingcountdown"></div>
 						</div>
-						<script>var vlcdn=100;var vlcd=function(){var cdiv=document.getElementById('videoloadingcountdown');cdiv.innerText=vlcdn;vlcdn--;if(vlcdn<0){cdiv.style.display='none';document.getElementById('videoplay').style.display='';}else setTimeout(vlcd,1000);};vlcd();</script>
 						<!--iframe style="margin:-30px 0 0 -1px" src="http://player.bilibili.com/player.html?aid=22182802&cid=36696880&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="517" height="358"></iframe>
 						第一个是HTML5页面接口，被注释的第二个是分享接口-->
 						<div style="position:absolute;top:100%;right:0">
@@ -65,12 +57,12 @@ document.getElementsByClassName('bilibili-player-holder')[0].appendChild(fr);
 						</div>
 					</div>
 				</div>
-				<div id="media-strip">
+				<div id="media-strip" class="delayLoadImage">
 					<div id="thumbstrip">
 						<div id="thumb-inner" style="width: 2176px;position:relative">
 							<!--用一个透明可点击块做提示，并覆盖掉原本用于查看大图的点击项目-->
-							<div style="position:absolute">
-								<a href="media/Arden of Tolver.jpg" rel="lightbox[gallery]" title="Prince Arden of Tolver from Tier"><img src="media/thumbs/Arden of Tolver.jpg" alt=""/></a><a href="media/Belora dan Winters.jpg" rel="lightbox[gallery]" title="Belora dan Winters from Sinnah"><img src="media/thumbs/Belora dan Winters.jpg" alt=""/></a><a href="media/Careth Dale.jpg" rel="lightbox[gallery]" title="Careth Dale from Daneth"><img src="media/thumbs/Careth Dale.jpg" alt=""/></a><a href="media/Raden Drraer.jpg" rel="lightbox[gallery]" title="Colonel Raden Drraer from Osgard"><img src="media/thumbs/Raden Drraer.jpg" alt=""/></a><a href="media/Belora at it.jpg" rel="lightbox[gallery]" title="Belora at it"><img src="media/thumbs/Belora at it.jpg" alt=""/></a><a href="media/Belora's light.jpg" rel="lightbox[gallery]" title="Belora's light"><img src="media/thumbs/Belora's light.jpg" alt=""/></a><a href="media/A king's things.jpg" rel="lightbox[gallery]" title="A king's things"><img src="media/thumbs/A king's things.jpg" alt=""/></a><a href="media/An eye for shots.jpg" rel="lightbox[gallery]" title="An eye for shots"><img src="media/thumbs/An eye for shots.jpg" alt=""/></a><a href="media/Directing a swordfight.jpg" rel="lightbox[gallery]" title="Directing a swordfight"><img src="media/thumbs/Directing a swordfight.jpg" alt=""/></a><a href="media/It's all smoke and wires.jpg" rel="lightbox[gallery]" title="It's all smoke and wires"><img src="media/thumbs/It's all smoke and wires.jpg" alt=""/></a><a href="media/Morning at Bitter Lake.jpg" rel="lightbox[gallery]" title="Morning at Bitter Lake"><img src="media/thumbs/Morning at Bitter Lake.jpg" alt=""/></a><a href="media/Our own Jamie Oliver.jpg" rel="lightbox[gallery]" title="Our own Jamie Oliver"><img src="media/thumbs/Our own Jamie Oliver.jpg" alt=""/></a><a href="media/Shooting at Dusk.jpg" rel="lightbox[gallery]" title="Shooting at Dusk"><img src="media/thumbs/Shooting at Dusk.jpg" alt=""/></a><a href="media/Showdown at Bitter Lake.jpg" rel="lightbox[gallery]" title="Showdown at Bitter Lake"><img src="media/thumbs/Showdown at Bitter Lake.jpg" alt=""/></a><a href="media/Spooky.jpg" rel="lightbox[gallery]" title="Spooky"><img src="media/thumbs/Spooky.jpg" alt=""/></a><a href="media/Suit tweaking.jpg" rel="lightbox[gallery]" title="Suit tweaking"><img src="media/thumbs/Suit tweaking.jpg" alt=""/></a><a href="media/Two camera men.jpg" rel="lightbox[gallery]" title="Two camera men"><img src="media/thumbs/Two camera men.jpg" alt=""/></a>
+							<div id="thumbImages" style="position:absolute">
+								<a href="media/Arden of Tolver.jpg" rel="lightbox[gallery]" title="Prince Arden of Tolver from Tier"><img title="media/thumbs/Arden of Tolver.jpg" alt=""/></a><a href="media/Belora dan Winters.jpg" rel="lightbox[gallery]" title="Belora dan Winters from Sinnah"><img title="media/thumbs/Belora dan Winters.jpg" alt=""/></a><a href="media/Careth Dale.jpg" rel="lightbox[gallery]" title="Careth Dale from Daneth"><img title="media/thumbs/Careth Dale.jpg" alt=""/></a><a href="media/Raden Drraer.jpg" rel="lightbox[gallery]" title="Colonel Raden Drraer from Osgard"><img title="media/thumbs/Raden Drraer.jpg" alt=""/></a><a href="media/Belora at it.jpg" rel="lightbox[gallery]" title="Belora at it"><img title="media/thumbs/Belora at it.jpg" alt=""/></a><a href="media/Belora's light.jpg" rel="lightbox[gallery]" title="Belora's light"><img title="media/thumbs/Belora's light.jpg" alt=""/></a><a href="media/A king's things.jpg" rel="lightbox[gallery]" title="A king's things"><img title="media/thumbs/A king's things.jpg" alt=""/></a><a href="media/An eye for shots.jpg" rel="lightbox[gallery]" title="An eye for shots"><img title="media/thumbs/An eye for shots.jpg" alt=""/></a><a href="media/Directing a swordfight.jpg" rel="lightbox[gallery]" title="Directing a swordfight"><img title="media/thumbs/Directing a swordfight.jpg" alt=""/></a><a href="media/It's all smoke and wires.jpg" rel="lightbox[gallery]" title="It's all smoke and wires"><img title="media/thumbs/It's all smoke and wires.jpg" alt=""/></a><a href="media/Morning at Bitter Lake.jpg" rel="lightbox[gallery]" title="Morning at Bitter Lake"><img title="media/thumbs/Morning at Bitter Lake.jpg" alt=""/></a><a href="media/Our own Jamie Oliver.jpg" rel="lightbox[gallery]" title="Our own Jamie Oliver"><img title="media/thumbs/Our own Jamie Oliver.jpg" alt=""/></a><a href="media/Shooting at Dusk.jpg" rel="lightbox[gallery]" title="Shooting at Dusk"><img title="media/thumbs/Shooting at Dusk.jpg" alt=""/></a><a href="media/Showdown at Bitter Lake.jpg" rel="lightbox[gallery]" title="Showdown at Bitter Lake"><img title="media/thumbs/Showdown at Bitter Lake.jpg" alt=""/></a><a href="media/Spooky.jpg" rel="lightbox[gallery]" title="Spooky"><img title="media/thumbs/Spooky.jpg" alt=""/></a><a href="media/Suit tweaking.jpg" rel="lightbox[gallery]" title="Suit tweaking"><img title="media/thumbs/Suit tweaking.jpg" alt=""/></a><a href="media/Two camera men.jpg" rel="lightbox[gallery]" title="Two camera men"><img title="media/thumbs/Two camera men.jpg" alt=""/></a>
 							</div>
 							<a style="position:absolute;width:100%;height:100%;top:0" href="javascript:alert('抱歉，这些图片均已无法查看大图。')"></a>
 						</div>
@@ -101,5 +93,95 @@ document.getElementsByClassName('bilibili-player-holder')[0].appendChild(fr);
 	<!--此处以下增加一个不怎么显眼的小提示-->
 	<a style="position:fixed;right:0;bottom:0;text-decoration:none;color:#fff" href="javascript:alert('本页面已知的BUG：\n底部所有缩略图的大图文件全部丢失，将无法点击并显示。')">本页面的已知BUG...</a>
 	<div style="position:fixed;left:0;bottom:0">当前位置 <a style="color:#fff" href="/">瑞兽谷</a> &gt; Bitter Lake 镜像站</div>
+<!--为了更好的体验，慢速连接时按顺序加载图片-->
+<script src="/js/baseLib.js"></script>
+<script>
+var loadedFunctions=0,
+	delayFunctions=[loadVideoContainer, loadMapImage, loadMediaStripImage, loadVideoAndBackground, loadBottomThumbs],
+	loadingImages=[],
+	loadingInterval;
+function loadingStatusChange(){
+	if(loadedFunctions < delayFunctions.length){
+		delayFunctions[loadedFunctions]();
+		loadedFunctions++;
+	}else{
+		clearInterval(loadingInterval);
+	}
+	pl('status: '+ loadedFunctions);
+}
+function checkImagesLoaded(){
+	for(var i=0;i<loadingImages.length;i++){
+		if(!loadingImages[i].complete) return;
+	}
+	loadingStatusChange();
+}
+function unblockImage(){
+	for(var i=0;i<arguments.length;i++){
+		removeClass(arguments[i],'delayLoadImage');
+	}
+}
+function setLoadingImages(){
+	loadingImages=[];
+	for(var i=0;i<arguments.length;i++){
+		loadingImages[i]=new Image();
+		loadingImages[i].src=arguments[i];
+	}
+}
+function delayItemLoads(){
+	setLoadingImages('images/logo.jpg', 'images/media-top.jpg');
+	loadingInterval=setInterval(checkImagesLoaded, 500);
+}
+function loadVideoContainer(){
+	unblockImage(fv('media'));
+	setLoadingImages('images/media-top.jpg');
+}
+function loadMapImage(){
+	unblockImage(fv('map-bottom'), fv('map'));
+	setLoadingImages('images/map.jpg', 'images/map-bottom-media.jpg');
+}
+function loadMediaStripImage(){
+	unblockImage(fv('media-strip'));
+	setLoadingImages('images/media-bottom.jpg');
+}
+function loadVideoAndBackground(){
+	unblockImage(document.body);
+	setLoadingImages('images/bg.jpg');
+	var fr=ct('iframe');
+	fr.className='bilibili-player';
+	fr.onload=onvideopageload;
+	fr.src='https://m.bilibili.com/video/av22182802.html';
+	fr.scrolling="no"; fr.style.border="0"; fr.frameborder="no";// framespacing="0" 
+	fr.allowfullscreen=true;
+	if(window.navigator.userAgent.toLowerCase().contains('mobile')) fr.sandbox='allow-scripts';// block app opening-require when mobile browser
+	fc('bilibili-player-holder')[0].appendChild(fr);
+	vlcd();
+}
+function loadBottomThumbs(){
+	var thumbs=fv('thumbImages').getElementsByTagName('img');
+	for(var i=0;i<thumbs.length;i++){
+		thumbs[i].src=thumbs[i].title;
+	}
+}
+
+delayItemLoads();
+var vlcdn=100;
+var vlcd=function(){
+	var cdiv=fv('videoloadingcountdown');
+	cdiv.innerText=vlcdn;
+	vlcdn--;
+	if(vlcdn<0){
+		cdiv.style.display='none';
+		fv('videoplay').style.display='';
+	}else setTimeout(vlcd,1000);
+};
+function hideplayhint(){
+	fv('videoplayhint').style.display='none';
+}
+function onvideopageload(){
+	fv('videoloadinggroup').style.display='none';
+	fv('videoplay').style.display='';
+	setTimeout(hideplayhint,10000);
+}
+</script>
 </body>
 </html>

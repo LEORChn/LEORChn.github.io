@@ -16,10 +16,10 @@ function addClass(element,name){
 }
 function removeClass(element,name){//这个之后再说
 	if(existsClass(element,name));
-		element.className=element.className.replace('(^|\\s)'+name+'($|\\s)','');
+		element.className=element.className.replace(new RegExp('\\s?'+name+'\\s?'),' ');
 }
-function existClass(element,name){
-	return new RegExp('(^|\\s)'+name+'($|\\s)').test(element.className);
+function existsClass(element,name){
+	return new RegExp('\\s?'+name+'\\s?').test(element.className);
 }
 function dynamicLoadCss(url) {
 	var link = ct('link');
