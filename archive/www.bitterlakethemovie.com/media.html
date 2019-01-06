@@ -39,12 +39,13 @@ iframe.bilibili-player{position:absolute;width:517px;height:calc(2 * 61.5px + 29
 </style>
 					<div style="width:100%;height:290px;position:relative">
 						<div id="videoplay" style="display:none;">
-							<div id="videoplayhint" style="position:absolute;right:0;bottom:0;z-index:1;">请点击播放视频</div>
+							<div id="videoplayhint" style="position:absolute;right:0;top:50%;z-index:1;">请点击播放视频</div>
 							<div class="bilibili-player-holder">
 								<!--iframe class="bilibili-player" sandbox="allow-scripts allow-same-origin" onload="onvideopageload()" src="https://m.bilibili.com/video/av22182802.html" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe-->
 							</div>
 						</div>
-						<div style="position:absolute;left:calc(50% - 16px);top:calc(50% - 32px);" id="videoloadinggroup">
+						<div style="position:absolute;width:100%;height:100%;top:0;background-size:cover;pointer-events:none" id="videocover"></div>
+						<div style="position:absolute;left:calc(50% - 16px);top:calc(50% - 16px);" id="videoloadinggroup">
 							<div style="width:32px;height:32px;background:url(js/slimbox/loading.gif);"></div>
 							<div style="text-align:center" id="videoloadingcountdown"></div>
 						</div>
@@ -95,9 +96,10 @@ iframe.bilibili-player{position:absolute;width:517px;height:calc(2 * 61.5px + 29
 	<div style="position:fixed;left:0;bottom:0">当前位置 <a style="color:#fff" href="/">瑞兽谷</a> &gt; Bitter Lake 镜像站</div>
 <!--为了更好的体验，慢速连接时按顺序加载图片-->
 <script src="/js/baseLib.js"></script>
+<script src="/js/iframeClickEvent.js"></script>
 <script>
 var loadedFunctions=0,
-	delayFunctions=[loadVideoContainer, loadMapBottomImage, loadMapImage, loadMediaStripImage, loadVideoAndBackground, loadBottomThumbs],
+	delayFunctions=[loadVideoContainer, loadMapBottomImage, loadMapImage, loadMediaStripImage, loadVideoCover, loadVideoAndBackground, loadBottomThumbs],
 	loadingImages=[],
 	loadingInterval;
 function loadingStatusChange(){
@@ -147,17 +149,37 @@ function loadMediaStripImage(){
 	unblockImage(fv('media-strip'));
 	setLoadingImages('images/media-bottom.jpg');
 }
+function loadVideoCover(){
+	var coverimage='../i.vimeocdn.com/video/cover.jpg';
+	setLoadingImages(coverimage);
+	fv('videocover').style.backgroundImage='url('+coverimage+')';
+}
+
+var isMobilePlay=false;
+var playerIframe;
 function loadVideoAndBackground(){
 	unblockImage(document.body);
 	setLoadingImages('images/bg.jpg');
-	var fr=ct('iframe');
-	fr.className='bilibili-player';
-	fr.onload=onvideopageload;
-	fr.src='https://m.bilibili.com/video/av22182802.html';
-	fr.scrolling="no"; fr.style.border="0"; fr.frameborder="no";// framespacing="0" 
-	fr.allowfullscreen=true;
-	if(window.navigator.userAgent.toLowerCase().contains('mobile')) fr.sandbox='allow-scripts';// block app opening-require when mobile browser
-	fc('bilibili-player-holder')[0].appendChild(fr);
+	
+	isMobilePlay=window.navigator.userAgent.toLowerCase().contains('mobile');
+	var f=playerIframe=ct('iframe');
+	f.className='bilibili-player';
+	f.setAttribute('onload','onvideopageload()');
+	if(isMobilePlay){
+		f.src='https://m.bilibili.com/video/av22182802.html';
+		f.sandbox='allow-scripts';// block app opening-require when mobile browser
+		f.setAttribute('border',"0");
+		f.setAttribute('frameborder','no');
+	}else{
+		f.src='videoplay.html';
+		f.setAttribute('border',"0");
+		f.setAttribute('frameborder','no');
+		f.setAttribute('framespacing','0');
+		f.setAttribute('allowfullscreen','true');
+		f.scrolling="no";
+	}
+	//if(!) f.sandbox='allow-scripts allow-same-origin';
+	fc('bilibili-player-holder')[0].appendChild(f);
 	vlcd();
 }
 function loadBottomThumbs(){
@@ -180,11 +202,23 @@ var vlcd=function(){
 };
 function hideplayhint(){
 	fv('videoplayhint').style.display='none';
+	fv('videocover').remove();
 }
 function onvideopageload(){
+	setIframe.onClick(playerIframe, function(){
+		setTimeout(hideplayhint, 300);
+	});
+	if(isMobilePlay){
+		onFlashDelayed();
+	}else{
+		vlcdn=3;//fv('videoloadingcountdown').style.display='none';
+		setTimeout(onFlashDelayed, 3000);
+	}
+}
+function onFlashDelayed(){
 	fv('videoloadinggroup').style.display='none';
 	fv('videoplay').style.display='';
-	setTimeout(hideplayhint,10000);
+	//setTimeout(hideplayhint,10000);
 }
 </script>
 </body>
