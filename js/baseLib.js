@@ -11,7 +11,7 @@ function gquery(n){
 	return r==null||r.length<1?'':r[1];
 }
 function addClass(element,name){
-	if(!existClass(element,name))
+	if(!existsClass(element,name))
 		element.className+=' '+name;
 }
 function removeClass(element,name){//这个之后再说
