@@ -22,7 +22,7 @@
 		<div id="subcontainer">
 			<div id="map" class="hl-castcrew"><img src="images/transparent.gif" usemap="#navigation" alt=""/><div id="map-bottom"></div>
 			</div>
-			<div id="logo" class="side"><a class="home" href="">Bitter lake - trust is a fickle thing</a></div>
+			<div id="logo" class="side"><a class="home" href=".">Bitter lake - trust is a fickle thing</a><a id="dvd" href="dvd.html">Order your DVD</a></div>
 			<div id="content">
 				<div id="content-left">
 	<div id="crewlist">
@@ -42,7 +42,7 @@
 				</div>
 				<div id="content-main">
 <!--此元素的所有a元素都是为脚本运行而新增的-->
-<a id="backabout" href="#"><h2 class="crew about">About Bitter Lake</h2></a>
+<a id="backabout"><h2 class="crew about">About Bitter Lake</h2></a>
 <a class="switchhide">
 <p>
 	Bitter Lake is the first live action full motion picture to be made in the Furry Fandom
@@ -58,6 +58,42 @@
 			<p>
 			The DVD has been for sale in Europe and the US but is no longer available.</p>
 			</p></p></a>
+<a class="switchhide">
+<p>
+	Bitter Lake is the first live action full motion picture to be made in the Furry Fandom
+			and is the second EZwolf and Shay production to date. Produced entirely by the crew itself
+			and sponsored by Eurofurence, Bitter Lake combines the creative skills of a small team of
+			enthusiastic and driven people and shows what can be done with minimum resources in a very
+			short timeframe. The incredible work done when it comes to camera work, script and story
+			writing, music composition, (voice) acting, art and fursuit building is something unique and
+			every piece of the puzzle fits. Shot entirely on location in France and the Netherlands in HD
+			35 mm, Bitter Lake will premiere at Eurofurence 17 in August of 2011 and will feature an
+			original sound track by Fox Amoore.
+			</p>
+			<p>
+			We are proud to announce that Bitter Lake will be released on DVD immediately after its 
+			premiere at Eurofurence this August.</p>
+			<p> 
+			The region free DVD will be sold by Blackpaw in the Dealers Den at Eurofurence. 
+			The DVD will feature the full movie, behind the scenes footage and photographs and will 
+			be subtitled in English, German and French.</p></p></a>
+<div class="switchhide">
+<p>
+	Bitter Lake is the first live action full motion picture to be made in the Furry Fandom
+			and is the second EZwolf and Shay production to date. Produced entirely by the crew itself
+			and sponsored by Eurofurence, Bitter Lake combines the creative skills of a small team of
+			enthusiastic and driven people and shows what can be done with minimum resources in a very
+			short timeframe. The incredible work done when it comes to camera work, script and story
+			writing, music composition, (voice) acting, art and fursuit building is something unique and
+			every piece of the puzzle fits. Shot entirely on location in France and the Netherlands in HD
+			35 mm.
+			</p><p>Bitter Lake premiered at Eurofurence 17 in August of 2011.
+			</p>
+			<p>
+			The DVD has been for sale in Europe and the US but is no longer available.</p>
+			<p>
+			You can however <a style="color:#fff" href="../store.payloadz.com/details/1340296-video-action-bitter-lake-media-package.html"> download the Bitter Lake media package</a> which includes the film in HD,
+			the original soundtrack album by Fox Amoore and much more.</p></div>
 <a class="switchhide">
 <p>
 	Over the last eleven years, Shay has been working as a creative writer and game designer on
@@ -192,9 +228,10 @@
 	</map>
 	</div>
 	<!--此处以下增加一个不怎么显眼的小提示-->
-	<a style="position:fixed;right:0;bottom:0;text-decoration:none;color:#fff" href="javascript:alert('本页面已知的BUG：\n3个侧边角色图片丢失，在切换时将无法显示。\n但是什么都不显示就有点太空旷了，稍稍修改了一下')">本页面的已知BUG...</a>
+	<div style="position:fixed;right:0;bottom:0">“关于” 页面的多个版本：<a style="color:#fff" href="#2011">2011年10月</a> <a style="color:#fff" href="#2013">2013年1月</a> <a style="color:#fff" href="#">2013年8月</a></div>
 	<div style="position:fixed;left:0;bottom:0">当前位置 <a style="color:#fff" href="/">瑞兽谷</a> &gt; Bitter Lake 镜像站</div>
 	<!--为了更好地体验本页面并减少跳转和重新加载，而使用这个脚本。-->
+<script src="/js/baseLib.js"></script>
 <script>
 var lastHash;
 function regOnLocationChanged(){
@@ -211,10 +248,10 @@ function regOnLocationChanged(){
 	}
 }
 function onLocationChanged(){
-	var hashlist=['','shay','ezwolf','foxamoore','tigertom','rin','stoelbank','forfaox','tillikum','nikoshi','kwisa','lucy'],
+	var hashlist=['','2011','2013','shay','ezwolf','foxamoore','tigertom','rin','stoelbank','forfaox','tillikum','nikoshi','kwisa','lucy'],
 		hash=window.location.hash.replace('#',''),
 		index=0,
-		switcher=document.getElementsByClassName('switchhide');
+		switcher=fc('switchhide');
 	for(var i=0;i<hashlist.length;i++){
 		if(hashlist[i]==hash){
 			index=i;
@@ -224,10 +261,25 @@ function onLocationChanged(){
 	for(var i=0;i<switcher.length;i++){
 			switcher[i].style.display= index==i? 'block': '';
 	}
-	var homenavigator=document.getElementById('backabout');
-	homenavigator.getElementsByTagName('h2')[0].className='crew '+(index>0? hashlist[index]: 'about');
+	var homenavigator=fv('backabout');
+	homenavigator.getElementsByTagName('h2')[0].className='crew '+(index>2? hashlist[index]: 'about');
+	
+	fv('logo').className='side';
+	switch(index){
+		case 0: // 2013-8
+			fv('logo').className='';
+			fv('dvd').removeAttribute('href');
+			break;
+		case 1: // 2011-10
+			fv('dvd').href='dvd.html';
+			break;
+		case 2: //2013-1
+			fv('dvd').href='';
+	}
+	/*
 	homenavigator.onclick= index>0? undefined: function(){return false;};
 	homenavigator.style.cursor= index>0? '': 'default';
+	*/
 }
 regOnLocationChanged();
 onLocationChanged();
