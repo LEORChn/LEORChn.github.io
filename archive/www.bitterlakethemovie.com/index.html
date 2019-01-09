@@ -28,26 +28,25 @@
 				<div id="content-main">
 
 <div id="synopsis">
-<p>
-	<!-- 首字下沉效果由 img 修改为 div 实现 -->
-	<div class="first" style="background:url(images/synopsis-A.png);width:38px;height:43px;display:inline-block" alt="A"></div>fter more than a decade of peace the proud and noble kingdom of Valanor is suddenly torn
+	<!-- 首字下沉效果由 img 修改为 div 实现，而且增加ID以确保语言包的强覆盖性，而且本来第一段是用 p 包起来的，而且为了兼容多语言，给每个 p 都增加了 id -->
+	<div id="firstchar" class="first" style="width:38px;height:43px;display:inline-block" alt="A"></div><span id="index_p1">fter more than a decade of peace the proud and noble kingdom of Valanor is suddenly torn
 	apart by a terrible civil war. After 12 years, when the dust settles and resources start to
 	dwindle, the starving people of Valanor cry out for peace, forcing the leaders of Tier,
 	Sinnah, Daneth and Osgard to lay down their arms and meet each other at the negotiation table.
-</p>
-
-<p>
+</span>
+<p></p>
+<p id="index_p2">
 	As each province prepares an envoy to find a diplomatic solution at the Kingdom's only neutral
 	ground, an ancient and dark organization plots its return. Unbeknownst to the leaders of the
 	four warring provinces this old enemy will stop at nothing to crush any hope of lasting peace.
 </p>
 
-<p>
+<p id="index_p3">
 	Can the four envoys put their old hatreds aside and forge a bond of trust? Or will those that
 	crave the blood and terror of war get their way?
 </p>
 
-<p>
+<p id="index_p4">
 	Whatever the outcome, the fate of Valanor will be decided... at Bitter Lake.
 </p>
 </div>
@@ -73,8 +72,11 @@
 		<area id="area-media" href="media.html" alt="Media" shape="poly" coords="73,378,78,351,90,329,113,326,129,304,163,297,174,276,188,275,206,289,245,264,255,278,254,292,229,324,201,359,165,383,"/>
 	</map>
 	</div>
-	<!--script src="../bottomnav.js"></script-->
-	<!--此处以下增加一个不怎么显眼的小提示-->
-	<div style="position:fixed;left:0;bottom:0">当前位置 <a style="color:#fff" href="/">瑞兽谷</a> &gt; Bitter Lake 镜像站</div>
+	<!--此处以下增加几个不怎么显眼的小提示-->
+	<script src="/js/baseLib.js"></script>
+	<script src="/js/http.js"></script>
+	<script src="mapTips.js"></script>
+	<script src="navigation.js"></script>
+	<script src="langSwitch.js"></script>
 </body>
 </html>

@@ -65,7 +65,7 @@ iframe.bilibili-player{position:absolute;width:517px;height:calc(2 * 61.5px + 29
 							<div id="thumbImages" style="position:absolute">
 								<a href="media/Arden of Tolver.jpg" rel="lightbox[gallery]" title="Prince Arden of Tolver from Tier"><img title="media/thumbs/Arden of Tolver.jpg" alt=""/></a><a href="media/Belora dan Winters.jpg" rel="lightbox[gallery]" title="Belora dan Winters from Sinnah"><img title="media/thumbs/Belora dan Winters.jpg" alt=""/></a><a href="media/Careth Dale.jpg" rel="lightbox[gallery]" title="Careth Dale from Daneth"><img title="media/thumbs/Careth Dale.jpg" alt=""/></a><a href="media/Raden Drraer.jpg" rel="lightbox[gallery]" title="Colonel Raden Drraer from Osgard"><img title="media/thumbs/Raden Drraer.jpg" alt=""/></a><a href="media/Belora at it.jpg" rel="lightbox[gallery]" title="Belora at it"><img title="media/thumbs/Belora at it.jpg" alt=""/></a><a href="media/Belora's light.jpg" rel="lightbox[gallery]" title="Belora's light"><img title="media/thumbs/Belora's light.jpg" alt=""/></a><a href="media/A king's things.jpg" rel="lightbox[gallery]" title="A king's things"><img title="media/thumbs/A king's things.jpg" alt=""/></a><a href="media/An eye for shots.jpg" rel="lightbox[gallery]" title="An eye for shots"><img title="media/thumbs/An eye for shots.jpg" alt=""/></a><a href="media/Directing a swordfight.jpg" rel="lightbox[gallery]" title="Directing a swordfight"><img title="media/thumbs/Directing a swordfight.jpg" alt=""/></a><a href="media/It's all smoke and wires.jpg" rel="lightbox[gallery]" title="It's all smoke and wires"><img title="media/thumbs/It's all smoke and wires.jpg" alt=""/></a><a href="media/Morning at Bitter Lake.jpg" rel="lightbox[gallery]" title="Morning at Bitter Lake"><img title="media/thumbs/Morning at Bitter Lake.jpg" alt=""/></a><a href="media/Our own Jamie Oliver.jpg" rel="lightbox[gallery]" title="Our own Jamie Oliver"><img title="media/thumbs/Our own Jamie Oliver.jpg" alt=""/></a><a href="media/Shooting at Dusk.jpg" rel="lightbox[gallery]" title="Shooting at Dusk"><img title="media/thumbs/Shooting at Dusk.jpg" alt=""/></a><a href="media/Showdown at Bitter Lake.jpg" rel="lightbox[gallery]" title="Showdown at Bitter Lake"><img title="media/thumbs/Showdown at Bitter Lake.jpg" alt=""/></a><a href="media/Spooky.jpg" rel="lightbox[gallery]" title="Spooky"><img title="media/thumbs/Spooky.jpg" alt=""/></a><a href="media/Suit tweaking.jpg" rel="lightbox[gallery]" title="Suit tweaking"><img title="media/thumbs/Suit tweaking.jpg" alt=""/></a><a href="media/Two camera men.jpg" rel="lightbox[gallery]" title="Two camera men"><img title="media/thumbs/Two camera men.jpg" alt=""/></a>
 							</div>
-							<a style="position:absolute;width:100%;height:100%;top:0" href="javascript:alert('抱歉，这些图片均已无法查看大图。')"></a>
+							<a id="thumb_blocker" style="position:absolute;width:100%;height:calc(100% + 2px);top:0"></a>
 						</div>
 					</div>
 				</div>
@@ -92,12 +92,17 @@ iframe.bilibili-player{position:absolute;width:517px;height:calc(2 * 61.5px + 29
 	</map>
 	</div>
 	<!--此处以下增加一个不怎么显眼的小提示-->
-	<a style="position:fixed;right:0;bottom:0;text-decoration:none;color:#fff" href="javascript:alert('本页面已知的BUG：\n底部所有缩略图的大图文件全部丢失，将无法点击并显示。')">本页面的已知BUG...</a>
-	<div style="position:fixed;left:0;bottom:0">当前位置 <a style="color:#fff" href="/">瑞兽谷</a> &gt; Bitter Lake 镜像站</div>
+	<!--a style="position:fixed;right:0;bottom:0;text-decoration:none;color:#fff" href="javascript:alert('本页面已知的BUG：\n底部所有缩略图的大图文件全部丢失，将无法点击并显示。')">本页面的已知BUG...</a-->
+	<div id="fullviewtips" style="display:none" class="maptipsbox">Unfortunately, the full version of those pictures cannot be viewed because the files was lost.</div>
 <!--为了更好的体验，慢速连接时按顺序加载图片-->
 <script src="/js/baseLib.js"></script>
+<script src="/js/http.js"></script>
+<script src="mapTips.js"></script>
+<script src="navigation.js"></script>
 <script src="/js/iframeClickEvent.js"></script>
+<script src="langSwitch.js"></script>
 <script>
+regMapTips(fv('fullviewtips'), fv('thumb_blocker')); // mapTips.js
 var loadedFunctions=0,
 	delayFunctions=[loadVideoContainer, loadMapBottomImage, loadMapImage, loadMediaStripImage, loadVideoCover, loadVideoAndBackground, loadBottomThumbs],
 	loadingImages=[],

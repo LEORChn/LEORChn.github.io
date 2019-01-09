@@ -146,6 +146,7 @@ p {
 	height: 411px;
 }
 #synopsis .first {
+	background: url(../images/synopsis-A.png);
 	margin-bottom: -12px;
 	margin-right: 1px;
 	margin-left: -7px;
