@@ -18,7 +18,7 @@ function regMapTips(){
 		 s=t.style,
 		 b=arguments[i+1];
 		b.onmousemove=function(e){
-			var pos = _maptips_getMousePos(e);
+			var pos = getMousePos(e);
 			s.left = pos.x + 'px';
 			s.top = pos.y + 20 + 'px';
 			s.display = 'block';
@@ -27,13 +27,4 @@ function regMapTips(){
 			s.display = 'none'; 
 		}; 
 	}
-}
-
-function _maptips_getMousePos(e){
-	var x,y, r=document.documentElement,
-	 e = e||window.event; 
-	return{
-		x:e.clientX+htmlbody.scrollLeft+r.scrollLeft,
-		y:e.clientY+htmlbody.scrollTop+r.scrollTop
-	};
 }

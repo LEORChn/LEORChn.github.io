@@ -4,6 +4,7 @@ function addLeftBottomNavigationBar(){
 	p;
 	s.position='fixed';
 	s.left=s.bottom=0;
+	s.zIndex=9999;
 	var tags='span,a,span'.split(','),
 		text='当前位置 ,瑞兽谷, > Bitter Lake 镜像站'.split(','),
 		location=',/'.split(',');

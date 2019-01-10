@@ -4,15 +4,23 @@
 #maplocal2:after{content:'关于电影'}
 #maplocal3:after{content:'媒体资源'}
 
+/* -- 字典 -- */
+.dict_bitterlake:after{content:'苦湖'}
+.dict_valanor:after{content:'瓦拉诺 帝国'}
+.dict_tier:after{content:'提尔'}
+.dict_sinnah:after{content:'辛那'}
+.dict_daneth:after{content:'丹纳斯'}
+.dict_osgard:after{content:'奥斯卡'}
+
 /* ----- index.html ----- */
 /* 首字下沉 */
-#firstchar.first{background:url()}
+#firstchar.first{background:url('')}
 
 /* 剧情概要 */
-#index_p1:after{content:'在 Valanor 帝国长达一个多世纪的和平统治后，突然被一场可怕的内战四分五裂。内战12年间，资源也不断减少。饥饿的人民迫切着和平，Tier、Sinnah、Daneth 和 Osgard 这四个省的领导者们也就此放下武器并在谈判桌上相遇。';}
-#index_p2:after{content:'　　由于每个省都派一名特使前往帝国唯一的中立地区，因此一个暗黑组织也为此有了计划。四个交战省的领导人不会想到，这个老对手将会不惜一切地摧毁和平的希望。'}
-#index_p3:after{content:'　　四位特使能否暂时放下仇恨，并建立信任的纽带？渴望战争的恐怖主义又是否会得逞？'}
-#index_p4:after{content:'　　无论结果如何，Valanor 的命运都会在 Bitter Lake 决定……'}
+#index_p1{content:'在<a onmousemove="langDict(`dict_valanor`)" > Valanor 帝国</a>长达一个多世纪的和平统治后，突然被一场可怕的内战四分五裂。内战12年间，资源也不断减少。饥饿的人民迫切着和平，<a onmousemove="langDict(`dict_tier`)">Tier</a>、<a onmousemove="langDict(`dict_sinnah`)" >Sinnah</a>、<a onmousemove="langDict(`dict_daneth`)" >Daneth </a>和<a onmousemove="langDict(`dict_osgard`)" > Osgard </a>这四个省的领导者们也就此放下武器并在谈判桌上相遇。';}
+#index_p2{content:'　　由于每个省都派一名特使前往帝国唯一的中立地区，因此一个暗黑组织也为此有了计划。四个交战省的领导人不会想到，这个老对手将会不惜一切地摧毁和平的希望。'}
+#index_p3{content:'　　四位特使能否暂时放下仇恨，并建立信任的纽带？渴望战争的恐怖主义又是否会得逞？'}
+#index_p4{content:'　　无论结果如何，<a onmousemove="langDict(`dict_valanor`)" >Valanor </a>的命运都会在<a onmousemove="langDict(`dict_bitterlake`)" > Bitter Lake </a>决定……'}
 
 /* ----- media.html ----- */
 #fullviewtips:after{content:'抱歉，这些图片文件缺失，因此均已无法查看大图。'}

@@ -1,5 +1,6 @@
 var htmlhead=document.head,
  htmlbody=document.body;
+function isReady(){return document.readyState.toLowerCase()=='complete'}
 function fv(id){return document.getElementById(id);}
 function ft(tag){return document.getElementsByTagName(tag);}
 function fc(cname){return document.getElementsByClassName(cname);}
@@ -11,6 +12,10 @@ function vaild(o){return!(o==undefined||o==null||isNaN(o));}
 function gquery(n){
 	var r=location.search.match(new RegExp("[\?\&]"+n+"=([^\&]+)","i"));
 	return r==null||r.length<1?'':r[1];
+}
+function getMousePos(e){
+	var x,y, r=document.documentElement, e = e||window.event; 
+	return{ x:e.clientX+htmlbody.scrollLeft+r.scrollLeft, y:e.clientY+htmlbody.scrollTop+r.scrollTop };
 }
 function addClass(element,name){
 	if(!existsClass(element,name))
@@ -31,8 +36,13 @@ function dynamicLoadCss(url) {
 	htmlhead.appendChild(link);
 }
 
-function cok_a(n,v){
-	document.cookie=n+'='+escape(v);
+function cok_a(n,v,timeExpire,timeShift){
+	if(timeExpire || timeShift){
+		if(!(timeExpire instanceof Number || timeExpire instanceof Date)) timeExpire=new Date().getTime();
+		if(!timeShift instanceof Number) timeShift=0;
+		document.cookie=n+'='+escape(v)+';expires='+new Date(timeExpire+timeShift).toGMTString();
+	}else
+		document.cookie=n+'='+escape(v);
 	return cok(n);
 }
 function cok(n){
