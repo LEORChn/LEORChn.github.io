@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body style="margin:0px 0 0 0;background-color:#111">
+	<style>
+		#origin-size{width:517px; height:290px}
+		div{
+			position: absolute;
+			background: #000;
+			width: 517px;
+			height: calc(290px + 2 * 61.5px);
+			cursor: pointer
+		}
+	</style>
+	<div></div>
+	<script id="dbg">
+	/*iframe src="https://660e.com/md/?url=https://www.bilibili.com/video/av22182802"
+	allowfullscreen="true" scrolling="no" border="0" frameborder="no" framespacing="0"
+	style="width:517px;height:calc(290px + 2 * 61.5px)"
+	></iframe*/
+		function fv(i){return document.getElementById(i);}
+		document.getElementsByTagName('div')[0].addEventListener('click',
+			function(){
+				if(top == window) return;
+				top.hideplayhint();
+				document.body.innerHTML='<iframe src="https://660e.com/md/?url=https://www.bilibili.com/video/av22182802"'+
+	'allowfullscreen="true" scrolling="no" border="0" frameborder="no" framespacing="0"'+
+	'onload="setTimeout(oniframeload,3000)" style="width:517px;height:calc(290px + 2 * 61.5px)"'+
+	'></iframe><div id="spinning" style="position:absolute; width:32px; height:32px; top:50%; left:50%; transform:translate(-50%,-50%); background:url(js/slimbox/loading.gif)"></div>';
+			});
+		
+		function oniframeload(){
+			fv('spinning').style.display='none';
+		}
+		document.body.removeChild(fv('dbg'));
+	</script>
+</body>
+</html>

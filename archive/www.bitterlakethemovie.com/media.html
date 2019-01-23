@@ -15,10 +15,18 @@
 	<meta name="title" content="Bitter Lake | trust is a fickle thing..."/>
 	<meta name="description" content="Bitter Lake is the first live action full motion picture to be made in the Furry Fandom and is the second EZwolf and Shay production to date."/>
 	<meta name="keywords" content="Bitter Lake, furry, movie, eurofurence, ezwolf, shay, fox amoore, costumes, clockwork, creatures, qarrezel, wolf, husky, dragon, dog, video"/>
+	<link href="favicon.ico" rel="icon" type="image/x-icon"/>
 	<!--慢速连接，对于图片的加载要按顺序解禁-->
 	<style type="text/css">
-	#container.delayLoadImage,#map.delayLoadImage,#map-bottom.delayLoadImage,#media.delayLoadImage,#media-strip.delayLoadImage{background:url(images/transparent.gif)}
+	#container.delayLoadImage, #map.delayLoadImage, #map-bottom.delayLoadImage, #media.delayLoadImage, #media-strip.delayLoadImage
+		, #videocover.delayLoadImage {background:url(images/transparent.gif)}
 	body.delayLoadImage{background-image:url(images/transparent.gif);background-color:#000}
+	.position_center{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%)}
+	div.bilibili-player-holder{width:100%; height:290px; position:relative; overflow:hidden}
+	iframe.bilibili-player{position:absolute; width:517px; height:calc(2 * 61.5px + 290px); margin-top:-61.5px}
+	#videoplayhint{pointer-events:none; z-index:1} /* 1是因为封面要夹在这个小提示和视频加载框中间 */
+	#videocover{position:absolute; width:100%; height:100%; top:0; pointer-events:none; background-image:url(../i.vimeocdn.com/video/cover.jpg); background-size:cover}
+	#videoloadinggroup{position:absolute; left:calc(50% - 16px); top:calc(50% - 16px);}
 	</style>
 </head>
 <body class="delayLoadImage"><!--慢速连接包。先加载这个转圈图片-->
@@ -33,21 +41,16 @@
 			<div id="content">
 				<div id="media" class="delayLoadImage">
 					<!--修改为显示B站视频-->
-<style>
-div.bilibili-player-holder{width:100%;height:290px;position:relative;overflow:hidden}
-iframe.bilibili-player{position:absolute;width:517px;height:calc(2 * 61.5px + 290px);margin-top:-61.5px}
-</style>
 					<div style="width:100%;height:290px;position:relative">
 						<div id="videoplay" style="display:none;">
-							<div id="videoplayhint" style="position:absolute;right:0;top:50%;z-index:1;">请点击播放视频</div>
-							<div class="bilibili-player-holder">
+							<div class="bilibili-player-holder"></div>
 								<!--iframe class="bilibili-player" sandbox="allow-scripts allow-same-origin" onload="onvideopageload()" src="https://m.bilibili.com/video/av22182802.html" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe-->
-							</div>
+							<div id="videoplayhint" class="position_center">请点击播放视频</div>
 						</div>
-						<div style="position:absolute;width:100%;height:100%;top:0;background-size:cover;pointer-events:none" id="videocover"></div>
-						<div style="position:absolute;left:calc(50% - 16px);top:calc(50% - 16px);" id="videoloadinggroup">
+						<div id="videocover" class="delayLoadImage"></div><!-- 这个放外面是因为上面那个是视频的加载框，视频加载好之后才会显示 -->
+						<div id="videoloadinggroup">
 							<div style="width:32px;height:32px;background:url(js/slimbox/loading.gif);"></div>
-							<div style="text-align:center" id="videoloadingcountdown"></div>
+							<div id="videoloadingcountdown" style="text-align:center"></div>
 						</div>
 						<!--iframe style="margin:-30px 0 0 -1px" src="http://player.bilibili.com/player.html?aid=22182802&cid=36696880&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="517" height="358"></iframe>
 						第一个是HTML5页面接口，被注释的第二个是分享接口-->
@@ -56,7 +59,7 @@ iframe.bilibili-player{position:absolute;width:517px;height:calc(2 * 61.5px + 29
 							<a> - </a>
 							<a target="_blank" style="color:#fff" href="https://www.bilibili.com/video/av37261349">观看完整电影</a>
 						</div>
-					</div>
+					</div><!-- B站视频节点 结束 -->
 				</div>
 				<div id="media-strip" class="delayLoadImage">
 					<div id="thumbstrip">
@@ -91,141 +94,8 @@ iframe.bilibili-player{position:absolute;width:517px;height:calc(2 * 61.5px + 29
 		<area id="area-media" href="media.html" alt="Media" shape="poly" coords="73,378,78,351,90,329,113,326,129,304,163,297,174,276,188,275,206,289,245,264,255,278,254,292,229,324,201,359,165,383,"/>
 	</map>
 	</div>
-	<!--此处以下增加一个不怎么显眼的小提示-->
-	<!--a style="position:fixed;right:0;bottom:0;text-decoration:none;color:#fff" href="javascript:alert('本页面已知的BUG：\n底部所有缩略图的大图文件全部丢失，将无法点击并显示。')">本页面的已知BUG...</a-->
-	<div id="fullviewtips" style="display:none" class="maptipsbox">Unfortunately, the full version of those pictures cannot be viewed because the files was lost.</div>
-<!--为了更好的体验，慢速连接时按顺序加载图片-->
-<script src="/js/baseLib.js"></script>
-<script src="/js/http.js"></script>
-<script src="mapTips.js"></script>
-<script src="navigation.js"></script>
-<script src="/js/iframeClickEvent.js"></script>
-<script src="langSwitch.js"></script>
-<script>
-regMapTips(fv('fullviewtips'), fv('thumb_blocker')); // mapTips.js
-var loadedFunctions=0,
-	delayFunctions=[loadVideoContainer, loadMapBottomImage, loadMapImage, loadMediaStripImage, loadVideoCover, loadVideoAndBackground, loadBottomThumbs],
-	loadingImages=[],
-	loadingInterval;
-function loadingStatusChange(){
-	if(loadedFunctions < delayFunctions.length){
-		delayFunctions[loadedFunctions]();
-		loadedFunctions++;
-	}else{
-		clearInterval(loadingInterval);
-	}
-	pl('status: '+ loadedFunctions);
-}
-function checkImagesLoaded(){
-	for(var i=0;i<loadingImages.length;i++){
-		if(!loadingImages[i].complete) return;
-	}
-	loadingStatusChange();
-}
-function unblockImage(){
-	for(var i=0;i<arguments.length;i++){
-		removeClass(arguments[i],'delayLoadImage');
-	}
-}
-function setLoadingImages(){
-	loadingImages=[];
-	for(var i=0;i<arguments.length;i++){
-		loadingImages[i]=new Image();
-		loadingImages[i].src=arguments[i];
-	}
-}
-function delayItemLoads(){
-	setLoadingImages('images/logo.jpg');
-	loadingInterval=setInterval(checkImagesLoaded, 500);
-}
-function loadVideoContainer(){
-	unblockImage(fv('media'));
-	setLoadingImages('images/media-top.jpg');
-}
-function loadMapBottomImage(){
-	unblockImage(fv('map-bottom'));
-	setLoadingImages('images/map-bottom-media.jpg');
-}
-function loadMapImage(){
-	unblockImage(fv('map'));
-	setLoadingImages('images/map.jpg');
-}
-function loadMediaStripImage(){
-	unblockImage(fv('media-strip'));
-	setLoadingImages('images/media-bottom.jpg');
-}
-function loadVideoCover(){
-	var coverimage='../i.vimeocdn.com/video/cover.jpg';
-	setLoadingImages(coverimage);
-	fv('videocover').style.backgroundImage='url('+coverimage+')';
-}
-
-var isMobilePlay=false;
-var playerIframe;
-function loadVideoAndBackground(){
-	unblockImage(document.body);
-	setLoadingImages('images/bg.jpg');
-	
-	isMobilePlay=window.navigator.userAgent.toLowerCase().contains('mobile');
-	var f=playerIframe=ct('iframe');
-	f.className='bilibili-player';
-	f.setAttribute('onload','onvideopageload()');
-	if(isMobilePlay){
-		f.src='https://m.bilibili.com/video/av22182802.html';
-		f.sandbox='allow-scripts';// block app opening-require when mobile browser
-		f.setAttribute('border',"0");
-		f.setAttribute('frameborder','no');
-	}else{
-		f.src='videoplay.html';
-		f.setAttribute('border',"0");
-		f.setAttribute('frameborder','no');
-		f.setAttribute('framespacing','0');
-		f.setAttribute('allowfullscreen','true');
-		f.scrolling="no";
-	}
-	//if(!) f.sandbox='allow-scripts allow-same-origin';
-	fc('bilibili-player-holder')[0].appendChild(f);
-	vlcd();
-}
-function loadBottomThumbs(){
-	var thumbs=fv('thumbImages').getElementsByTagName('img');
-	for(var i=0;i<thumbs.length;i++){
-		thumbs[i].src=thumbs[i].title;
-	}
-}
-
-delayItemLoads();
-var vlcdn=100;
-var vlcd=function(){
-	var cdiv=fv('videoloadingcountdown');
-	cdiv.innerText=vlcdn;
-	vlcdn--;
-	if(vlcdn<0){
-		cdiv.style.display='none';
-		fv('videoplay').style.display='';
-	}else setTimeout(vlcd,1000);
-};
-function hideplayhint(){
-	fv('videoplayhint').style.display='none';
-	fv('videocover').remove();
-}
-function onvideopageload(){
-	setIframe.onClick(playerIframe, function(){
-		setTimeout(hideplayhint, 300);
-	});
-	if(isMobilePlay){
-		onFlashDelayed();
-	}else{
-		vlcdn=3;//fv('videoloadingcountdown').style.display='none';
-		setTimeout(onFlashDelayed, 3000);
-	}
-}
-function onFlashDelayed(){
-	fv('videoloadinggroup').style.display='none';
-	fv('videoplay').style.display='';
-	//setTimeout(hideplayhint,10000);
-}
-</script>
-	<script src="betterScaleTips.js"></script>
+	<!--为了更好的体验，慢速连接时按顺序加载图片-->
+	<script src="/js/baseLib.js"></script>
+	<script src="ext/media.js"></script>
 </body>
 </html>

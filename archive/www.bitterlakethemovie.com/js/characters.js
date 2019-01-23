@@ -20,18 +20,4 @@ window.addEvent('domready', function() {
 	});
 });
 
-//以下内容为修改新增，以上的修改仅仅是把 origHighlight 公开化
-var nameindex=0;
-function set(index){
-	var namelist=['winters','dale','arden','drraer'];
-	var idtag=document.getElementsByClassName('char '+namelist[nameindex])[0];
-	idtag.className='char '+namelist[index];
-	var chardetails=document.getElementsByClassName('chardetail');
-	for(var i=0;i<chardetails.length;i++) chardetails[i].style.display='none';
-	chardetails[index].style.display='';
-	
-	var sideimagelist=['winters','quill','quill','quill'];
-	document.getElementById('content-left').getElementsByTagName('div')[0].style.background='url(images/side-'+sideimagelist[index]+'.jpg)';
-	origHighlight='hl-'+namelist[index];
-	nameindex=index;
-}
+//本文件的修改仅仅是把 origHighlight 公开化

@@ -35,9 +35,9 @@ function addLangSwitcher(){
 	s=languageSwitcher=ct('select'),
 	li;
 	t.position='fixed';
-	t.margin='auto';
-	t.textAlign='center';
-	t.bottom=t.left=t.right=0;
+	t.bottom=0;
+	t.left='50%';
+	t.transform='translateX(-50%)';
 	for(var i=0;i<LANGCODES.length;i++){
 		s.appendChild(ct('option', LANGCODES[i][0]));
 	}
@@ -61,7 +61,7 @@ function loadLangCssByIndex(langIndex){
 }
 function loadLangCss(langCode){ // by code name
 	var fpath='lang_'+ langCode +'.css';
-	dynamicLoadCss(fpath);
+	addCss(fpath);
 	applyLangCss();
 }
 function applyLangCss(){
@@ -69,7 +69,7 @@ function applyLangCss(){
 	 langCode=LANGCODES[currentLangMode][1],
 	 loaded=-1;
 	for(var i=0;i<ss.length;i++){ // check if is load to local
-		if(ss[i].href && ss[i].href.endsWith('lang_' + langCode + '.css')){
+		if(ss[i].href && new RegExp('lang_' + langCode + '\.css$').test(ss[i].href)){
 			loaded=i;
 			break;
 		}
@@ -79,14 +79,28 @@ function applyLangCss(){
 		return;
 	}
 	ss = ss[loaded].cssRules;
+	if(ss.length==0){ // i hate ie
+		setTimeout(applyLangCss, 300);
+		return;
+	}
 	for(var i=0;i<ss.length;i++){
 		var st=ss[i].selectorText,
-		 isFloat=st.includes('::after'), // all includes ::after is floating box
-		 res= document.querySelectorAll(isFloat? st.replace('::after',''): st);
+		 isFloat = st.contains('::after'), // all includes ::after is floating box
+		 aftercut = st.replace('::after',''),
+		 res= document.querySelectorAll(isFloat? aftercut.length>0? aftercut: 'SelectorUnreachable' : st);
+		 // 浮动提示？{向选择器传入文本不是空？{传入裁剪文本 否则 无法选择任何实体} 否则 传入整个选择器文本}
 		for(var e=0;e<res.length;e++){
 			var c=ss[i].style.content;
 			if(isFloat) res[e].innerText='';
 			else res[e].innerHTML=c.substr(1,c.length-2);
+		}
+	}
+	ss = document.querySelectorAll('[tid]');
+	for(var i=0;i<ss.length;i++){
+		ss[i].onmousemove = langDict;
+		if(applicationCache){
+			ss[i].addEventListener('touchstart', langDict);
+			ss[i].addEventListener('touchmove', langDict);
 		}
 	}
 }
@@ -104,19 +118,19 @@ function checkIsHaveToSwitchLanguage(){
 
 function addLangDictTipbox(){
 	var t=languageDictionaryBox=ct('div');
-	t.id='langDictTipbox';
 	t.className='maptipsbox';
 	htmlbody.appendChild(t);
 }
-function langDict(dict){
-	var t=languageDictionaryBox,
+function langDict(){
+	var self=event.srcElement,
+	 t=languageDictionaryBox,
 	 s=t.style;
-	t.className='maptipsbox '+dict;
-	var pos=getMousePos();
+	t.className='maptipsbox '+self.getAttribute('tid');
+	var pos=getFixMousePos();
 	s.left = pos.x + 'px';
 	s.top = pos.y + 20 + 'px';
 	s.display = 'block';
-	this.onmouseout=langDictExit;
+	self.onmouseout=langDictExit;
 }
 function langDictExit(){
 	languageDictionaryBox.style.display='';

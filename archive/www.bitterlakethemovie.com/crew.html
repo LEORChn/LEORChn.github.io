@@ -14,8 +14,8 @@
 		<meta name="title" content="Bitter Lake | trust is a fickle thing..."/>
 	<meta name="description" content="Bitter Lake is the first live action full motion picture to be made in the Furry Fandom and is the second EZwolf and Shay production to date."/>
 	<meta name="keywords" content="Bitter Lake, furry, movie, eurofurence, ezwolf, shay, fox amoore, costumes, clockwork, creatures, qarrezel, wolf, husky, dragon, dog, video"/>
-	<link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAABcAAAAuAATE5EALy+PAACV/wAAd/8AGRmzAABi0QAuqP8AJyehAEVFzAAARZQAKSm6AAAAAAAAAAAAAAAAAAAAAIkAAAAApDPIlQAAAKM01VlQAAADRER1WgAAAKRNR2ZAAAAE3dp9HUAAAARE19FEAAAA3d19HUAAAADb3dHUAAAAC7LdHUAAAAANsiHdAAAAAA3SG9AAAAAA0tHbAAAAAAAiG9AAAAAAACErAAAAAAAAIrAAAAAAAAD//AAA/wAAAPwBAAD4AwAA8AcAAOAHAADgDwAAwB8AAMA/AACAfwAAgP8AAIH/AAAD/wAAB/8AAA//AAAf/wAA" rel="icon" type="image/x-icon"/>
-	<style><!--.switchhide{display:none}--></style>
+	<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+	<style>.switchhide{display:none}</style>
 </head>
 <body>
 	<div id="container">
@@ -227,66 +227,8 @@
 		<area id="area-media" href="media.html" alt="Media" shape="poly" coords="73,378,78,351,90,329,113,326,129,304,163,297,174,276,188,275,206,289,245,264,255,278,254,292,229,324,201,359,165,383,"/>
 	</map>
 	</div>
-	<!--此处以下增加一个不怎么显眼的小提示-->
-	<div style="position:fixed;right:0;bottom:0">“关于” 页面的多个版本：<a style="color:#fff" href="#2011">2011年10月</a> <a style="color:#fff" href="#2013">2013年1月</a> <a style="color:#fff" href="#">2013年8月</a></div>
-	<div style="position:fixed;left:0;bottom:0">当前位置 <a style="color:#fff" href="/">瑞兽谷</a> &gt; Bitter Lake 镜像站</div>
 	<!--为了更好地体验本页面并减少跳转和重新加载，而使用这个脚本。-->
 	<script src="/js/baseLib.js"></script>
-	<script src="/js/http.js"></script>
-	<script src="mapTips.js"></script>
-	<script src="navigation.js"></script>
-<script>
-var lastHash;
-function regOnLocationChanged(){
-	if( ('onhashchange' in window) && ((typeof document.documentMode==='undefined') || document.documentMode==8)) {
-    	window.onhashchange = onLocationChanged;
-	}else{
-		lastHash=window.location.hash;
-		setInterval(function(){
-			if(lastHash != window.location.hash){
-				lastHash=window.location.hash;
-				onLocationChanged();
-			}
-    	}, 300);
-	}
-}
-function onLocationChanged(){
-	var hashlist=['','2011','2013','shay','ezwolf','foxamoore','tigertom','rin','stoelbank','forfaox','tillikum','nikoshi','kwisa','lucy'],
-		hash=window.location.hash.replace('#',''),
-		index=0,
-		switcher=fc('switchhide');
-	for(var i=0;i<hashlist.length;i++){
-		if(hashlist[i]==hash){
-			index=i;
-			break;
-		}
-	}
-	for(var i=0;i<switcher.length;i++){
-			switcher[i].style.display= index==i? 'block': '';
-	}
-	var homenavigator=fv('backabout');
-	homenavigator.getElementsByTagName('h2')[0].className='crew '+(index>2? hashlist[index]: 'about');
-	
-	fv('logo').className='side';
-	switch(index){
-		case 0: // 2013-8
-			fv('logo').className='';
-			fv('dvd').removeAttribute('href');
-			break;
-		case 1: // 2011-10
-			fv('dvd').href='dvd.html';
-			break;
-		case 2: //2013-1
-			fv('dvd').href='';
-	}
-	/*
-	homenavigator.onclick= index>0? undefined: function(){return false;};
-	homenavigator.style.cursor= index>0? '': 'default';
-	*/
-}
-regOnLocationChanged();
-onLocationChanged();
-</script>
-	<script src="betterScaleTips.js"></script>
+	<script src="ext/crew.js"></script>
 </body>
 </html>

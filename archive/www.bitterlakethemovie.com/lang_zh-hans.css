@@ -1,26 +1,59 @@
-/* 地图被放置光标时提示 */
-#maplocal0:after{content:'剧情概要'}
-#maplocal1:after{content:'出场角色'}
-#maplocal2:after{content:'关于电影'}
-#maplocal3:after{content:'媒体资源'}
+:after{white-space:pre-wrap}
+.fill_parent{width:100%;height:100%}
+
+/* -- 地图被放置光标时提示 -- */
+.maptipsbox.area-synopsis:after{content:'剧情概要'}
+.maptipsbox.area-characters:after{content:'角色介绍'}
+.maptipsbox.area-castcrew:after{content:'关于电影'}
+.maptipsbox.area-media:after{content:'媒体资源'}
 
 /* -- 字典 -- */
-.dict_bitterlake:after{content:'苦湖'}
-.dict_valanor:after{content:'瓦拉诺 帝国'}
-.dict_tier:after{content:'提尔'}
-.dict_sinnah:after{content:'辛那'}
-.dict_daneth:after{content:'丹纳斯'}
-.dict_osgard:after{content:'奥斯卡'}
+.dict_bitterlake:after{content:'苦湖\A Bitter Lake\A\A Valanor 帝国唯一的中立地区。'}
+.dict_valanor:after{content:'瓦拉诺 帝国\A Kingdom Valanor\A\A成立周期：圣女纪元 1489 - 1602\A成立计时：113年\A\A前任国王：Leoric of Tolver\A在任周期：圣女纪元 ? - 1602\A卸任原因：被暗杀'}
+.dict_tier:after{content:'提尔 省\A Tier\A\A位于 Valanor 帝国的东部。'}
+.dict_sinnah:after{content:'辛那 省\A Sinnah\A\A位于 Valanor 帝国的南部。'}
+.dict_daneth:after{content:'丹纳斯 省\A Daneth\A\A位于 Valanor 帝国的西部。'}
+.dict_osgard:after{content:'奥斯卡 省\A Osgard\A\A位于 Valanor 帝国的北部。'}
+
+.dict_winters:after{content:'贝罗娜 丹 温特斯\A Belora dan Winters\A种族：龙\A\A Sinnah 省派往 Bitter Lake 的特使。\A\A演员：Rin'}
+.dict_dale:after{content:'凯勒斯 迪尔\A Careth Dale (imitating)\A种族：狐\A\A Daneth 省派往 Bitter Lake 的特使。\A\A演员：Forfaox'}
+.dict_drraer:after{content:'雷登 德莱尔\A Raden Drraer\A种族：狼\A上校军衔\A\A Osgard 省派往 Bitter Lake 的特使。\A\A演员：EZwolf'}
+.dict_arden:after{content:'亚当 托夫\A Arden of Tolver\A种族：狼\A\A Tier 省派往 Bitter Lake 的特使。\A Valanor 帝国的前任国王的长子。\A\A演员：StoelBank'}
+.dict_aelric:after{content:'埃里克 托夫\A Aelric of Tolver\A种族：狼\A\A Valanor 帝国的前任国王的次子。\A\A演员：StoelBank'}
+.dict_leoric:after{content:'李奥瑞克 托夫\A Leoric of Tolver\A种族：狼\A\A Valanor 帝国的前任国王。\A在任周期：圣女纪元 ? - 1602\A卸任原因：被暗杀'}
+
+/* -- 额外字典 -- */
+.dict_assassin:after{content:'刺客\A assassin\A\A古代的雇佣兵。'}
+.dict_butcher:after{content:'“丹纳斯屠夫”\A"The Butcher of Daneth"\A\A Careth Dale 的称号。'}
+
 
 /* ----- index.html ----- */
-/* 首字下沉 */
-#firstchar.first{background:url('')}
+/* -- 首字下沉 -- */
+#firstchar.first{background:url(images/transparent.gif)}
 
-/* 剧情概要 */
-#index_p1{content:'在<a onmousemove="langDict(`dict_valanor`)" > Valanor 帝国</a>长达一个多世纪的和平统治后，突然被一场可怕的内战四分五裂。内战12年间，资源也不断减少。饥饿的人民迫切着和平，<a onmousemove="langDict(`dict_tier`)">Tier</a>、<a onmousemove="langDict(`dict_sinnah`)" >Sinnah</a>、<a onmousemove="langDict(`dict_daneth`)" >Daneth </a>和<a onmousemove="langDict(`dict_osgard`)" > Osgard </a>这四个省的领导者们也就此放下武器并在谈判桌上相遇。';}
-#index_p2{content:'　　由于每个省都派一名特使前往帝国唯一的中立地区，因此一个暗黑组织也为此有了计划。四个交战省的领导人不会想到，这个老对手将会不惜一切地摧毁和平的希望。'}
-#index_p3{content:'　　四位特使能否暂时放下仇恨，并建立信任的纽带？渴望战争的恐怖主义又是否会得逞？'}
-#index_p4{content:'　　无论结果如何，<a onmousemove="langDict(`dict_valanor`)" >Valanor </a>的命运都会在<a onmousemove="langDict(`dict_bitterlake`)" > Bitter Lake </a>决定……'}
+/* -- 剧情概要 -- */
+#index_p1,#index_p2,#index_p3,#index_p4{line-height:25px}
+#index_p1{content:'<a tid=dict_valanor> Valanor 帝国</a>在113年的和平统治后，突然被一场内战四分五裂。经历12年内战后，资源耗得所剩无几。水深火热中的人民迫切着和平，<a tid=dict_tier>Tier</a>、<a tid=dict_sinnah>Sinnah</a>、 <a tid=dict_daneth>Daneth </a>和<a tid=dict_osgard> Osgard </a>这四个省的领导者们也就此暂时卸下武装，到谈判桌上会面。';}
+#index_p2{content:'　　在每个省都派一名特使前往帝国唯一的中立地区进行交涉之时，一个暗黑组织也为此蠢蠢欲动。四个交战省的领导人不会想到，这个老对手将会不惜一切地摧毁和平的希望。'}
+#index_p3{content:'　　四位特使能否暂时放下仇恨，重建信任？渴望战争的恐怖主义又是否会得逞？'}
+#index_p4{content:'　　无论结果如何，<a tid=dict_valanor>Valanor </a>的命运都会在<a tid=dict_bitterlake> Bitter Lake </a>决定……'}
+
+/* -- 其他 -- */
+.maptipsbox.signature:after{content:'签名：Michael Wolf Visser a.k.a Shay'}
+
+
+/* ----- character.html ----- */
+div>p.chardetail{line-height:25px}
+div>h2+p.chardetail{content:'　　<a tid=dict_winters>Belora dan Winters </a>在<a tid=dict_sinnah> Sinnah </a>省的其中一个农场长大。她是一位有魅力的农民和商人的女儿，因此她从小被灌输了勤劳刻苦的观念。在被<a tid=dict_daneth> Daneth </a>商人和<a tid=dict_osgard> Osgard </a>叛军压迫多年后，她成为了<a tid=dict_sinnah> Sinnah </a>省人民的代表，进而代表<a tid=dict_sinnah> Sinnah </a>的人民成为前往<a tid=dict_bitterlake> Bitter Lake </a>谈判的特使。正是因为她潜移默化地影响着她的人民，她的人民才如此地渴望独立，并且<a tid=dict_winters> Belora </a>会用这个机会给她的人民争取到他们所谓的自由。'}
+div>h2+p+p.chardetail{content:'　　<a tid=dict_dale>Careth Dale </a>是一位老奸巨猾的人物，在<a tid=dict_daneth> Daneth </a>许多商人都害怕他。他控制着80%的黑市交易，并借此从事间谍和敲诈勒索活动并继续给<a tid=dict_assassin>雇佣兵</a>提供资金。传闻有三个商人在背叛他之后被吊起来挖出内脏，他也就此被称为<a tid=dict_butcher>“丹纳斯屠夫”</a>。他为了确保他的贸易帝国继续隐蔽地运行，而想出了贿赂<a tid=dict_daneth> Daneth </a>的领导人并作为特使前往<a tid=dict_bitterlake> Bitter Lake </a>的计划。'}
+div>h2+p+p+p.chardetail{content:'　　<a tid=dict_arden>Arden 王子</a>是合法的<a tid=dict_valanor> Valanor 帝国</a>王位继承人。在<a tid=dict_leoric>他的父亲 Leoric </a>被暗杀后，他和<a tid=dict_aelric>他的“智障”弟弟 Aelric </a>就被剥夺了权力。<a tid=dict_arden> Arden </a>只有一个目标，那就是收回他的合法王位并成为<a tid=dict_valanor> Valanor </a>的新一任国王。在<a tid=dict_tier> Tier </a>要选出一名派遣到<a tid=dict_bitterlake> Bitter Lake </a>的特使时，他主动自荐，自认为这是争取回王位的机会。没多想便让弟弟接管事务，只身前往<a tid=dict_bitterlake> Bitter Lake </a>。'}
+div>h2+p+p+p+p.chardetail{content:'　　乍一看，<a tid=dict_drraer>Raden Drraer 上校</a>是个沉默寡言、精于算计、观察力强的人物。他来自寒冷的<a tid=dict_osgard> Osgard 省</a>，是一个军人世家最后的成员。在内战期间他的出色表现使他在六年内就获得上校军衔，军衔提升速度也因此成为史上之最。他的上级也因为他是敏锐的战术家兼剑术大师而命令他前往<a tid=dict_bitterlake> Bitter Lake</a>。他会在讨论军事问题时尽可能争取到<a tid=dict_osgard> Osgard 省</a>高级指挥官的位置。'}
+
+/* -- 其他 -- */
+.maptipsbox.character-side-picture:after{content:'本页面已知的BUG：\A 3个侧边角色图片丢失，在切换时将无法显示。\A但是什么都不显示就有点太空旷了，稍稍修改了一下'}
+
+/* ----- crew.html ----- */
+
 
 /* ----- media.html ----- */
-#fullviewtips:after{content:'抱歉，这些图片文件缺失，因此均已无法查看大图。'}
+.maptipsbox.thumb_blocker:after{content:'抱歉，这些图片文件缺失，因此均已无法查看大图。'}
