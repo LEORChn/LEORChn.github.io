@@ -1,3 +1,5 @@
 div#androido{width:180px;height:260px;right:0px;margin:-10px -20px 0 -40px;overflow:hidden;float:right}
 video.androido{width:240px;height:270px;margin-right:-40px;}
 img.androido{margin-left:-5px;margin-top:-5px}
+.qrcontainer>a{height:100%;position:relative}
+.qrcontainer>a>div{width:240px;height:320px;background-size:cover;background-repeat:no-repeat;display:inline-block}

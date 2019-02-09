@@ -43,19 +43,26 @@ function addItems(){
 		g.innerHTML=h;
 		itemWidthAdaption();
 		itemDataLoad();
+		if('onresize' in window){
+			window.onresize=itemWidthAdaption;
+		}
 	},function(){
 		addItems();
 	});
 }
 function itemWidthAdaption(){
-	var m=fv('blog'), // 取得Item的容器
-	r=/[0-9]*/, // 部分给出px字符串导致无法计算，因此要用正则取出
-	w=m.offsetWidth-r.exec(m.style.paddingLeft)-r.exec(m.style.paddingRight), // 算出总可用宽度
-	c=Math.floor(w/350), // 可放置的列数
-	ew=w/c; // 每个列应该的宽度
-	for(var i=0,e=fc('item_artwork_root');i<e.length;i++){
-		if(!e[i].parentNode.className.includes('item_artwork'))
-			e[i].style.width=ew+'px';
+	try{
+		var m=fv('blog'), // 取得Item的容器
+		r=/[0-9]*/, // 部分给出px字符串导致无法计算，因此要用正则取出
+		w=m.offsetWidth-r.exec(m.style.paddingLeft)-r.exec(m.style.paddingRight), // 算出总可用宽度
+		c=Math.floor(w/350), // 可放置的列数
+		ew=w/c; // 每个列应该的宽度
+		for(var i=0,e=fc('item_artwork_root');i<e.length;i++){
+			if(!e[i].parentNode.className.includes('item_artwork'))
+				e[i].style.width=ew+'px';
+		}
+	}catch(e){
+		window.onresize=null;
 	}
 }
 function itemDataLoad(){

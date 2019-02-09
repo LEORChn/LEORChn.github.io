@@ -17,6 +17,7 @@ function onLocationChanged(){
 	// 加载网页
 	http('get',location.href.replace('#',''),'',function(){
 		var brows=fv('brows');
+		if(this.status == 404){ location.href='/'; return; }
 		brows.innerHTML=this.responseText;
 		// 开始加载页面CSS
 		var css=brows.getElementsByTagName('css');

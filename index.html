@@ -15,7 +15,7 @@ a{color:#0000FF;cursor:pointer} a.noline{text-decoration: none}
 .block{display:block}
 .watermarkTopRight{position:absolute;z-index:-0;top:-20px;right:0;font-size:100px;opacity:.5;color:#CCC;cursor:default}
 .h1{font-size:24px;padding-top:24px;position:relative}
-
+.device, #brows{width:100%; max-width:1100px; margin:auto}
 /*自定义动态样式表格式*/
 css{display:none}
 
@@ -25,12 +25,12 @@ css{display:none}
 </head>
 <body>
 <div align="center">
-	<div class="device" style="width:1100px;height:303px">
-		<p class="device" style="margin:0 0;overflow:hidden">
-			<img id="header" style="background-image:url(img/Header_Starbound.webp);background-size:cover" width="1100" height="224" draggable="false">
-		</p>
+	<div class="device" style="height:303px">
+		<div class="device" style="margin:0 0; overflow:hidden">
+			<div id="header" class="webp" style="background-image:url(img/Header_Starbound.webp);background-size:cover;width:1100px;height:224px"></div>
+		</div>
 		<a id="loadpage"></a>
-		<float class="device" style="visibility:hidden;width:1100px"><!--add overflow:scroll on mobile-->
+		<float class="device" style="visibility:hidden; margin:0; overflow:scroll; overflow:-moz-hidden-unscrollable">
 			<nav>
 				<fl onclick="jump(0)"><!--PageForm-->
 					<pht>动态</pht><!--PageHolderText (normal)-->
@@ -45,7 +45,7 @@ css{display:none}
 		</float>
 	</div>
 	<noscript>请开启 JavaScript 功能访问。</noscript>
-	<div id="brows" style="width:1100px"></div><br><a class="noline" href="#home/agreement_1.html">文章转载协议</a>
+	<div id="brows"></div><br><a class="noline" href="#home/agreement_1.html">文章转载协议</a>
 	<a class="noline" href="#home/licensed.html">（查看转载者存档）</a><br><div style="height:100px"></div>
 </div>
 <script src="js/baseLib.js"></script>

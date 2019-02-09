@@ -1,5 +1,11 @@
 var htmlhead=document.head,
  htmlbody=document.body;
+(function(){
+	if(!('innerText' in document.body)){
+		HTMLElement.prototype.__defineGetter__("innerText", function(){ return this.textContent; });
+		HTMLElement.prototype.__defineSetter__("innerText", function(s){ return this.textContent=s; });
+	}
+})();
 function isReady(){return document.readyState.toLowerCase()=='complete'}
 function fv(id){return document.getElementById(id);}
 function ft(tag){return document.getElementsByTagName(tag);}
@@ -12,6 +18,21 @@ function vaild(o){return!(o==undefined||o==null||isNaN(o));}
 function gquery(n){
 	var r=location.search.match(new RegExp("[\?\&]"+n+"=([^\&]+)","i"));
 	return r==null||r.length<1?'':r[1];
+}
+
+(function(){for(var i=0,a=fc('webp');i<a.length;i++) webpReplace(a[i]);})();
+function webpReplace(e,u){
+	var a=new Image();
+	a.src=/url\(\"?([^\"]*)\"?\)/.exec(e.style.backgroundImage)[1];
+	a.onerror=function(){
+		e.style.backgroundImage=u? u: 'url('+this.src.replace(/\.webp$/,'.png')+')';
+		if(!fv('webpnotice')){
+			var n=ct('div','您的浏览器不支持 WebP。'),m=ct('a','维基百科');
+			n.id='webpnotice'; n.style.cssText='position:fixed; right:0; top:0; background-color:#fff; z-index:999';
+			m.href="https://en.wikipedia.org/wiki/WebP"; m.target="_blank";
+			n.appendChild(m); htmlbody.appendChild(n);
+		}
+	}
 }
 
 function getAbsMousePos(){ // 相对于页面获取的光标和触摸位置，适用于属性 position 的值是 absolute 的元素（相对于整个文档根部） // TODO: 总感觉这个有BUG没修
@@ -39,17 +60,9 @@ function getFixMousePos(){ // 相对于屏幕获取的光标和触摸位置，�
 	return{ x:x, y:y };
 }
 
-function addClass(element,name){
-	if(!existsClass(element,name))
-		element.className+=' '+name;
-}
-function removeClass(element,name){//这个之后再说
-	if(existsClass(element,name));
-		element.className=element.className.replace(new RegExp('\\s?'+name+'\\s?'),' ');
-}
-function existsClass(element,name){
-	return new RegExp('\\s?'+name+'\\s?').test(element.className);
-}
+function hasClass(e,n){ return !!e.className.match(new RegExp("(\\s|^)"+n+"(\\s|$)")); }
+function addClass(e,n){ if(!hasClass(e,n)) e.className+=' '+n; }
+function removeClass(e,n){ if(hasClass(e,n)) e.className=e.className.replace(new RegExp('(\\s|^)'+n+'(\\s|$)'), ' '); }
 
 function imports(){
 	if(arguments.length == 1) arguments = arguments[0].split(',');

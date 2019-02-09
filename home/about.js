@@ -1,6 +1,6 @@
 (function(){
 	initDonationList();
-	wxprepare(fv('wxdonate'));
+	//wxprepare(fv('wxdonate'));
 	vprepare(fv('androido'));//checkIfOnLoad();
 })();
 function initDonationList(){
@@ -35,6 +35,7 @@ function vprepare(v){
 		for(;;){
 			if(ua.indexOf(' mobile')>0)break;
 			if(ua.indexOf(' applewebkit/')>0)break unsup;
+			break;
 		}
 		var im=ct('img');
 		im.className='androido';
@@ -58,10 +59,10 @@ function vprepare(v){
 	vd.onclick=function(){this.title='androido'; if(this.ended)this.onended();else if(this.paused)this.play();else this.pause(); }
 }
 function wxprepare(v){
-	var ua=navigator.userAgent.toLowerCase();
+	//var ua=navigator.userAgent.toLowerCase();
 	/*if(ua.indexOf(' mobile')>0)
 		v.href='weixin://wxpay/bizpayurl?pr=f2f0Pb0JgakNs9OzGSriFCXXMnTkQXc69dnU';
-	else */v.download='*.png';
+	else v.download='*.png';*/
 }
 function download(url,fname){
 	var pom = document.createElement('a');
