@@ -31,11 +31,10 @@ function onLocationChanged(){
 		}
 		// 开始加载页面JS，通过重新载入JS文件的方式
 		var scs=brows.getElementsByTagName('script');
-		for(var i=0;i<scs.length;i++){
+		for(var i=0,len=scs.length;i<len;i++){
 			var nsc=ct('script');
-			nsc.src=scs[0].src;
+			nsc.src=scs[i].src;
 			//nsc.innerText=scs[0].innerText.replace('<br>','');
-			scs[0].remove();
 			brows.appendChild(nsc);
 		}
 	},function(){

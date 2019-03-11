@@ -1,6 +1,14 @@
 var htmlhead=document.head,
  htmlbody=document.body;
 (function(){
+	// General Method Compat
+	if(!('contains' in String.prototype)) String.prototype.contains=function(s){ return this.indexOf(s)>-1; }
+	
+	// IE Method Compat
+	if(!('includes' in String.prototype)) String.prototype.includes=function(s){ return this.indexOf(s)>-1; }
+	if(!('remove' in HTMLElement)) HTMLElement.prototype.remove=function(){ try{this.parentElement.removeChild(this);}catch(e){} }
+	
+	// Firefox Method Compat
 	if(!('innerText' in document.body)){
 		HTMLElement.prototype.__defineGetter__("innerText", function(){ return this.textContent; });
 		HTMLElement.prototype.__defineSetter__("innerText", function(s){ return this.textContent=s; });

@@ -1,3 +1,5 @@
+#group_archive{min-height:32px}
+#group_archive>loader{display:block; position:absolute; left:calc(50% - 16px)}
 a.item_archive_root{width:100%;height:256px;display:inline-table;position:relative;background-color:#F8F8F8;color:#000000;overflow:hidden}
 a.item_archive_root:hover{background-color:#F0F0F0}
 a.item_archive_root:active{background-color:#E0E0E0}

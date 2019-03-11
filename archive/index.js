@@ -10,8 +10,8 @@ function initArchiveListsub(){
 }
 function initArchiveListData(){
 	http('get',location.href.replace('#','')+'data.json','',function(){
-		var g=fv('group_archive')
-		j=eval('('+this.responseText+')');
+		var g=fv('group_archive'),
+			j=eval('('+this.responseText+')');
 		for(var i=0;i<j.length;i++){
 			var t=ct('div');
 			g.appendChild(t);
