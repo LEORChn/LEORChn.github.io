@@ -1,8 +1,26 @@
 var htmlhead=document.head,
  htmlbody=document.body;
 (function(){
-	// General Method Compat
+	// Generic Method Compat
 	if(!('contains' in String.prototype)) String.prototype.contains=function(s){ return this.indexOf(s)>-1; }
+	var imed=false;
+	HTMLInputElement.prototype.__defineGetter__('imeDisabled',function(){ return imed? true: false; });
+	HTMLInputElement.prototype.__defineSetter__('imeDisabled',function(s){
+		imed = s? true: false;
+		this.onkeyup = imed? function(){
+			var sel = this.selectionStart,
+				sav = this.value,
+				right = sav.substr(sel),
+				lef = sav.substr(0, sel),
+				aft = lef.replace(/'/g, ''),
+				wipecount = lef.length - aft.length;
+			if(sel != this.selectionEnd) return;
+			this.blur();
+			this.focus();
+			this.value = aft + right;
+			this.selectionStart = this.selectionEnd = sel - wipecount;
+		}: undefined;
+	});
 	
 	// IE Method Compat
 	if(!('includes' in String.prototype)) String.prototype.includes=function(s){ return this.indexOf(s)>-1; }
