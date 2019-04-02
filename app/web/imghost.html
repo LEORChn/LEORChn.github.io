@@ -1,0 +1,56 @@
+<div align="center">
+	<div style="width:100%;height:auto">
+		<div id="blog" align="left" style="background-color:white;padding:0px 20px 20px;position:relative">
+			<div class="watermarkTopRight" onselectstart="return false" >IHS</div>
+			<div class="h1">
+				<div style="display:inline">图床工具</div>
+			</div><br/>
+			<img id="fileLoader" />
+			<form class="pure-form" action="http://bbs1.people.com.cn/postImageUpload.do" method="post" enctype="multipart/form-data" target="_blank">
+				<fieldset>
+					<label for="IHS_people_file">人民网图床</label>
+					<input id="IHS_people_file" type="file" name="Filedata" accept=".gif,.jpg,.jpeg,.png">
+					<input id="IHS_people_submit" type="submit" value="上传" disabled="">
+					<label id="IHS_people_type" class="block">允许上传图片类型：GIF，JPG，PNG（不区分大小写）</label>
+					<label id="IHS_people_size" class="block">允许图片最大大小：1.5 M（分辨率不限制）</label>
+					<label class="block">以上限制均为图床自身设置，与本站无关，本站仅提供查询和检测。</label>
+					<label class="block">
+						<a href="//people.com.cn">人民网主站</a>
+						<a href="//bbs1.people.com.cn/postDisplayAction.do?bid=1">接口提取页</a>
+					</label>
+				</fieldset>
+			</form>
+			<br><textarea id="IHS_people_data_place" style="width:100%" placeholder="上传完成后返回的数据粘贴在这"></textarea>
+			<br><img id="img_place">
+			<br><br><br>
+			若 JPG 图片过大
+			<ul>
+				<li>建议压缩分辨率。一般来说，长宽各压缩一半，体积可压缩至四分之一。</li>
+			</ul>
+			若 GIF 图片过大
+			<ul>
+				<li>确保没有将颜色渐变录制在内，因为 GIF 的格式设计缺陷限制颜色表索引上限为 256 个，图片过大的同时呈现效果也不好。</li>
+				<li>减少颜色抖动造成的影响，比如删去颜色表中一些过于相似的颜色索引。判断颜色相似度建议使用程序识别。</li>
+				<li>还可以使用 Ulead GIF Studio 对图片进行如下编辑</li>
+				<ul>
+					<li>降低帧率（例如删去偶数帧），并调整帧停留时间为原来的2倍，这样体积可压缩一半左右。</li>
+					<li>压缩分辨率。</li>
+				</ul>
+			</ul>
+			若 PNG 图片过大
+			<ul>
+				<li>调整分辨率来进行压缩的效果微乎其微。</li>
+				<li>不应该将其他格式转换为 PNG 格式，因为这很可能导致转换后的 PNG 图片中颜色种类过多。</li>
+				<li>在使用 Photoshop 绘制 PNG 图片时</li>
+				<ul>
+					<li>画笔和选区工具不应该使用羽化（数值应该为零）</li>
+					<li>调整图像缩放时应该将缩放模式由【二次立方（平滑渐变）】调整为【临近（保留硬边缘）】</li>
+					<li>少用或不用抗锯齿、渐变、高斯模糊、颜色抖动等功能。</li>
+					<li>半透明可以使用，但是也应该尽可能减少透明度抖动以及半透明覆盖的颜色种类。</li>
+				</ul>
+			</ul>
+
+		</div>
+	</div>
+</div>
+<script src="app/web/imghost.js"></script>

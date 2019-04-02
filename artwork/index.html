@@ -4,33 +4,37 @@
 		<div id="blog" align="left" style="background-color:white;padding:0px 20px 20px">
 			<div class="h1">作品集</div><br/>
 			<div id="pageTop">
-				<input type="radio" name="type" id="type_my" value="artwork/my.json" disabled="disabled"/>
-				<label for="type_my">站长创作</label>
+				<input type="radio" name="creator" id="creator_my" value="artwork/my.json" />
+				<label for="creator_my">站长创作</label>
 				<select id="sort_my" >
-					<option>不筛选</option>
-					<optgroup label="应用程序">
-						<option>Windows 应用程序</option>
-						<option>Android 应用程序</option>
+					<option value="">不筛选</option>
+					<optgroup label="页面程序">
+						<option value="app_web">站内工具</option>
+						<option value="app_monkey">Tamper Monkey 脚本</option>
 					</optgroup>
-					<optgroup label="浏览器">
-						<option>Tamper Monkey 脚本</option>
+					<optgroup label="应用程序">
+						<option value="app_windows">Windows 应用程序</option>
+						<option value="app_android">Android 应用程序</option>
 					</optgroup>
 					<optgroup label="其他艺术作品">
-						<option>视频</option>
-						<option>趣图</option>
+						<option valur="art_video">视频</option>
+						<option value="art_image">趣图</option>
 					</optgroup>
 				</select>
 			</div>
 			<div style="display:inline-block">
-				<input type="radio" name="type" id="type_love" value="artwork/love.json" checked="checked" />
-				<label for="type_love">站长喜欢</label>
+				<input type="radio" name="creator" id="creator_love" value="artwork/love.json" disabled=""/>
+				<label for="creator_love">站长喜欢</label>
 				<select id="sort_love">
 					<option value="0">不排序</option>
 					<option value="1">推荐指数</option>
 					<option value="2">最新添加</option>
 				</select>
 			</div>
-			<div style="display:inline-block"><div style="display:inline;margin:0 10px 0 10px">测试版本号：3</div><a onclick="javascript:alert('测试排序功能，看看来回切换排序方式是否会出现问题。')">查看测试任务</a></div>
+			<div style="display:inline-block"><div style="display:inline;margin:0 10px 0 10px">测试版本号：4</div><a onclick="javascript:alert('最近只想做网页APP。')">查看测试任务</a></div>
+			<div></div><br>
+			<div id="group_my"></div>
+			<style>#pageFlipTop,#group_artwork,#pageFlipBottom{display:none}</style>
 			<div id="pageFlipTop"><button class="pagePrev">上一页</button><div class="pageDisplay"></div><button class="pageNext">下一页</button></div>
 			<div id="group_artwork"></div>
 			<div id="pageFlipBottom" style="position:relative;height:40px">

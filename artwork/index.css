@@ -1,3 +1,10 @@
+a.item_my_root{display:inline-block;width:100%;min-height:100px;background-color:#F8F8F8;color:#000000}
+a.item_my_root:hover{background-color:#F0F0F0}
+a.item_my_root:active{background-color:#E0E0E0}
+img.item_my{width:64px;max-width:25%;padding:16px;vertical-align:top}
+span.item_my{display:inline-block;padding-top:16px}
+.item_my_title{font-size:x-large}
+
 a.item_artwork_root{width:350px;height:256px;display:inline-table;background-color:#F8F8F8;color:#000000}
 a.item_artwork_root:hover{background-color:#F0F0F0}
 a.item_artwork_root:active{background-color:#E0E0E0}

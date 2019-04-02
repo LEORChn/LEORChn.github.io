@@ -15,6 +15,8 @@ function onLocationChanged(){
 	remove();
 	if(vaild(afkey) && afkey >= 0) set(afkey);
 	// 加载网页
+	fv('page_loading').style.display='';
+	fv('brows').className='blur3';
 	http('get',location.href.replace('#',''),'',function(){
 		var brows=fv('brows');
 		if(this.status == 404){ location.href='/'; return; }
@@ -37,6 +39,10 @@ function onLocationChanged(){
 			//nsc.innerText=scs[0].innerText.replace('<br>','');
 			brows.appendChild(nsc);
 		}
+		setTimeout(function(){
+			fv('page_loading').style.display='none';
+			brows.className='';
+		}, 1000);
 	},function(){
 		msgbox('Resourse load error.\nRefresh to retry.');
 	});

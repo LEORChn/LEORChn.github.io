@@ -26,5 +26,6 @@
 			l.appendChild(ct('d'));
 		}
 		r.finish();
+		fv('blog').getElementsByTagName('loader')[0].remove();
 	},function(){});
 })();

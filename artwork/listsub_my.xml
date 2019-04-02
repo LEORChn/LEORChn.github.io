@@ -1,0 +1,7 @@
+<a class="item_id_root item_my_root">
+	<img class="item_id_image item_my" />
+	<span class="item_my">
+		<div class="item_id_title item_my_title"></div>
+		<div class="item_id_desc item_my_desc"></div>
+	</span>
+</a>

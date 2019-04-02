@@ -10,9 +10,17 @@
 <!--
 
 body{background-color:#F4F5F7;margin:0px}
-body,td,th {color:#000000;} 
-a{color:#0000FF;cursor:pointer} a.noline{text-decoration: none}
+body,td,th {color:#000000;}
+#page_loading{
+	background:radial-gradient(
+		rgba(255,255,255,1) 10%,
+		rgba(0,0,0,0) 66%);
+	top:calc(50% - 256px); left:calc(50% - 256px); width:512px; height:512px;
+	border-radius:50%; -webkit-border-radius:50%; 
+	position:fixed;	pointer-events:none; z-index:99}
 loader{background-image:url(/img/loading.gif); background-repeat:no-repeat; padding:16px}
+.blur3{-webkit-filter:blur(3px); -moz-filter:blur(3px); -o-filter:blur(3px); -ms-filter:blur(3px); filter:blur(3px)}
+a{color:#0000FF;cursor:pointer} a.noline{text-decoration: none}
 .block{display:block}
 .watermarkTopRight{position:absolute;z-index:-0;top:-20px;right:0;font-size:100px;opacity:.5;color:#CCC;cursor:default}
 .h1{font-size:24px;padding-top:24px;position:relative}
@@ -25,6 +33,9 @@ css{display:none}
 </head>
 <body>
 <div align="center">
+	<div id="page_loading">
+		<loader style="position:absolute; top:calc(50% - 16px); left:calc(50% - 16px)"></loader>
+	</div>
 	<div class="device" style="height:303px">
 		<div class="device" style="margin:0 0; overflow:hidden">
 			<div id="header" class="webp" style="background-image:url(img/Header_Starbound.webp);background-size:cover;width:1100px;height:224px"></div>
