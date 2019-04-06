@@ -1,5 +1,5 @@
 // category, id, title, desc
 [
- ['web', 'imghost', '图床工具', 'Image Hosting Service']/*,
- ['web', ''],*/
+ ['web', 'imghost', '图床工具', 'Image Hosting Service'],
+ ['web', 'qun', 'QQ群工具', '如果你的QQ客户端打开群公告、群相册或群文件时卡死或出现其他问题，可以使用这些工具。']//,
 ]

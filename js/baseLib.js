@@ -2,7 +2,7 @@ var htmlhead=document.head,
  htmlbody=document.body;
 (function(){
 	// Generic Method Compat
-	if(!('contains' in String.prototype)) String.prototype.contains=function(s){ return this.indexOf(s)>-1; }
+	if(!('contains' in String.prototype)) String.prototype.contains=function(s){ return this.indexOf(s)>-1; };
 	var imed=false;
 	HTMLInputElement.prototype.__defineGetter__('imeDisabled',function(){ return imed? true: false; });
 	HTMLInputElement.prototype.__defineSetter__('imeDisabled',function(s){
@@ -23,8 +23,9 @@ var htmlhead=document.head,
 	});
 	
 	// IE Method Compat
-	if(!('includes' in String.prototype)) String.prototype.includes=function(s){ return this.indexOf(s)>-1; }
-	if(!('remove' in HTMLElement)) HTMLElement.prototype.remove=function(){ try{this.parentElement.removeChild(this);}catch(e){} }
+	if(!('includes' in String.prototype)) String.prototype.includes=function(s){ return this.indexOf(s)>-1; };
+	if(!('remove' in HTMLElement)) HTMLElement.prototype.remove=function(){ try{this.parentElement.removeChild(this);}catch(e){} };
+	if(!('addEventListener' in EventTarget.prototype)) EventTarget.prototype.addEventListener=function(n,f){ this.attachEvent('on'+n, f); };
 	
 	// Firefox Method Compat
 	if(!('innerText' in document.body)){
@@ -41,9 +42,51 @@ function msgbox(msg){alert(msg);}
 function inputbox(title,defalt){return prompt(title,defalt);}
 function pl(s){console.log(s);}
 function vaild(o){return!(o==undefined||o==null||isNaN(o));}
-function gquery(n){
+function gquery(n){ // get Query
 	var r=location.search.match(new RegExp("[\?\&]"+n+"=([^\&]+)","i"));
 	return r==null||r.length<1?'':r[1];
+}
+/*	patch() 参数情况：
+	单个EventTarget：直接返回本体
+	单个EventTarget但是用数组封装：返回该数组
+	多个EventTarget：返回封装数组
+	其他情况比如数组和EventTarget混用等：不管他
+*/
+function patch(){
+	var args = arguments,
+		insideSelf = args.length==1 && args[0] instanceof EventTarget;
+	if(args.length==1 && args[0] instanceof Array) args = args[0]; // 如果参数只是一个数组而且没有别的东西，就分离解析
+	for(var i=0; i<args.length; i++){
+		args[i].on = function(){
+			var prog = 0;
+			do{
+				var arglen = arguments.length;
+				switch(arglen){
+					case undefined:
+					case 0: return;
+					case 1:
+						arguments = arguments[0];
+						break;
+					default:
+						if(arguments[arglen-1] instanceof Function); else return; // 最后一个必须是 function
+						var event_name = arguments[prog],
+							befor_func = this['on'+event_name], // replaceable static function
+							after_func = arguments[arglen-1];
+						this['on'+event_name] = after_func;
+						if(this instanceof EventTarget); else return;
+						this['on'+event_name] = befor_func;
+						this.addEventListener(event_name, after_func);
+						if( ++prog == arglen ) return;
+				}
+			}while(true);
+		}
+	}
+	if(insideSelf){
+		args.on = function(){
+			for(var i=0; i<this.length; i++) if(this[i].on) this[i].on(arguments);
+		}
+	}
+	return insideSelf? args[0]: args;
 }
 
 (function(){for(var i=0,a=fc('webp');i<a.length;i++) webpReplace(a[i]);})();
@@ -110,6 +153,23 @@ function addCss(url) {
 	link.rel ='stylesheet';
 	link.href= url;
 	htmlhead.appendChild(link);
+}
+
+function copy(text){
+	var ta = document.createElement("textarea");
+	ta.style.position = 'fixed';
+	ta.style.top = ta.style.left = '100%';
+	ta.value = text;
+	document.body.appendChild(ta);
+	ta.select();
+	try{
+		var successful = document.execCommand('copy');
+		var msg = successful ? '成功复制到剪贴板' : '该浏览器不支持点击复制到剪贴板';
+		pl(msg)
+	}catch(e){
+		alert('浏览器不支持点击复制到剪贴板');
+	}
+	document.body.removeChild(textArea);
 }
 
 function cok_a(n,v,timeExpire,timeShift){

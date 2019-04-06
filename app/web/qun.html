@@ -1,0 +1,67 @@
+<div align="center" style="width:100%;height:auto">
+	<div id="blog" align="left" style="background-color:white;padding:0px 20px 20px;position:relative">
+		<div class="watermarkTopRight" onselectstart="return false" >Qun</div>
+		<div class="h1">
+			<div style="display:inline">QQ群工具</div>
+		</div><br/>
+		<style>.funcBtn{color:white; display:inline-block; padding-left:10px; padding-right:10px; background-color:#66a2ff}.funcBtn[function-qun-closed]{background-color:gray}</style>
+		<div onselectstart="return false;" id="win_maincontain" style="position:relative; width:100%; height:100%">
+			<style>#windowMin,#windowMax,#windowRestore{display:inline-block; width:36px;}</style>
+			<div onselectstart="return false;" style="position:absolute; right:0; top:0; line-height:32px; color:white; text-align:center; cursor:pointer">
+				<div id="windowMin" style="background-color:rgb(98, 172, 255)">_</div><div id="windowMax" style="background-color:rgb(102, 162, 255)">口</div><div id="windowRestore" style="background-color:red; width:48px;">X</div>
+			</div>
+			<div style="left:5px; top:0; line-height:32px; cursor:default">
+				<div style="display:none"><input type="text" id="qunNumber" placeholder="粘贴、键入或拖入群号" /></div>
+				<a class="funcBtn" function-qun="//web.qun.qq.com/announce/index.html#gc=%s">群公告</a>
+				<a class="funcBtn" function-qun="//h5.qzone.qq.com/groupphoto/index?inqq=3&groupId=%s">群相册</a>
+				<a class="funcBtn" function-qun="//pan.qun.qq.com/clt_filetab/groupShareClientNew.html?gid=%s">群文件管理</a>
+				<a class="funcBtn" p="1040,800" function-qun="//qun.qzone.qq.com/group#!/%s/share">群文件下载</a>
+				<font style="display:none" desc="more interface" p="http://www.lxbkw.com/160.html"></font>
+			</div>
+			<div class="h1">使用方法</div>
+			<br>1.点击上方蓝色按钮选择功能
+			<br>2.在弹出窗口登录
+			<br>3.选择一个群
+			<br>4.复制群号，在本窗口粘贴
+			<br>&nbsp;（也可以选择群号之后拖进本窗口）
+			<div class="h1">常见问题和注意事项</div>
+			<br>1.这些功能有什么用？
+			<br>&nbsp;&nbsp;因为我PC上的QQ客户端打开群文件页面时会卡死崩溃。上传文件正常，但是会需要把群文件归类、整理等等。因此制作了这个功能。
+			<br>2.群文件管理页面无法上传和下载文件？
+			<br>&nbsp;&nbsp;因为浏览器安全限制，不能上传和下载文件。上传文件请使用QQ客户端操作；下载文件请进入下载页面后，点击右侧按钮下载文件，或者安装瑞兽谷辅助脚本。
+			<br>3.群相册不能点开大图预览？
+			<br>&nbsp;&nbsp;因为浏览器安全限制。可以选择批量下载相册图片之后再解压打开，或者安装瑞兽谷辅助脚本。
+			<br>4.一段时间之后群文件、相册等无法操作？
+			<br>&nbsp;&nbsp;静置太长时间了，请点击功能按钮重新登录，登录完成后可以直接点取消，之前的页面就能继续操作。
+			<br>5.已登录但是无法打开，也无法进入登录页面？
+			<br>&nbsp;&nbsp;你需要清除Cookie，然后重新登录
+			<br>6.点开窗口太多，有点卡？
+			<br>&nbsp;&nbsp;可以试试刷新瑞兽谷，还不行就关闭浏览器重新开。这个是群文件页面的问题，我没法解决。
+			<br>7.站长会盗我的号吗？
+			<br>&nbsp;&nbsp;站长我连服务器都买不起。如果真被盗号请检查其他原因。
+			<br>8.瑞兽谷辅助脚本在哪下载？
+			<br>&nbsp;&nbsp;制作中。
+		</div>
+		<div id="lostFocusMask" style="display:none; position:fixed; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,.8); color:#fff">
+			<span style="display:table-cell; vertical-align:middle; text-align:right;">
+				<span style="pointer-events:none">
+					<h1 style="display:inline-block">请在弹出窗口完成以下操作</h1>
+					<br>
+					<h2 style="display:inline-block; text-align:left">1.登录
+					<br>2.选择一个群
+					<br>3.复制群号，在本窗口粘贴
+					<br>&nbsp;（也可以选择群号之后拖进本窗口）</h2>
+				</span>
+				<br>
+				<span style="line-height:32px">
+					<style>h1.h1_textLpadding:after{content:'请在弹出窗口'}</style>
+					<h1 class="h1_textLpadding" style="display:inline-block; color:rgba(0,0,0,0)"></h1>
+					<a class="funcBtn" id="qunNumberCancel">取消</a>
+					<a class="funcBtn" id="qunNumberUseLastest" style="display:none;">上次使用的群：<span id="qunNumberLatest"></span></a>
+				</span>
+			</span>
+		</div>
+		<iframe id="win_main" name="win_main" style="display:none; width:1040px; min-height:800px; bottom:0" frameborder="0"></iframe>
+	</div>
+</div>
+<script src="app/web/qun.js"></script>
