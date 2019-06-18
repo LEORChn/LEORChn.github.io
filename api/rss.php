@@ -14,6 +14,13 @@
 	<item>
 		<title>状态</title>
 		<c:type>1</c:type>
+		<c:time>2019-6-19 6:00</c:time>
+		<pubDate>Wed, 19 Jun 2019 06:00:00 +0800</pubDate>
+		<description>3.0版本的新博客站（建站中） https://www.leorchn.com/</description>
+	</item>
+	<item>
+		<title>状态</title>
+		<c:type>1</c:type>
 		<c:time>2019-2-10 3:17</c:time>
 		<pubDate>Sun, 10 Feb 2019 03:17:00 +0800</pubDate>
 		<description>今天搞了6小时在响应式布局以及放上支付宝捐款。随后想给自己的小站做点对火狐的兼容，发现实在是蛋疼。滚动条的问题我忍了，WebP的问题我忍了，innerText的问题我忍了，event的问题我实在忍不了了~</description>
