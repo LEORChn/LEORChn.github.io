@@ -14,11 +14,10 @@ function initDonationList(){
 		for(var td=0,i=0,len=u.length;i<len;i++) td+=u[i].p;
 		for(var i=0,len=Math.min(u.length,5);i<len;i++){
 			tr=tb.insertRow();
-			tr.innerHTML='<td>'+u[i].n+'</td><td>'
-			+u[i].s+'</td><td>'
-			+(u[i].p<=50?u[i].p:
-			(u[i].p/td*100).toFixed(1)+'%')+'</td><td>'
-			+u[i].t+'</td>';
+			tr.appendChild(ct('td', u[i].n));
+			tr.appendChild(ct('td', u[i].s));
+			tr.appendChild(ct('td', (u[i].p<=50? u[i].p: (u[i].p/td*100).toFixed(1)+'%')));
+			tr.appendChild(ct('td', u[i].t));
 			tb.appendChild(tr);
 		}
 	});
