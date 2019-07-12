@@ -12,7 +12,7 @@ function initDonationList(){
 		td=fv('loadnotice'); if(td)td.parentNode.removeChild(td);
 		tb=ft('table')[0];
 		for(var td=0,i=0,len=u.length;i<len;i++) td+=u[i].p;
-		for(var i=0,len=u.length;i<len;i++){
+		for(var i=0,len=Math.min(u.length,5);i<len;i++){
 			tr=tb.insertRow();
 			tr.innerHTML='<td>'+u[i].n+'</td><td>'
 			+u[i].s+'</td><td>'
