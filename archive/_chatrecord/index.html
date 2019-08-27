@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<!-- load MUI -->
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/preloader-lite.css" />
+		
+		<link rel="stylesheet" type="text/css" href="https://cdn.muicss.com/mui-0.9.41/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="/frame/mui/css/style-d9b21040eb.min.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/icomoon.lite.css" />
+		<!-- limited -->
+		<link rel="stylesheet" type="text/css" href="chat.css" />
+		<title>沙雕网友的聊天记录 - 瑞兽谷</title>
+	</head>
+	<body>
+		<header id="header" class="header-shadow">
+			<div class="onloading">
+				<div class="progress" style="position:absolute; margin-top:64px; background-color:rgba(0,0,0,0)"><div class="indeterminate" style="background-color:rgb(238,238,238)"></div></div>
+				<div style="position:absolute; top:calc(100% + 4px); right:0; background-color:rgb(238,238,238)">
+					<div class="preloader-wrapper active" style="width:18px; height:18px; margin-bottom:-4px">
+						<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+					<span>正在加载组件... ( </span><span id="loaded_component">0</span><span> / 6 )</span>
+				</div>
+			</div>
+			<nav id="appbar" class="mui-container-fluid" style="background-color:#0099ff">
+				<table width="100%" cellspacing="0">
+					<tbody>
+						<tr class="mui--appbar-height">
+							<td>
+								<a id="appbar-sidenav-show" class="mui--visible-xs-inline-block mui--visible-sm-inline-block"><i class="icon-menu"></i></a>
+								<a id="appbar-sidenav-hide" class="mui--hidden-xs mui--hidden-sm"><i class="icon-menu"></i></a>
+								<a class="appbar-brand">聊天记录</a>
+							</td>
+							<td class="mui--text-right">
+								<div id="appbar-social-links" class="mui--hidden-xs"></div>
+								<div class="mui-dropdown">
+									<a id="appbar-more-vert" data-mui-toggle="dropdown"><i class="icon-more-vert"></i></a>
+									<ul class="mui-dropdown__menu mui-dropdown__menu--right" style="top: 31px;">
+										<li><a href="javascript:_chat.onShowMembers();">查看群聊成员列表</a></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</nav>
+		</header>
+		<div id="sidedrawer">
+			<nav id="sidenav" class="mui--no-user-select">
+				<div>
+					<h2 class="mui--appbar-line-height"><a href="/">瑞兽谷</a></h2>
+				</div>
+				<div class="mui-divider"></div>
+				<ul class="mui-expand">
+					<li><a href="/"><strong>返回瑞兽谷首页</strong></a></li>
+					<li><a href="."><strong>返回全部聊天记录</strong></a></li>
+					<li>
+						<strong><table><tr><td>致谢</td><td class="mui-caret"></td></tr></table></strong>
+						<ul>
+							<li><a target="_blank" href="https://www.muicss.com/">MUI-CSS</a></li>
+							<li><a target="_blank" href="https://materializecss.com/preloader.html">Materialize-CSS</a></li>
+							<li><a target="_blank" href="https://www.52112.com/pic/198498.html" title="不完全的帮助：使用半透明和删除线标注。"><del style="opacity:0.2">吴语山</del></a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<div id="content-wrapper">
+			<div id="appbar-placeholder" class="mui--appbar-height"></div>
+			<div id="chat-window" class="mui-container-fluid mui-col-sm-offset-1 mui-col-sm-10">
+				<!--div class="chat-system loading">
+					<table>
+						<tr>
+							<td>
+								<div class="preloader-wrapper big active">
+									<div class="spinner-layer spinner-blue-only">
+										<div class="circle-clipper left">
+											<div class="circle"></div>
+										</div><div class="gap-patch">
+											<div class="circle"></div>
+										</div><div class="circle-clipper right">
+											<div class="circle"></div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td>正在加载组件... (</td>
+							<td id="loaded_component">0</td>
+							<td>/ 6 )</td>
+						</tr>
+					</table>
+				</div-->
+			</div>
+		</div>
+		<div class="mui-container-fluid mui-col-sm-offset-1 mui-col-sm-10" style="height: 100%; pointer-events: none; display:none" id="panel_root_member">
+			<div class="mui-panel mui--text-justify" style="max-width: 500px; height: calc(100% - 100px);margin: 50px auto 50px; pointer-events:visible">
+				<ul class="mui-tabs__bar  mui-tabs__bar--justified">
+					<li class="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="panel_chat_member">群聊参与者</a></li>
+					<li class=""><a data-mui-toggle="tab" data-mui-controls="panel_chat_viewer">一般通过路人</a></li>
+				</ul>
+				<div class="mui-tabs__pane mui--is-active" id="panel_chat_member" style="text-align:center">
+					<img src="img/construction.jpg" style="max-height:150px; max-width:50%; border-radius:50%" />
+					<br><br>
+					<div>界面施工中<br>您可以过一段时间再来哟。</div>
+				</div>
+				<div class="mui-tabs__pane" id="panel_chat_viewer" style="text-align:center">
+					<img src="img/construction.jpg" style="max-height:150px; max-width:50%; border-radius:50%" />
+					<br><br>
+					<div>界面施工中<br>您可以过一段时间再来哟。<br><br>（大概会比“群聊参与者”稍晚一点）</div>
+				</div>
+			</div>
+		</div>
+		<script>var loadstat = document.getElementById('loaded_component');</script>
+		<!-- mui -->
+		<script src="/frame/mui/js/loadjs.js"></script> <script>loadstat.innerText = 1;</script>
+		<script src="/frame/mui/js/loadwindow.js"></script> <script>loadstat.innerText = 2;</script>
+		<!-- twemoji -->
+		<script src="https://twemoji.maxcdn.com/2/twemoji.min.js?12.0.4" crossorigin="anonymous"></script> <script>loadstat.innerText = 3;</script>
+		<!-- leorchn lib -->
+		<script src="/js/baseLib.js"></script> <script>loadstat.innerText = 4;</script>
+		<script src="/js/http.js"></script> <script>loadstat.innerText = 5;</script>
+		<!--script src="chat.js"></script-->
+		<script>
+			(function(){
+				addJs('chat.js?'+new Date().getTime());
+				loadstat.innerText = 6;
+			})();
+		</script>
+	</body>
+</html>

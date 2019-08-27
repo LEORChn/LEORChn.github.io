@@ -1,0 +1,44 @@
+/* loading progressbar */
+.progress{position:relative;height:4px;display:block;width:100%;background-color:#acece6;border-radius:2px;margin:.5rem 0 1rem 0;overflow:hidden}
+.progress .determinate{position:absolute;top:0;left:0;bottom:0;background-color:#26a69a;transition:width .3s linear}
+.progress .indeterminate{background-color:#26a69a}
+.progress .indeterminate:before{content:'';position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left, right;animation:indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite}
+.progress .indeterminate:after{content:'';position:absolute;background-color:inherit;top:0;left:0;bottom:0;will-change:left, right;animation:indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;animation-delay:1.15s}
+@keyframes indeterminate{0%{left:-35%;right:100%}60%{left:100%;right:-90%}100%{left:100%;right:-90%}}
+@keyframes indeterminate-short{0%{left:-200%;right:100%}60%{left:107%;right:-8%}100%{left:107%;right:-8%}}
+
+/* loading spinning wheel */
+html{box-sizing:border-box}
+*,*:before,*:after{box-sizing:inherit}
+.preloader-wrapper{display:inline-block;position:relative;width:50px;height:50px}
+.preloader-wrapper.small{width:36px;height:36px}
+.preloader-wrapper.big{width:64px;height:64px}
+.preloader-wrapper.active{animation:container-rotate 1568ms linear infinite}
+@keyframes container-rotate{to{transform:rotate(360deg)}}
+.spinner-layer{position:absolute;width:100%;height:100%;opacity:0;border-color:#26a69a}
+.spinner-blue,.spinner-blue-only{border-color:#4285f4}
+.spinner-red,.spinner-red-only{border-color:#db4437}
+.spinner-yellow,.spinner-yellow-only{border-color:#f4b400}
+.spinner-green,.spinner-green-only{border-color:#0f9d58}
+.active .spinner-layer,.active .spinner-layer.spinner-blue-only,.active .spinner-layer.spinner-red-only,.active .spinner-layer.spinner-yellow-only,.active .spinner-layer.spinner-green-only{opacity:1;animation:fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}
+@keyframes left-spin{from{transform:rotate(130deg)}50%{transform:rotate(-5deg)}to{transform:rotate(130deg)}}
+@keyframes right-spin{from{transform:rotate(-130deg)}50%{transform:rotate(5deg)}to{transform:rotate(-130deg)}}
+@keyframes fill-unfill-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}to{transform:rotate(1080deg)}}
+.gap-patch{position:absolute;top:0;left:45%;width:10%;height:100%;overflow:hidden;border-color:inherit}
+.gap-patch .circle{width:1000%;left:-450%}
+.circle-clipper{display:inline-block;position:relative;width:50%;height:100%;overflow:hidden;border-color:inherit}
+.circle-clipper .circle{width:200%;height:100%;border-width:3px;border-style:solid;border-color:inherit;border-bottom-color:transparent !important;border-radius:50%;animation:none;position:absolute;top:0;right:0;bottom:0}
+.circle-clipper.left .circle{left:0;border-right-color:transparent !important;transform:rotate(129deg)}
+.circle-clipper.right .circle{left:-100%;border-left-color:transparent !important;transform:rotate(-129deg)}
+.active .circle-clipper.left .circle{animation:left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}
+.active .circle-clipper.right .circle{animation:right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}
+
+/* color-flashing loading spinning wheel */
+@keyframes blue-fade-in-out{from{opacity:1}25%{opacity:1}26%{opacity:0}89%{opacity:0}90%{opacity:1}100%{opacity:1}}
+@keyframes red-fade-in-out{from{opacity:0}15%{opacity:0}25%{opacity:1}50%{opacity:1}51%{opacity:0}}
+@keyframes yellow-fade-in-out{from{opacity:0}40%{opacity:0}50%{opacity:1}75%{opacity:1}76%{opacity:0}}
+@keyframes green-fade-in-out{from{opacity:0}65%{opacity:0}75%{opacity:1}90%{opacity:1}100%{opacity:0}}
+.active .spinner-layer.spinner-blue{animation:fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,blue-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}
+.active .spinner-layer.spinner-red{animation:fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,red-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}
+.active .spinner-layer.spinner-yellow{animation:fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,yellow-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}
+.active .spinner-layer.spinner-green{animation:fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,green-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}

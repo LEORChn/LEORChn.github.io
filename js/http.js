@@ -11,3 +11,12 @@ function http(method,url,formed,dofun,dofail){
 	x.ontimeout=x.onerror= dofail? dofail: null;
 	x.send(formed?formed:'');
 }
+function httpj(method, url, formed, dofun, dofail){
+	http(method, url, formed, 
+		function(){
+			var j = eval('('+ (this.responseText || '{}') +')');
+			if(!Array.isArray(j)) j.stat = this.status;
+			dofun(j);
+		},
+		dofail);
+}
