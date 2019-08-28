@@ -1,87 +1,20 @@
 <!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<title>瑞兽谷</title><style type="text/css">
-<!--
-html{height:100%}
-body,td,th {color:#000000;}
-body{background-color:#F4F5F7;margin:0px 0px}
-float{height:67px;display:block} .floating{background-color:#00a1d6;position:fixed;top:0px;z-index:295;}
-nav{width:1080px;background-color:white;height:66px;padding-left:20px}
-fl:hover{color:#00a1d6} fl{color:#000000;float:left;margin-right:16px;height:66px;cursor:pointer;}
-pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relative;display:block}
-.curPage{background-color:#00a1d6;color:#00a1d6}
--->
-</style>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+	<title>瑞兽谷测试页面</title>
 </head>
 <body>
-<div align="center">
-	<div class="device" style="width:1100px;height:303px">
-		<p class="device" style="margin:0 0;overflow:hidden"> <img src="img/Header_Starbound.png" width="1100" height="224" draggable="false"> </p>
-		<a id="loadpage"></a>
-		<float style="visibility:hidden">
-			<nav class="device">
-				<fl onclick="jump(0)"><!--PageForm-->
-					<pht>动态</pht><!--PageHoderText (normal)-->
-				</fl>
-				<fl onclick="jump(1)"><pht>公告</pht></fl>
-				<fl onclick="jump(2)"><pht>关于我的博客</pht></fl>
-			</nav>
-		</float>
-	</div>
-	<jsnotice style="width:1100px;display:block"><div align="left">请开启 JavaScript 脚本。</div></jsnotice>
-	<script language="javascript">
-		function iload(ifr){
-			var w=window.parent.show;
-			if (w.document.body) ifr.style.height=w.document.documentElement.scrollHeight+'px';
-		} </script>
-	<iframe name="show" style="width:1100px;margin-bottom:100px" scrolling="no" frameborder="0" onload="iload(this)"></iframe>
-</div>
-	<script language="javascript">
-		curpage=-1;
-		function jump(i){
-			if(i==curpage)return;
-			switch(i){
-				case 0: url("home/index.html"); break;
-				case 1: url("home/news.html"); break;
-				case 2: url("home/about.html"); break;
-			} remove(); set(i);
-		}//src="home/index.html"
-		function set(i){ ft('fl')[i].className="curPage"; curpage=i; }
-		function remove(){ if(curpage==-1)return; ft('fl')[curpage].className=""; }
-		function url(u){ window.parent.show.location.href=u;}
-		function fv(id){return document.getElementById(id);}
-		function ft(tag){return document.getElementsByTagName(tag);}
-		function fc(cname){return document.getElementsByClassName(cname);}
-		(function(){
-			var oDiv=ft('float')[0], H=0, iE6, Y=oDiv;//导航栏悬浮
-			while(Y){H+=Y.offsetTop;Y=Y.offsetParent}; 
-			iE6=window.ActiveXObject&&!window.XMLHttpRequest;
-			window.onscroll=function(){
-				var s=document.body.scrollTop||document.documentElement.scrollTop;
-				if(s>H){oDiv.className="floating";if(iE6){oDiv.style.top=(s-H)+"px";}
-				}else{oDiv.className="";}
-			};
-			var jsn=ft('jsnotice')[0]; if(jsn) jsn.parentNode.removeChild(jsn); //删除请求启用JS提示
-			oDiv.style.visibility='';//显示导航栏
-			jump(0); //加载页面
-			var vs=ft('pht');//绘制导航栏文字垂直居中
-			for(var i=0,len=vs.length;i<len;i++){
-				var v=vs[i];
-				v.style.paddingTop=v.style.paddingBottom=(62-v.offsetHeight)/2+'px';
-			}
-			var dw=document.documentElement.clientWidth;//适配设备宽度
-			if(dw<1100){
-				var d=fc('device');
-				d[1].style.width=0+'px';
-				d[0].style.width=
-				d[1].style.paddingRight=
-				oDiv.style.width=
-				ft('iframe')[0].style.width=dw+'px';
-				d[2].style.width=dw-20+'px';
-			}
-		})();
-	</script>
+	<a href="/">站点主页</a>
+	<br>
+	<a href="/archive/">纪念碑</a>
+	<br>
+	<a href="/archive/_chatrecord/">聊天记录总览（旧）</a>
+	<br>
+	<a href="/archive/_chatrecord/?view=190817">聊天记录内部（旧）</a>
+	<br>
+	<a href="/archive/chatrecord/">聊天记录总览（新）</a>
+	<br>
+	<a href="/archive/chatrecord/?view=190817">聊天记录内部（新）</a>
 </body>
 </html>

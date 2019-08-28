@@ -1,0 +1,21 @@
+/* loading */
+.chat-system.loading table{margin:auto}
+.chat-system.loading td:first-child+td{padding-left:10px}
+
+/* system info */
+.chat-system{text-align:center; margin:15px}
+.chat-system:not(.loading)+.chat-system{margin-top:0}
+
+/* people chat */
+img[src*="/_emo/qq/"]{max-width:28px !important}
+table.chat{margin-bottom:-20px}
+table.chat tr:first-child{vertical-align:top}
+table.chat td:first-child>div[style^=background]{width:36px; height:36px; background-size:contain; border-radius:50%}
+.area-parse-emoji.mui-panel{border-radius:0 10px 10px 10px; padding:10px; white-space:pre-wrap}
+.area-parse-emoji.mui-panel:before, .area-parse-emoji.mui-panel:after{white-space:nowrap}
+.area-parse-emoji img.emoji{width:24px}
+.mui-panel img{max-width:100%}
+
+/* reply table */
+table.mui--divider-bottom{margin-top:-15px; margin-bottom:10px}
+table.mui--divider-bottom img{max-width:100px; max-height:100px}
