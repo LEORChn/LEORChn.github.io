@@ -17,8 +17,8 @@
 	<body>
 		<header id="header" class="header-shadow">
 			<div class="onloading">
-				<div class="progress" style="position:absolute; margin-top:64px; background-color:rgba(0,0,0,0)"><div class="indeterminate" style="background-color:rgb(238,238,238)"></div></div>
-				<div style="position:absolute; top:calc(100% + 4px); right:0; background-color:rgb(238,238,238)">
+				<div class="progress" style="position:absolute; margin-top:0; top:100%; background-color:rgba(0,0,0,0)"><div class="indeterminate" style="background-color:rgb(238,238,238)"></div></div>
+				<div style="position:absolute; top:calc(100% + 4px); right:0; background-color:rgb(238,238,238); border-radius:10px">
 					<div class="preloader-wrapper active" style="width:18px; height:18px; margin-bottom:-4px">
 						<div class="spinner-layer spinner-blue-only">
 							<div class="circle-clipper left">
@@ -30,7 +30,7 @@
 							</div>
 						</div>
 					</div>
-					<span>正在加载组件... ( </span><span id="loaded_component">0</span><span> / 6 )</span>
+					<span>正在加载</span><span id="component_name">组件</span>... ( </span><span id="component_loaded">0</span><span> / <span id="component_total">6</span><span> )</span>
 				</div>
 			</div>
 			<nav id="appbar" class="mui-container-fluid" style="background-color:#0099ff">
@@ -121,7 +121,7 @@
 				</div>
 			</div>
 		</div>
-		<script>var loadstat = document.getElementById('loaded_component');</script>
+		<script>var loadstat = document.getElementById('component_loaded');</script>
 		<!-- mui -->
 		<script src="/frame/mui/js/loadjs.js"></script> <script>loadstat.innerText = 1;</script>
 		<script src="/frame/mui/js/loadwindow.js"></script> <script>loadstat.innerText = 2;</script>

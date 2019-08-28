@@ -1,7 +1,23 @@
 (function(){
-	window.addEventListener('load', function() {
-		fc('onloading')[0].style.display='none';
-	});
+	var publishProgress = function(l, n, t){
+		fv('component_loaded').innerText = l;
+		if(n) fv('component_name').innerText = n;
+		if(t) fv('component_total').innerText = t;
+	},
+	imageLoadingUpdater = function(){
+		var imgs = document.images,
+			len = imgs.length
+			loadedimgs = 0;
+		for(var i=0; i<len; i++)
+			if(imgs[i].complete) loadedimgs++;
+		if(loadedimgs < len){
+			publishProgress(loadedimgs, '图片', len); 
+			setTimeout(imageLoadingUpdater, 2000);
+		}else{
+			fc('onloading')[0].style.display='none';
+		}
+	};
+	
 	var w = fv('chat-window');
 	var q = gquery('view');
 	if(q == ''){
@@ -9,6 +25,7 @@
 		d.className = 'chat-system';
 		w.appendChild(d);
 	}else{
+		publishProgress(0, '数据', 1);
 		httpj('get', 'view/'+q+'.json', '', function(j){
 			if(j.stat == 200){
 				var rTable = {},
@@ -30,6 +47,10 @@
 							headdiv = ct('div'),
 							td2 = ct('td', speaker[0]),
 							msgdiv = ct('div');
+						var headimg = ct('img');
+						headimg.src = 'img/_people/'+speaker[1];
+						headimg.style.display = 'none';
+						td1.appendChild(headimg);
 						headdiv.style.backgroundImage = 'url(img/_people/'+speaker[1]+')';
 						td1.appendChild(headdiv);
 						msgdiv.className = 'mui-panel area-parse-emoji';
@@ -64,6 +85,7 @@
 			}else{
 				w.innerText = '没有对应记录。';
 			}
+			imageLoadingUpdater();
 		});
 	}
 })();
