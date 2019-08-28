@@ -24,6 +24,7 @@
 		var d = ct('div', '站长正在逐步迁移聊天记录，请耐心等待一段时间再来。');
 		d.className = 'chat-system';
 		w.appendChild(d);
+		imageLoadingUpdater();
 	}else{
 		publishProgress(0, '数据', 1);
 		httpj('get', 'view/'+q+'.json', '', function(j){
