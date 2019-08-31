@@ -3,7 +3,7 @@ var listsub_archive;
 	initArchiveListsub();
 })();
 function initArchiveListsub(){
-	http('get',location.href.replace('#','')+'listsub_archive.xml','',function(){
+	http('get',location.href.replace('#','')+'listsub_archive.xml?'+new Date().getTime(),'',function(){
 		listsub_archive=this.responseText;
 		initArchiveListData();
 	});
@@ -18,11 +18,19 @@ function initArchiveListData(){
 			t.outerHTML=listsub_archive;
 		}
 		for(var i=0;i<j.length;i++){
-			fc('item_id_image')[i].style.background='url('+j[i].img+')';
+			if(j[i].img)
+				fc('item_id_image')[i].style.background='url('+j[i].img+')';
+			else{
+				fc('item_archive_image_loader')[i+1].style.display=
+				fc('item_id_image')[i].style.display='none';
+			}
 			fc('item_id_title')[i].innerText=j[i].title;
 			fc('item_id_desc')[i].innerText=j[i].desc;
-			fc('item_id_length')[i].innerText=j[i].linkdisplay;
-			fc('item_archive_root')[i].href='/archive/'+j[i].src;
+			if(j[i].linkdisplay)
+				fc('item_id_length')[i].innerText=j[i].linkdisplay;
+			else
+				fc('item_archive_score_hint')[i].style.display='none';
+			g.getElementsByClassName('item_archive_root')[i].href='/archive/'+j[i].src;
 		}
 	},function(){
 	});
