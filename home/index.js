@@ -1,31 +1,26 @@
 (function(){
-	http('get',location.origin+'/api/rss.php','',function(){
-		var t=this.responseText,
-			r=newXML(t),
-			x=r.get()[0].get()[0].get('item');
-		for(var i=0;i<x.length;i++){
-			var j=x[i],
-				l=fv('blog');
-			switch(j.get('c:type')[0].text()){
-				case '0':
-					var a=ct('div');
-					l.appendChild(a);
-					a.outerHTML='<div class="recent_desc">'+j.get('description')[0].text()+'</div>';
+	httpj('get',location.origin+'/api/rss.json','',function(jr){
+		if(jr.stat != 200) return;
+		jr = jr.data;
+		for(var i=0; i<jr.length;i++){
+			var j=jr[i],
+				l=fv('blog'),
+				a=ct('div');
+			switch(j[0]){
+				case 0:
+					a.className = 'recent_desc';
+					a.innerHTML = j[3];
 					break;
-				case '1':
-					var a=ct('div');
+				case 1:
+					a.className = 'recent_time';
+					a.innerHTML = j[1];
 					l.appendChild(a);
-					a.outerHTML='<div class="recent_time">'+j.get('c:time')[0].text()+'</div>';a=ct('ss');
-					a=ct('ss');
-					l.appendChild(a);
-					a.outerHTML='<ss>'+unescape('%u201c')+'</ss>';
 					a=ct('div');
-					l.appendChild(a);
-					a.outerHTML='<div class="recent_desc">'+j.get('description')[0].text()+'</div>';
+					a.className = 'recent_desc diary';
+					a.innerHTML = j[3];
 			}
-			l.appendChild(ct('d'));
+			l.appendChild(a);
 		}
-		r.finish();
 		fv('blog').getElementsByTagName('loader')[0].remove();
 	},function(){});
 })();
