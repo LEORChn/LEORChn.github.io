@@ -15,7 +15,8 @@ function httpj(method, url, formed, dofun, dofail){
 	http(method, url, formed, 
 		function(){
 			var j = eval('('+ (this.responseText || '{}') +')');
-			if(!Array.isArray(j)) j.stat = this.status;
+			if(Array.isArray(j)) j = { stat:this.status, data:j }
+			else j.stat = this.status;
 			dofun(j);
 		},
 		dofail);
