@@ -131,7 +131,8 @@ function getFixMousePos(){ // 相对于屏幕获取的光标和触摸位置，�
 
 function hasClass(e,n){ return !!e.className.match(new RegExp("(\\s|^)"+n+"(\\s|$)")); }
 function addClass(e,n){ if(!hasClass(e,n)) e.className+=' '+n; }
-function removeClass(e,n){ if(hasClass(e,n)) e.className=e.className.replace(new RegExp('(\\s|^)'+n+'(\\s|$)'), ' '); }
+function removeClass(e,n){ removeClassName(e,n); }
+function removeClassName(e,n){ if(hasClass(e,n)) e.className=e.className.replace(new RegExp('(\\s|^)'+n+'(\\s|$)'), ''); }
 
 function imports(){
 	if(arguments.length == 1) arguments = arguments[0].split(',');
