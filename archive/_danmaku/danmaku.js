@@ -16,6 +16,19 @@
 		}else{
 			fc('onloading')[0].style.display='none';
 		}
+	},
+	tagFilter = function(){
+		for(var i=0, a=document.querySelectorAll('[people]'); i<a.length; i++)
+			a[i].style.display='';
+		if(this.className.contains('checked')){
+			removeClassName(this, 'checked');
+		}else{
+			for(var i=0, a=document.querySelectorAll('.tag.checked'); i<a.length; i++)
+				removeClassName(a[i], 'checked');
+			this.className += ' checked';
+			for(var i=0, a=document.querySelectorAll('[people]:not([people="'+this.getAttribute('for')+'"])'); i<a.length; i++)
+				a[i].style.display='none';
+		}
 	};
 	
 	var w = fv('contentholder');
@@ -25,6 +38,13 @@
 		httpj('get', 'data.json?'+new Date().getTime(), '', function(j){
 			if(j.stat == 200){
 				var p = j.people;
+				for(var i in p){
+					var d = ct('div', p[i]);
+					d.className = 'mui-panel mui--no-user-select tag';
+					d.onclick = tagFilter;
+					d.setAttribute('for', i);
+					w.appendChild(d);
+				}
 				j = j.data;
 				for(var i=0; i<j.length; i++){
 					var k = j[i],
@@ -34,6 +54,7 @@
 						title = ct('div', p[k[1]] + (k[2]==null || k[2].length==0? '': ' 【' + k[2] + '】')),
 						tmr = ct('div', (parseInt(ymd[1])+2000) + '年' + parseInt(ymd[2]) + '月' + parseInt(ymd[3]) + '日');
 					d.className='mui-panel';
+					d.setAttribute('people', k[1]);
 					a.href = '?view=' + k[1] + k[0];
 					title.className='mui--text-headline';
 					a.appendChild(title);
