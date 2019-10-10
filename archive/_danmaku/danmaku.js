@@ -48,11 +48,11 @@
 				j = j.data;
 				for(var i=0; i<j.length; i++){
 					var k = j[i],
-						ymd = /(\d+)(\d{2})(\d{2})/.exec(k[0]);
+						ymd = /(\d+)(\d{2})(\d{2})(\.\d{2})?/.exec(k[0]);
 					var d = ct('div'),
 						a = ct('a'),
 						title = ct('div', p[k[1]] + (k[2]==null || k[2].length==0? '': ' 【' + k[2] + '】')),
-						tmr = ct('div', (parseInt(ymd[1])+2000) + '年' + parseInt(ymd[2]) + '月' + parseInt(ymd[3]) + '日');
+						tmr = ct('span', (parseInt(ymd[1])+2000) + '年' + parseInt(ymd[2]) + '月' + parseInt(ymd[3]) + '日');
 					d.className='mui-panel';
 					d.setAttribute('people', k[1]);
 					a.href = '?view=' + k[1] + k[0];
@@ -60,6 +60,15 @@
 					a.appendChild(title);
 					d.appendChild(a);
 					d.appendChild(tmr);
+					if(k.length >= 4){
+						d.appendChild(ct('span', ' ' + k[3][1]));
+						switch(k[3][0]){
+							case 'norec':
+								d.style.backgroundColor = '#ffdddd'; break;
+							case 'pending':
+								d.style.backgroundColor = '#cceeff';
+						}
+					}
 					w.appendChild(d);
 				}
 				imageLoadingUpdater();
@@ -75,7 +84,6 @@
 				var addeddmk = 0;
 				for(var i=0; i<d.length; i++){
 					publishProgress(i, '数据', d.length);
-					pl(d[i]);
 					var s = /(\d+:\d+:\d+)\s:\s收到彈幕:(.*)\s說:\s(.*)/.exec(d[i]);
 					if(s != null && s.length > 1){
 						var tr = ct('tr'),
@@ -92,7 +100,10 @@
 							pid = pid.replace('[爺]', '').replace('[爷]', '');
 							tr.className='dmk-sender-vip';
 						}
-						if(pid=='五行缺壹') tr.className='dmk-sender-vip';
+						var vips = '五行缺壹|毛基阿灰'.split('\|');
+						for(var i_v=0; i_v<vips.length; i_v++){
+							if(pid==vips[i_v]) tr.className='dmk-sender-vip';
+						}
 						if(pid.contains('[管]')){
 							pid = pid.replace('[管]', '');
 							tr.className='dmk-sender-manager';
