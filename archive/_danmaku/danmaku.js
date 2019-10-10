@@ -35,6 +35,7 @@
 	var q = gquery('view');
 	if(q == ''){
 		publishProgress(0, '列表', 1);
+		document.querySelector('ul.mui-expand>li:first-child a').className = 'active'; // todo: use addClass instead
 		httpj('get', 'data.json?'+new Date().getTime(), '', function(j){
 			if(j.stat == 200){
 				var p = j.people;
