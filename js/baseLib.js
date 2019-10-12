@@ -26,11 +26,21 @@ var htmlhead=document.head,
 	if(!('includes' in String.prototype)) String.prototype.includes=function(s){ return this.indexOf(s)>-1; };
 	if(!('remove' in HTMLElement)) HTMLElement.prototype.remove=function(){ try{this.parentElement.removeChild(this);}catch(e){} };
 	if(!('addEventListener' in EventTarget.prototype)) EventTarget.prototype.addEventListener=function(n,f){ this.attachEvent('on'+n, f); };
+	if(!('forEach' in Array.prototype)) Array.prototype.forEach = function(func){ for(var i=0; i<this.length; i++) try{ func(this[i], i, this); }catch(e){ pl(e); } }
 	
 	// Firefox Method Compat
 	if(!('innerText' in document.body)){
 		HTMLElement.prototype.__defineGetter__("innerText", function(){ return this.textContent; });
 		HTMLElement.prototype.__defineSetter__("innerText", function(s){ return this.textContent=s; });
+	}
+	
+	// Constom Method Modify
+	HTMLElement.prototype.appendChildren = function(){
+		for(var v in arguments){
+			try{
+				this.appendChild(arguments[v]);
+			}catch(e){ pl(e); }
+		};
 	}
 })();
 function isReady(){return document.readyState.toLowerCase()=='complete'}

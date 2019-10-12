@@ -59,8 +59,7 @@
 					a.href = '?view=' + k[1] + k[0];
 					title.className='mui--text-headline';
 					a.appendChild(title);
-					d.appendChild(a);
-					d.appendChild(tmr);
+					d.appendChildren(a, tmr);
 					if(k.length >= 4){
 						d.appendChild(ct('span', ' ' + k[3][1]));
 						switch(k[3][0]){
@@ -80,45 +79,51 @@
 		http('get', 'view/'+q+'.txt?'+new Date().getTime(), '', function(){
 			if(this.status == 200){
 				var d = this.responseText.replace(/\r/g, '').split('\n');
-				var tabl = fv('main-table'), t = tabl.getElementsByTagName('tbody')[0];
+				var tabl = fv('main-table'), t = tabl.getElementsByTagName('tbody')[0], th0 = tabl.getElementsByTagName('th')[0];
 				tabl.style.display='';
-				var addeddmk = 0;
-				for(var i=0; i<d.length; i++){
-					publishProgress(i, '数据', d.length);
-					var s = /(\d+:\d+:\d+)\s:\s收到彈幕:(.*)\s說:\s(.*)/.exec(d[i]);
-					if(s != null && s.length > 1){
-						var tr = ct('tr'),
-							idx = ct('td', ++addeddmk),
-							tmr = ct('td', s[1]),
-							nm = ct('td'),
-							cont = ct('td', s[3]);
-						var pid = s[2];
-						tr.appendChild(idx);
-						tr.appendChild(tmr);
-						tr.appendChild(nm);
-						tr.appendChild(cont);
-						if(pid.replace('[爺]', '[爷]').contains('[爷]')){
-							pid = pid.replace('[爺]', '').replace('[爷]', '');
-							tr.className='dmk-sender-vip';
+				var addeddmk = 0, i = 0, proc = setInterval(function(){
+					while(i < d.length){
+						var s = /(\d+:\d+:\d+)\s:\s收到彈幕:(.*?)\s說:\s(.*)/.exec(d[i]);
+						if(s != null && s.length > 1){
+							var tr = ct('tr'),
+								idx = ct('td', ++addeddmk),
+								tmr = ct('td', s[1]),
+								nm = ct('td'),
+								cont = ct('td', s[3]);
+							var pid = s[2];
+							tr.appendChildren(idx, tmr, nm, cont);
+							if((pid = pid.replace('[爺]', '[爷]')).contains('[爷]')){
+								pid = pid.replace('[爷]', '');
+								tr.className='dmk-sender-vip';
+							}else{
+								'五行缺壹|毛基阿灰|werewolf33'
+								 .split('\|').forEach(function(v){
+									if(pid==v) tr.className='dmk-sender-vip';
+								});
+							}
+							if(pid.contains('[管]')){
+								pid = pid.replace('[管]', '');
+								tr.className='dmk-sender-manager';
+							}
+							if(pid=='疯狂小瑞瑞') tr.className='dmk-sender-me';
+							nm.innerText = pid;
+							t.appendChild(tr);
 						}
-						var vips = '五行缺壹|毛基阿灰'.split('\|');
-						for(var i_v=0; i_v<vips.length; i_v++){
-							if(pid==vips[i_v]) tr.className='dmk-sender-vip';
+						i++
+						if(i % 25 == 0){
+							publishProgress(i, '数据', d.length);
+							th0.innerText = addeddmk;
+							return;
 						}
-						if(pid.contains('[管]')){
-							pid = pid.replace('[管]', '');
-							tr.className='dmk-sender-manager';
-						}
-						if(pid=='疯狂小瑞瑞') tr.className='dmk-sender-me';
-						nm.innerText = pid;
-						t.appendChild(tr);
 					}
-				}
-				tabl.getElementsByTagName('th')[0].innerText = addeddmk;
+					th0.innerText = addeddmk;
+					imageLoadingUpdater();
+					clearInterval(proc);
+				}, 50);
 			}else{
 				w.innerText = '没有对应记录。';
+				imageLoadingUpdater();
 			}
-			imageLoadingUpdater();
 		});
 	}
 })();
