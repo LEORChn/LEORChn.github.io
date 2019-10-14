@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<!-- load MUI -->
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/preloader-lite.css" />
+		
+		<link rel="stylesheet" type="text/css" href="https://cdn.muicss.com/mui-0.9.41/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="/frame/mui/css/style-d9b21040eb.min.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/icomoon.lite.css" />
+		<style>
+			#xls_pane1,#xls_pane2{padding-top:5px}
+		</style>
+		<link rel="stylesheet" type="text/css" href="wikitable.css" />
+		<title>Wiki表格转换器</title>
+	</head>
+	<body>
+		<header id="header" class="header-shadow">
+			<div class="onloading">
+				<div class="progress" style="position:absolute; margin-top:0; top:100%; background-color:rgba(0,0,0,0)"><div class="indeterminate" style="background-color:rgb(238,238,238)"></div></div>
+				<div style="position:absolute; top:calc(100% + 4px); right:0; background-color:rgb(238,238,238); border-radius:10px">
+					<div class="preloader-wrapper active" style="width:18px; height:18px; margin-bottom:-4px">
+						<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+					<span>正在加载</span><span id="component_name">组件</span>... ( </span><span id="component_loaded">0</span><span> / <span id="component_total">5</span><span> )</span>
+				</div>
+			</div>
+			<nav id="appbar" class="mui-container-fluid" style="background-color:#0099ff">
+				<table width="100%" cellspacing="0">
+					<tbody>
+						<tr class="mui--appbar-height">
+							<td>
+								<a id="appbar-sidenav-show" class="mui--visible-xs-inline-block mui--visible-sm-inline-block"><i class="icon-menu"></i></a>
+								<a id="appbar-sidenav-hide" class="mui--hidden-xs mui--hidden-sm"><i class="icon-menu"></i></a>
+								<a class="appbar-brand">Wiki表格转换器</a>
+							</td>
+							<td class="mui--text-right">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</nav>
+		</header>
+		<div id="sidedrawer">
+			<nav id="sidenav" class="mui--no-user-select">
+				<div>
+					<h2 class="mui--appbar-line-height"><a href="/">瑞兽谷</a></h2>
+				</div>
+				<div class="mui-divider"></div>
+				<ul class="mui-expand">
+					<li><a href="/#artwork/"><strong>返回全部应用</strong></a></li>
+					<li><a href="/"><strong>返回瑞兽谷首页</strong></a></li>
+					<li>
+						<strong><table><tr><td>致谢</td><td class="mui-caret"></td></tr></table></strong>
+						<ul>
+							<li><a target="_blank" href="https://www.muicss.com/">MUI-CSS</a></li>
+							<li><a target="_blank" href="https://materializecss.com/preloader.html">Materialize-CSS</a></li>
+							<li><a target="_blank" href="https://www.bootcdn.cn/xlsx/">BootCDN</a></li>
+							<li><a target="_blank" href="https://github.com/SheetJS/js-xlsx">js-xlsx</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<div id="content-wrapper">
+			<div id="appbar-placeholder" class="mui--appbar-height"></div>
+			<div id="contentholder" class="mui-container-fluid mui-col-sm-offset-1 mui-col-sm-10">
+				<br>
+				<input id="uploader" style="display:none" type="file" accept=".xls,.xlsx">
+				<div align="center">
+					<label id="upload-btn-big" for="uploader" class="mui-btn mui-btn--raised" style="height:auto">
+						<h1>上传表格文件</h1>xls 或者 xlsx
+					</label>
+				</div>
+				<div style="background-color:#fff; padding-top:5px; position:relative" class="mui-panel">
+					<ul class="mui-tabs__bar">
+						<li class="mui--is-active">
+							<a data-mui-toggle="tab" data-mui-controls="xls_pane1">表格预览</a>
+						</li>
+						<li >
+							<a data-mui-toggle="tab" data-mui-controls="xls_pane2">转换源码</a>
+						</li>
+					</ul>
+					<div style="position:absolute; top:5px; right:15px">
+						<div class="mui-dropdown">
+						  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown" disabled>
+						    <span id="xls_sheetname">Sheet1</span>
+						    <span class="mui-caret"></span>
+						  </button>
+						  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
+						    <li><a>Sheet1</a></li>
+						    <li><a>Sheet2</a></li>
+						    <li><a>Sheet3</a></li>
+						  </ul>
+						</div>
+						<div class="mui-dropdown">
+						  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown" disabled>
+						    表头样式
+						    <span class="mui-caret"></span>
+						  </button>
+						  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
+						    <li><a onclick="_xls.caption()">标题栏</a></li>
+						    <li><a onclick="_xls.th()">首行加深</a></li>
+						    <li><a onclick="_xls.tc()" disabled>首列加深</a></li>
+						  </ul>
+						</div>
+						<div class="mui-dropdown">
+						  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown">
+						    工具
+						    <span class="mui-caret"></span>
+						  </button>
+						  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
+						    <li><a onclick="_xls.clean()">空表格清理</a></li>
+						  </ul>
+						</div>
+					</div>
+					<div id="xls_pane1" class="mui-tabs__pane mui--is-active">
+						<input id="xls_caption" placeholder="表格标题" style="width:100%; display:none;">
+						<table><tr><td>请先上传文件。</td></tr></table>
+					</div>
+					<div id="xls_pane2" class="mui-tabs__pane" style="position:relative">
+						<textarea id="xls_source" placeholder="上传表格文件后，转换的 Wiki 代码将会显示在这" style="min-height:350px; min-width:100%; max-width:100%"></textarea>
+						<div align="right">
+							<button onclick="_xls.copy()" class="mui-btn mui-btn--primary">复制文本</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>var loadstat = document.getElementById('component_loaded');</script>
+		<!-- mui -->
+		<script src="/frame/mui/js/loadjs.js"></script> <script>loadstat.innerText = 1;</script>
+		<script src="/frame/mui/js/loadwindow.js"></script> <script>loadstat.innerText = 2;</script>
+		<!-- js-xlsx -->
+		<script src="https://cdn.bootcss.com/xlsx/0.15.1/xlsx.full.min.js"></script> <script>loadstat.innerText = 3;</script>
+		<!-- leorchn lib -->
+		<script src="/js/baseLib.js"></script> <script>loadstat.innerText = 4;</script>
+		<script>
+			(function(){
+				addJs('wikitable.js?'+new Date().getTime());
+				loadstat.innerText = 5;
+			})();
+		</script>
+	</body>
+</html>
