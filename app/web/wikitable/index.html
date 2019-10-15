@@ -12,6 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="/frame/mui/css/icomoon.lite.css" />
 		<style>
 			#xls_pane1,#xls_pane2{padding-top:5px}
+			#upload-btn-big[disabled] span.ok{display:none}
+			#upload-btn-big:not([disabled]) span.loading{display:none}
 		</style>
 		<link rel="stylesheet" type="text/css" href="wikitable.css" />
 		<title>Wiki表格转换器</title>
@@ -69,6 +71,7 @@
 							<li><a target="_blank" href="https://github.com/SheetJS/js-xlsx">js-xlsx</a></li>
 						</ul>
 					</li>
+					<li><a target="_blank" href="/?about"><strong>联系开发者</strong></a></li>
 				</ul>
 			</nav>
 		</div>
@@ -78,9 +81,11 @@
 				<br>
 				<input id="uploader" style="display:none" type="file" accept=".xls,.xlsx">
 				<div align="center">
-					<label id="upload-btn-big" for="uploader" class="mui-btn mui-btn--raised" style="height:auto">
-						<h1>上传表格文件</h1>xls 或者 xlsx
-					</label>
+					<button id="upload-btn-big" onclick="fv('uploader').click()" class="mui-btn mui-btn--raised" style="height:auto" disabled>
+						<h1>上传表格文件</h1>
+						<span class="ok">xls 或者 xlsx</span>
+						<span class="loading">请稍候。</span>
+					</button>
 				</div>
 				<div style="background-color:#fff; padding-top:5px; position:relative" class="mui-panel">
 					<ul class="mui-tabs__bar">
@@ -104,14 +109,14 @@
 						  </ul>
 						</div>
 						<div class="mui-dropdown">
-						  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown" disabled>
+						  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown">
 						    表头样式
 						    <span class="mui-caret"></span>
 						  </button>
 						  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
 						    <li><a onclick="_xls.caption()">标题栏</a></li>
-						    <li><a onclick="_xls.th()">首行加深</a></li>
-						    <li><a onclick="_xls.tc()" disabled>首列加深</a></li>
+						    <li><a onclick="_xls.tr()">首行加深</a></li>
+						    <li><a onclick="_xls.tc()">首列加深</a></li>
 						  </ul>
 						</div>
 						<div class="mui-dropdown">

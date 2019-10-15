@@ -1,14 +1,22 @@
-var ID_TABLE_HOLDER = 'xls_pane1',
+var ID_UPLOAD_BUTTON = 'upload-btn-big',
+	ID_TABLE_HOLDER = 'xls_pane1',
 	ID_TABLE_CAPTION = 'xls_caption',
 	ID_SOURCE_HOLDER = 'xls_pane2',
-	ID_SOURCE_TEXTAREA = 'xls_source';
+	ID_SOURCE_TEXTAREA = 'xls_source',
+	TAG_VIRTUAL_TH_ROW = 'wikitable-thr',
+	TAG_VIRTUAL_TH_COL = 'wikitable-thc';
 defHex26();
 (function(){
+	fv(ID_UPLOAD_BUTTON).removeAttribute('disabled');
 	fc('onloading')[0].style.display='none';
+	
+	// 预备
 	var fr = new FileReader();
 	fv('uploader').onchange = function(e){
 		fr.readAsBinaryString(e.target.files[0]);
 	};
+	
+	// 加载 Xlsx文件
 	fr.onload = function(ev){
 		try{
 			var data = ev.target.result,
@@ -31,10 +39,10 @@ defHex26();
 			for(var irow=0; irow<row; irow++){
 				var r = ct('tr');
 				table.appendChild(r);
-				pl('create row #'+irow);
 				for(var icol=0; icol<col; icol++)
 					r.appendChild(ct('td'));
 			}
+			pl(sh);
 			for(var k in sh){
 				var b = sh[k];
 				if(k.startsWith('!')) continue; // later
@@ -51,27 +59,59 @@ defHex26();
 				}
 			}
 			p1.appendChild(table);
+			// 文本输入完毕，输入表格合并信息
+			var merges = sh['!merges'],
+				TAG_MERGED_CELLS = 'pre-delete-merged-cell';
+			if(merges) merges.forEach(function(v, i){
+				var pos = [v.s.r, v.s.c],
+					endpos = [v.e.r, v.e.c],
+					size = [endpos[0]-pos[0]+1, endpos[1]-pos[1]+1],
+					firstcell = table.rows[pos[0]].children[pos[1]];
+				for(var irow=pos[0]; irow<endpos[0]+1; irow++)
+					for(var icol=pos[1]; icol<endpos[1]+1; icol++)
+						table.rows[irow].children[icol].className = TAG_MERGED_CELLS;
+				firstcell.className = '';
+				if(size[0] > 1) firstcell.setAttribute('rowspan', size[0]);
+				if(size[1] > 1) firstcell.setAttribute('colspan', size[1]);
+			});
+			// 应用表格合并
+			var allpredelete = table.querySelectorAll('.'+TAG_MERGED_CELLS);
+			for(var i=allpredelete.length; i>0; i--)
+				allpredelete[i-1].remove();
+			// 表1 结束（在v2.0解锁多表解析）
 			break;
 		}
 		fv(ID_TABLE_HOLDER).querySelector('table').remove();
 	};
-	document.querySelector('[data-mui-controls^="'+ID_SOURCE_HOLDER+'"]').addEventListener('mui.tabs.showend', function(){ pl('mui.tabs.showend called');
+	
+	// 转换到 Wiki源码
+	document.querySelector('[data-mui-controls^="'+ID_SOURCE_HOLDER+'"]').addEventListener('mui.tabs.showend', function(){
 		var tb = fv(ID_SOURCE_TEXTAREA),
 			table = document.querySelector('#'+ID_TABLE_HOLDER+'>.wikitable'),
 			caption = fv(ID_TABLE_CAPTION);
 		tb.innerText = '';
 		if(!table) return;
 		var res = '{| class="wikitable"',
-			trs = table.querySelectorAll('tr'); pl('check wikitable ok');
+			trs = table.rows,
+			cap = fv(ID_TABLE_CAPTION);
+		if(cap.style.display != 'none' && cap.value.length > 0) res += '\n|+ ' + cap.value;
 		for(var itrs=0; itrs<trs.length; itrs++){
 			var tr = trs[itrs],
 				tds = tr.children;
-			res += '\n|-\n|';
+			res += '\n|-\n' + (tds[0].hasAttribute(TAG_VIRTUAL_TH_COL) || tds[0].hasAttribute(TAG_VIRTUAL_TH_ROW)? '!': '|'); // 首列加深
 			for(var itds=0; itds<tds.length; itds++){
-				var td = tds[itds];
-				res += (itds==0? '': ' ||') + ' ' + td.innerText;
+				var td = tds[itds],
+					span = [1, 1],
+					style = '',
+					isThisHead = td.hasAttribute(TAG_VIRTUAL_TH_COL) || td.hasAttribute(TAG_VIRTUAL_TH_ROW), // 首行加深
+					next = itds+1>=tds.length? '': isThisHead? itrs>0 || (!tds[itds+1].hasAttribute(TAG_VIRTUAL_TH_ROW))? '\n|': ' ||': ' ||';
+				if(td.hasAttribute('rowspan')) span[0] = parseInt(td.getAttribute('rowspan'));
+				if(td.hasAttribute('colspan')) span[1] = parseInt(td.getAttribute('colspan'));
+				if(span[0] > 1 || span[1] > 1)
+					style = (span[0]>1? ' rowspan="'+span[0]+'"': '') + (span[1]>1? ' colspan="'+span[1]+'"': '') + ' |';
+				res += style + ' ' + td.innerText + next;
 			}
-		} pl('output  ok');
+		}
 		tb.innerText = res + '\n|}';
 	});
 })();
@@ -86,14 +126,38 @@ var _xls = {
 	},
 	caption: function(){
 		var inp = fv(ID_TABLE_CAPTION);
-		inp.style.display = inp.style.display == ''? 'none': '';
+		if((inp.style.display = inp.style.display == ''? 'none': '') == '') inp.focus();
+	},
+	tr: function(){
+		pl('tr runs');
+		var table = fv(ID_TABLE_HOLDER).querySelector('table.wikitable');
+		if(!table) return;
+		var rows = table.rows,
+			cells = rows[0].children,
+			mode_addition = !cells[0].hasAttribute(TAG_VIRTUAL_TH_ROW);
+		pl('tr runs2 '+mode_addition);
+		for(var i=0; i<cells.length; i++)
+			if(mode_addition) cells[i].setAttribute(TAG_VIRTUAL_TH_ROW, '');
+			else cells[i].removeAttribute(TAG_VIRTUAL_TH_ROW);
+	},
+	tc: function(){
+		var table = fv(ID_TABLE_HOLDER).querySelector('table.wikitable');
+		if(!table) return;
+		var rows = table.rows,
+			mode_addition = !rows[0].firstChild.hasAttribute(TAG_VIRTUAL_TH_COL);
+		for(var i=0; i<rows.length; i++){
+			var cell = rows[i].firstChild;
+			if(mode_addition){
+				cell.setAttribute(TAG_VIRTUAL_TH_COL, '');
+				if(cell.hasAttribute('rowspan')) i += parseInt(cell.getAttribute('rowspan')) - 1;
+			}else cell.removeAttribute(TAG_VIRTUAL_TH_COL);
+		}
 	},
 	clean: function(){
-		var table = fv(ID_TABLE_HOLDER).querySelector('table');
+		var table = fv(ID_TABLE_HOLDER).querySelector('table.wikitable');
 		if(!table) return;
-		t = table.querySelector('tr').parentElement;
 		var run = function(confirmcleanmode){ // 开始从最后一行清理
-			var trs = t.children,
+			var trs = table.rows,
 				tr = trs[trs.length-1],
 				tds = tr.children;
 			if(confirmcleanmode){
@@ -108,7 +172,7 @@ var _xls = {
 			}
 		},
 		run2 = function(confirmcleanmode){ // 开始从最后一列清理
-			var trs = t.children;
+			var trs = table.rows;
 			for(var i=0; i<trs.length; i++){
 				var tr = trs[i],
 					tds = tr.children,
@@ -123,7 +187,11 @@ var _xls = {
 			}
 		},
 		start = function(){
-			var a=run(), b=run2();
+			var a=run(), b=run2(), c=5;
+			while((c > 0) && (a || b)){
+				a=run(); b=run2();
+				c--;
+			}
 			if(a || b) setTimeout(start, 50);
 		};
 		start();
