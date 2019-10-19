@@ -64,8 +64,9 @@ var my = fv('creator_my'),
 				title = k[2],
 				desc = k[3],
 				baseUrl = category[cate]+'/'+cate+'/'+id;
-			listsub[i].setAttribute('href', '#'+baseUrl+'.html');
-			sub_img[i].src = baseUrl+'_icon.png';
+			var oldversion = cate instanceof Array;
+			listsub[i].setAttribute('href', oldversion? '#'+baseUrl+'.html': baseUrl+'/');
+			sub_img[i].style.backgroundImage = 'url('+baseUrl+'_icon.png)';
 			sub_title[i].innerText = title;
 			sub_desc[i].innerHTML = desc;
 		}

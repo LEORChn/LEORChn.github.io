@@ -1,7 +1,9 @@
 <a class="item_id_root item_my_root">
-	<img class="item_id_image item_my" />
-	<span class="item_my">
-		<div class="item_id_title item_my_title"></div>
+	<div class="mui-panel">
+		<div class="mui--text-headline">
+			<div class="img item_id_image item_my"></div>
+			<div class="item_id_title item_my_title mui--text-headline"></div>
+		</div>
 		<div class="item_id_desc item_my_desc"></div>
-	</span>
+	</div>
 </a>
