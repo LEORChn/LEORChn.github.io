@@ -1,5 +1,8 @@
-var ID_UPLOAD_BUTTON = 'upload-btn-big',
-	ID_TABLE_HOLDER = 'xls_pane1',
+var ID_UPLOAD_FILE = 'uploader',
+	ID_UPLOAD_BUTTON = 'upload-btn-big',
+	ID_UPLOAD_BUTTON_MORE = 'upload-btn-dropdown',
+	ID_TABLE_PANEL = 'xls_pane1',
+	ID_TABLE_HOLDER = 'xls_table_holder',
 	ID_TABLE_CAPTION = 'xls_caption',
 	ID_SOURCE_HOLDER = 'xls_pane2',
 	ID_SOURCE_TEXTAREA = 'xls_source',
@@ -8,11 +11,12 @@ var ID_UPLOAD_BUTTON = 'upload-btn-big',
 defHex26();
 (function(){
 	fv(ID_UPLOAD_BUTTON).removeAttribute('disabled');
+	fv(ID_UPLOAD_BUTTON_MORE).removeAttribute('disabled');
 	fc('onloading')[0].style.display='none';
 	
 	// 预备
 	var fr = new FileReader();
-	fv('uploader').onchange = function(e){
+	fv(ID_UPLOAD_FILE).onchange = function(e){
 		fr.readAsBinaryString(e.target.files[0]);
 	};
 	
@@ -26,6 +30,7 @@ defHex26();
 			pl(e);
 			return;
 		}
+		mui.tabs.activate(ID_TABLE_PANEL);
 		var p1 = fv(ID_TABLE_HOLDER);
 		for(var sheet in wb.Sheets){
 			var sh = wb.Sheets[sheet],
@@ -81,7 +86,7 @@ defHex26();
 			// 表1 结束（在v2.0解锁多表解析）
 			break;
 		}
-		fv(ID_TABLE_HOLDER).querySelector('table').remove();
+		fv(ID_TABLE_HOLDER).querySelector('table').remove(); // 移除之前添加的table
 	};
 	
 	// 转换到 Wiki源码
@@ -116,6 +121,15 @@ defHex26();
 	});
 })();
 var _xls = {
+	open: function(s){
+		var f = fv(ID_UPLOAD_FILE),
+			xls = '.xls,application/vnd.ms-excel,application/x-xls',
+			xlsx = '.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+		if(s=='xls') f.accept = xls;
+		else if(s=='xlsx') f.accept = xlsx;
+		else f.accept = xls+','+xlsx;
+		f.click();
+	},
 	copy: function(){
 		fv(ID_SOURCE_TEXTAREA).select();
 		var succ;
@@ -125,8 +139,9 @@ var _xls = {
 		if(!succ) alert('无法一键复制，请手动复制。');
 	},
 	caption: function(){
-		var inp = fv(ID_TABLE_CAPTION);
-		if((inp.style.display = inp.style.display == ''? 'none': '') == '') inp.focus();
+		var inp = fv(ID_TABLE_CAPTION),
+			painp = inp.parentElement;
+		if((painp.style.display = painp.style.display == ''? 'none': '') == '') inp.focus();
 	},
 	tr: function(){
 		pl('tr runs');
@@ -197,7 +212,18 @@ var _xls = {
 		start();
 	}
 };
-function defHex26(){
+var BTN_GO_TOP = fv('goto_top'), IS_ANIMATIONING_GO_TOP = false;
+setInterval(function(){
+	if(IS_ANIMATIONING_GO_TOP) return;
+	BTN_GO_TOP.style.bottom=window.scrollY<100? '100%': '';
+}, 1000);
+function scroll_top(btn){ // 右下角按钮，点击后滚动页面到顶部。
+	btn.style.bottom='100%'; // 按钮飞走飞回的动画是在赋值位置参数时由 MUI 实现的，此处只是做延时赋值
+	IS_ANIMATIONING_GO_TOP = true;
+	setTimeout(function(){ IS_ANIMATIONING_GO_TOP=false; }, 1000);
+	$('html,body').animate({ scrollTop: 0 }, 900);
+}
+function defHex26(){ // 用于计算 Excel列 数值，A=1，Z=26，AA=27，没有零
 	window['hex26_xls'] = function(n){
 		var res = 0, mtp = 0;
 		try{

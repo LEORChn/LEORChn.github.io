@@ -79,13 +79,24 @@
 			<div id="appbar-placeholder" class="mui--appbar-height"></div>
 			<div id="contentholder" class="mui-container-fluid mui-col-sm-offset-1 mui-col-sm-10">
 				<br>
-				<input id="uploader" style="display:none" type="file" accept=".xls,.xlsx">
-				<div align="center">
-					<button id="upload-btn-big" onclick="fv('uploader').click()" class="mui-btn mui-btn--raised" style="height:auto" disabled>
-						<h1>上传表格文件</h1>
-						<span class="ok">xls 或者 xlsx</span>
-						<span class="loading">请稍候。</span>
-					</button>
+				<input id="uploader" style="display:none" type="file">
+				<div align="center" class="mui--no-user-select">
+					<div style="position:relative; display:inline-block">
+						<button id="upload-btn-big" onclick="_xls.open()" class="mui-btn mui-btn--raised" style="height:auto; position:relative" disabled>
+							<h1>上传表格文件</h1>
+							<span class="ok">xls 或者 xlsx</span>
+							<span class="loading">请稍候。</span>
+						</button>
+						<div class="mui-dropdown" style="position:absolute; right:0; bottom:0; margin-bottom:6px">
+						  <a id="upload-btn-dropdown" data-mui-toggle="dropdown" disabled>
+						    <span class="mui-caret" style="margin-left:0"></span>
+						  </a>
+						  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
+						    <li><a onclick="_xls.open('xls')">只选择 XLS 文件</a></li>
+						    <li><a onclick="_xls.open('xlsx')">只选择 XLSX 文件</a></li>
+						  </ul>
+						</div>
+					</div>
 				</div>
 				<div style="background-color:#fff; padding-top:5px; position:relative" class="mui-panel">
 					<ul class="mui-tabs__bar">
@@ -96,45 +107,50 @@
 							<a data-mui-toggle="tab" data-mui-controls="xls_pane2">转换源码</a>
 						</li>
 					</ul>
-					<div style="position:absolute; top:5px; right:15px">
-						<div class="mui-dropdown">
-						  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown" disabled>
-						    <span id="xls_sheetname">Sheet1</span>
-						    <span class="mui-caret"></span>
-						  </button>
-						  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
-						    <li><a>Sheet1</a></li>
-						    <li><a>Sheet2</a></li>
-						    <li><a>Sheet3</a></li>
-						  </ul>
-						</div>
-						<div class="mui-dropdown">
-						  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown">
-						    表头样式
-						    <span class="mui-caret"></span>
-						  </button>
-						  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
-						    <li><a onclick="_xls.caption()">标题栏</a></li>
-						    <li><a onclick="_xls.tr()">首行加深</a></li>
-						    <li><a onclick="_xls.tc()">首列加深</a></li>
-						  </ul>
-						</div>
-						<div class="mui-dropdown">
-						  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown">
-						    工具
-						    <span class="mui-caret"></span>
-						  </button>
-						  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
-						    <li><a onclick="_xls.clean()">空表格清理</a></li>
-						  </ul>
-						</div>
-					</div>
 					<div id="xls_pane1" class="mui-tabs__pane mui--is-active">
-						<input id="xls_caption" placeholder="表格标题" style="width:100%; display:none;">
-						<table><tr><td>请先上传文件。</td></tr></table>
+						<div style="display:flex">
+							<div class="mui-dropdown">
+							  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown">
+							    表头样式
+							    <span class="mui-caret"></span>
+							  </button>
+							  <ul class="mui-dropdown__menu mui-dropdown__menu">
+							    <li><a onclick="_xls.caption()">标题栏</a></li>
+							    <li><a onclick="_xls.tr()">首行加深</a></li>
+							    <li><a onclick="_xls.tc()">首列加深</a></li>
+							  </ul>
+							</div>
+							<div class="mui-dropdown">
+							  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown">
+							    工具
+							    <span class="mui-caret"></span>
+							  </button>
+							  <ul class="mui-dropdown__menu mui-dropdown__menu">
+							    <li><a onclick="_xls.clean()">空表格清理</a></li>
+							  </ul>
+							</div>
+							<div style="flex:1"></div>
+							<div class="mui-dropdown">
+							  <button class="mui-btn mui-btn--raised" data-mui-toggle="dropdown" disabled>
+							    <span id="xls_sheetname">Sheet1</span>
+							    <span class="mui-caret"></span>
+							  </button>
+							  <ul class="mui-dropdown__menu mui-dropdown__menu--right">
+							    <li><a>Sheet1</a></li>
+							    <li><a>Sheet2</a></li>
+							    <li><a>Sheet3</a></li>
+							  </ul>
+							</div>
+						</div>
+						<div class="mui-textfield" style="display:none">
+							<input id="xls_caption" placeholder="表格标题">
+						</div>
+						<div id="xls_table_holder" style="overflow:auto">
+							<table><tr><td>请先上传文件。</td></tr></table>
+						</div>
 					</div>
-					<div id="xls_pane2" class="mui-tabs__pane" style="position:relative">
-						<textarea id="xls_source" placeholder="上传表格文件后，转换的 Wiki 代码将会显示在这" style="min-height:350px; min-width:100%; max-width:100%"></textarea>
+					<div id="xls_pane2" class="mui-tabs__pane">
+						<textarea id="xls_source" placeholder="上传表格文件后，转换的 Wiki 代码将会显示在这" style="min-height:300px; min-width:100%; max-width:100%"></textarea>
 						<div align="right">
 							<button onclick="_xls.copy()" class="mui-btn mui-btn--primary">复制文本</button>
 						</div>
@@ -142,6 +158,7 @@
 				</div>
 			</div>
 		</div>
+		<button id="goto_top" onclick="scroll_top(this)" class="mui-btn mui-btn--fab"></button>
 		<script>var loadstat = document.getElementById('component_loaded');</script>
 		<!-- mui -->
 		<script src="/frame/mui/js/loadjs.js"></script> <script>loadstat.innerText = 1;</script>
