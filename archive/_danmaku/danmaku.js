@@ -63,9 +63,9 @@
 					if(k.length >= 4){
 						d.appendChild(ct('span', ' ' + k[3][1]));
 						switch(k[3][0]){
-							case 'norec':
+							case 'red':
 								d.style.backgroundColor = '#ffdddd'; break;
-							case 'pending':
+							case 'blue':
 								d.style.backgroundColor = '#cceeff';
 						}
 					}

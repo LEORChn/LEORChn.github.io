@@ -118,6 +118,10 @@
 							    <li><a onclick="_xls.caption()">标题栏</a></li>
 							    <li><a onclick="_xls.tr()">首行加深</a></li>
 							    <li><a onclick="_xls.tc()">首列加深</a></li>
+							    <li>
+							    	<a onclick="_xls.help.sortable()" class="icon"><img src="help.png"></a>
+							    	<a onclick="_xls.sortable()">允许用户排序</a>
+							    </li>
 							  </ul>
 							</div>
 							<div class="mui-dropdown">
@@ -159,6 +163,18 @@
 			</div>
 		</div>
 		<button id="goto_top" onclick="scroll_top(this)" class="mui-btn mui-btn--fab"></button>
+		<style>
+			.msgbox{display:none; position:relative; width:450px; max-width:calc(100% - 30px); min-height:250px; margin:auto; padding-bottom:36px; background-color:#fff}
+			#mui-overlay{display:flex}
+			#mui-overlay .msgbox{display:block}
+			.msgbox .title{color:#000}
+			.msgbox .btn-ok{position:absolute; right:0; bottom:0}
+		</style>
+		<div class="msgbox mui--z2 mui-container-fluid">
+			<table><tr><td class="title mui--appbar-height appbar-brand"></td></tr></table>
+			<div class="content"></div>
+			<button onclick="mui.msgbox.close()" class="btn-ok mui-btn mui-btn--flat mui-btn--primary">确定</button>
+		</div>
 		<script>var loadstat = document.getElementById('component_loaded');</script>
 		<!-- mui -->
 		<script src="/frame/mui/js/loadjs.js"></script> <script>loadstat.innerText = 1;</script>

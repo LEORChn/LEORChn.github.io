@@ -6,9 +6,10 @@ var ID_UPLOAD_FILE = 'uploader',
 	ID_TABLE_CAPTION = 'xls_caption',
 	ID_SOURCE_HOLDER = 'xls_pane2',
 	ID_SOURCE_TEXTAREA = 'xls_source',
+	TAG_SORTABLE = 'sortable',
+	TAG_UNSORTABLE = 'unsortable',
 	TAG_VIRTUAL_TH_ROW = 'wikitable-thr',
 	TAG_VIRTUAL_TH_COL = 'wikitable-thc';
-defHex26();
 (function(){
 	fv(ID_UPLOAD_BUTTON).removeAttribute('disabled');
 	fv(ID_UPLOAD_BUTTON_MORE).removeAttribute('disabled');
@@ -83,6 +84,17 @@ defHex26();
 			var allpredelete = table.querySelectorAll('.'+TAG_MERGED_CELLS);
 			for(var i=allpredelete.length; i>0; i--)
 				allpredelete[i-1].remove();
+			// 绑定点击事件
+			table.onclick = function(e){
+				if(!this.hasAttribute(TAG_SORTABLE)) return;
+				e = window.event || e;
+				e = e.target;
+				if(!e.hasAttribute(TAG_VIRTUAL_TH_ROW)) return;
+				if(e.hasAttribute(TAG_UNSORTABLE))
+					e.removeAttribute(TAG_UNSORTABLE);
+				else if(e.parentElement.children.length - this.querySelectorAll('[' + TAG_UNSORTABLE + ']').length > 1) // 必须至少保留一个
+					e.setAttribute(TAG_UNSORTABLE, '');
+			};
 			// 表1 结束（在v2.0解锁多表解析）
 			break;
 		}
@@ -96,7 +108,7 @@ defHex26();
 			caption = fv(ID_TABLE_CAPTION);
 		tb.innerText = '';
 		if(!table) return;
-		var res = '{| class="wikitable"',
+		var res = '{| class="wikitable' + (table.hasAttribute(TAG_SORTABLE)? ' '+TAG_SORTABLE: '') + '"',
 			trs = table.rows,
 			cap = fv(ID_TABLE_CAPTION);
 		if(cap.style.display != 'none' && cap.value.length > 0) res += '\n|+ ' + cap.value;
@@ -107,13 +119,15 @@ defHex26();
 			for(var itds=0; itds<tds.length; itds++){
 				var td = tds[itds],
 					span = [1, 1],
+					unsortable = td.hasAttribute(TAG_UNSORTABLE),
 					style = '',
 					isThisHead = td.hasAttribute(TAG_VIRTUAL_TH_COL) || td.hasAttribute(TAG_VIRTUAL_TH_ROW), // 首行加深
 					next = itds+1>=tds.length? '': isThisHead? itrs>0 || (!tds[itds+1].hasAttribute(TAG_VIRTUAL_TH_ROW))? '\n|': ' ||': ' ||';
 				if(td.hasAttribute('rowspan')) span[0] = parseInt(td.getAttribute('rowspan'));
 				if(td.hasAttribute('colspan')) span[1] = parseInt(td.getAttribute('colspan'));
-				if(span[0] > 1 || span[1] > 1)
-					style = (span[0]>1? ' rowspan="'+span[0]+'"': '') + (span[1]>1? ' colspan="'+span[1]+'"': '') + ' |';
+				if(span[0] > 1 || span[1] > 1 || unsortable)
+					style = (span[0]>1? ' rowspan="'+span[0]+'"': '') + (span[1]>1? ' colspan="'+span[1]+'"': '') + 
+						(unsortable? ' class="unsortable"': '') + ' |';
 				res += style + ' ' + td.innerText + next;
 			}
 		}
@@ -143,17 +157,29 @@ var _xls = {
 			painp = inp.parentElement;
 		if((painp.style.display = painp.style.display == ''? 'none': '') == '') inp.focus();
 	},
-	tr: function(){
-		pl('tr runs');
+	tr: function(appoint){
 		var table = fv(ID_TABLE_HOLDER).querySelector('table.wikitable');
 		if(!table) return;
 		var rows = table.rows,
 			cells = rows[0].children,
-			mode_addition = !cells[0].hasAttribute(TAG_VIRTUAL_TH_ROW);
-		pl('tr runs2 '+mode_addition);
+			mode_addition = appoint==undefined || appoint==null? !cells[0].hasAttribute(TAG_VIRTUAL_TH_ROW): appoint;
+		if(!mode_addition) this._cleansortable(table);
 		for(var i=0; i<cells.length; i++)
 			if(mode_addition) cells[i].setAttribute(TAG_VIRTUAL_TH_ROW, '');
 			else cells[i].removeAttribute(TAG_VIRTUAL_TH_ROW);
+	},
+	sortable: function(){
+		var table = fv(ID_TABLE_HOLDER).querySelector('table.wikitable');
+		if(!table) return;
+		var isOpen = table.hasAttribute(TAG_SORTABLE) && table.rows[0].children[0].hasAttribute(TAG_VIRTUAL_TH_ROW);
+		if(isOpen) this._cleansortable(table);
+		else table.setAttribute(TAG_SORTABLE, '');
+		this.tr(!isOpen);
+	},
+	_cleansortable: function(table){
+		table.removeAttribute(TAG_SORTABLE);
+		for(var i=0, a=table.querySelectorAll('[' + TAG_UNSORTABLE + ']'); i<a.length; i++)
+			a[i].removeAttribute(TAG_UNSORTABLE);
 	},
 	tc: function(){
 		var table = fv(ID_TABLE_HOLDER).querySelector('table.wikitable');
@@ -210,20 +236,42 @@ var _xls = {
 			if(a || b) setTimeout(start, 50);
 		};
 		start();
+	},
+	help: {
+		sortable: function(){
+			mui.msgbox.open('用户排序', '允许用户通过点击表头中的某一列，对每一行的内容进行排序。\n\n注意：\n1.排序后，所有合并的表格都将会自动分离。\n2.排序操作是临时发生的，表格将会在刷新页面时重置回初始状态。\n3.在本编辑器中，点击表头某一列，可以使该列单独禁用排序功能。');
+		}
 	}
 };
 var BTN_GO_TOP = fv('goto_top'), IS_ANIMATIONING_GO_TOP = false;
 setInterval(function(){
 	if(IS_ANIMATIONING_GO_TOP) return;
 	BTN_GO_TOP.style.bottom=window.scrollY<100? '100%': '';
-}, 1000);
+	if(window['mui']==undefined) return;
+	if(mui.msgbox) return;
+	mui.msgbox = {
+		_entity: fc('msgbox')[0],
+		open: function(title, content){
+			var e = this._entity;
+			mui.overlay('on', this, e);
+			e.querySelector('.title').innerText = title;
+			e.querySelector('.content').innerText = content;
+		},
+		close: function(){
+			mui.overlay('off');
+		},
+		onclose: function(){
+			htmlbody.appendChild(this._entity);
+		}
+	};
+}, 500);
 function scroll_top(btn){ // 右下角按钮，点击后滚动页面到顶部。
 	btn.style.bottom='100%'; // 按钮飞走飞回的动画是在赋值位置参数时由 MUI 实现的，此处只是做延时赋值
 	IS_ANIMATIONING_GO_TOP = true;
 	setTimeout(function(){ IS_ANIMATIONING_GO_TOP=false; }, 1000);
 	$('html,body').animate({ scrollTop: 0 }, 900);
 }
-function defHex26(){ // 用于计算 Excel列 数值，A=1，Z=26，AA=27，没有零
+(function(){ // 用于计算 Excel列 数值，A=1，Z=26，AA=27，没有零
 	window['hex26_xls'] = function(n){
 		var res = 0, mtp = 0;
 		try{
@@ -235,4 +283,4 @@ function defHex26(){ // 用于计算 Excel列 数值，A=1，Z=26，AA=27，没�
 		}catch(e){}
 		return res;
 	}
-}
+})();
