@@ -3,3 +3,7 @@ video.androido{width:240px;height:270px;margin-right:-40px;}
 img.androido{margin-left:-5px;margin-top:-5px}
 .qrcontainer>a{height:100%;position:relative}
 .qrcontainer>a>div{width:240px;height:320px;background-size:cover;background-repeat:no-repeat;display:inline-block}
+
+div.mui-panel.tag{position:relative; display:inline-block; border-radius:50px; margin-left:5px; margin-right:5px; height:20px; white-space:nowrap}
+div.mui-panel.tag img{border-radius:50px; height:50px; margin:-20px 5px -20px -15px}
+div.mui-panel.tag img+span{}

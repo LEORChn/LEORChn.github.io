@@ -21,8 +21,3 @@ div.item_artwork{width:100%;display:table-cell;position:relative;padding:0 10px 
 .pagePrev{}
 .pageDisplay{margin:0 20px 0 20px;display:inline}
 .pageNext{}
-
-.mui-panel{padding:15px;margin-bottom:20px;border-radius:0;background-color:#FFF;-webkit-box-shadow:0 2px 2px 0 rgba(0,0,0,.16),0 0 2px 0 rgba(0,0,0,.12);box-shadow:0 2px 2px 0 rgba(0,0,0,.16),0 0 2px 0 rgba(0,0,0,.12)}
-.mui-panel:after,.mui-panel:before{content:" ";display:table}
-.mui-panel:after{clear:both}
-.mui--text-headline{font-weight:400;font-size:24px;line-height:32px}

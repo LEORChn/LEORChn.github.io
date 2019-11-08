@@ -1,8 +1,29 @@
 (function(){
+	initPersonaTags();
 	initDonationList();
 	//wxprepare(fv('wxdonate'));
 	vprepare(fv('androido'));//checkIfOnLoad();
 })();
+function initPersonaTags(){
+	var froot = fv('persona_tags'),
+		t = froot.getAttribute('tags').replace(new RegExp('£¬', 'g'), ',').split(',');
+	for(var i=0, len=t.length; i<len; i++){
+		var displayName = t[i].replace(/^\+/, '').replace(/-$/, ''),
+			pn = displayName.toLowerCase(),
+			thumb = t[i].startsWith('+'),
+			isDeprecated = t[i].endsWith('-');
+		var root = ct('div'), sp = ct('span', displayName);
+		root.className = 'mui-panel mui--no-user-select tag';
+		if(thumb){
+			var img = ct('img');
+			img.src = '/article/'+pn.replace(/\s/g, '-')+'/thumb96.jpg';
+			root.appendChild(img);
+		}
+		if(isDeprecated) sp.style.opacity = (root.style.opacity = .5) - .3;
+		root.appendChild(sp);
+		froot.appendChild(root);
+	}
+}
 function initDonationList(){
 	var tb,tr,td,
 	u=location.origin+"/api/dntlist.json";
