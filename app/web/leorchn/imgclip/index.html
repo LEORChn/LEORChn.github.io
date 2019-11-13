@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<!-- load MUI -->
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/preloader-lite.css" />
+		
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/muicss/0.9.43/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/style-d9b21040eb.min.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/icomoon.lite.css" />
+		<style>
+		</style>
+		<link rel="stylesheet" type="text/css" href="imgclip.css" />
+		<title>图片裁剪</title>
+	</head>
+	<body>
+		<header id="header" class="header-shadow">
+			<div class="onloading">
+				<div class="progress" style="position:absolute; margin-top:0; top:100%; background-color:rgba(0,0,0,0)"><div class="indeterminate" style="background-color:rgb(238,238,238)"></div></div>
+				<div style="position:absolute; top:calc(100% + 4px); right:0; background-color:rgb(238,238,238); border-radius:10px">
+					<div class="preloader-wrapper active" style="width:18px; height:18px; margin-bottom:-4px">
+						<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+					<span>正在加载</span><span id="component_name">组件</span>... (
+					<span id="component_percent">
+						<span id="component_loaded">0</span> /
+						<span id="component_total">5</span>
+					</span>
+					<span>)</span>
+				</div>
+			</div>
+			<nav id="appbar" class="mui-container-fluid" style="background-color:#0099ff">
+				<table width="100%" cellspacing="0">
+					<tbody>
+						<tr class="mui--appbar-height">
+							<td>
+								<a id="appbar-sidenav-show" class="mui--visible-xs-inline-block mui--visible-sm-inline-block"><i class="icon-menu"></i></a>
+								<a id="appbar-sidenav-hide" class="mui--hidden-xs mui--hidden-sm"><i class="icon-menu"></i></a>
+								<a class="appbar-brand">图片裁剪</a>
+							</td>
+							<td class="mui--text-right">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</nav>
+		</header>
+		<div id="sidedrawer">
+			<nav id="sidenav" class="mui--no-user-select">
+				<div>
+					<h2 class="mui--appbar-line-height"><a href="/">瑞兽谷</a></h2>
+				</div>
+				<div class="mui-divider"></div>
+				<ul class="mui-expand">
+					<li><a href="/#artwork/"><strong>返回全部应用</strong></a></li>
+					<li><a href="/"><strong>返回瑞兽谷首页</strong></a></li>
+					<li>
+						<strong><table><tr><td>致谢</td><td class="mui-caret"></td></tr></table></strong>
+						<ul>
+							<li><a target="_blank" href="https://www.muicss.com/">MUI-CSS</a></li>
+							<li><a target="_blank" href="https://materializecss.com/">Materialize-CSS</a></li>
+							<li><a target="_blank" href="https://www.bootcdn.cn/">BootCDN</a></li>
+							<li><a target="_blank" href="https://cdn.bootcss.com/jsSHA/">jsSHA</a></li>
+						</ul>
+					</li>
+					<li><a target="_blank" href="/?about"><strong>联系开发者</strong></a></li>
+				</ul>
+			</nav>
+		</div>
+		<div id="content-wrapper">
+			<div id="contentholder" class="mui-container-fluid mui-col-sm-offset-1 mui-col-sm-10" style="overflow-x:hidden; height:100vh">
+				<div id="appbar-placeholder" class="mui--appbar-height"></div>
+				<br>
+				<canvas width="2337" height="777" oncontextmenu="return false" style="height:calc(70vh - 128px)"></canvas>
+				<canvas id="output_canvas" style="display:none"></canvas>
+				<form class="mui-form scoped1" onsubmit="return false">
+					<div style="display:flex">
+						<div class="mui-select" style="flex:1">
+							<label>裁剪模式</label>
+							<select id="img_clipmode" v1="自由比例" v2="16:9" v4="4:3" v6="2:1" v8="近景" v16="横屏">
+								<option v="10010" value="160,90,1376,774,267,148,555,0,16,9,592,333">横屏 远景 16:9</option>
+								<option v="10100" value="120,90,1036,777,267,140,555,0,4,3,620,465">横屏 远景 4:3</option>
+								<option v="10110" value="180,90,1554,777,267,140,555,0,2,1,600,300">横屏 远景 2:1</option>
+								<option v="10001" value="180,90,2337,777,267,0,555,0,1,1,600,360">横屏 远景 自由比例</option>
+																		<!--  minWH maxWH 
+																											StartEndX StartEndY
+																																		StepWH DefaultWH -->
+								<option v="00010" value="90,160,432,768,267,201,488,0,9,16,432,768">竖屏 远景 9:16</option>
+								<option v="00100" value="90,120,582,776,267,148,528,0,3,4,270,360">竖屏 远景 3:4</option>
+								<option v="00110" value="90,180,388,776,267,201,468,0,1,2,175,350">竖屏 远景 1:2</option>
+								<option v="00011" value="90,180,700,777,267,110,468,0,1,1,700,750">竖屏 远景 自由比例</option>
+								<option v="01010" value="90,160,198,352,259,205,524,428,9,16,135,240">竖屏 近景 9:16</option>
+								<option v="01100" value="90,120,264,352,259,172,539,428,3,4,120,160">竖屏 近景 3:4</option>
+								<option v="01110" value="90,180,176,352,259,216,509,428,2,4,120,240">竖屏 近景 1:2</option>
+								<option v="01011" value="63,85,609,355,273,0,557,422,1,1,256,256">近景 自由比例</option>
+							</select>
+						</div>
+						<div id="clip_reset" class="mui-btn mui-btn--raised" style="margin-left:15px">复位</div>
+						<button class="mui-btn mui-btn--raised mui-btn--primary" style="margin-left:5px" onclick="_clip.exec()" disabled>执行裁剪</button>
+					</div>
+					<div class="range-field mui-textfield">
+      			<input type="range" id="img_w" min="160" max="1376" step="16" value="0" />
+      			<label>宽度</label><label id="img_w_caption">160px</label>
+    			</div>
+					<div class="range-field mui-textfield">
+      			<input type="range" id="img_h" min="90" max="774" step="9" value="0" />
+      			<label>高度</label><label id="img_h_caption">90px</label>
+    			</div>
+    			<style>
+    				.scoped1 .range-field.mui-textfield{padding-top:0; margin-bottom:0}
+    				.scoped1 .range-field.mui-textfield input{margin-bottom:0}
+    				.scoped1 .range-field label{left:0; pointer-events:none}
+    				.scoped1 .range-field label:last-child{text-align:right}
+    			</style>
+				</form>
+			</div>
+		</div>
+		<style>
+			.msgbox{display:none; position:relative; width:450px; max-width:calc(100% - 30px); min-height:250px; margin:auto; padding-bottom:36px; background-color:#fff}
+			#mui-overlay{display:flex}
+			#mui-overlay .msgbox{display:block}
+			.msgbox .title{color:#000}
+			.msgbox .btn-ok{position:absolute; right:0; bottom:0}
+		</style>
+		<div class="msgbox mui--z2 mui-container-fluid">
+			<table><tr><td class="title mui--appbar-height appbar-brand"></td></tr></table>
+			<div class="content"></div>
+			<button onclick="mui.msgbox.close()" class="btn-ok mui-btn mui-btn--flat mui-btn--primary">确定</button>
+		</div>
+		<script>var loadstat = {e:document.getElementById('component_loaded'), i:0, up:function(){ this.e.innerText=(this.i++); }}; </script>
+		<!-- mui -->
+		<script src="/frame/mui/js/loadjs.js"></script> <script>loadstat.up();</script>
+		<script src="/frame/mui/js/loadwindow.js"></script> <script>loadstat.up();</script>
+		<!-- jsSHA -->
+		<script src="https://cdn.bootcss.com/jsSHA/2.3.1/sha256.js"></script> <script>loadstat.up();</script>
+		<!-- leorchn lib -->
+		<script src="/js/http.js"></script> <script>loadstat.up();</script>
+		<script src="/js/baseLib.js"></script> <script>loadstat.up();</script>
+		<script>
+			(function(){
+				addJs('imgclip.js?'+new Date().getTime());
+				loadstat.up();
+			})();
+		</script>
+	</body>
+</html>

@@ -1,4 +1,4 @@
-function http(method,url,formed,dofun,dofail){
+function http(method,url,formed,dofun,dofail,onprogress){
 	var x=window.ActiveXObject?
 		new ActiveXObject("Microsoft.XMLHTTP"):
 		new XMLHttpRequest();
@@ -9,6 +9,7 @@ function http(method,url,formed,dofun,dofail){
 	x.responseType="text"; // IE要求先open才能设置timeout和responseType
 	x.onload=dofun;
 	x.ontimeout=x.onerror= dofail? dofail: null;
+	x.onprogress=onprogress;
 	x.send(formed?formed:'');
 }
 function httpj(method, url, formed, dofun, dofail){
