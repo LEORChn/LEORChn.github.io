@@ -1,5 +1,7 @@
 ﻿// category, id, title, desc
 [
+//['web', '', '', ''],
+ ['web', 'id18gen', 'id18gen', 'Input first 17 numbers and get calculated 18th number!'],
  ['web', 'wikitable', 'Wiki表格转换器', '将 XLS 或 XLSX文件 转换为 Wiki源代码。'],
  [['web'], 'imghost', '图床工具', 'Image Hosting Service'],
  [['web'], 'qun', 'QQ群工具', '如果你的QQ客户端打开群公告、群相册或群文件时卡死或出现其他问题，可以使用这些工具。']//,

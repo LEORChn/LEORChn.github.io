@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<!-- load MUI -->
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/preloader-lite.css" />
+		
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/muicss/0.9.43/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/style-d9b21040eb.min.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/icomoon.lite.css" />
+		<style>
+		</style>
+		<link rel="stylesheet" type="text/css" href="id18gen.css" />
+		<title>id18gen</title>
+		<script>
+			var mui = {
+				title: 'id18gen',
+				title_theme: '#212121',
+				title_theme_dark: true,
+				side: [
+					{
+						_blank: false,
+						name: '返回全部应用',
+						data: '/#artwork'
+					},
+					{
+						_blank: false,
+						name: '返回瑞兽谷首页',
+						data: '/'
+					},
+					{
+						name: '致谢',
+						data: [
+							'MUI-CSS', 'https://www.muicss.com/',
+							'Materialize-CSS', 'https://materializecss.com/',
+							'BootCDN', 'https://www.bootcdn.cn/'
+						]
+					}
+				]
+			};
+		</script>
+	</head>
+	<body>
+		<header id="header" class="header-shadow">
+			<div class="onloading">
+				<div class="progress" style="position:absolute; margin-top:0; top:100%; background-color:rgba(0,0,0,0)"><div class="indeterminate" style="background-color:rgb(238,238,238)"></div></div>
+				<div style="position:absolute; top:calc(100% + 4px); right:0; background-color:rgb(238,238,238); border-radius:10px">
+					<div class="preloader-wrapper active" style="width:18px; height:18px; margin-bottom:-4px">
+						<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div><div class="gap-patch">
+								<div class="circle"></div>
+							</div><div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+					<span>正在加载</span><span id="component_name">组件</span>... (
+					<span id="component_percent">
+						<span id="component_loaded">0</span> /
+						<span id="component_total">5</span>
+					</span>
+					<span>)</span>
+				</div>
+			</div>
+			<nav id="appbar" class="mui-container-fluid" style="background-color:#0099ff">
+				<table width="100%" cellspacing="0">
+					<tbody>
+						<tr class="mui--appbar-height">
+							<td>
+								<a id="appbar-sidenav-show" class="mui--visible-xs-inline-block mui--visible-sm-inline-block"><i class="icon-menu"></i></a>
+								<a id="appbar-sidenav-hide" class="mui--hidden-xs mui--hidden-sm"><i class="icon-menu"></i></a>
+								<a class="appbar-brand">id18gen</a>
+							</td>
+							<td class="mui--text-right">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</nav>
+		</header>
+		<div id="sidedrawer">
+			<nav id="sidenav" class="mui--no-user-select">
+				<div>
+					<h2 class="mui--appbar-line-height"><a href="/">瑞兽谷</a></h2>
+				</div>
+				<div class="mui-divider"></div>
+				<ul class="mui-expand">
+					<li><a href="/#artwork/"><strong>返回全部应用</strong></a></li>
+					<li><a href="/"><strong>返回瑞兽谷首页</strong></a></li>
+					<li>
+						<strong><table><tr><td>致谢</td><td class="mui-caret"></td></tr></table></strong>
+						<ul id="sidethankslist">
+						</ul>
+					</li>
+					<li><a target="_blank" href="/?about"><strong>联系开发者</strong></a></li>
+				</ul>
+			</nav>
+		</div>
+		<div id="content-wrapper">
+			<div id="contentholder" class="mui-container-fluid mui-col-sm-offset-1 mui-col-sm-10" style="overflow-x:hidden; height:100vh">
+				<div id="appbar-placeholder" class="mui--appbar-height"></div>
+				<br>
+				<form class="mui-form mui-panel scoped1" onsubmit="return false">
+					<legend>Input first 17 numbers and get calculated 18th number!</legend>
+					<div class="mui-textfield mui-textfield--float-label">
+				    <input type="text" id="verify1" required autofocus="autofocus" pattern="^(\d{6}|\d{17})$">
+				    <label>Full 17 numbers or State number ( 6 numbers )</label>
+				    <label>0 / (6 or 17)</label>
+				  </div>
+				  <div class="mui-textfield">
+				    <label>yyyyMMdd</label>
+      			<label>= 00000000</label>
+				    <input type="date" id="verify2" required>
+				  </div>
+					<div class="range-field mui-textfield">
+      			<label>Born</label>
+      			<label>= 00</label>
+      			<input type="range" id="verify3" min="0" max="99" value="0" />
+    			</div>
+				  <div>
+						<div class="mui-select">
+							<label>Gender</label>
+		      		<label>= 1</label>
+							<select id="img_clipmode">
+								<option value="odd">m</option>
+								<option value="even">f</option>
+							</select>
+							<div style="min-width:20px"></div>
+							<div class="range-field mui-textfield" onclick="window.event.stopPropagation()">
+		      			<input type="range" id="verify4" min="0" max="9" value="1" />
+		    			</div>
+						</div>
+					</div>
+					<div style="text-align:right; margin-top:-20px">
+						<div id="submit" class="mui-btn mui-btn--raised mui-btn--primary" disabled>gen</div>
+					</div>
+    			<style>
+    				.scoped1 .range-field{padding-top:0; margin-bottom:0}
+    				.scoped1 .range-field input{margin-bottom:0}
+    				.scoped1 .range-field label{left:0; pointer-events:none}
+    				.scoped1 .range-field label:last-child,.scoped1.mui-form label+label{text-align:right}
+    			</style>
+				</form>
+				<div class="mui-panel">
+					<div class="mui-textfield">
+				    <label>Output</label>
+				    <input id="output" type="text" readonly>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<style>
+			.msgbox{display:none; position:relative; width:450px; max-width:calc(100% - 30px); min-height:250px; margin:auto; padding-bottom:36px; background-color:#fff}
+			#mui-overlay{display:flex}
+			#mui-overlay .msgbox{display:block}
+			.msgbox .title{color:#000}
+			.msgbox .btn-ok{position:absolute; right:0; bottom:0}
+		</style>
+		<div class="msgbox mui--z2 mui-container-fluid">
+			<table><tr><td class="title mui--appbar-height appbar-brand"></td></tr></table>
+			<div class="content"></div>
+			<button onclick="mui.msgbox.close()" class="btn-ok mui-btn mui-btn--flat mui-btn--primary">确定</button>
+		</div>
+		<script>var loadstat = {e:document.getElementById('component_loaded'), i:0, up:function(){ this.e.innerText=(this.i++); }}; </script>
+		<!-- mui -->
+		<script src="/frame/mui/js/loadjs.js"></script> <script>loadstat.up();</script>
+		<script src="/frame/mui/js/loadwindow.js"></script> <script>loadstat.up();</script>
+		<!-- leorchn lib -->
+		<script src="/js/http.js"></script> <script>loadstat.up();</script>
+		<script src="/js/baseLib.js"></script> <script>loadstat.up();</script>
+		<script>
+			(function(){
+				addJs('id18gen.js?'+new Date().getTime());
+				loadstat.up();
+			})();
+		</script>
+	</body>
+</html>
