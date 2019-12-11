@@ -47,7 +47,17 @@ function isReady(){return document.readyState.toLowerCase()=='complete'}
 function fv(id){return document.getElementById(id);}
 function ft(tag){return document.getElementsByTagName(tag);}
 function fc(cname){return document.getElementsByClassName(cname);}
-function ct(tag, t){var d=document.createElement(tag); if(t)d.innerText=t; return d;}
+function ct(tag, t, css){
+	tag = document.createElement(tag);
+	if(t) tag.innerText=t;
+	if(css){
+		var id = /#([^(\s|\.)]*)/g.exec(css),
+			cls = /\.([^#]*)/g.exec(css);
+		if(id) tag.id = id[1];
+		if(cls) tag.className = cls[1];
+	}
+	return tag;
+}
 function msgbox(msg){alert(msg);}
 function inputbox(title,defalt){return prompt(title,defalt);}
 function pl(s){console.log(s);}
