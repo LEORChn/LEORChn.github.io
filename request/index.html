@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<!-- load MUI -->
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/preloader-lite.css" />
+		
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/muicss/0.9.43/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/style-d9b21040eb.min.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/icomoon.lite.css" />
+		<style>
+		</style>
+		<link rel="stylesheet" type="text/css" href="gif.css" />
+		<title>请求</title>
+		<script>
+			var mui = {
+				title: '请求',
+				title_theme: '#212121',
+				title_theme_dark: true,
+				side: [
+					{
+						_blank: false,
+						name: '返回瑞兽谷首页',
+						data: '/'
+					},
+					{
+						name: '致谢',
+						data: [
+							'MUI-CSS', 'https://www.muicss.com/',
+							'Materialize-CSS', 'https://materializecss.com/',
+							'BootCDN', 'https://www.bootcdn.cn/',
+							'GIFGroover', 'https://github.com/blindman67/GIFGroover'
+						]
+					}
+				]
+			};
+		</script>
+	</head>
+	<body>
+		<style>
+			progress-circle, progress-bar{display:none}
+			.onloading .preloader-wrapper{width:18px; height:18px; margin-bottom:-4px}
+			.onloading .progress:first-child{position:absolute; margin-top:0; top:100%; background-color:rgba(0,0,0,0)}
+			.onloading .progress .indeterminate{background-color:rgb(238,238,238)}
+			.onloading .progress-text{position:absolute; top:calc(100% + 4px); right:0; background-color:rgb(238,238,238); border-radius:10px}
+		</style>
+		<header id="header" class="header-shadow">
+			<!--div class="onloading">
+				<div class="progress"><div class="indeterminate"></div></div>
+				<div class="progress-text"></div>
+			</div-->
+			<nav id="appbar" class="mui-container-fluid" style="background-color:#0099ff">
+				<table width="100%" cellspacing="0">
+					<tr class="mui--appbar-height">
+						<td>
+							<a id="appbar-sidenav-show" class="mui--visible-xs-inline-block mui--visible-sm-inline-block"><i class="icon-menu"></i></a>
+							<a id="appbar-sidenav-hide" class="mui--hidden-xs mui--hidden-sm"><i class="icon-menu"></i></a>
+							<a class="appbar-brand">请求</a>
+						</td>
+						<td class="mui--text-right">
+						</td>
+					</tr>
+				</table>
+			</nav>
+		</header>
+		<div id="sidedrawer">
+			<nav id="sidenav" class="mui--no-user-select">
+				<div>
+					<h2 class="mui--appbar-line-height"><a href="/">瑞兽谷</a></h2>
+				</div>
+				<div class="mui-divider"></div>
+				<ul class="mui-expand">
+					<li><a href="/"><strong>返回瑞兽谷首页</strong></a></li>
+					<li>
+						<strong><table><tr><td>致谢</td><td class="mui-caret"></td></tr></table></strong>
+						<ul id="sidethankslist">
+							<li><a target="_blank" href="https://www.muicss.com/">MUI-CSS</a></li>
+							<li><a target="_blank" href="https://materializecss.com/">Materialize-CSS</a></li>
+							<li><a target="_blank" href="https://www.bootcdn.cn/">BootCDN</a></li>
+						</ul>
+					</li>
+					<li><a target="_blank" href="/?about"><strong>联系管理员</strong></a></li>
+				</ul>
+			</nav>
+		</div>
+		<div id="content-wrapper">
+			<div id="contentholder" class="mui-container-fluid mui-col-sm-offset-1 mui-col-sm-10" style="overflow-x:hidden; height:100vh">
+				<div id="appbar-placeholder" class="mui--appbar-height"></div>
+				<br>
+				<div class="mui-panel">
+					<div class="mui--text-headline">【回忆】我的一加5T</div>
+					<div class="mui--text-black-54">2019年12月31日</div>
+					此处应该有一篇文章。
+					<br>
+					因为站长懒散的性格，虽说前几天已经写了一半了，但现在还在准备中。
+					<br><br>
+					请在2019年12月31日13时左右再来。望谅解！
+				</div>
+			</div>
+		</div>
+		<style>
+			.msgbox{display:none; position:relative; width:450px; max-width:calc(100% - 30px); min-height:250px; margin:auto; padding-bottom:36px; background-color:#fff}
+			#mui-overlay{display:flex}
+			#mui-overlay .msgbox{display:block}
+			.msgbox .title{color:#000}
+			.msgbox .btn-ok{position:absolute; right:0; bottom:0}
+		</style>
+		<div class="msgbox mui--z2 mui-container-fluid">
+			<table><tr><td class="title mui--appbar-height appbar-brand"></td></tr></table>
+			<div class="content"></div>
+			<button onclick="mui.msgbox.close()" class="btn-ok mui-btn mui-btn--flat mui-btn--primary">确定</button>
+		</div>
+		<!-- leorchn base lib -->
+		<script src="/js/baseLib.js"></script>
+		<script src="/frame/mui/js/builder.js"></script>
+		<script>var loadstat = {i:2, up:function(){ mui.loader.current.innerText=(this.i++); }}; </script>
+		<!-- mui -->
+		<script src="/frame/mui/js/loadjs.js"></script> <script>loadstat.up();</script>
+		<script src="/frame/mui/js/loadwindow.js"></script> <script>loadstat.up();</script>
+		<!-- leorchn lib -->
+		<script src="/js/http.js"></script> <script>loadstat.up();</script>
+		<script>
+			(function(){
+				//addJs('gif.js?'+new Date().getTime());
+				loadstat.up();
+				fc('onloading')[0].style.display='none';
+			})();
+		</script>
+	</body>
+</html>
