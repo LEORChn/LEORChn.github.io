@@ -1,3 +1,19 @@
+/* loader */
+progress-circle, progress-bar{display:none}
+.onloading .preloader-wrapper{width:18px; height:18px; margin-bottom:-4px}
+.onloading .progress:first-child{position:absolute; margin-top:0; top:00%; background-color:rgba(0,0,0,0)}
+.onloading .progress .indeterminate{background-color:rgb(238,238,238)}
+.onloading .progress-text{position:absolute; top:calc(100% + 4px); right:0; background-color:rgb(238,238,238); border-radius:10px}
+
+/* msgbox */
+#msgbox-launchpad{display:none}
+.msgbox{position:relative; width:450px; max-width:calc(100% - 30px); min-height:250px; margin:auto; padding-bottom:36px; background-color:#fff}
+#mui-overlay{display:flex}
+.msgbox .title{color:#000}
+.msgbox .title:empty{height:15px}
+.msgbox .btn-ok{position:absolute; right:0; bottom:0}
+
+/* components */
 .mui-expand table{width:100%; border-spacing:0}
 .mui-expand table td:first-child{width:100%; padding:0}
 .mui-dropdown a:not([href]){cursor:default}
