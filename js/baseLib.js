@@ -23,10 +23,9 @@ var htmlhead=document.head,
 	});
 	
 	// IE Method Compat
-	if(!('includes' in String.prototype)) String.prototype.includes=function(s){ return this.indexOf(s)>-1; };
-	if(!('remove' in HTMLElement)) HTMLElement.prototype.remove=function(){ try{this.parentElement.removeChild(this);}catch(e){} };
-	if(!('addEventListener' in EventTarget.prototype)) EventTarget.prototype.addEventListener=function(n,f){ this.attachEvent('on'+n, f); };
-	if(!('forEach' in Array.prototype)) Array.prototype.forEach = function(func){ for(var i=0; i<this.length; i++) try{ func(this[i], i, this); }catch(e){ pl(e); } }
+	_proto(HTMLElement, 'remove', function(){ try{this.parentElement.removeChild(this);}catch(e){} });
+	_proto(EventTarget, 'addEventListener', function(n,f){ this.attachEvent('on'+n, f); });
+	_proto(String, 'includes', function(s){ return this.indexOf(s)>-1; });
 	
 	// Firefox Method Compat
 	if(!('innerText' in document.body)){
@@ -35,34 +34,97 @@ var htmlhead=document.head,
 	}
 	
 	// Constom Method Modify
-	HTMLElement.prototype.appendChildren = function(){
-		for(var v in arguments){
-			try{
-				this.appendChild(arguments[v]);
-			}catch(e){ pl(e); }
-		};
-	}
+	_proto(Array, 'forEach', function(func){ for(var i=0; i<this.length; i++) try{ if(func(this[i], i, this)) return true; }catch(e){ pl(e); } }, true);
+	/* e = curItem, i = curIndex, a = thisArray
+		.forEach(function(e, i, a){
+			
+		});
+	*/
+	
+	_proto(HTMLElement, 'appendChildren', function(){ var t = this; arr(arguments).forEach(function(e){ t.appendChild(e); }); });
+	_proto(HTMLElement, 'prependChild', function(e){
+		var f=this.firstElementChild;
+		if(f) this.insertBefore(e,f); else this.appendChild(e);
+	});
+	_proto(HTMLElement, 'insertAfter', function(e,f){
+		f=f.nextElementSibling;
+		if(f) this.insertBefore(e,f); else this.appendChild(e);
+	});
+	_proto(Event, 'block', function(){ this.preventDefault(); this.stopPropagation(); });
+	_proto(File, 'read', function(f){
+		switch(true){
+			case f instanceof Function:
+				var r=f;
+				f=new FileReader();
+				f.onload=function(p){
+					r(p.target.result, p);
+				};
+			case f instanceof FileReader:
+				f.readAsText(this);
+				return f; // FileReader
+		}
+	});
+	_proto(String, 'format', function(){
+		_this = this;
+		arr(arguments).forEach(function(e, i){
+			_this = _this.replace(new RegExp("\\{" + i + "\\}", "gm"), e);
+		});
+		return _this;
+	});
+	
+	// Visual Basic
+	_proto(String, 'left', function(n){ return this.substr(0, Math.abs(n)); });
+	_proto(String, 'right', function(n){ n=Math.abs(n); return this.substr(-n, n); });
 })();
+function _proto(obj, name, fun, force){
+	if(obj instanceof Function && obj.name == 'Object'){
+		pl('不能修改 Object 基类，因为这会导致 jQuery 异常。');
+		return;
+	}
+	if(!(name in obj.prototype) || force){
+		obj.prototype[name] = fun;
+		pl('baseLib: ' + obj.name + '.' + name);
+	}
+}
 function isReady(){return document.readyState.toLowerCase()=='complete'}
+function $(e){return document.querySelector(e);}
+function $$(e){return document.querySelectorAll(e);}
+function arr(o){return Array.prototype.slice.call(o);}
 function fv(id){return document.getElementById(id);}
 function ft(tag){return document.getElementsByTagName(tag);}
 function fc(cname){return document.getElementsByClassName(cname);}
-function ct(tag, t, css){
-	tag = document.createElement(tag);
-	if(t) tag.innerText=t;
-	if(css){
-		var id = /#([^(\s|\.)]*)/g.exec(css),
-			cls = /\.([^#]*)/g.exec(css);
-		if(id) tag.id = id[1];
-		if(cls) tag.className = cls[1];
-	}
-	return tag;
+function ct(tag, t){
+	if(arguments.length > 2) pl(new Error('Somewhere might using old version to create Elements. PLEASE UPDATE YOUR CODE.'));
+	tag = {
+		entity: null,
+		raw: tag,
+		data: tag.split(/[#\.\s]/g)
+	};
+	var nextStart = 0;
+	tag.data.forEach(function(e){
+		nextStart ++;
+		if(e.length == 0) return; // continue
+		nextStart --;
+		switch(tag.raw.charAt(nextStart)){
+			case ' ': case '.':
+				addClass(tag.entity, e); break;
+			case '#':
+				tag.entity.id = e; break;
+			default:
+				tag.entity = document.createElement(e);
+				nextStart --;
+		}
+		nextStart += e.length + 1;
+	});
+	if(t) tag.entity.innerText = t;
+	return tag.entity;
 }
 function msgbox(msg){alert(msg);}
 function inputbox(title,defalt){return prompt(title,defalt);}
 function pl(s){console.log(s);}
 function vaild(o){return!(o==undefined||o==null||isNaN(o));}
-function gquery(n){ // get Query
+function gquery(n){ return _GET(n); } // get Query
+function _GET(n){
 	var r=location.search.match(new RegExp("[\?\&]"+n+"=([^\&]+)","i"));
 	return r==null||r.length<1?'':r[1];
 }
@@ -149,8 +211,8 @@ function getFixMousePos(){ // 相对于屏幕获取的光标和触摸位置，�
 	return{ x:x, y:y };
 }
 
-function hasClass(e,n){ return !!e.className.match(new RegExp("(\\s|^)"+n+"(\\s|$)")); }
-function addClass(e,n){ if(!hasClass(e,n)) e.className+=' '+n; }
+function hasClass(e,n){ return new RegExp("(\\s|^)"+n+"(\\s|$)").test(e.className); }
+function addClass(e,n){ if(!hasClass(e,n)) e.className=(e.className+' '+n).trim(); }
 function removeClass(e,n){ removeClassName(e,n); }
 function removeClassName(e,n){ if(hasClass(e,n)) e.className=e.className.replace(new RegExp('(\\s|^)'+n+'(\\s|$)'), ''); }
 
