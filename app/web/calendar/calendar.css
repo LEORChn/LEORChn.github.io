@@ -1,0 +1,41 @@
+
+/* 给特殊项目添加 Emoji图片 */
+[type]{
+	position: relative;
+	padding-left: 64px
+}
+
+[type]:before{
+	content: ' ';
+	position: absolute;
+	width: 48px;
+	height: 48px;
+	left: 8px;
+	background-size: 48px;
+}
+
+[type=birthday]:before{
+	background-image: url(https://twemoji.maxcdn.com/v/12.1.5/72x72/1f382.png);
+}
+
+[subtype=game]:before{
+	background-image: url(https://twemoji.maxcdn.com/v/12.1.5/72x72/1f3ae.png);
+}
+
+[subtype=rainbowflag]:before{
+	background-image: url(https://cdn.jsdelivr.net/emojione/assets/png/1f3f3-1f308.png?v=2.2.7);
+}
+
+[subtype=programmer]:before{
+	background-image: url(/archive/noto-emoji/android7/svg/emoji_u1f468_200d_1f4bb.svg);
+}
+
+/* 无效图片例外 */
+[type=anniversary]:not([subtype]){
+	padding-left: 15px
+}
+
+/* 在 “开发” 选项卡未激活时隐藏它 */
+.mui-tabs__bar>li:last-child:not(.mui--is-active){
+	display:none
+}

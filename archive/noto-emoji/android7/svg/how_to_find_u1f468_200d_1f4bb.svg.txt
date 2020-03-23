@@ -1,0 +1,16 @@
+﻿
+- 找到 Emoji 名称：noto-emoji，定位到 svg 文件
+
+https://github.com/googlefonts/noto-emoji/blob/master/svg/emoji_u1f468_200d_1f4bb.svg
+
+- 点击 History 查看历史更新记录
+
+https://github.com/googlefonts/noto-emoji/commits/master/svg/emoji_u1f468_200d_1f4bb.svg
+
+- 点击2017年5月1日更新的commit，进入：
+
+https://github.com/googlefonts/noto-emoji/diffs?bytes=379101&commit=9da2857552dd88c9826a90deaf034bb7bc3eb029&lines=4879&responsive=true&sha1=8f0a65b1ae6c1c7499b8614f6f9193dcb4a8728e&sha2=9da2857552dd88c9826a90deaf034bb7bc3eb029&start_entry=681&sticky=false
+
+- 翻页。。
+
+https://github.com/googlefonts/noto-emoji/diffs/693?commit=9da2857552dd88c9826a90deaf034bb7bc3eb029&sha1=8f0a65b1ae6c1c7499b8614f6f9193dcb4a8728e&sha2=9da2857552dd88c9826a90deaf034bb7bc3eb029

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<!-- load MUI -->
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/preloader-lite.css" />
+		
+		<link rel="stylesheet" type="text/css" href="https://cdn.muicss.com/mui-0.9.41/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/style-d9b21040eb.min.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/icomoon.lite.css" />
+		<!-- limited -->
+		<link rel="stylesheet" type="text/css" href="calendar.css" />
+		<script>
+			var ui = {
+				title: '日历',
+				head: {
+					title: '瑞兽谷日历',
+					//theme: '#0099ff',
+					isTextBright: true,
+					/*drop: [
+						{
+							name: '',
+							data: 'javascript:_chat.onShowMembers();'
+						}
+					]*/
+				},
+				side: [
+					{
+						name: '返回全部应用',
+						data: '/#artwork/'
+					},
+					{
+						name: '返回瑞兽谷首页',
+						data: '/'
+					},
+					{
+						_blank: true,
+						name: '致谢',
+						data: [
+							'MUI-CSS', 'https://www.muicss.com/',
+							'Materialize-CSS', 'https://materializecss.com/',
+							'BootCDN', 'https://www.bootcdn.cn/',
+							'Twitter Emoji', 'https://twemoji.maxcdn.com/',
+							'cdnjs', 'https://cdnjs.com/libraries/emojione',
+							'emojione', 'http://www.emojione.com/',
+							'noto-emoji Android 7', 'https://github.com/googlefonts/noto-emoji',
+							'js-xlsx', 'https://github.com/SheetJS/js-xlsx'
+						]
+					},
+					{
+						name: '开发人员选项',
+						data: [
+							'数据转换器', 'javascript:dev.convertor();'
+						]
+					}
+				],
+				content: {
+					fitsSystemWindows: true,
+					root: null,
+					window: null,
+					window_name: 'calendar-window'
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<!--div id="content-wrapper">
+			<div id="appbar-placeholder" class="mui--appbar-height"></div>
+			<div id="calendar-window" class="mui-container-fluid mui-col-sm-offset-1 mui-col-sm-10">
+				<!-- 数据 >
+			</div>
+		</div-->
+		<div id="dev" style="display:none">
+			<input id="uploader" type="file" accept=".xls,application/vnd.ms-excel,application/x-xls,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+			<textarea id="source" style="min-height:300px; min-width:100%; max-width:100%"></textarea>
+			<div align="right">
+				<button onclick="dev.copy()" class="mui-btn mui-btn--primary">复制文本</button>
+			</div>
+		</div>
+		<div id="msgbox-launchpad">
+		</div>
+		<!-- leorchn base lib -->
+		<script src="/js/baseLib.js"></script>
+		<script src="/frame/mui/js/builder.js"></script>
+		<!-- leorchn lib -->
+		<script src="/js/http.js"></script>
+		<!-- js-xlsx -->
+		<script src="https://cdn.bootcss.com/xlsx/0.15.1/xlsx.full.min.js"></script>
+		<script>
+			var DEBUG_JS = location.hostname == '127.0.0.1'? '?'+new Date().getTime(): '';
+			addJs('calendar.js' + DEBUG_JS);
+			addJs('calendar-dev.js' + DEBUG_JS);
+		</script>
+	</body>
+</html>
