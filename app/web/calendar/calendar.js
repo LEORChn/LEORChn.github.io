@@ -12,7 +12,7 @@ var calendar_tab_salt = 'calendar-tab-';
 			tabActive = 1,
 			tabs = '提醒 总览 开发'.split(' '),
 			tab_salt = calendar_tab_salt;
-		tabs.forEach(function(e, i){
+		tabs.foreach(function(e, i){
 			var li = ct('li'),
 				a = ct('a', e);
 			a.setAttribute('data-mui-toggle', 'tab');
@@ -29,7 +29,7 @@ var calendar_tab_salt = 'calendar-tab-';
 		var rootpane = ct('div.mui-panel');
 		ui.content.window.appendChildren(ct('br'), rootpane);
 		rootpane.appendChild(tabroot);
-		tab_panes.forEach(function(e){
+		tab_panes.foreach(function(e){
 			rootpane.appendChild(e);
 		});
 	})();
@@ -37,7 +37,7 @@ var calendar_tab_salt = 'calendar-tab-';
 	httpj('get data.json', function(j){
 		ui.loader.hide();
 		var days = [];
-		j.data.forEach(function(e){
+		j.data.foreach(function(e){
 			var obj = {},
 				conv_type = {
 					'节日': 'festival',
@@ -78,7 +78,7 @@ var calendar_tab_salt = 'calendar-tab-';
 					xd > yd? 1: -1:
 					0;
 		});
-		days.forEach(function(e){ // 总览
+		days.foreach(function(e){ // 总览
 			var d = e.date,
 				yyyy = d.getFullYear() == 1970? '': d.getFullYear() + '年';
 			
@@ -112,7 +112,7 @@ var calendar_tab_salt = 'calendar-tab-';
 				return;
 			}
 		};
-		arr(allsub).forEach(function(e){
+		arr(allsub).foreach(function(e){
 			win.appendChild(e);
 		});
 	})();

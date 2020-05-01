@@ -39,7 +39,7 @@
 			menuDropdown.appendChildren(menuDropdownTrigger, menuDropdownUl);
 			menuDropdownTrigger.setAttribute('data-mui-toggle', 'dropdown');
 			menuDropdownTrigger.appendChild(menuDropdownIcon);
-			ui.head.drop.forEach(function(e){
+			ui.head.drop.foreach(function(e){
 				let li = ct('li'),
 					a = ct('a', e.name);
 				a.href = e.data;
@@ -115,7 +115,7 @@
 		siteNameHolder.appendChild(siteNameDisplay);
 		siteNameDisplay.href = '/';
 		
-		ui.side.forEach(function(e){
+		ui.side.foreach(function(e){
 			var li = ct('li');
 			list.appendChild(li);
 			if(!(e.data instanceof Array)){
@@ -186,9 +186,28 @@
 	launchpad.appendChild(msgbox);
 	htmlbody.appendChild(launchpad);
 	
-	ui.msgbox = function(title, content, onclosedo){
-		if(!title) title = '';
-		if(!content) content = '';
+	ui.msgbox = function(){
+		var pointer = 0,
+			content, title, onclosedo;
+		arr(arguments).foreach(function(e){
+			switch(pointer){
+				case 0:
+					content = e || '';
+					break;
+				case 1:
+					if(typeof e == 'string'){
+						title = e;
+						break;
+					}else{
+						title = '';
+					}
+				case 2:
+					if(e instanceof Function){
+						onclosedo = e;
+					}
+			}
+			pointer++;
+		});
 		var e = this._entity;
 		e.querySelector('.title').innerText = title;
 		e.querySelector('.content').innerText = content;

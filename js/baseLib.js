@@ -34,14 +34,14 @@ var htmlhead=document.head,
 	}
 	
 	// Constom Method Modify
-	_proto(Array, 'forEach', function(func){ for(var i=0; i<this.length; i++) try{ if(func(this[i], i, this)) return true; }catch(e){ pl(e); } }, true);
+	_proto(Array, 'foreach', function(func){ for(var i=0; i<this.length; i++) try{ if(func(this[i], i, this)) return true; }catch(e){ pl(e); } }, true);
 	/* e = curItem, i = curIndex, a = thisArray
-		.forEach(function(e, i, a){
+		.foreach(function(e, i, a){
 			
 		});
 	*/
 	
-	_proto(HTMLElement, 'appendChildren', function(){ var t = this; arr(arguments).forEach(function(e){ t.appendChild(e); }); });
+	_proto(HTMLElement, 'appendChildren', function(){ var t = this; arr(arguments).foreach(function(e){ t.appendChild(e); }); });
 	_proto(HTMLElement, 'prependChild', function(e){
 		var f=this.firstElementChild;
 		if(f) this.insertBefore(e,f); else this.appendChild(e);
@@ -66,7 +66,7 @@ var htmlhead=document.head,
 	});
 	_proto(String, 'format', function(){
 		_this = this;
-		arr(arguments).forEach(function(e, i){
+		arr(arguments).foreach(function(e, i){
 			_this = _this.replace(new RegExp("\\{" + i + "\\}", "gm"), e);
 		});
 		return _this;
@@ -101,7 +101,7 @@ function ct(tag, t){
 		data: tag.split(/[#\.\s]/g)
 	};
 	var nextStart = 0;
-	tag.data.forEach(function(e){
+	tag.data.foreach(function(e){
 		nextStart ++;
 		if(e.length == 0) return; // continue
 		nextStart --;

@@ -97,7 +97,7 @@
 								tr.className='dmk-sender-vip';
 							}else{
 								'五行缺壹|毛基阿灰|werewolf33'
-								 .split('\|').forEach(function(v){
+								 .split('\|').foreach(function(v){
 									if(pid==v) tr.className='dmk-sender-vip';
 								});
 							}

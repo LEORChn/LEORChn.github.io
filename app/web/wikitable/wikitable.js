@@ -68,7 +68,7 @@ var ID_UPLOAD_FILE = 'uploader',
 			// 文本输入完毕，输入表格合并信息
 			var merges = sh['!merges'],
 				TAG_MERGED_CELLS = 'pre-delete-merged-cell';
-			if(merges) merges.forEach(function(v, i){
+			if(merges) merges.foreach(function(v, i){
 				var pos = [v.s.r, v.s.c],
 					endpos = [v.e.r, v.e.c],
 					size = [endpos[0]-pos[0]+1, endpos[1]-pos[1]+1],

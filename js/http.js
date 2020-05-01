@@ -1,7 +1,7 @@
 function http(){
 	var pointer = 0,
 		method, url, formed, dofun, dofail, onprogress;
-	arr(arguments).forEach(function(e){
+	arr(arguments).foreach(function(e){
 		switch(pointer){
 			case 0:
 				e = e.split(' ', 2); // 允许在第一个参数中用空格将 http-method 与 url 隔开，而省去 引号+逗号+引号 的麻烦
@@ -35,6 +35,8 @@ function http(){
 	x.onload=dofun;
 	x.ontimeout=x.onerror= dofail? dofail: null;
 	x.onprogress=onprogress;
+	if(formed)
+		x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8'); // TODO: 暂不明确IE是否适用
 	x.send(formed?formed:'');
 }
 function httpj(){
@@ -64,3 +66,6 @@ function httpj(){
 		},
 		a[3], a[4]); // fail, progress
 }
+
+// edit: 2020-3-20 2:21
+// edit: 2020-4-26 3:50
