@@ -22,11 +22,6 @@ var htmlhead=document.head,
 		}: undefined;
 	});
 	
-	// IE Method Compat
-	_proto(HTMLElement, 'remove', function(){ try{this.parentElement.removeChild(this);}catch(e){} });
-	_proto(EventTarget, 'addEventListener', function(n,f){ this.attachEvent('on'+n, f); });
-	_proto(String, 'includes', function(s){ return this.indexOf(s)>-1; });
-	
 	// Firefox Method Compat
 	if(!('innerText' in document.body)){
 		HTMLElement.prototype.__defineGetter__("innerText", function(){ return this.textContent; });
@@ -51,9 +46,9 @@ var htmlhead=document.head,
 		if(f) this.insertBefore(e,f); else this.appendChild(e);
 	});
 	_proto(Event, 'block', function(){ this.preventDefault(); this.stopPropagation(); });
-	_proto(File, 'read', function(f){
+	_proto(File, 'readAsText', function(f){
 		switch(true){
-			case f instanceof Function:
+			case f.constructor.name=='Function':
 				var r=f;
 				f=new FileReader();
 				f.onload=function(p){
@@ -66,7 +61,9 @@ var htmlhead=document.head,
 	});
 	_proto(String, 'format', function(){
 		_this = this;
-		arr(arguments).foreach(function(e, i){
+		var args = arr(arguments);
+		if(args[0].constructor === Array) args = args[0];
+		args.foreach(function(e, i){
 			_this = _this.replace(new RegExp("\\{" + i + "\\}", "gm"), e);
 		});
 		return _this;
@@ -75,6 +72,16 @@ var htmlhead=document.head,
 	// Visual Basic
 	_proto(String, 'left', function(n){ return this.substr(0, Math.abs(n)); });
 	_proto(String, 'right', function(n){ n=Math.abs(n); return this.substr(-n, n); });
+	
+	// IE Method Compat
+	_proto(HTMLElement, 'remove', function(){ try{this.parentElement.removeChild(this);}catch(e){} });
+	if('EventTarget' in window)
+		_proto(EventTarget, 'addEventListener', function(n,f){ this.attachEvent('on'+n, f); });
+	_proto(String, 'includes', function(s){ return this.indexOf(s)>-1; });
+	if(!('startsWith' in String)){
+		_proto(String, 'startsWith', function(s){ return this.left(s.length) == s; });
+		_proto(String, 'endsWith', function(s){ return this.right(s.length) == s; });
+	}
 })();
 function _proto(obj, name, fun, force){
 	if(obj instanceof Function && obj.name == 'Object'){

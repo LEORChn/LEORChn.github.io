@@ -24,7 +24,7 @@ function http(){
 		}
 		pointer++;
 	});
-	var x = 'ActiveXObject' in window?
+	var x = window['ActiveXObject']?
 		new ActiveXObject("Microsoft.XMLHTTP"):
 		new XMLHttpRequest();
 	if(location.protocol.includes('https'))

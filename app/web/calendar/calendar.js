@@ -78,18 +78,35 @@ var calendar_tab_salt = 'calendar-tab-';
 					xd > yd? 1: -1:
 					0;
 		});
+		
+		tab_panes[1].appendChild(document.createTextNode('显示:'));
+		[
+			['for_birthday', '生日'],
+			['for_game', '游戏']
+		].foreach(function(e){
+			var inp = ct('input#' + e[0]),
+				lab = ct('label', e[1]);
+			inp.type = 'checkbox';
+			inp.setAttribute('checked', '');
+			lab.setAttribute('for', e[0]); 
+			tab_panes[1].appendChildren(inp, lab);
+		});
+		
+		var tab1ls = ct('div'); // 复选框之后套一层再加列表
+		tab_panes[1].appendChild(tab1ls);
+		
 		days.foreach(function(e){ // 总览
 			var d = e.date,
 				yyyy = d.getFullYear() == 1970? '': d.getFullYear() + '年';
 			
 			var pane = ct('div.mui-panel'),
 				title = ct('div.mui--text-title', e.name),
-				time = ct('time.mui--text-subhead', yyyy + `${d.getMonth()+1}月${d.getDate()}日`),
+				time = ct('time.mui--text-subhead', yyyy + '{0}月{1}日'.format(d.getMonth()+1, d.getDate())),
 				desc = ct('div', (e.desc || ''));
 			pane.setAttribute('type', e.type);
 			if('subtype' in e) pane.setAttribute('subtype', e.subtype);
 			pane.appendChildren(title, time, desc);
-			tab_panes[1].appendChild(pane);
+			tab1ls.appendChild(pane);
 		});
 	});
 	

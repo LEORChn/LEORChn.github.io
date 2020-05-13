@@ -1,4 +1,23 @@
 
+/*  */
+#calendar-tab-1{
+	text-align:right
+}
+#calendar-tab-1>*{
+	text-align:left;
+	text-align:start
+}
+#calendar-tab-1>[type=checkbox]{
+	margin-left:10px
+}
+
+/* 没有勾选显示的，将会隐藏 */
+#for_birthday:not(:checked)~*>[type=birthday],
+#for_game:not(:checked)~*>[subtype=game]{
+	display:none
+}
+
+
 /* 给特殊项目添加 Emoji图片 */
 [type]{
 	position: relative;
