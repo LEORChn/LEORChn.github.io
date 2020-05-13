@@ -3,5 +3,5 @@ br+.recent_time+.recent_desc{margin-top:0}
 .recent_time{position:absolute; right:20px}/* line-height:100%; vertical-align:top}
 .recent_time:before{content:'“'; color:rgba(0,0,0,0); font:"黑体"; font-size:48px}*/
 .recent_desc{line-height:130%; margin:20px 0 10px}
-.recent_desc.diary:before{content:'“'; color:#999999; font:"黑体"; font-size:48px; display:inline-block}
+.recent_desc.diary:before{content:'“'; color:#999999; font-family:"monospace"; font-size:48px; display:inline-block}
 .recent_desc:not(.no-enddiv):after{content:' '; height:1px; background-color:#C0C0C0; margin-top:10px;display:block}

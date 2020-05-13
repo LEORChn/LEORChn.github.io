@@ -1,5 +1,5 @@
 (function(){
-	httpj('get',location.origin+'/api/rss.json','',function(jr){
+	httpj('get /api/rss.json',function(jr){
 		if(jr.stat != 200) return;
 		jr = jr.data;
 		for(var i=0; i<jr.length;i++){

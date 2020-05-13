@@ -1,8 +1,53 @@
 var htmlhead=document.head,
  htmlbody=document.body;
 (function(){
+	// IE Method Compat pak 1
+	var string_includes = function(s){ return this.indexOf(s)>-1; };
+	_proto(String, 'contains', string_includes);
+	_proto(String, 'includes', string_includes);
+	
+	/* 这个IF里面判断的东西可以在不需要兼容IE9时删除。。 */
+	if(window['ActiveXObject']){
+		var varprop = function(name, type, func){
+			if(!('__var_pool' in this)) this['__var_pool'] = {};
+			if(!(name in this.__var_pool)){
+				Object.defineProperty(this, name,
+					this.__var_pool[name] = {
+						get: function(){},
+						set: function(){}
+					}
+				);
+			}
+			this.__var_pool[name][type] = func;
+		};
+		Object.prototype['__defineGetter__'] = function(name, func){
+			varprop(name, 'get', func);
+		};
+		Object.prototype['__defineSetter__'] = function(name, func){
+			varprop(name, 'set', func);
+		}
+		// window.File 最低支持：IE10
+		if(!('File' in window))
+			window.File = function(){};
+		// window.HTMLInputElement 继承到 Object 的最低支持：IE9
+		_proto(HTMLInputElement, '__defineGetter__', function(){});
+		_proto(HTMLInputElement, '__defineSetter__', function(){}); // TODO：其实是无效的
+		// window.HTMLElement 最低支持：IE9
+		if(!('HTMLElement' in window))
+			window.HTMLElement = function(){};
+		// document.getElementsByClassName 最低支持：IE9
+		if(!('getElementsByClassName' in document))
+			document.getElementsByClassName = function(n){
+				var res = [];
+				for(var i=0, a=document.all; i<a.length; i++)
+					if((' '+a[i].className+' ').includes(' '+n+' '))
+						res.push(a[i]);
+				return res;
+			};
+	}
+	/* 上面这个IF里面判断的东西可以在不需要兼容IE9时删除。。 */
+	
 	// Generic Method Compat
-	if(!('contains' in String.prototype)) String.prototype.contains=function(s){ return this.indexOf(s)>-1; };
 	var imed=false;
 	HTMLInputElement.prototype.__defineGetter__('imeDisabled',function(){ return imed? true: false; });
 	HTMLInputElement.prototype.__defineSetter__('imeDisabled',function(s){
@@ -30,11 +75,6 @@ var htmlhead=document.head,
 	
 	// Constom Method Modify
 	_proto(Array, 'foreach', function(func){ for(var i=0; i<this.length; i++) try{ if(func(this[i], i, this)) return true; }catch(e){ pl(e); } }, true);
-	/* e = curItem, i = curIndex, a = thisArray
-		.foreach(function(e, i, a){
-			
-		});
-	*/
 	
 	_proto(HTMLElement, 'appendChildren', function(){ var t = this; arr(arguments).foreach(function(e){ t.appendChild(e); }); });
 	_proto(HTMLElement, 'prependChild', function(e){
@@ -46,7 +86,7 @@ var htmlhead=document.head,
 		if(f) this.insertBefore(e,f); else this.appendChild(e);
 	});
 	_proto(Event, 'block', function(){ this.preventDefault(); this.stopPropagation(); });
-	_proto(File, 'readAsText', function(f){
+	_proto(File, 'readAsText', function(f){ // 最低支持：IE10
 		switch(true){
 			case f.constructor.name=='Function':
 				var r=f;
@@ -73,7 +113,7 @@ var htmlhead=document.head,
 	_proto(String, 'left', function(n){ return this.substr(0, Math.abs(n)); });
 	_proto(String, 'right', function(n){ n=Math.abs(n); return this.substr(-n, n); });
 	
-	// IE Method Compat
+	// IE Method Compat pak 2
 	_proto(HTMLElement, 'remove', function(){ try{this.parentElement.removeChild(this);}catch(e){} });
 	if('EventTarget' in window)
 		_proto(EventTarget, 'addEventListener', function(n,f){ this.attachEvent('on'+n, f); });
@@ -91,6 +131,8 @@ function _proto(obj, name, fun, force){
 	if(!(name in obj.prototype) || force){
 		obj.prototype[name] = fun;
 		pl('baseLib: ' + obj.name + '.' + name);
+	}else{
+		pl('未强制修改已存在的方法：' + obj.name + '.' + name);
 	}
 }
 function isReady(){return document.readyState.toLowerCase()=='complete'}

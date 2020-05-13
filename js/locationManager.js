@@ -62,7 +62,7 @@ function regOnLocationChanged(){
 	}
 }
 function tryOldPath(){ // 如果成功匹配自定捷径，则返回 true
-	if(location.href.includes(location.origin+'/?'));// 包含 ? 捷径命令，则不再判空
+	if(location.href.includes('/?'));// 包含 ? 捷径命令，则不再判空
 	else if(location.hash==''){ // 不包含捷径命令，但是路径也是空的
 		url(getNavigateMapKey(0));
 		return true;
@@ -112,7 +112,7 @@ function url2(e){
 }
 function url(u){
 	toTopIfNeeded();
-	location.href=location.origin+'#'+u;
+	location.href='/#'+u;
 	
 }
 function toTopIfNeeded(){

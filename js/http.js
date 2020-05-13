@@ -24,9 +24,9 @@ function http(){
 		}
 		pointer++;
 	});
-	var x = window['ActiveXObject']?
-		new ActiveXObject("Microsoft.XMLHTTP"):
-		new XMLHttpRequest();
+	var x = window['XMLHttpRequest']?
+		new XMLHttpRequest():
+		/* @deprecated */ new ActiveXObject("Microsoft.XMLHTTP");
 	if(location.protocol.includes('https'))
 		url=url.replace('^http:', 'https:');
 	x.open(method, url, true);
