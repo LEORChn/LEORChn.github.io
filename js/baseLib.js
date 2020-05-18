@@ -75,6 +75,13 @@ var htmlhead=document.head,
 	
 	// Constom Method Modify
 	_proto(Array, 'foreach', function(func){ for(var i=0; i<this.length; i++) try{ if(func(this[i], i, this)) return true; }catch(e){ pl(e); } }, true);
+	var norepeat = function(){
+		return (_this = this).filter(function(e, i){
+			return _this.indexOf(e) == i;
+		});
+	};
+	_proto(Array, 'filterRepeat', norepeat);
+	_proto(Array, 'removeRepeat', norepeat);
 	
 	_proto(HTMLElement, 'appendChildren', function(){ var t = this; arr(arguments).foreach(function(e){ t.appendChild(e); }); });
 	_proto(HTMLElement, 'prependChild', function(e){
@@ -117,7 +124,6 @@ var htmlhead=document.head,
 	_proto(HTMLElement, 'remove', function(){ try{this.parentElement.removeChild(this);}catch(e){} });
 	if('EventTarget' in window)
 		_proto(EventTarget, 'addEventListener', function(n,f){ this.attachEvent('on'+n, f); });
-	_proto(String, 'includes', function(s){ return this.indexOf(s)>-1; });
 	if(!('startsWith' in String)){
 		_proto(String, 'startsWith', function(s){ return this.left(s.length) == s; });
 		_proto(String, 'endsWith', function(s){ return this.right(s.length) == s; });

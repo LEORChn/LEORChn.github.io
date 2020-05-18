@@ -19,10 +19,28 @@
 		<br><a target="_blank" href="https://wpa.qq.com/msgrd?v=3&uin=522237296&site=qq&menu=yes"><img border="0" src="https://wpa.qq.com/pa?p=2:522237296:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
 		<a target="_blank" href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=tYCHh4eGgoeMg-XExJvW2tg" style="text-decoration:none;"><img src="https://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_22.png"/></a>
 		<br><a href="mailto:522237296@qq.com">使用其他邮箱软件给我发邮件</a>
-		<br>捐赠榜
-		<br><table border="1"><tbody>
-		<tr><td>捐赠者</td><td>寄语</td><td>额度</td><td>时间</td></tr>
-		</tbody></table><div id="loadnotice">正在加载数据</div>
+		<br><br>
+	<style>
+		#display_all_donate{display:none}
+		#display_all_donate:not(:checked)+table tbody:last-of-type>*:not(:first-child),
+		#display_all_donate:checked+table tbody:last-of-type>*:first-child{display:none}
+		#dntlist tbody:last-of-type{opacity:.3}
+		#dntlist tbody:last-of-type>*:first-child{opacity:.2; text-align:right}
+		#dntlist tr>*:not(:nth-child(2)){white-space:nowrap}
+		#dntlist tr>*:first-child{
+			max-width: 75px;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+	</style>
+		<input type="checkbox" id="display_all_donate">
+		<table id="dntlist" border="0" rules="all" frame="box">
+			<caption>捐赠榜</caption>
+			<thead>
+				<tr><th>名称</th><th>寄语</th><th>额度</th><th>时间</th></tr>
+			</thead>
+		</table>
+		<div id="loadnotice">正在加载数据</div>
 		<br>感谢以上粉丝的支持。爱你们。
 	</div>
 </div>

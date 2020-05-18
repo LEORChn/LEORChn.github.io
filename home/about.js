@@ -6,7 +6,7 @@
 })();
 function initPersonaTags(){
 	var froot = fv('persona_tags'),
-		t = froot.getAttribute('tags').replace(new RegExp('��', 'g'), ',').split(',');
+		t = froot.getAttribute('tags').split(',');
 	for(var i=0, len=t.length; i<len; i++){
 		var displayName = t[i].replace(/^\+/, '').replace(/-$/, ''),
 			pn = displayName.toLowerCase(),
@@ -25,24 +25,46 @@ function initPersonaTags(){
 	}
 }
 function initDonationList(){
-	var tb,tr,td,
-	u=location.origin+"/api/dntlist.json";
-	//pl(u);
-	http('get',u,'',function(){
-		u=eval('('+this.responseText+')').data;
-		td=fv('loadnotice'); if(td)td.parentNode.removeChild(td);
-		tb=ft('table')[0];
-		for(var td=0,i=0,len=u.length;i<len;i++) td+=u[i].p;
-		for(var i=0,added=0,len=u.length;i<len;i++){
-			if(added>=5 && u[i]['protect']!=1) continue;
-			tr=tb.insertRow();
-			tr.appendChild(ct('td', u[i].n));
-			tr.appendChild(ct('td', u[i].s));
-			tr.appendChild(ct('td', (u[i].p<=50? u[i].p: (u[i].p/td*100).toFixed(1)+'%')));
-			tr.appendChild(ct('td', u[i].t));
-			tb.appendChild(tr);
-			added++;
-		}
+	httpj('get /api/dntlist.json', function(j){
+		var note = fv('loadnotice');
+		if(note) note.remove();
+		var table = fv('dntlist'),
+			tbody = ct('tbody'),
+			tbody2 = ct('tbody');
+		table.appendChildren(tbody, tbody2);
+		
+		var total = 0,
+			added = 0;
+		j.data.foreach(function(e){
+			total += e.p;
+			var tr = ct('tr');
+			tr.appendChildren(
+				ct('td', e.n),
+				ct('td', e.s),
+				ct('td', e.p),
+				ct('td', e.t)
+			);
+			if(added < 8 || ('protect' in e)){
+				tbody.appendChild(tr);
+				added++;
+			}else{
+				tbody2.appendChild(tr);
+			}
+		});
+		var pretr = ct('tr'),
+			pretd = ct('td'),
+			displayall = ct('label', '显示全部');
+		pretd.setAttribute('colspan', 4);
+		displayall.setAttribute('for', 'display_all_donate');
+		pretd.appendChild(displayall);
+		pretr.appendChild(pretd);
+		tbody2.prependChild(pretr);
+		
+		pretr = ct('tr');
+		pretd = [ct('td', '总计'), ct('td', total)];
+		pretd[0].setAttribute('colspan', 2);
+		pretr.appendChildren(pretd[0], pretd[1]);
+		tbody2.appendChild(pretr);
 	});
 }
 function checkIfOnLoad(){
