@@ -1,6 +1,7 @@
 ﻿// category, id, title, desc
 [
 //['web', '', '', ''],
+ ['web', 'danmaku2ass', 'danmuji2ass', '将弹幕姬的弹幕文件转换为ASS格式，并配合x264压制到录播姬的直播录像中。'],
  ['web', 'calendar', '瑞兽谷日历', '发生在瑞兽谷的重大事件。'],
  ['web', 'id18gen', 'id18gen', 'Input first 17 numbers and get calculated 18th number!'],
  ['web', 'wikitable', 'Wiki表格转换器', '将 XLS 或 XLSX文件 转换为 Wiki源代码。'],

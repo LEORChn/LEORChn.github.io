@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+		<style>
+			body{
+				background:#cfc;
+				margin:0 8px;
+				height:100vh;
+				display:flex;
+				flex-direction: column;
+			}
+			iframe{
+				flex:1
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<span style="display:inline-block; vertical-align:middle;">
+				<label>
+					<input type="radio" name="multifile" value="0" checked>
+					单文件
+				</label>
+				<input type="file" id="singlefile" onchange="onsel(event)">
+				<br>
+				<label>
+					<input type="radio" name="multifile" value="1">
+					多文件
+				</label>
+				<input type="file" id="multifile" onchange="onselmulti(event)" multiple>
+				<br>
+				<label>
+					<input type="radio" name="multifile" value="2">
+					文件夹
+				</label>
+				<input type="file" id="folderfile" onchange="onselfolder(event)" directory webkitdirectory>
+			</span>
+			<input type="button" onclick="iframerefresh()" value="刷新">
+			<form onsubmit="onpath()" style="display:inline-block"><input name="path" placeholder="URL"></form>
+		</div>
+		<iframe id="IFRAME"></iframe>
+		<script src="/js/baseLib.js"></script>
+		<script>
+			console.clear();
+			function onpath(){
+				window.history.pushState(null, '', '?path=' + (IFRAME.src = $('[name=path]').value));
+				event.block();
+			}
+			function onsel(e){
+				$$('[name=multifile]')[0].checked = true;
+				oniframeload();
+			}
+			function onselmulti(e){
+				$$('[name=multifile]')[1].checked = true;
+				oniframeload();
+			}
+			function onselfolder(e){
+				$$('[name=multifile]')[2].checked = true;
+				oniframeload();
+			}
+			function iframerefresh(){
+				console.clear();
+				IFRAME.contentWindow.location.reload(true);
+			}
+			function oniframeload(){
+				var files;
+				switch($('[name=multifile]:checked').value){
+					case '0':
+						files = singlefile.files;
+						break;
+					case '1':
+						files = multifile.files;
+						break;
+					case '2':
+						files = folderfile.files;
+				}
+				if(files.length > 0){
+					IFRAME.contentWindow.f = files;
+					var main = IFRAME.contentWindow['main'];
+					if(main) main();
+				}
+			}
+			IFRAME.onload = oniframeload;
+			IFRAME.src = $('[name=path]').value = _GET('path');
+		</script>
+	</body>
+</html>

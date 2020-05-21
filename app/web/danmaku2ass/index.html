@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+		<style>
+			#ls thead *:after{
+				content:attr(rule)
+			}
+			#ls tbody td{
+				white-space:nowrap;
+				padding:0 2px
+			}
+			#ls tbody td:nth-child(4){
+				text-align:right
+			}
+			#ls tbody tr:hover{
+				background:rgb(255,255,0)
+			}
+			#ls tfoot{
+				background:rgba(255,255,255,.5)
+			}
+			option{
+				font-family:monospace
+			}
+			select optgroup option:before{
+				content: '  '
+			}
+			option[pin]:after{content:': ' attr(pin); margin-left:35px}
+		</style>
+		<style>
+			.help{position:relative}
+			.help:not(:hover)>pre{display:none}
+			.help>pre{position:absolute; left:0; background:#efe; tab-size:4; margin-top:0; border:solid 1px}
+		</style>
+	</head>
+	<body>
+		<span class="help-container">
+			<span class="help">
+				<input type="button" value="需要帮助？">
+				<pre> 
+	1.在外部打开一个文件夹，确保其中包含FLV和TXT文件。文件名格式如下：
+	·FLV格式：\d+-\d{8}-\d{6}-.*\.flv$
+	// 首先是文件序号或直播间号，而后是8位数字日期，而后是6位数字时间，而后以.flv结尾	
+	·TXT格式：\d{4}-\d{2}-\d{2}\.txt$
+	// 先是4位年份，而后2位月，而后2位日，而后以.txt结尾
+	·TXT格式：\d{6}\.txt$
+	// 先是6位数字日期，而后以.txt结尾
+	
+	2.右击文件夹地址栏弹出菜单，点 “将地址复制为文本”
+	3.点击网页内 “选择文件夹”，在弹出的树形列表对话框中，将输入框的内容替换粘贴
+	4.在网页内右上角选择弹幕固定区域的样式
+	5.如果某个视频分段属于重新开播，那么在这一行的clean列打勾
+	6.点击 “下载ASS”
+				</pre>
+			</span>
+		</span>
+		<input type="number" onchange="onSetProtectSec(this)" pattern="^[\d\s]$" placeholder="弹幕起始保护秒（默认13）" id="protect_sec">
+		<select id="pin_dmk" size="10" style="float:right; width:400px">
+			<option selected="">关闭显示</option>
+			<option pin="Photoshop 绘图">pin_dmk l 0 b 30 limit 8</option>
+			<option pin="iPad 绘图">pin_dmk l 0 b 0 limit 15</option>
+			<option pin="iPad 绘图25">pin_dmk l 0 b 0 limit 25</option>
+			<option pin="以撒的结合">pin_dmk l 0 b 90 limit 6</option>
+			<option pin="铁锤守卫">pin_dmk l 85 b 0 limit 4</option>
+			<option pin="形骸骑士">pin_dmk l 0 b 30 limit 6</option>
+			<option pin="雨中冒险 左侧">pin_dmk l 0 b 365 limit 7</option>
+			<option pin="雨中冒险 右侧">pin_dmk r 100 b 200 limit 5</option>
+			<option pin="Blender 建模">pin_dmk r 0 b 50 limit 8</option>
+		</select>
+		<table id="ls" rules="all">
+			<thead>
+				<th rule="flv"></th>
+				<th rule="start"></th>
+				<th rule="end"></th>
+				<th rule="duration"></th>
+				<th rule="clean"></th>
+				<th rule="ass"></th>
+				<th rule="preview"></th>
+			</thead>
+			<tfoot></tfoot>
+			<tbody></tbody>
+		</table>
+		<pre class="inpage-test" contenteditable="true"></pre>
+		<script src="/js/baseLib.js"></script>
+		<script src="/js/date.js"></script>
+		<script src="flvprocessor.js"></script>
+		<script src="json2ass.js"></script>
+		<script src="utf16.js"></script>
+		<script src="main.js"></script>
+		<script>
+			if(self == top){
+				var inp = ct('input');
+				inp.setAttribute('type', 'file');
+				inp.setAttribute('directory', '');
+				inp.setAttribute('webkitdirectory', '');
+				inp.onchange = function(){
+					window.f = this.files;
+					main();
+				};
+				htmlbody.insertBefore(inp, htmlbody.children[1]);
+			}
+		</script>
+	</body>
+</html>
