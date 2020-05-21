@@ -3,7 +3,7 @@
 	<div style="width:100%;height:auto">
 		<div id="blog" align="left" style="background-color:white;padding:0px 20px 20px">
 			<div class="h1">作品集</div><br/>
-			<div id="pageTop">
+			<div id="pageTop" style="display:none">
 				<input type="radio" name="creator" id="creator_my" value="artwork/my.json" />
 				<label for="creator_my">站长创作</label>
 				<select id="sort_my" >
@@ -22,7 +22,7 @@
 					</optgroup>
 				</select>
 			</div>
-			<div style="display:inline-block">
+			<div style="display:none"><!--inline-block"-->
 				<input type="radio" name="creator" id="creator_love" value="artwork/love.json" disabled=""/>
 				<label for="creator_love">站长喜欢</label>
 				<select id="sort_love">
@@ -31,7 +31,7 @@
 					<option value="2">最新添加</option>
 				</select>
 			</div>
-			<div style="display:inline-block"><div style="display:inline;margin:0 10px 0 10px">测试版本号：4</div><a onclick="javascript:alert('最近只想做网页APP。')">查看测试任务</a></div>
+			<div style="display:none"><!--inline-block"--><div style="display:inline;margin:0 10px 0 10px">测试版本号：4</div><a onclick="javascript:alert('最近只想做网页APP。')">查看测试任务</a></div>
 			<div></div><br>
 			<div id="group_my"></div>
 			<style>#pageFlipTop,#group_artwork,#pageFlipBottom{display:none}</style>
