@@ -9,7 +9,8 @@ progress-circle, progress-bar{display:none}
 #msgbox-launchpad{display:none}
 .msgbox{position:relative; width:450px; max-width:calc(100% - 30px); min-height:250px; margin:auto; padding-bottom:36px; background-color:#fff}
 #mui-overlay{display:flex}
-.msgbox .title{color:#000}
+.msgbox .title,
+.msgbox .title:hover{color:#000}
 .msgbox .title:empty{height:15px}
 .msgbox .btn-ok{position:absolute; right:0; bottom:0}
 

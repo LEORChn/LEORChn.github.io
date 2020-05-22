@@ -113,6 +113,11 @@ var htmlhead=document.head,
 		args.foreach(function(e, i){
 			_this = _this.replace(new RegExp("\\{" + i + "\\}", "gm"), e);
 		});
+		
+		// 检查有没有没替换的可能
+		var res = /\{(\d+)\}/gm.exec(_this);
+		if(res) console.warn('文本：'+this.left(10)+'... 格式化时可能出现问题，未包含第'+res[1]+'号参数。');
+		
 		return _this;
 	});
 	
@@ -136,9 +141,9 @@ function _proto(obj, name, fun, force){
 	}
 	if(!(name in obj.prototype) || force){
 		obj.prototype[name] = fun;
-		pl('baseLib: ' + obj.name + '.' + name);
+		console.debug('baseLib - 已修改方法：' + obj.name + '.' + name);
 	}else{
-		pl('未强制修改已存在的方法：' + obj.name + '.' + name);
+		console.info('baseLib - 未修改方法：' + obj.name + '.' + name);
 	}
 }
 function isReady(){return document.readyState.toLowerCase()=='complete'}
