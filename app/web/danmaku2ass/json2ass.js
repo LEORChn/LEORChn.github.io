@@ -40,7 +40,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 			2.如果选择任一个视频且勾选clean，预处理弹幕则为该视频开始前30分钟至视频开始以内的所有弹幕。
 			3.如果选择第二个视频且第一个视频勾选clean，预处理弹幕则为从第一个视频开始前30分钟至第二个视频开始以内的所有弹幕。
 		 */
-		var ts_firstdmk = dp[0].ts, // 第一条弹幕的开始时间
+		var ts_firstdmk = dp.length? dp[0].ts: 0, // 第一条弹幕的开始时间。获取之前先判断弹幕池有没有item，如果没有则只输出clock
 		 ts_lastclean = func_tmp_ts_lastclean(); // 最后一个勾选clean的视频的开始时间
 		return ts_lastclean == null? ts_firstdmk: ts_lastclean - 1800000;
 	};

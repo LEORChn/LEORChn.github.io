@@ -75,88 +75,9 @@ function flvDuration(file, ondone){
 		//if(parseInt(MAX_REACHED_TIMESTAMP / 1000) % 30 == 0)
 		//pl('NextPointer: {0} (0x{1}); TS: {2}'.format(pointer, pointer.toString(16), MAX_REACHED_TIMESTAMP));
 	}
+	*/
+}
+
+function flvStartTime(file){
 	
-	
-	/*if (FlvPlayer.isSupported()) {
-		var f = new FlvPlayer({
-			// Accept http url, websocket url, and file type
-			url: URL.createObjectURL(file),
-			
-			// Accept dom element, dom selector
-			container: '.flvholder',
-			
-			// Video poster url
-			//poster: '',
-			
-			// Whether to print debug information
-			debug: false,
-			
-			// Whether live mode
-			live: false,
-			
-			// Whether the video loops, in non-live mode
-			loop: false,
-			
-			// Whether to use hotkeys, if the control exists
-			hotkey: true,
-			
-			// Whether to turn off the volume
-			muted: false,
-			
-			// On the mobile side, try to activate the audio after the user touches the screen.
-			touchResume: true,
-			
-			// Video chunk size, the default is 1M
-			videoChunk: 1024 * 1024,
-			
-			// Audio chunk size, the default is 16kb
-			audioChunk: 16 * 1024,
-			
-			// Whether to play automatically
-			autoPlay: false,
-			
-			// Whether it contains an audio stream
-			hasAudio: true,
-			
-			// Whether to cache the video frame to play
-			cache: true,
-			
-			// Maximum time difference between audio and video, unit is ms
-			// used to automatically adjust audio and video synchronization
-			maxTimeDiff: 200,
-			
-			// Whether to display the control, if the control exists
-			control: true,
-			
-			// Indicates whether to do http fetching with cookies
-			withCredentials: true,
-			
-			// Indicates total file size of media file, in bytes
-			filesize: file.size,
-			
-			// Indicates whether to enable CORS for http fetching
-			cors: true,
-			
-			// Volume from 0 to 1, the default is 0.7
-			volume: 0.7,
-			
-			// Initialize the frame rate, which will be covered by the actual frame rate of the file
-			frameRate: 30,
-			
-			// Initialize the width, which will be covered by the actual width of the file
-			width: 400,
-			
-			// Initialize the height, which will be covered by the actual height of the file
-			height: 300,
-			
-			// Initialize http headers
-			headers: {},
-			
-			// The path of the video decoder, currently optional flvplayer-decoder-baseline.js and flvplayer-decoder-multiple.js
-			decoder: 'flvplayer-decoder-baseline.js',
-		});
-		return f;
-	}else{
-		console.warn('Your browser does not support Flvplayer.js');
-	}*/
 }

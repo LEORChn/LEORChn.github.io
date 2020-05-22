@@ -1,0 +1,21 @@
+
+.storm-container{
+	position:fixed;
+	right:0;
+	top:100%
+}
+.storm-container:not(:empty){
+	transform:translateY(-100%);
+	transition:2s
+}
+.storm-container>legend:before{
+	content:'节奏风暴';
+	padding:3px
+}
+
+.storm-container>table th:nth-child(1):before{
+	content:'内容'
+}
+.storm-container>table th:nth-child(2):before{
+	content:'首次出现时间'
+}

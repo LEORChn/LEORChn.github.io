@@ -391,6 +391,37 @@ function main(){
 			// ===== 操作已经全部完成 ===== //
 			pl('弹幕池对象样例：');
 			pl(danmaku_pool);
+			
+			// ===== 在右下角显示节奏风暴 ===== //
+			var div = $('.storm-container'),
+				table = ct('table'),
+				thead = ct('thead'),
+				tr = ct('tr'),
+				th1 = ct('th'),
+				th2 = ct('th');
+			tr.appendChildren(th1, th2);
+			thead.appendChild(tr);
+			table.appendChild(thead);
+			table.setAttribute('rules', 'groups');
+			table.setAttribute('cellpadding', '3');
+			danmaku_pool.storm.foreach(function(e){
+				var tr2 = ct('tr'),
+					td1 = ct('td', e),
+					ftime;
+				danmaku_pool.dmk.foreach(function(f){
+					if(f.content == e){
+						ftime = new Date(f.ts).format('yyyy-MM-dd HH:mm');
+						return true;
+					}
+				});
+				var td2 = ct('td', ftime);
+				tr2.appendChildren(td1, td2);
+				table.appendChild(tr2);
+			});
+			if(table.rows.length - 1){
+				div.appendChild(ct('legend'));
+				div.appendChild(table);
+			}
 			/*setTimeout(function(){
 				var starttime = Date.now();
 				ls.tBodies[0].rows[0].querySelector('[type=button]').click();
