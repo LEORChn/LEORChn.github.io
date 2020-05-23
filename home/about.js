@@ -13,10 +13,11 @@ function initPersonaTags(){
 			thumb = t[i].startsWith('+'),
 			isDeprecated = t[i].endsWith('-');
 		var root = ct('div'), sp = ct('span', displayName);
-		root.className = 'mui-panel mui--no-user-select tag';
+		root.className = 'mui-panel tag';
 		if(thumb){
 			var img = ct('img');
 			img.src = '/article/'+pn.replace(/\s/g, '-')+'/thumb96.jpg';
+			img.setAttribute('draggable', 'false');
 			root.appendChild(img);
 		}
 		if(isDeprecated) sp.style.opacity = (root.style.opacity = .5) - .3;
