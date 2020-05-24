@@ -1,23 +1,53 @@
-a.item_my_root{text-decoration:none}
-a.item_my_root>.mui-panel{background-color:#F8F8F8;color:#000000}
-a.item_my_root:hover>.mui-panel{background-color:#F0F0F0}
-a.item_my_root:active>.mui-panel{background-color:#E0E0E0}
-div.img.item_my{display:inline-block;width:24px;height:24px;background-size:contain}
-span.item_my{display:inline-block; padding-top:16px; padding-bottom:16px; max-width:calc(100% - 96px - 8px)}
-.item_my_title{display:inline-block}
 
-a.item_artwork_root{width:350px;height:256px;display:inline-table;background-color:#F8F8F8;color:#000000}
-a.item_artwork_root:hover{background-color:#F0F0F0}
-a.item_artwork_root:active{background-color:#E0E0E0}
-img.item_artwork{width:180px;height:256px;vertical-align:top;background-size:cover}
-div.item_artwork{width:100%;display:table-cell;position:relative;padding:0 10px 0 10px}
-.item_artwork_title{width:calc(100% - 20px);position:absolute;top:5px;font-size:x-large}
-.item_artwork_desc{margin-top:10px;font-size:medium;}
-.item_artwork_desc_bottom{position:absolute;bottom:5%}
-@font-face{font-family:'impact';src:url('/font/impact.ttf') format('truetype')}
-.item_artwork_score_hint{display:inline}
-.item_artwork_score{margin-left:10px;display:inline;color:#FF9900;font-size:xx-large;font-family:impact}
-#pageFlipTop,#pageFlipBottom{margin:20px 0 20px 0}
-.pagePrev{}
-.pageDisplay{margin:0 20px 0 20px;display:inline}
-.pageNext{}
+/* 我的作品 - 瀑布流 */
+.ls_my{
+	-webkit-column-width:280px;
+	-moz-column-width:280px;
+	-webkit-column-gap:.5em;
+}
+
+/*
+	第一层标签 - 确保第二列的头部不会出现在上一列的底部
+	测试了 Chrome43 Firefox56 只有前者需要这一段，后者完全不需要
+*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.ls_my>*{
+		-webkit-column-break-inside:avoid;
+		padding:5px 5px 0 5px;
+		/*
+			padding上确保盒子外面的阴影不会出现在上一列的底部，
+			padding左右确保面板最左和最右列的阴影能显示
+		*/
+	}
+}
+
+/* 第二层标签 - 造成整个面板可以点击的效果 */
+.ls_my a{
+	color:#000;
+	cursor:pointer;
+	text-decoration:none;
+}
+
+/* 面板的动画效果 - 正常/鼠标放置/鼠标按下 */
+.ls_my .mui-panel{
+	background:#F8F8F8;
+	transition:.2s
+}
+.ls_my .mui-panel:hover{
+	background:#E8E8E8;
+	transition:.2s
+}
+.ls_my .mui-panel:active{
+	background-color:#D8D8D8;
+	transition:.2s
+}
+
+/* 标题栏的图片以及其后的文字 */
+.ls_my .icon[src]{
+	-webkit-user-drag:none;
+	max-width:24px;
+	margin-right:10px;
+}
+.ls_my .icon+div{
+	display:inline-block
+}
