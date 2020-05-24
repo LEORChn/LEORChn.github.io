@@ -1,4 +1,22 @@
 
+/* 帮助界面 */
+.help{
+	position:relative
+}
+.help:not(:hover)>pre{
+	display:none
+}
+.help>pre{
+	position:absolute;
+	left:0;
+	background:#efe;
+	tab-size:4;
+	-moz-tab-size:4;
+	margin-top:0;
+	border:solid 1px;
+}
+
+/* 节奏风暴界面 */
 .storm-container{
 	position:fixed;
 	right:0;
