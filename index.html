@@ -33,13 +33,26 @@ css{display:none}
 .mui--text-headline{font-weight:400;font-size:24px;line-height:32px}
 .mui--no-user-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 </style>
+<style>
+	.browspadding{
+		height:303px;
+	}
+	@media (max-width:1100px){
+		#header{
+			margin-top: calc((1100px - 100vw) / (1100 - 240) * -135);
+		}
+		.browspadding{
+			height: calc((1100px - 100vw) / (1100 - 240) * -135 + 303px)
+		}
+	}
+</style>
 </head>
 <body>
 <div align="center">
 	<div id="page_loading">
 		<loader style="position:absolute; top:calc(50% - 16px); left:calc(50% - 16px)"></loader>
 	</div>
-	<div class="device" style="height:303px">
+	<div class="device browspadding">
 		<div class="device" style="margin:0 0; overflow:hidden">
 			<div id="header" class="webp" style="background-image:url(img/Header_Starbound.webp);background-size:cover;width:1100px;height:224px"></div>
 		</div>
@@ -64,7 +77,6 @@ css{display:none}
 </div>
 <script src="js/baseLib.js"></script>
 <script src="js/http.js"></script>
-<script src="js/mobilePageAdapter.js"></script>
 <script src="js/navigateBar.js"></script>
 <script src="js/locationManager.js"></script>
 <script language="javascript">
@@ -74,7 +86,6 @@ css{display:none}
 		var oDiv=ft('float')[0];
 		initLocation(); //加载地址栏页面
 		
-		initMobilePageAdapter(oDiv);
 		initNavigate(oDiv);
 	})();
 	function jump2(i){

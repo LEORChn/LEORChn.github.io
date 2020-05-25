@@ -237,12 +237,20 @@ function webpReplace(e,u){
 	a.src=/url\(\"?([^\"]*)\"?\)/.exec(e.style.backgroundImage)[1];
 	a.onerror=function(){
 		e.style.backgroundImage=u? u: 'url('+this.src.replace(/\.webp$/,'.png')+')';
-		if(!fv('webpnotice')){
-			var n=ct('div','您的浏览器不支持 WebP。'),m=ct('a','维基百科');
-			n.id='webpnotice'; n.style.cssText='position:fixed; right:0; top:0; background-color:#fff; z-index:999';
-			m.href="https://en.wikipedia.org/wiki/WebP"; m.target="_blank";
-			n.appendChild(m); htmlbody.appendChild(n);
-		}
+		if(fv('webp-notice')) return;
+		var root = ct('div'),
+			style = ct('style', '#webp-notice{display:none} #webp-notice:checked+div{transform:translateY(-100%); transition:2s}'),
+			inp = ct('input#webp-notice'),
+			hint = ct('span', '您的浏览器不支持 WebP。'),
+			wiki = ct('a','维基百科'),
+			btn = ct('label', '关闭提示');
+		root.style.cssText = 'position:fixed; right:0; top:0; background-color:#fff; z-index:999';
+		wiki.href = "https://en.wikipedia.org/wiki/WebP";
+		wiki.target = '_blank';
+		inp.type = 'checkbox';
+		btn.setAttribute('for', 'webp-notice');
+		root.appendChildren(style, hint, wiki, btn);
+		htmlbody.appendChildren(inp, root);
 	}
 }
 
