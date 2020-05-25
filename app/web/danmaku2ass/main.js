@@ -358,8 +358,8 @@ function main(){
 						counter[e.content] = 1;
 				});
 				for(var e in counter)
-					if(counter[e] > 15)
-						tmp_storm[e] = 1; // 保存的弹幕池中有40个弹幕。确定为节奏风暴需要保证其中至少有15个同内容弹幕
+					if(counter[e] > 15 && e.length > 5)
+						tmp_storm[e] = 1; // 保存的弹幕池中有40个弹幕。确定为节奏风暴需要保证其中至少有15个同内容弹幕，并且内容需要大于5个字，否则 88 拜拜 晚安 之类的也会算进去
 				
 				// ===== 确定最终的弹幕颜色 ===== //
 				var color = danmaku_pool.color;

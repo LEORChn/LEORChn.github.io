@@ -1,9 +1,15 @@
 function Json2Ass(pool, tr){
+	var _GET_NUM = function(e, def){
+		var n;
+		return e? isNaN(n = e.valueAsNumber)? def: n: def;
+	};
+	var WIDTH_INPUT = _GET_NUM(fv('screenwidth'), 1920);
+	var MAX_VERTICAL_OFFSET_TIMES = _GET_NUM(fv('maxline'), 14);
 	var out = /.*?\/\*([\s\S]*)\*\//.exec((function(){
 /*[Script Info]
 ScriptType: v4.00+
 Collisions: Normal
-PlayResX: 1920
+PlayResX: {0}
 PlayResY: 1080
 
 [V4+ Styles]
@@ -16,7 +22,7 @@ Style: clock,黑体,24,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,-1,0,0,0,100,
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-*/}).toString())[1];
+*/}).toString())[1].format(WIDTH_INPUT);
 
 	// ===== 函数准备区 ===== //
 	var func_tmp_dmk_preprocess_time = function(){ // 预处理弹幕开始时间计算函数
@@ -47,7 +53,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 	// ===== 函数准备区 结束 ===== //
 	// ===== 常量准备区 ===== //
 	var screen = {
-		Width: 1920,
+		Width: WIDTH_INPUT, // def: 1920
 		Height: 1080
 	};
 	var fontSize = {
@@ -83,7 +89,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 	dp.foreach(function(e){
 		if(e.ts < ts[0]) return; // 还未到达预处理时间，不做处理
 		
-		vertical_offset_times = vertical_offset_times % 14;
+		vertical_offset_times = vertical_offset_times % MAX_VERTICAL_OFFSET_TIMES;
 		vertical_offset_times++;
 		
 		if(e.ts < (ts[1] - dmk_reroll_time)){ // 介于预处理和视频开始之间（需要排除重新滚动）

@@ -1,14 +1,14 @@
 
-/* 帮助界面 */
-.help{
-	position:relative
+body{
+	background:#cfc
 }
+
+/* 帮助界面 */
 .help:not(:hover)>pre{
 	display:none
 }
 .help>pre{
 	position:absolute;
-	left:0;
 	background:#efe;
 	tab-size:4;
 	-moz-tab-size:4;

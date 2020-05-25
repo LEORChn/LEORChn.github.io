@@ -50,10 +50,13 @@
 				</pre>
 			</span>
 		</span>
-		<input type="number" onchange="onSetProtectSec(this)" pattern="^[\d\s]$" placeholder="弹幕起始保护秒（默认13）" id="protect_sec">
+		<input type="number" id="protect_sec" onchange="onSetProtectSec(this)" pattern="^[\d\s]$" placeholder="弹幕起始保护秒（默认13）">
+		<input type="number" id="screenwidth" style="width:17em" placeholder="屏幕宽度 默认1920（相对于1080高）">
+		<input type="number" id="maxline" style="width:14em" placeholder="滚动弹幕最大行数（默认14）">
 		<select id="pin_dmk" size="10" style="float:right; width:400px">
 			<option selected="">关闭显示</option>
 			<option pin="Photoshop 绘图">pin_dmk l 0 b 30 limit 8</option>
+			<option pin="Photoshop 绘图14">pin_dmk l 0 b 30 limit 14</option>
 			<option pin="iPad 绘图">pin_dmk l 0 b 0 limit 15</option>
 			<option pin="iPad 绘图25">pin_dmk l 0 b 0 limit 25</option>
 			<option pin="以撒的结合">pin_dmk l 0 b 90 limit 6</option>
@@ -61,6 +64,7 @@
 			<option pin="铁锤守卫">pin_dmk l 85 b 0 limit 4</option>
 			<option pin="形骸骑士">pin_dmk l 0 b 30 limit 6</option>
 			<option pin="地痞街区">pin_dmk l 400 b 0 limit 8</option>
+			<option pin="玩吧你画我猜">pin_dmk l 0 b 360 limit 4</option>
 			<option pin="雨中冒险 左侧">pin_dmk l 0 b 365 limit 7</option>
 			<option pin="雨中冒险 右侧">pin_dmk r 100 b 200 limit 5</option>
 			<option pin="Blender 建模">pin_dmk r 0 b 50 limit 8</option>
