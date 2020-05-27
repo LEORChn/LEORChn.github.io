@@ -24,8 +24,10 @@
 		#display_all_donate{display:none}
 		#display_all_donate:not(:checked)+table tbody:last-of-type>*:not(:first-child),
 		#display_all_donate:checked+table tbody:last-of-type>*:first-child{display:none}
-		#dntlist tbody:last-of-type{opacity:.3}
-		#dntlist tbody:last-of-type>*:first-child{opacity:.2; text-align:right}
+		#dntlist tbody:last-of-type{opacity:.3; transition:.5s}
+		#dntlist tbody:last-of-type:hover{opacity:.5; transition:.5s}
+		#dntlist tbody:last-of-type>*:first-child{opacity:.2; text-align:right; transition:.5s}
+		#dntlist tbody:last-of-type>*:first-child:hover{opacity:1; transition:.5s}
 		#dntlist tr>*:not(:nth-child(2)){white-space:nowrap}
 		#dntlist tr>*:first-child{
 			max-width: 75px;
