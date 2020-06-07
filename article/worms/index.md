@@ -1,11 +1,10 @@
+% 百战天虫游戏一览
+
 <style>
 @import "/css/jekyll.css";
 i+sub:before{content:' '}
 i+sub:after{content:' '}
 </style>
-
-
-# 百战天虫游戏一览
 
 百战天虫（Worms）系列游戏由 Team17 开发。
 
@@ -53,12 +52,12 @@ Steam商店原价、最低折价：￥129、￥32
 
 ### <i class="android"></i> Android
 
-|                                  | 中文 | 系统 | 日期   | 版本   | Play                                                         |
-| -------------------------------- | ---- | ---- | ------ | ------ | ------------------------------------------------------------ |
-| Worms 4                          |      | 2.3+ |        | 432182 | [^w4play]                                                    |
-| Worms 3                          |      | 2.3+ | 2018-2 | 2.06   | [查看](https://play.google.com/store/apps/details?id=com.worms3.app) |
-| Worms 2<br><sup>Armageddon</sup> |      | 2.2+ | 2014-1 | 1.4.0  | [查看](https://play.google.com/store/apps/details?id=com.worms2armageddon.app) |
-| Worms[^wnaea]                    | √    | 1.6+ | 2012-1 | 1.2.95 |                                                              |
+|                                  | 中文 | 系统 | 日期   | 版本       | Play                                                         |
+| -------------------------------- | ---- | ---- | ------ | ---------- | ------------------------------------------------------------ |
+| Worms 4                          |      | 2.3+ |        | 1.0.432182 | [^w4play]                                                    |
+| Worms 3                          |      | 2.3+ | 2018-2 | 2.06       | [查看](https://play.google.com/store/apps/details?id=com.worms3.app) |
+| Worms 2<br><sup>Armageddon</sup> |      | 2.2+ | 2014-1 | 1.4.0      | [查看](https://play.google.com/store/apps/details?id=com.worms2armageddon.app) |
+| Worms[^wnaea]                    | √    | 1.6+ | 2012-1 | 1.2.95     |                                                              |
 
 [^w4play]: Worms 4 已经从Google Play下架。
 [^wnaea]: 该版本与美国艺电合作完成。
