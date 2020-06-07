@@ -1,12 +1,7 @@
 <style>
-img{display:inline; height:1em; width:1em}
-.windows{background:url(windows.svg)}
-.mac{background:url(mac.svg)}
-.ios{background:url(ios.svg)}
-.steam{background:url(steam.svg)}
-.xbox{background:url(xbox.svg)}
-.switch{background:url(nintendoswitch.svg)}
+@import "/css/jekyll.css";
 </style>
+
 
 # 百战天虫游戏一览
 
@@ -20,7 +15,7 @@ img{display:inline; height:1em; width:1em}
 
 ![](https://steamcdn-a.akamaihd.net/steam/apps/327030/header.jpg)
 
-支持操作系统：<img src="/img/os/windows.svg" style="height:2em" /><sub>Win 7+</sub><img src="/img/os/mac.svg" style="height:2em" /><sub>Mac OS X</sub><img src="/img/os/steam.svg" style="height:2em" /><img src="/img/os/xboxone.svg" style="height:2em"><sub>Xbox One</sub><img src="/img/os/nintendoswitch.svg" style="height:2em" />
+支持操作系统：<i class="windows"></i><sub>Win 7+</sub><i class="mac"></i><sub>Mac OS X</sub><i class="steam"></i><i class="xbox"></i><sub>Xbox One</sub><i class="switch"></i>
 
 支持本地多人合作、对战、人机对战；
 
@@ -36,7 +31,7 @@ Steam商店原价、最低折价：￥129、￥32
 
 ![](https://is1-ssl.mzstatic.com/image/thumb/Purple49/v4/52/c7/8d/52c78dd7-2e99-255c-b7d1-63c3b2c56038/pr_source.png/434x0w.png)
 
-支持操作系统：<img src="/img/os/android.svg" style="height:2em" /><sub>2.3+</sub><img src="/img/os/ios.svg" style="height:2em" /><sub>iOS 8+</sub>
+支持操作系统：<i class="android"></i><sub>2.3+</sub><i  class="ios"></i><sub>iOS 8+</sub>
 
 支持最多2个队伍，本地和联机对战。
 
@@ -48,13 +43,13 @@ Steam商店原价、最低折价：￥129、￥32
 
 ![](https://steamcdn-a.akamaihd.net/steam/apps/217200/header.jpg)
 
-支持操作系统：<img src="/img/os/windows.svg" style="height:2em" />*联机游戏时需要第三方工具。
+支持操作系统：<i class="windows"></i>*联机游戏时需要第三方工具。
 
 [《百战天虫：末日浩劫》百科页面](armageddon/index.md)
 
 ## 全部
 
-### Android
+### Android<i class="android"></i>
 
 |                                  | 中文 | 系统 | 日期   | 版本   | Play                                                         |
 | -------------------------------- | ---- | ---- | ------ | ------ | ------------------------------------------------------------ |
@@ -66,7 +61,7 @@ Steam商店原价、最低折价：￥129、￥32
 [^w4play]: Worms 4 已经从Google Play下架。
 [^wnaea]: 该版本与美国艺电合作完成。
 
-### Java ME
+### Java ME<i class="javame"></i>
 
 |                                         | 触屏         | 日期   | 版本   | 合作方       |
 | --------------------------------------- | ------------ | ------ | ------ | ------------ |
@@ -78,5 +73,5 @@ Steam商店原价、最低折价：￥129、￥32
 [^datedisplay]: 显示的日期为游戏文件最新版的日期，而不是第一版本的发布日期。
 [^w08touch]: 屏幕比例限制：180x320，否则显示位置与触摸位置可能会出现偏移。
 
-### Windows
+### Windows<i class="windows"></i>
 
