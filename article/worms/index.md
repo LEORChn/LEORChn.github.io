@@ -1,5 +1,7 @@
 <style>
 @import "/css/jekyll.css";
+i+sub:before{content:' '}
+i+sub:after{content:' '}
 </style>
 
 
@@ -31,7 +33,7 @@ Steam商店原价、最低折价：￥129、￥32
 
 ![](https://is1-ssl.mzstatic.com/image/thumb/Purple49/v4/52/c7/8d/52c78dd7-2e99-255c-b7d1-63c3b2c56038/pr_source.png/434x0w.png)
 
-支持操作系统：<i class="android"></i><sub>2.3+</sub><i  class="ios"></i><sub>iOS 8+</sub>
+支持操作系统：<i class="android"></i><sub>2.3+</sub><i class="ios"></i><sub>iOS 8+</sub>
 
 支持最多2个队伍，本地和联机对战。
 
@@ -43,13 +45,13 @@ Steam商店原价、最低折价：￥129、￥32
 
 ![](https://steamcdn-a.akamaihd.net/steam/apps/217200/header.jpg)
 
-支持操作系统：<i class="windows"></i>*联机游戏时需要第三方工具。
+支持操作系统：<i class="windows"></i> *联机游戏时需要第三方工具。
 
 [《百战天虫：末日浩劫》百科页面](armageddon/index.md)
 
 ## 全部
 
-### Android<i class="android"></i>
+### <i class="android"></i> Android
 
 |                                  | 中文 | 系统 | 日期   | 版本   | Play                                                         |
 | -------------------------------- | ---- | ---- | ------ | ------ | ------------------------------------------------------------ |
@@ -61,7 +63,7 @@ Steam商店原价、最低折价：￥129、￥32
 [^w4play]: Worms 4 已经从Google Play下架。
 [^wnaea]: 该版本与美国艺电合作完成。
 
-### Java ME<i class="javame"></i>
+### <i class="javame"></i> Java ME
 
 |                                         | 触屏         | 日期   | 版本   | 合作方       |
 | --------------------------------------- | ------------ | ------ | ------ | ------------ |
@@ -73,5 +75,5 @@ Steam商店原价、最低折价：￥129、￥32
 [^datedisplay]: 显示的日期为游戏文件最新版的日期，而不是第一版本的发布日期。
 [^w08touch]: 屏幕比例限制：180x320，否则显示位置与触摸位置可能会出现偏移。
 
-### Windows<i class="windows"></i>
+### <i class="windows"></i> Windows
 

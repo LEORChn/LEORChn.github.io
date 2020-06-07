@@ -13,7 +13,7 @@
 }
 
 /* 操作系统图标 */
-.windows, .mac, .ios, .steam, .xbox, .switch{
+.android, .ios, .javame, .mac, .steam, .switch, .windows, .xbox{
 	display:inline-block;
 	width:2em;
 	height:2em;
