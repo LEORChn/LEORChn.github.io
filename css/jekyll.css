@@ -48,3 +48,7 @@ i.windows{
 i.xbox{
 	background-image:url(/img/os/xbox.svg)
 }
+
+/* 操作系统图标 与 操作系统说明 */
+i+sub:before{content:' '}
+i+sub:after{content:' '}

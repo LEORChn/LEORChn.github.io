@@ -1,10 +1,13 @@
-% 百战天虫游戏一览
+---
+
+title: 百战天虫游戏一览
+
+---
 
 <style>
 @import "/css/jekyll.css";
-i+sub:before{content:' '}
-i+sub:after{content:' '}
 </style>
+
 
 百战天虫（Worms）系列游戏由 Team17 开发。
 

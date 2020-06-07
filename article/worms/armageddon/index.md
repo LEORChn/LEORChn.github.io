@@ -1,6 +1,10 @@
-# Worms Armageddon 快速入门指南
+---
 
-[TOC]
+title: Worms Armageddon 快速入门指南
+
+---
+
+{% include toc.html html=content %}
 
 ## 购买
 
