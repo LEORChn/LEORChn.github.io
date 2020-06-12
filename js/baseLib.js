@@ -188,6 +188,10 @@ function _GET(n){
 	var r=location.search.match(new RegExp("[\?\&]"+n+"=([^\&]+)","i"));
 	return r==null||r.length<1?'':r[1];
 }
+function type(e){
+	var t = typeof(e);
+	return t == 'object'? e.constructor.name: t.replace(t[0], t[0].toUpperCase());
+}
 /*	patch() 参数情况：
 	单个EventTarget：直接返回本体
 	单个EventTarget但是用数组封装：返回该数组
@@ -229,6 +233,32 @@ function patch(){
 		}
 	}
 	return insideSelf? args[0]: args;
+}
+function base64(e, f){
+	if(!(f instanceof Function)){
+		console.error('base64: You must set a handler for it, because base64() is using FileReader API.\n\nSee usage by invoke this function without any argument.');
+		return;
+	}
+	switch(true){
+		case e instanceof Array:
+			e = new Uint8Array(e);
+		case e instanceof Uint8Array:
+			e = new Blob([e]);
+		case e instanceof Blob:
+			break;
+		default:
+			if(arguments.length == 0){
+				console.warn('Usage: base64(data, handler)\n\ndata: Array, Uint8Array or Blob.\nhandler: function(data_of_base64){\n\t// process your data here\n}');
+				return;
+			}
+			console.error('base64()\'s first argument only accept: Array/Uint8Array/Blob but found: ' + e);
+			return;
+	}
+	var fr = new FileReader();
+	fr.onload = function(e){
+		f(e.target.result.split(',')[1]);
+	};
+	fr.readAsDataURL(e);
 }
 
 (function(){for(var i=0,a=fc('webp');i<a.length;i++) webpReplace(a[i]);})();
