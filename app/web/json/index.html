@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="app.min.css" />
+</head>
+<body>
+	<div id="trash">
+		<div id="name"></div>
+		<div id="new"></div>
+		<div id="openFromDisk"></div>
+		<div id="clear"></div>
+		<div id="saveToDisk"></div>
+		<div id="menu"></div>
+	</div>
+	<div id="auto">
+		<div id="codeEditor"></div>
+		<div id="splitter">
+	      <div id="drag" title="拖动左或右，以改变面板的宽度"><span>⋮</span></div>
+        <button id="toTree" class="convert" title="解析JSON (Ctrl + >)">
+            <div class="convert-right"></div>
+        </button>
+        <button id="toCode" class="convert" title="生成JSON (Ctrl + <)">
+            <div class="convert-left"></div>
+        </button>
+	  </div>
+		<div id="treeEditor"></div>
+	</div>
+	<script src="/js/baseLib.js"></script>
+	
+	<script>
+		/*window.onbeforeunload = function(){
+			return ('dont do that!');
+		}*/
+	</script>
+	<script src="app.js"></script>
+	<script>
+		app.load();
+	</script>
+</body>
+</html>
