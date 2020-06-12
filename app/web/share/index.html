@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<script>
+			var ui = {
+				title: '分享组件调用',
+				head: {
+					//theme: '#0099ff',
+					isTextBright: true,
+				},
+				side: [
+					{
+						name: '返回全部应用',
+						data: '/#artwork/'
+					},
+					{
+						name: '返回瑞兽谷首页',
+						data: '/'
+					},
+					{
+						_blank: [true],
+						name: '致谢',
+						data: [
+							'MUI-CSS', 'https://www.muicss.com/',
+							'Materialize-CSS', 'https://materializecss.com/',
+							'BootCDN', 'https://www.bootcdn.cn/'
+						]
+					}
+				],
+				content: {
+					fitsSystemWindows: true,
+					root: null,
+					window: null,
+					window_name: 'share-window'
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<div id="content-root">
+			<br>
+			<div class="mui-panel">
+				<form method="get" action="https://connect.qq.com/widget/shareqq/iframe_index.html" target="_blank" class="mui-form">
+					<legend>分享到QQ</legend>
+					<div class="mui-textfield mui-textfield--float-label">
+						<input name="url" required>
+						<label>网页链接（必填）</label>
+					</div>
+					<div class="mui-textfield mui-textfield--float-label">
+						<input name="title" required>
+						<label>标题（必填）</label>
+					</div>
+					<div class="mui-textfield mui-textfield--float-label">
+						<input name="summary">
+						<label>摘要</label>
+					</div>
+					<div class="mui-textfield mui-textfield--float-label">
+						<input name="pics">
+						<label>图片链接</label>
+						<!--button class="mui-btn mui-btn--raised" style="text-transform: none">尝试使用网站自身图标</button-->
+					</div>
+					<!--div class="mui-textfield mui-textfield--float-label">
+						<input name="site">
+						<label>分享来源</label>
+					</div-->
+					<div class="mui-textfield mui-textfield--float-label">
+						<input name="desc">
+						<label>留言（填写并完成分享时，会额外发送一条留言）</label>
+					</div>
+					<input type="hidden" name="flash">
+					<div style="display:flex">
+						<button type="submit" class="mui-btn mui-btn--primary mui-btn--raised">调用</button>
+						<div id="preview_qq">
+							<div class="mui-panel">
+								<b class="mui-title">预览标题</b>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="msgbox-launchpad">
+		</div>
+		<!-- leorchn lib -->
+		<script src="/js/baseLib.js"></script>
+		<style>@import "/frame/mui/css/custom.css";</style>
+		<script src="/frame/mui/js/builder.js"></script>
+		<script src="/js/http.js"></script>
+		<!--script src="chat.js"></script-->
+		<script>
+			var DEBUG_JS = location.hostname == '127.0.0.1'? '?'+new Date().getTime(): '';
+			addJs('share.js' + DEBUG_JS);
+		</script>
+		<!--
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/preloader-lite.css" />
+		
+		<link rel="stylesheet" type="text/css" href="https://cdn.muicss.com/mui-0.9.41/css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/style-d9b21040eb.min.css" />
+		<link rel="stylesheet" type="text/css" href="/frame/mui/css/icomoon.lite.css" />
+		-->
+	</body>
+</html>
