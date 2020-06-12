@@ -183,6 +183,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 				cur.content = '节奏弹幕 x{0}  详细记录请在瑞兽谷查阅'.format(cur.storm);
 			}else{ // 非节奏弹幕
 				cur = {
+					nick: e.nick,
 					content: '{0}：{\\c&H{1}}{2}'.format(e.nick, e.color.toString(16), e.content)
 				};
 			}
@@ -197,6 +198,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 			var tmp_contain = '';
 			displaying.foreach(function(e, i){
 				var CURRENT_STYLE = i < STYLE.half_time? STYLE.full_trans: STYLE.half_trans;
+				if(pool.manager.indexOf(e.nick) >= 0) CURRENT_STYLE = STYLE.full_trans; // 如果是房管或者其他特殊人物
 				var ALIGN_SHIFT_X = BASE_ALIGN_SHIFT_X;
 				var ALIGN_SHIFT_Y = screen.Height - BASE_ALIGN_SHIFT_Y - (fontSize.pin * (i + 1));
 				

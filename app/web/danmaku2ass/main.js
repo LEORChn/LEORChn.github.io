@@ -1,5 +1,7 @@
 function main(){
 	'use strict';
+	var div = $('.storm-container');
+	while(div.children.length) div.children[0].remove(); // 重新装填弹幕池，需要清空之前显示的节奏风暴内容
 	var ls = $('#ls'),
 		root = '',
 		flv_pool = {
@@ -366,7 +368,7 @@ function main(){
 				if(danmaku_pool.special.indexOf(dmk.nick) >= 0){
 					dmk.color = color.special;
 					
-				}else if((dmk.baseColor & 4) == 4){
+				}else if(danmaku_pool.manager.indexOf(dmk.nick) >= 0){
 					dmk.color = color.manager;
 					
 				}else if(danmaku_pool.shipmember.indexOf(dmk.nick) >= 0){
