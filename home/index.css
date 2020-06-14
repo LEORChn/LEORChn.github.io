@@ -1,7 +1,35 @@
-br+.recent_time{margin-top:-10px}
-br+.recent_time+.recent_desc{margin-top:0}
-.recent_time{position:absolute; right:20px}/* line-height:100%; vertical-align:top}
-.recent_time:before{content:'“'; color:rgba(0,0,0,0); font:"黑体"; font-size:48px}*/
-.recent_desc{line-height:130%; margin:20px 0 10px}
-.recent_desc.diary:before{content:'“'; color:#999999; font-family:"monospace"; font-size:48px; display:inline-block}
-.recent_desc:not(.no-enddiv):after{content:' '; height:1px; background-color:#C0C0C0; margin-top:10px;display:block}
+
+.sizer{
+	visibility: hidden
+}
+.post{
+	overflow-wrap: break-word;
+	background-color: rgba(0,0,0,0);
+	line-height:1.5em;
+}
+.post > .title{
+	text-align: center
+}
+.post > .content:before{
+	content: '\201c';
+	font-size: 2em;
+	font-family: "monospace";
+	display: inline-block;
+	color: #999999;
+}
+.post > .content > iframe{
+	width: 100%;
+	border: 0
+}
+
+/* 列宽 width 应该为：Math.floor(1 / 列数 x 100%) - item左右padding - (间隔值 x 间隔数量 x Math.floor(间隔数量 / 列数)) */
+@media (min-width:500px){
+	.sizer, .grid-item{
+		width:calc(50% - 30px - 5px)
+	}
+}
+@media (min-width:800px){
+	.sizer, .grid-item{
+		width:calc(33% - 30px - 6px)
+	}
+}

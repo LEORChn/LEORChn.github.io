@@ -1,2 +1,14 @@
-::-webkit-scrollbar{display:none}
+
+::-webkit-scrollbar{
+	width:3px;
+	height:3px;
+	background-color: #fff
+}
+/*::-webkit-scrollbar-track-piece:start{
+	background: linear-gradient(to bottom, #000 50%, #00a1d6);
+}*/
+::-webkit-scrollbar-thumb{
+	background: linear-gradient(to bottom, rgba(0,0,0,0), #000)/*#00a1d6)*/
+}
+body ::-webkit-scrollbar{display:none}
 html{-ms-overflow-style:none}

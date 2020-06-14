@@ -2,28 +2,28 @@
 	httpj('get /api/rss.json',function(jr){
 		if(jr.stat != 200) return;
 		jr = jr.data;
+		var diarys = ct('div.grid');
+		fv('blog').appendChild(diarys);
+		var sizer = ct('div.sizer.mui-panel');
+		diarys.appendChild(sizer);
+		
 		for(var i=0; i<jr.length;i++){
 			var j=jr[i],
-				l=fv('blog'),
-				a=ct('div'),
-				fcn=null; // final class name
-			switch(j[0]){
-				case 0:
-					a.className = 'recent_desc';
-					a.innerHTML = j[3];
-					break;
-				case 3:
-					fcn = 'recent_desc'; // enhanced diary
-				case 1:
-					a.className = 'recent_time';
-					a.innerHTML = j[1];
-					l.appendChild(a);
-					a=ct('div');
-					a.className = fcn? fcn: 'recent_desc diary';
-					a.innerHTML = j[3];
-			}
-			l.appendChild(a);
+				r = ct('div.post.grid-item.mui-panel'),
+				t = ct('div.title'),
+				c = ct('div.content');
+			t.innerText = j[2];
+			c.innerHTML = j[3];
+			r.appendChildren(t, c);
+			diarys.appendChild(r);
 		}
 		fv('blog').getElementsByTagName('loader')[0].remove();
-	},function(){});
+		setTimeout(function(){
+			var msnry = new Masonry(diarys, {
+			  gutter: 10,
+			  itemSelector: '.grid-item',
+			  columnWidth: '.sizer'
+			});
+		}, 2000);
+	});
 })();
