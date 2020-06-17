@@ -1,0 +1,27 @@
+body{
+	margin:0;
+	padding:0;
+	display:flex;
+	height:100vh;
+}
+textarea{
+	min-height:99%;
+	max-height:99%;
+	min-width:30%;
+}
+.cdata{
+	flex:1;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	overflow-wrap:break-word;
+	
+}
+.cdata table{
+	font-size:12px;
+	line-height:22px;
+	margin:2px;
+}
+.cdata td{
+	font-size:12px;
+	line-height:22px;
+}

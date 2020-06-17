@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<title>MHT 工具 - 瑞兽谷</title>
+		<script>
+			var ui = {
+				title: '标题栏',
+				head: {
+					title: '页面内标题栏',
+					//theme: '#0099ff',
+					isTextBright: true,
+					/*drop: [
+						{
+							name: '',
+							data: 'javascript:_chat.onShowMembers();'
+						}
+					]*/
+				},
+				side: [
+					/*{
+						name: '返回全部纪念碑',
+						data: '/#archive/'
+					},
+					{
+						name: '返回全部应用',
+						data: '/#artwork/'
+					},*/
+					{
+						name: '返回瑞兽谷首页',
+						data: '/'
+					},
+					{
+						_blank: [true],
+						name: '致谢',
+						data: [
+							'MUI-CSS', 'https://www.muicss.com/',
+							'Materialize-CSS', 'https://materializecss.com/',
+							'BootCDN', 'https://www.bootcdn.cn/'
+						]
+					}
+				],
+				content: {
+					fitsSystemWindows: true,
+					root: null,
+					window: null,
+					window_name: 'mht-window'
+				}
+			};
+		</script>
+<style>
+/* @import "mht.css"; */
+body{
+	background:#cfc
+}
+.help:not(:hover)>pre{
+	display:none
+}
+.help>pre{
+	position:absolute;
+	font-family:"monospace";
+	background:#efe;
+	tab-size:4;
+	-moz-tab-size:4;
+	margin-top:0;
+	border:solid 1px;
+}
+table tr:last-child{
+	text-align:center
+}
+table td, table th{
+	padding:5px 10px
+}
+table td:not(:first-child){
+	text-align:right
+}
+table a{
+	text-decoration:none
+}
+</style>
+	</head>
+	<body>
+		<span class="help">
+			<input type="button" value="需要帮助？">
+			<pre> 
+	--- 使用方法 ---
+	1.打开电脑QQ并登录
+	2.进入“消息管理器”，选择一个分组或者特定联系人导出消息记录
+		或者在右上角三角菜单选择“导出全部消息记录”
+	3.选择保存文件类型，默认为 bak 格式，切换为 mht 格式
+	4.消息导出时间较长，请耐心等待。
+	
+	5.在本工具页面点击“选择文件”，选择刚才保存的 MHT 文件
+	6.压缩优化的过程耗时可能较长，请耐心等待。
+	
+	7.下载优化版文件。
+	
+	--- 优化版与原版的不同之处 ---
+	1.体积更小，测试用文件原 400 KB，压缩后为 85 KB，仅需 21% 空间。
+	2.DOM 节点元素更少，这能让浏览器加载得更快。
+	3.能够灵活收起指定某天的全部记录。
+	
+	--- 缺陷 ---
+	由于压缩后的网页文件使用伪元素显示重复内容，
+	因此很多浏览器将会无法选择、复制和搜索这部分文本，比如 Chrome 43，Firefox 56	
+	但是可以通过“打印”选项保存为 PDF 格式，然后在 PDF 阅读器里选择文本。
+	IE 11 能够复制文本，但是不能从伪元素中间开始选择文本。
+	
+	注：当前为早期版本，有些功能尚未完善。
+		本工具无法在手机上运行，因为这是不必要的。
+	
+	--- 计划中的后续更新内容 ---
+	1.支持加入图片
+	2.尝试去除图像冗余
+			</pre>
+		</span>
+		<input type="file" onchange="main()" accept="application/*, application/octet-stream, application/x-mimearchive, .mht, .mhtml">
+		<!-- leorchn base lib -->
+		<script src="/js/baseLib.js"></script>
+		<script src="/js/http.js"></script>
+		<script src="/js/date.js"></script>
+		<script src="/js/TextStream.js"></script>
+		<script>
+			var DEBUG_JS = location.hostname == '127.0.0.1'? '?'+new Date().getTime(): '';
+			addJs('tencent-message-manager.js' + DEBUG_JS);
+			var processor = null,
+				dl = null;
+			function main(){
+				var file = $('[type=file]').files[0] || f[0];
+				var savename = file.name;
+				// TencentChatData(f[0])  is same to  TencentChatData.decrypt(f[0])
+				
+				UI_table_init();
+				
+				UI_table_update('读取 MHT 文件', file.size);
+				
+				processor = TencentChatData.decrypt(file).then(function(e){
+					var stoptime = new Date();
+					UI_table_update('解压聊天记录主页面', new Blob([e.parsedObject.html]).size, stoptime);
+					return new Promise(function(success){
+						success(e.compress());
+					});
+				}).then(function(e){
+					var stoptime = new Date();
+					var blob = new Blob([e], {type:'text/plain;charset=utf-8'});
+					UI_table_update('压缩页面', blob.size, stoptime);
+					var tr = ct('tr'),
+						td = ct('td'),
+						a = ct('a', '点击下载');
+					a.href = URL.createObjectURL(blob);
+					a.setAttribute('download', savename + '.html');
+					td.setAttribute('colspan', dl.rows[0].children.length);
+					td.appendChild(a);
+					tr.appendChild(td);
+					dl.appendChild(tr);
+				}).catch(function(e){
+					var tr = ct('tr'),
+						td = ct('td', '抱歉，出错了！\n' + savename + '\n' + e.stack);
+					td.setAttribute('colspan', dl.rows[0].children.length);
+					td.style.textAlign = 'left';
+					tr.appendChild(td);
+					dl.appendChild(tr);
+				});
+			}
+			
+			
+			function UI_table_init(){
+				if(dl) dl.remove();
+				dl = ct('table');
+				dl.setAttribute('rules', 'all');
+				var tr = ct('tr');
+				'执行操作,开始时间,耗时(秒),数据大小'.split(',').foreach(function(e){
+					tr.appendChild(ct('th', e));
+				});
+				dl.appendChild(tr);
+				htmlbody.appendChild(dl);
+			}
+			
+			function UI_table_update(name, size, stoptime){
+					var tr = ct('tr');
+					var timecost = 0;
+					var datecurrent = stoptime || new Date();
+					var timecurrent = datecurrent.getTime();
+					if(dl.rows.length > 1) timecost = timecurrent - parseInt(dl.rows[dl.rows.length -1].getAttribute('starttime'));
+					var sizedelta = [0, 'KB', 'MB', 'GB'];
+					while(size > 1024){
+						size = (size / 1024).toFixed(3);
+						sizedelta[0]++;
+					}
+					if(timecost > 0) timecost = (timecost / 1000).toFixed(3);
+					tr.appendChildren(ct('td', name), ct('td', datecurrent.format('yyyy-MM-dd hh:mm:ss')), ct('td', timecost), ct('td', size + (sizedelta[0]>0? ' '+sizedelta[sizedelta[0]]:'')));
+					tr.setAttribute('starttime', timecurrent);
+					dl.appendChild(tr);
+				};
+		</script>
+	</body>
+</html>

@@ -1,6 +1,7 @@
 ﻿// category, id, title, desc
 [
 //['web', '', '', ''],
+ ['web', 'mht', 'mhtml 工具', '目前只有一个压缩QQ聊天记录的功能，后续再开放：通用 MHT 格式解压功能。'],
  ['web', 'danmaku2ass', 'danmuji2ass', '将弹幕姬的弹幕文件转换为ASS格式，并配合x264压制到录播姬的直播录像中。'],
  ['web', 'calendar', '瑞兽谷日历', '发生在瑞兽谷的重大事件。'],
  ['web', 'id18gen', 'id18gen', 'Input first 17 numbers and get calculated 18th number!'],

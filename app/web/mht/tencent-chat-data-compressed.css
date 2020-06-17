@@ -1,0 +1,89 @@
+
+/* ========== static ========== */
+
+/* ----- 标题头 -----*/
+pre[head]{
+	padding-left:10px;
+	font-size:12px;
+}
+pre[head]:before{
+	content:'消息记录';
+	display:block;
+	font-weight:bold;
+	line-height:2em;
+}
+
+/* ----- 日期分隔符 -----*/
+[date][title]{
+	position:relative;
+  font-size:12px;
+}
+[date][title]:before{
+	border-bottom:1px solid #8EC3EB;
+	color:#3568BB;
+	font-weight:bold;
+	line-height:24px;
+	padding-left:10px;
+	margin-bottom:5px;
+	display:block;
+	content:'日期: ' attr(title)
+}
+
+/* ----- 展开收起功能 Checkbox / Label -----*/
+[date][title]>input:first-child, [date][title]>input:first-child:checked~:not(label){
+	display:none
+}
+[date][title]>input:first-child+label{
+	position:absolute;
+	line-height:24px;
+	margin-top:-29px;
+	right:10px;
+}
+[date][title]>input:first-child+label:before{
+	content:'收起'
+}
+[date][title]>input:first-child:checked+label:before{
+	content:'展开'
+}
+
+/* ----- 单条消息布局 -----*/
+p[q]{
+  margin:0;
+  padding-left:20px;
+  line-height:1.6em;
+}
+[q]:before{
+  margin-left:-10px;
+  display:block;
+  line-height:1.6em;
+  color:#006EFE;
+}
+
+/* ----- 单条消息布局（消息存储者） -----*/
+[q=a]:before{
+  color:#42B475;
+}
+
+/* ===== generated =====
+
+[q=a]:before{
+  content:'缉毒局的企鹅(522237296) ' attr(t)
+}
+[q=b]:before{
+	content:'系统消息(10000) ' attr(t)
+}
+[q=c]:before{
+	content:'群主(12345) ' attr(t)
+}
+
+/* ===== adapted dom format =====
+
+<div date title="2019-12-31">
+	<p q="b" t="23:59:22">你已经是群成员了，和大家打个招呼吧！</p>
+	<p q="c" t="23:59:30">欢迎新人</p>
+</div>
+<div date title="2020-1-1">
+	<p q="a" t="0:00:16">你们好</p>
+</div>
+
+*/
