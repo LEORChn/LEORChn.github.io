@@ -16,6 +16,7 @@ function main(){
 			shipmember: {},
 			manager: {
 				'布哥-BOOG':   1, // https://space.bilibili.com/7243615
+				'一株海白菜':  1, // https://space.bilibili.com/888383
 				'五行缺壹':    1, // ┌ https://space.bilibili.com/4204049
 				'洛炀零号C型': 1, // └ https://space.bilibili.com/4204049 2020-05-21
 				'毛基阿灰':    1, // ┌ https://space.bilibili.com/5847584
