@@ -103,14 +103,26 @@
 					// 不知道为啥我用的 QQ 8.6 (18804) 很沙雕，导出 MHT 聊天记录会把大于号的转义 &gt; 打成 &get;
 					
 					// 正则：匹配消息头
-					var qt = /(.*)[<\(](.*)[>\)]\s*(\d+:\d+:\d+)/.exec(fixedqt);
+					var qt = /(.*)[<\(](.*)[>\)]((.)午)?\s*(\d+)(:\d+:\d+)/.exec(fixedqt);
+					// v1.0.1 增                ^^^^^^^^       ^^  用于修复12小时制显示的时间无法转换的问题
 					if(qt == null){
 						pl('reg null: ' + fixedqt);
 						return;
 					}
 					var nickname = qt[1],
 						qq = qt[2],
-						ts = qt[3];
+						am = qt[4], // 记录12小时制 AM/PM 关键字
+						ts = (function(h){
+							if(!qt[3]) return h;
+							return h == 12?
+								am == '上'?
+									h - 12: // 上午12点 = 0点
+									h:
+								am == '下'?
+									h + 12: // 下午1点 = 13点
+									h;      // 下午12点 = 12点
+						})(parseInt(qt[5])) + qt[6];
+					
 					var qid;
 					if(e.children[0].getAttribute('style').contains('#42B475')){ // 这条消息是绿色，自己发的
 						if(obj.member.host.length == 0){

@@ -65,6 +65,7 @@ body{
 	-moz-tab-size:4;
 	margin-top:0;
 	border:solid 1px;
+	padding-right:2em;
 }
 table tr:last-child{
 	text-align:center
@@ -103,7 +104,7 @@ table a{
 	
 	--- 缺陷 ---
 	由于压缩后的网页文件使用伪元素显示重复内容，
-	因此很多浏览器将会无法选择、复制和搜索这部分文本，比如 Chrome 43，Firefox 56	
+	因此很多浏览器将会无法选择、复制和搜索这部分文本，比如 Chrome 43，Firefox 56
 	但是可以通过“打印”选项保存为 PDF 格式，然后在 PDF 阅读器里选择文本。
 	IE 11 能够复制文本，但是不能从伪元素中间开始选择文本。
 	
@@ -113,6 +114,17 @@ table a{
 	--- 计划中的后续更新内容 ---
 	1.支持加入图片
 	2.尝试去除图像冗余
+			</pre>
+		</span>
+		<span class="help">
+			<input type="button" value="更新日志">
+			<pre> 
+	v1.0.1  -  2020-7-7
+	【修复】当导出的聊天记录是12小时制时无法转换的问题。
+	反馈感谢：kaimo
+	
+	v1.0.0  -  2020-6-17
+	基础功能。
 			</pre>
 		</span>
 		<input type="file" onchange="main()" accept="application/*, application/octet-stream, application/x-mimearchive, .mht, .mhtml">
