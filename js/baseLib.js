@@ -260,6 +260,60 @@ function base64(e, f){
 	};
 	fr.readAsDataURL(e);
 }
+function sortByWin7FileName(fl){
+	function usage(){
+		console.warn('Usage: sortByWin7FileName(files)\n\nfiles: FileList or Array, that the children must be File or String.');
+	}
+	var isStringType = false;
+	switch(type(fl)){
+		case 'FileList':
+			fl = arr(fl);
+		case 'Array':
+			switch(type(fl[0])){
+				case 'String':
+					isStringType = true;
+				case 'File':
+					break;
+				default:
+					usage();
+					return;
+			}
+			break;
+		default:
+			usage();
+			return;
+	}
+	return fl.sort(function(a, b){ // 先排序文件名。比如 5-2020-... 应该排在 21-2020-... 的前面。
+		var x = /(.*?)(\d+)/g, // 划分区块，尝试匹配数字以及其之前的废料文本
+			y = /(.*?)(\d+)/g, // 复制一个 RegExp 对象声明。不能使用 x = y = 值，因为是对象类型，会导致共享内存地址
+			classic = function(a,b){ // 典型对比：由系统确定顺序
+				return a==b? 0: [a,b].sort()[0] == a? -1: 1;
+			};
+		if(!isStringType){
+			a = a.name;
+			b = b.name;
+		}
+		while(true){ // 返回：大于 0 的，A会排在后；小于 0 的，B会排在后
+			var xs = x.exec(a), // 分区块查找，分别对每个RegExp对象调用exec，参数与上次调用时一致，即查找下一个区块
+				ys = y.exec(b);
+			if(xs != null && ys != null){ // 全不为 null 时判断内容
+				var c = classic(xs[1], ys[1]);
+				if(c) return c; // 在该数字之前的文本内容有不同，使用典型对比结果
+				if(parseInt(xs[2]) == parseInt(ys[2])){
+					if(xs[2] == ys[2]) continue; // 因为两个数字相同而无法判断
+					else return xs[2].length - ys[2].length; // 两个数字表达值相同，但是长度不同，短的在前
+				}
+				return xs[2] - ys[2]; // 常规的 a - b，小数在前
+			}
+			// 运行到此处时，表示其中一个已匹配完（正则得到 null，无法匹配区块），表示该文件名更短。需要将短文件名排在前面
+			return xs == ys?
+				classic(a, b): // 全 null，启用典型对比
+				xs == null?
+					-1: // 仅 y = null
+					1; // 仅 x = null
+		}
+	});
+}
 
 (function(){for(var i=0,a=fc('webp');i<a.length;i++) webpReplace(a[i]);})();
 function webpReplace(e,u){

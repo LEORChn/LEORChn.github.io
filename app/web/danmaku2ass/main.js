@@ -98,7 +98,7 @@ function main(){
 	
 	// ===== 循环文件池 ===== //
 	
-	arr(f).foreach(function(e){
+	sortByWin7FileName(f).foreach(function(e){
 		var fpath = e.webkitRelativePath;
 		if(!fpath.startsWith(root)) return; // 非文件夹选择（有可能吗？）
 		var fname = fpath.right(fpath.length - root.length); // 文本裁剪：剪去根路径，留下短文件名
