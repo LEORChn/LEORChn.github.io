@@ -9,13 +9,13 @@
 */
 
 var TextStream = function(file, removeCR){
-	if(this == window) file = null;
-	var isZhHan = (navigator.browserLanguage || navigator.language).toLowerCase().startsWith('zh-');
+	if(this == window) file = null; // 不是使用 new Function 调用的，送去 switch -> default 再 return
+	var isZhHan = (navigator.browserLanguage || navigator.language).toLowerCase().startsWith('zh-'); // 指定显示 usage 的语言
 	switch(type(file)){
-		case 'String':
+		case 'String': // 如果得到 String 那么先转成 Blob
 			file = new Blob([file]);
 		case 'File':
-		case 'Blob':
+		case 'Blob': // 其实一直都是支持 Blob 类型的，因为 File 类型本身也是继承自 Blob
 			break;
 		default:
 			if(isZhHan) console.warn(
