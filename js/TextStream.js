@@ -9,10 +9,29 @@
 */
 
 var TextStream = function(file, removeCR){
-	if(this == window) return;
-	if(type(file) != 'File'){
-		console.error('TextStream() must input a File for the first argument, but have: ' + type(file));
-		return;
+	if(this == window) file = null;
+	var isZhHan = (navigator.browserLanguage || navigator.language).toLowerCase().startsWith('zh-');
+	switch(type(file)){
+		case 'String':
+			file = new Blob([file]);
+		case 'File':
+		case 'Blob':
+			break;
+		default:
+			if(isZhHan) console.warn(
+			  'Usage:      new TextStream(strObject, [ removeCR ])\n\n'
+			+ 'strObject:  支持 String、Blob 和 File 类型数据。\n'
+			+ 'removeCR:   Windows 使用 CR-LF 两个符号作为换行符，但是程序仅以 LF 分割每行。\n'
+			+ '            这可能会导致 CR 符号残留在行尾，因此程序默认会删除掉。\n'
+			+ '            如果要保留行尾 CR 符号，请设置此参数值为 false。');
+			else console.warn(
+			  'Usage:      new TextStream(strObject, [ removeCR ])\n\n'
+			+ 'strObject:  String, Blob or File.\n'
+			+ 'removeCR:   Windows using CR-LF as Newline. But program split LF only,\n'
+			+ '            this might cause CR at the end of each line.\n'
+			+ '            Set a false to this if you want to keep CR at the end of line.\n'
+			+ '            Or erased by default.');
+			return;
 	}
 	if(removeCR === false) _rmcr = false;
 	
@@ -118,7 +137,7 @@ var TextStream = function(file, removeCR){
 	};
 };
 
-function testcase(){
+function testcase_TextStream(){
 	var t = new TextStream(f[0]);
 	var fun = function(){
 		t.readline().then(function(e){ // readline() return a Promise object, so use then() to receive when finish reading
