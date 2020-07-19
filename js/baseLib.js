@@ -190,7 +190,7 @@ function _GET(n){
 }
 function type(e){
 	var t = typeof(e);
-	return t == 'object'? e.constructor.name: t.replace(t[0], t[0].toUpperCase());
+	return t == 'object'? e == null? 'Null': e.constructor.name: t.replace(t[0], t[0].toUpperCase());
 }
 /*	patch() 参数情况：
 	单个EventTarget：直接返回本体
