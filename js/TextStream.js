@@ -2,9 +2,10 @@
 	TextStream.js
 	
 	auth: LEORChn
-	desc: process a super large text file with readline().
+	desc: Process a huge text file with readline() function.
 	created: 2020-6-11 11:54 UTC+8
 	finished_v1: 2020-6-13 16:06 UTC+8
+	finished_v2: 2020-7-19 22:21 UTC+8
 	required: baseLib.js
 */
 
