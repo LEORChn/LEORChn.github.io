@@ -132,6 +132,7 @@ function main(){
 				
 				break;
 			case '.flv': // 仅接受 flv 和 txt（以后可能新增）
+			case '.mkv':
 				appendTo = ls.tBodies[0];
 				
 				// 计算FLV文件起始时间
@@ -154,7 +155,7 @@ function main(){
 					});
 					var a = ct('a');
 					a.href = URL.createObjectURL(blob);
-					a.download = fname.replace(/\.([Ff]lv|FLV)$/, '.ass');
+					a.download = fname.replace(/\.(\S+)$/, '.ass');
 					a.click();
 				};
 				td_ass.appendChild(downass);

@@ -1,4 +1,17 @@
+/*
+
+	flvDuration( File / Blob, Function( int_time13 ))
+	generalMediaDuration( File / Blob, Function( int_time13 ))
+	
+*/
+
 function flvDuration(file, ondone){
+	switch(file.name.toLowerCase().right(4)){
+		case '.mkv':
+		case '.mp4':
+			generalMediaDuration(file, ondone);
+			return;
+	}
 	var fr = new FileReader(),
 		pointer = -4,
 		MAX_REACHED_TIMESTAMP = 0,
@@ -43,6 +56,15 @@ function flvDuration(file, ondone){
 	seeknext();
 }
 
+// mkv, mp4
+function generalMediaDuration(file, ondone){
+	var v = ct('video');
+	v.onloadedmetadata = function(){
+		ondone(v.duration * 1000);
+		v = null;
+	};
+	v.src = URL.createObjectURL(file);
+}
 
 /* 尝试通过 session_id 得到每条直播流的下载时间，但是没有用，每条直播流内的 session_id 都是一样的 */
 /*
