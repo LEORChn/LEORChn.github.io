@@ -36,7 +36,7 @@
 				</label>
 				<input type="file" id="folderfile" onchange="onselfolder(event)" directory webkitdirectory>
 			</span>
-			<input type="button" onclick="iframerefresh()" value="刷新">
+			<input type="button" onclick="iframerefresh()" value="刷新框架 F5">
 			<form onsubmit="onpath()" style="display:inline-block"><input name="path" placeholder="URL"></form>
 		</div>
 		<iframe id="IFRAME"></iframe>
@@ -63,7 +63,20 @@
 				console.clear();
 				IFRAME.contentWindow.location.reload(true);
 			}
+			
+			document.onkeydown = function(){
+				if(window.event.keyCode == 116){
+					iframerefresh();
+					return false;
+				}
+			};
 			function oniframeload(){
+				IFRAME.contentDocument.onkeydown = function(){
+					if(IFRAME.contentWindow.event.keyCode == 116){
+						iframerefresh();
+						return false;
+					}
+				};
 				var files;
 				switch($('[name=multifile]:checked').value){
 					case '0':
