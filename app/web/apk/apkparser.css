@@ -1,0 +1,31 @@
+#lock-expand{
+	display:none
+}
+[for=lock-expand]:after{
+	content:'锁定展开';
+	position:fixed;
+	right:20px;
+	bottom:3px;
+	z-index:9;
+}
+#lock-expand:checked+label:after{
+	content:'已锁定'
+}
+textarea{
+	position:fixed;
+	bottom:0;
+	left:12px;
+	width:calc(100% - 32px);
+	height:20vh;
+	padding-left:10px;
+	resize:none;
+	opacity:.2;
+	transition:.5s
+}
+
+.androidmanifest:hover>textarea,
+#lock-expand:checked~textarea,
+textarea:active{
+	opacity:1;
+	height:90vh
+}

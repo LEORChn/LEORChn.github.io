@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" href="apkparser.css">
+</head>
+<body>
+	<table border="0">
+		<tr>
+			<td rowspan="2">
+				<img id="icon">
+			</td>
+			<td id="appname"></td>
+			<td id="appvername"></td>
+		</tr>
+		<tr>
+			<td id="packagename"></td>
+			<td id="appvercode"></td>
+		</tr>
+	</table>
+	<div id="dex"></div>
+	<div class="androidmanifest">
+		<input type="checkbox" id="lock-expand">
+		<label for="lock-expand"></label>
+		<textarea></textarea>
+	</div>
+	<div id="iw"></div>
+	<script src="/js/baseLib.js"></script>
+	<script src="/js/date.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/jszip/3.3.0/jszip.min.js"></script>
+	<script src="axml.js"></script>
+	<script src="android.R.attr.js"></script>
+	<script src="xml.js"></script>
+	<script src="manifest-processor.js"></script>
+	<script>
+		window.ondragover = function(){
+			return false;
+		}
+		window.ondrop = function(){
+			var _f = event.dataTransfer.files;
+			if(_f.length){ // 防止误操作拖动到网页中的图片而导致重新解析
+				f = _f;
+				main();
+			}
+			return false;
+		};
+		$('textarea').onmousewheel = function(){
+			this.scrollTop -= (event.wheelDelta || event.detail) > 0? 100: -100;
+			event.block(); // 阻止滚轮操作到该元素下方的根元素
+		}
+		function main(){
+			while(iw.children.length) iw.children[0].remove();
+			JSZip.loadAsync(f[0]).then(function(z){ // load zip file
+				z.file('AndroidManifest.xml').async('uint8array').then(function(b){
+					var x = parse_to_xml(b);
+					$('textarea').innerText = x;
+					process_manifest(x);
+				});
+				var dex = z.file('classes.dex');
+				$('#dex').innerText = dex? '编译时间：' + dex.date.format('yyyy-MM-dd HH:mm:ss'): '此APK中不包含 classes.dex，可能无法安装。';
+				for(var o in z.files){
+					if(o.endsWith('.png')){ // check if is png file 
+						z.file(o).async('uint8array').then(function(b){
+							var p = document.createElement('img');
+							p.src = URL.createObjectURL(new Blob([b]));
+							iw.appendChild(p);
+						});
+					}
+				}
+				iw.appendChild(ct('div', '加载完毕'));
+			});
+		}
+	</script>
+</body>
+</html>
