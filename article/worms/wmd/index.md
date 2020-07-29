@@ -6,7 +6,7 @@ title: Worms W.M.D 快速入门指南
 
 基于游戏版本 1637 编写。
 
-{% include toc.html html=content %}
+{%- include toc.html html=content -%}
 
 ## 购买
 
