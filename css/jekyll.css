@@ -17,7 +17,7 @@ img[src~="float-right"]{
 }
 
 /* 无头表格 */
-[table-no-head]+table>thead{
+[table-no-head], [table-no-head]+table>thead{
 	display:none
 }
 
