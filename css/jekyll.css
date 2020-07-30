@@ -16,6 +16,11 @@ img[src~="float-right"]{
 	width: 180px;
 }
 
+/* 无头表格 */
+[table-no-head]+table>thead{
+	display:none
+}
+
 /* 正文脚注 - 添加括号 */
 .footnote:before{
 	content:'['
