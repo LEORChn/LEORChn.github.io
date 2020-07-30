@@ -32,7 +32,7 @@ permalink: /wiki/BSCP/
 
 ### 《苦》原版
 
-<i table-no-head>1</i>
+{% include table-no-head.html %}
 
 |                  |                                     |
 | ---------------- | ----------------------------------- |
@@ -41,7 +41,7 @@ permalink: /wiki/BSCP/
 
 ### 《黏》原版
 
-<i table-no-head>2</i>
+{% include table-no-head.html %}
 
 |                  |                                                              |
 | ---------------- | ------------------------------------------------------------ |
@@ -52,7 +52,7 @@ permalink: /wiki/BSCP/
 
 ### 《苦&黏》重制版
 
-<i table-no-head></i>
+{% include table-no-head.html %}
 
 |            |                                                              |
 | ---------- | ------------------------------------------------------------ |
@@ -63,7 +63,7 @@ permalink: /wiki/BSCP/
 
 ### 《寒》
 
-<i table-no-head></i>
+{% include table-no-head.html %}
 
 |            |          |
 | ---------- | -------- |
@@ -73,7 +73,7 @@ permalink: /wiki/BSCP/
 
 ### 《毒》
 
-<i table-no-head></i>
+{% include table-no-head.html %}
 
 |            |          |
 | ---------- | -------- |
