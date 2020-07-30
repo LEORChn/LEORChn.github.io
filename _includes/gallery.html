@@ -5,8 +5,21 @@
 {% endcomment %}
 <style>
 .gallery{
+	position:relative
+}
+.gallery:after{
+	content: ' ';
+	position: absolute;
+	height: 100%;
+	width: 10px;
+	right: 0;
+	top: 0;
+	background: linear-gradient(to right,transparent,rgba(0,0,0,.5))
+}
+.gallery>div{
 	overflow: auto;
 	white-space: nowrap;
+	padding-right: 10px;
 }
 .gallery span{
 	display: inline-block;

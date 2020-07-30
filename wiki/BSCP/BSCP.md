@@ -18,7 +18,7 @@ permalink: /wiki/BSCP/
 
 本游戏支持 Windows。
 
-Android 系统需要使用 吉里吉里模拟器 运行，<font color=red>苦黏重制版除外</font>。
+Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red">苦黏重制版除外</span>。
 
 |            | 发布时间  | 大小 <sub>MB</sub> |          下载          |
 | ---------- | :-------: | -----------------: | :--------------------: |

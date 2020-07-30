@@ -21,6 +21,11 @@ img[src~="float-right"]{
 	display:none
 }
 
+/* 正文通用加粗 - 覆盖 空layout */
+b, strong{
+	font-weight: bold !important
+}
+
 /* 正文脚注 - 添加括号 */
 .footnote:before{
 	content:'['
