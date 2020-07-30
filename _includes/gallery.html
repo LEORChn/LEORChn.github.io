@@ -1,0 +1,40 @@
+{% comment %}
+
+用法：{% include gallery.html src="1.jpg;2.jpg" title="图片1;图片2" %}
+
+{% endcomment %}
+<style>
+.gallery{
+	overflow: auto;
+	white-space: nowrap;
+}
+.gallery span{
+	display:inline-block
+}
+.gallery img{
+	height: 120px
+}
+.gallery img+div{
+	text-align: center
+}
+</style>
+<div class="gallery">
+	{% assign images = include.src | split: ';' %}
+	{% if include.title %}
+		{% assign titles = include.title | split: ';' %}
+	{% endif %}
+	{% assign img_i = 0 %}
+	<div>
+		{% for img in images %}
+			{% assign img_i = img_i + 1 %}
+			<span>
+				<img src="{{ img | strip }}">
+				<div>
+					{% if img_i < titles.size %}
+						{{ titles[img_i] | strip }}
+					{% endif %}
+				</div>
+			</span>
+		{% endfor %}
+	</div>
+</div>
