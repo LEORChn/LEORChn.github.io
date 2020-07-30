@@ -1,8 +1,12 @@
 ---
 title: 苦黏寒毒
-layout: wiki
+
 permalink: /wiki/BSCP/
 ---
+
+<style>
+	@import "/css/jekyll.css";
+</style>
 
 {% include nsfw.html reason="正在浏览的页面没有问题，但是作品中的某些内容（行为、观念等）可能不受欢迎" %}
 
@@ -28,7 +32,7 @@ permalink: /wiki/BSCP/
 
 ### 《苦》原版
 
-<i table-no-head></i>
+<i table-no-head>1</i>
 
 |                  |                                     |
 | ---------------- | ----------------------------------- |
@@ -37,7 +41,7 @@ permalink: /wiki/BSCP/
 
 ### 《黏》原版
 
-<i table-no-head></i>
+<i table-no-head>2</i>
 
 |                  |                                                              |
 | ---------------- | ------------------------------------------------------------ |
