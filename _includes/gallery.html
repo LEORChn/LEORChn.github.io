@@ -9,7 +9,8 @@
 	white-space: nowrap;
 }
 .gallery span{
-	display:inline-block
+	display: inline-block;
+	text-align: center
 }
 .gallery img{
 	height: 120px
@@ -20,8 +21,7 @@
 </style>
 <div class="gallery">
 	{% assign images = include.src | split: ';' %}
-	{% assign len = images | size %}
-	{% assign len = len - 1 %}
+	{% assign len = images | size | plus: -1 %}
 	{% if include.title %}
 		{% assign titles = include.title | split: ';' %}
 	{% endif %}
