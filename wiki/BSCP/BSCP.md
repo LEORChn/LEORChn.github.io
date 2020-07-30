@@ -16,7 +16,9 @@ permalink: /wiki/BSCP/
 
 ## 下载
 
-本游戏支持 Windows。并且能使用 吉里吉里模拟器 在 Android 运行。
+本游戏支持 Windows。
+
+Android 系统需要使用 吉里吉里模拟器 运行，<font color=red>苦黏重制版除外</font>。
 
 |            | 发布时间  | 大小 <sub>MB</sub> |          下载          |
 | ---------- | :-------: | -----------------: | :--------------------: |
@@ -26,7 +28,9 @@ permalink: /wiki/BSCP/
 | 寒         | 2016-8-30 |                 78 |     [下载][bscp_3]     |
 | 毒         | 2018-9-24 |                160 |     [下载][bscp_4]     |
 
-{% include gallery.html src="20150302_Zoharwolf.jpg; 20150314_Zoharwolf.jpg; 20180924_森石灰水饺.jpg" title="Zoharwolf<br>2015年3月2日; Zoharwolf<br>2015年3月14日; 森石灰水饺<br>2018年9月24日" %}
+## 热门相关作品
+
+{% include gallery.html src="20150302_Zoharwolf.jpg; 20150314_Zoharwolf.jpg; 20180924_森石灰水饺.jpg; 20190502_herorine1.jpg; 20190511_herorine1.jpg" title="Zoharwolf<br>2015年3月2日; Zoharwolf<br>2015年3月14日; 森石灰水饺<br>2018年9月24日; herorine1<br>2019年5月2日; herorine1<br>2019年5月11日" %}
 
 ## 制作人员
 

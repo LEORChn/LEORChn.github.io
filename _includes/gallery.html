@@ -20,18 +20,18 @@
 </style>
 <div class="gallery">
 	{% assign images = include.src | split: ';' %}
+	{% assign len = images | size %}
+	{% assign len = len - 1 %}
 	{% if include.title %}
 		{% assign titles = include.title | split: ';' %}
 	{% endif %}
-	{% assign img_i = 0 %}
 	<div>
-		{% for img in images %}
-			{% assign img_i = img_i + 1 %}
+		{% for i in (0..len) %}
 			<span>
-				<img src="{{ img | strip }}">
+				<img src="{{ images[i] | strip }}">
 				<div>
-					{% if img_i < titles.size %}
-						{{ titles[img_i] | strip }}
+					{% if i <= titles.size %}
+						{{ titles[i] | strip }}
 					{% endif %}
 				</div>
 			</span>
