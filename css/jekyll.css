@@ -36,6 +36,7 @@ h1>i:not([class]), h1>em{
 	max-height: 1em;
 }
 .hint img{
+	background-color: transparent !important;
 	width: 100%
 }
 .hint>:nth-child(3){
