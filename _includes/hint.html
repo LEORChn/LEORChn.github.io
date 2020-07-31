@@ -12,14 +12,52 @@
 {% assign src   = include.src   | default: '/img/hint/info.png' %}
 {% assign title = include.title | default: '<i style="color:#888">无标题模板</i>' %}
 {% assign desc  = include.desc  | default: '<i style="color:#888">模板没有说明。</i>' %}
-<table style="font-size:95%; width:80%; margin:0 auto; margin-top:-1px; border:1px #AAA solid; border-collapse:collapse; background-color:#EEE; color:#000; border-left:10px solid {{ color }}">
-  <tr style="border:none">
-    <td style="width:60px; padding:2px 0px 2px 0.5em; text-align:center; border:none">
-    	<img style="width:100%" src="{{ src }}">
-    </td>
-    <td style="padding:0.25em 0.5em; border:none">
-    	<b>{{ title }}</b>
-      <div style="font-size: smaller; margin-top:0.5em; margin-left:0.8em;">{{ desc }}</div>
-    </td>
-  </tr>
-</table>
+<div class="hint">
+	<div style="background:{{ color }}"></div>
+	<div>
+		<div></div>
+		<img src="{{ src }}">
+		<div></div>
+	</div>
+	<div>
+		<b>{{ title }}</b>
+		<div>{{ desc }}</div>
+	</div>
+</div>
+{% comment %}
+<style>
+	.hint{
+		display: flex;
+		width: 80%;
+		background: #eee;
+		border: 1px #aaa solid;
+		border-left: none;
+		margin: 0 auto 16px;;
+		font-size: 95%;
+	}
+	.hint>:nth-child(1){
+		width: 10px;
+	}
+	.hint>:nth-child(2){
+		display: flex;
+		flex-direction: column;
+		width: 60px;
+		padding: .25em 0 .25em .5em;
+	}
+	.hint>:nth-child(2)>div{
+		flex: 1;
+		max-height: 1em;
+	}
+	.hint img{
+		width: 100%
+	}
+	.hint>:nth-child(3){
+		flex: 1;
+		padding: .25em .5em;
+	}
+	.hint>:nth-child(3)>div{
+		font-size: smaller;
+		margin: .5em 0 0 .8em;
+	}
+</style>
+{% endcomment %}

@@ -1,14 +1,52 @@
 /* 默认 Jekyll */
 .page-content{
-    padding: 0 0 30px
+	padding: 0 0 30px
 }
+
 /* Wiki 词条标题中表示义项 */
 h1>i:not([class]), h1>em{
-    font-size: 0.6em;
-    font-style: normal;
-    color: #888;
-    margin-left: 0.5em;
+	font-size: 0.6em;
+	font-style: normal;
+	color: #888;
+	margin-left: 0.5em;
 }
+
+/* Wiki 词条小贴士 */
+.hint{
+	display: flex;
+	width: 80%;
+	background: #eee;
+	border: 1px #aaa solid;
+	border-left: none;
+	margin: 0 auto 16px;;
+	font-size: 95%;
+}
+.hint>:nth-child(1){
+	width: 10px;
+	background: #36c; /* 这个应该被覆盖掉 */
+}
+.hint>:nth-child(2){
+	display: flex;
+	flex-direction: column;
+	width: 60px;
+	padding: .25em 0 .25em .5em;
+}
+.hint>:nth-child(2)>div{
+	flex: 1;
+	max-height: 1em;
+}
+.hint img{
+	width: 100%
+}
+.hint>:nth-child(3){
+	flex: 1;
+	padding: .25em .5em;
+}
+.hint>:nth-child(3)>div{
+	font-size: smaller;
+	margin: .5em 0 0 .8em;
+}
+
 /* 图片效果 - 右浮动 */
 img[src~="float-right"]{
 	float: right;
@@ -41,10 +79,10 @@ b, strong{
 
 /* Steam 商店小部件 */
 iframe[src*="store.steampowered.com/widget"]{
-    width:100%;
-    height:190px;
-    max-width:646px;
-    border:none;
+	width:100%;
+	height:190px;
+	max-width:646px;
+	border:none;
 }
 
 /* 操作系统图标 */

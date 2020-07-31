@@ -43,7 +43,7 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 | bscp_4.zip         |  160 | EBD955B6 | DE382E510A23EBD7425CE6C591597815800B9016 |
 | bscp_zoharwolf.zip |  135 | 9011D1B1 | 0B0840CAE4188BDAC97DA7310DCFAA4554D84F0D |
 
-{% include hint.html title="版权声明：二次打包的发布" desc="出于方便玩家的目的，瑞兽谷站长<b>LEORChn</b>对游戏文件进行了二次打包。<br>比如原版的《苦》游戏使用<b>流氓软件《快压》</b>进行压缩，其生成的文件破坏了标准ZIP格式，包括7-Zip、WinRAR 甚至 Windows10 资源管理器 和在 Android 系统中运行的解压缩软件在内，均无法解压正常内容。<br>瑞兽谷站长<b>LEORChn</b>出于对原作者意愿的尊重，如以上行为有侵犯原作者版权的，请原作者本人联系告知，以进行后续处理。" %}
+{% include hint.html title="版权声明：二次打包的发布" desc="出于方便玩家的目的，瑞兽谷站长<b>LEORChn</b>对游戏文件进行了二次打包。<br>比如原版的《苦》游戏首次发布时使用了<b>流氓软件《快压》</b>进行压缩，其生成的文件非标准压缩格式，几乎任何解压缩软件均无法解压正常内容，包括但不限于 7-Zip、WinRAR、Bandizip、Windows10 资源管理器 和 ZArchive。<br>瑞兽谷站长<b>LEORChn</b>出于对原作者意愿的尊重，如以上行为有侵犯原作者版权的，请原作者本人联系告知，以进行后续处理。" %}
 
 ## 热门相关作品
 
