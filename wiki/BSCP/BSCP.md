@@ -8,7 +8,7 @@ permalink: /wiki/BSCP/
 	@import "/css/jekyll.css";
 </style>
 
-{% include nsfw.html reason="正在浏览的页面没有问题，但是作品中的某些内容（行为、观念等）可能不受欢迎" %}
+{% include hint-nsfw.html reason="正在浏览的页面没有问题，但是作品中的某些内容（行为、观念等）可能不受欢迎" %}
 
 # 苦黏寒毒*系列游戏*
 
@@ -25,6 +25,8 @@ permalink: /wiki/BSCP/
 
 Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red">苦黏重制版除外</span>。
 
+{% include hint-download.html %}
+
 |            | 发布时间  | 大小 <sub>MB</sub> |          下载          |
 | ---------- | :-------: | -----------------: | :--------------------: |
 | 苦         | 2013-2-14 |                 89 |     [下载][bscp_1]     |
@@ -32,6 +34,16 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 | 苦黏重置版 | 2015-6-16 |                135 | [下载][bscp_zoharwolf] |
 | 寒         | 2016-8-30 |                 78 |     [下载][bscp_3]     |
 | 毒         | 2018-9-24 |                160 |     [下载][bscp_4]     |
+
+|                    | Size | CRC32    | SHA-1                                    |
+| ------------------ | ---: | -------- | ---------------------------------------- |
+| bscp_1.zip         |   89 | 4915BA5E | B076CC3D5B158044211A68F61F7BC8428DCA7DA5 |
+| bscp_2.zip         |   36 | E3A89494 | 55C1E6A8CF9DA462CB2C4AC6D54FB0D1C527E4DC |
+| bscp_3.zip         |   78 | FC3BFE68 | 66517F57582EFB1EC742A748146A33F5D5DAADD6 |
+| bscp_4.zip         |  160 | EBD955B6 | DE382E510A23EBD7425CE6C591597815800B9016 |
+| bscp_zoharwolf.zip |  135 | 9011D1B1 | 0B0840CAE4188BDAC97DA7310DCFAA4554D84F0D |
+
+{% include hint.html title="版权声明：二次打包的发布" desc="出于方便玩家的目的，瑞兽谷站长<b>LEORChn</b>对游戏文件进行了二次打包。<br>比如原版的《苦》游戏使用<b>流氓软件《快压》</b>进行压缩，其生成的文件破坏了标准ZIP格式，包括7-Zip、WinRAR 甚至 Windows10 资源管理器 和在 Android 系统中运行的解压缩软件在内，均无法解压正常内容。<br>瑞兽谷站长<b>LEORChn</b>出于对原作者意愿的尊重，如以上行为有侵犯原作者版权的，请原作者本人联系告知，以进行后续处理。" %}
 
 ## 热门相关作品
 
