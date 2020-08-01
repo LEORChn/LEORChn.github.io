@@ -27,6 +27,6 @@
 	{% if '/' != paramurl | slice: 0 %}
 		{% assign cdnurl = cdnurl | append: page.url %}
 	{% endif %}
-	{% assign cdnurl = cdnurl | append: paramurl %}
+	{% assign output = cdnurl | append: paramurl %}
 {%- endcapture -%}
 {{ output }}
