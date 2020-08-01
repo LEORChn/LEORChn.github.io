@@ -1,6 +1,6 @@
 ---
 title: 苦黏寒毒
-
+layout: wiki
 permalink: /wiki/BSCP/
 tags: wiki furry game
 ---
@@ -48,7 +48,19 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 ## 热门相关作品
 
-{% include gallery.html src="20150302_Zoharwolf.jpg; 20150314_Zoharwolf.jpg; 20180924_森石灰水饺.jpg; 20190502_herorine1.jpg; 20190511_herorine1.jpg" title="Zoharwolf<br>2015年3月2日; Zoharwolf<br>2015年3月14日; 森石灰水饺<br>2018年9月24日; herorine1<br>2019年5月2日; herorine1<br>2019年5月11日" %}
+{% include gallery src="
+
+20150302_Zoharwolf.jpg | Zoharwolf br 2015年3月2日
+
+20150314_Zoharwolf.jpg | Zoharwolf br 2015年3月14日
+
+20180924_森石灰水饺.jpg | 森石灰水饺 br 2018年9月24日
+
+20190502_herorine1.jpg | herorine1 br 2019年5月2日
+
+20190511_herorine1.jpg | herorine1 br 2019年5月11日
+
+" %}
 
 ## 制作人员
 

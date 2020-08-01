@@ -37,51 +37,8 @@
 				This site is open source. {% comment %}{% github_edit_link "Improve this page" %}.{% endcomment %}
 			</div>
 			{% endif %}
-			<div>
-				本站最后更新时间：{{ "now" | date: "%Y-%m-%d %H:%M" }}
-			</div>
+			<div>本站最后更新时间：{{ "now" | date: "%Y-%m-%d %H:%M" }} UTC</div>
 		</div>
-		site.url: {{ site.url }}
-		<br>
-		page.url: {{ page.url }}
-		<br>
-		article.url: {{ article.url }}
-		<br>
-		article.published_at: {{ article.published_at }}
-		<br>
-		article.published_at | date:{{ article.published_at | date: "%Y-%m-%d %H:%M" }}
-		<br>
-		article.updated_at: {{ article.updated_at }}
-		<br>
-		article.updated_at | date:{{ article.updated_at | date: "%Y-%m-%d %H:%M" }}
-		<br>
-		post.published_at: {{ post.published_at }}
-		<br>
-		post.published_at | date:{{ post.published_at | date: "%Y-%m-%d %H:%M" }}
-		<br>
-		post.updated_at: {{ post.updated_at }}
-		<br>
-		post.updated_at | date:{{ post.updated_at | date: "%Y-%m-%d %H:%M" }}
-		<br>
-		posts.published_at: {{ posts.published_at }}
-		<br>
-		posts.published_at | date:{{ posts.published_at | date: "%Y-%m-%d %H:%M" }}
-		<br>
-		posts.updated_at: {{ posts.updated_at }}
-		<br>
-		posts.updated_at | date:{{ posts.updated_at | date: "%Y-%m-%d %H:%M" }}
-		<br>
-		page.published_at: {{ page.published_at }}
-		<br>
-		page.published_at | date:{{ page.published_at | date: "%Y-%m-%d %H:%M" }}
-		<br>
-		page.updated_at: {{ page.updated_at }}
-		<br>
-		page.updated_at | date:{{ page.updated_at | date: "%Y-%m-%d %H:%M" }}
-		<br>
-		page.url-trim: {{page.url}}
-		<br>
-		absolute_url-trim: {{absolute_url}}
 		<style>
 			@import "/css/jekyll.css";
 		</style>
