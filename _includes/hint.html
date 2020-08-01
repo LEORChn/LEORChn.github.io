@@ -9,14 +9,14 @@
 
 {% endcomment %}
 {% assign color = include.color | default: '#36c' %}
-{% assign src   = include.src   | default: '/img/hint/info.png' %}
+{% assign icon  = include.src   | default: '/img/hint/info.png' %}
 {% assign title = include.title | default: '<i style="color:#888">无标题模板</i>' %}
 {% assign desc  = include.desc  | default: '<i style="color:#888">模板没有说明。</i>' %}
 <div class="hint">
 	<div style="background:{{ color }}"></div>
 	<div>
 		<div></div>
-		<img src="{{ src }}">
+		<img src="{% include imagecdn src=icon %}">
 		<div></div>
 	</div>
 	<div>
