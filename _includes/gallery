@@ -1,0 +1,76 @@
+{% comment %}
+
+用法：（若非外链则自带 CDN 加速）
+
+{% include gallery src="
+1.jpg  | 位于当前目录的图片1
+/2.jpg | 位于网站根目录的图片2
+http://www.github.com/favicon.ico | 外链图片
+" %}
+
+{% endcomment %}
+<style>
+.gallery{
+	position:relative
+}
+.gallery:after{
+	content: ' ';
+	position: absolute;
+	height: 100%;
+	width: 10px;
+	right: 0;
+	top: 0;
+	background: linear-gradient(to right,transparent,rgba(0,0,0,.5))
+}
+.gallery>div{
+	overflow: auto;
+	white-space: nowrap;
+	padding-right: 10px;
+}
+.gallery span{
+	display: inline-block;
+	text-align: center
+}
+.gallery img{
+	height: 120px
+}
+.gallery img+div{
+	text-align: center
+}
+</style>
+<div class="gallery">
+	<div>
+		{%- assign images = include.src | newline_to_br | split: '<br />' -%}
+		{%- assign output = '' -%}
+		{%- capture nooutput -%}
+			{% for i in images %}
+				{% if i.size < 3 %}
+					{% continue %}
+				{% endif %}
+				{% assign p = i | split: '|' %}
+				{% assign paramurl = p[0] | strip %}
+				{% assign cdnurl = '' %}
+				{% case paramurl | slice: 0, 6 %}
+					{% when 'http://' %}
+					{% when 'https:/' %}
+					{% else %}
+						{% if paramurl | slice: 0, 1 != '//' %}
+							{% assign cdnurl = cdnurl | append: 'https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io' %}
+						{% endif %}
+				{% endcase %}
+				{% if '/' != paramurl | slice: 0 %}
+					{% assign cdnurl = cdnurl | append: page.url %}
+				{% endif %}
+				{% assign cdnurl = cdnurl | append: paramurl %}
+				{% capture preoutput %}
+		<span>
+			<img src="{{ cdnurl }}">
+			<div>{{ p[1] | replace: ' br ', '<br>' | strip }}</div>
+		</span>
+				{%- endcapture -%}
+				{% assign output = output | append: preoutput %}
+			{% endfor %}
+		{%- endcapture -%}
+		{{ output }}
+	</div>
+</div>

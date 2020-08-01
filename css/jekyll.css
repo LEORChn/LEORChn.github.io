@@ -3,14 +3,23 @@
 	padding: 0 0 30px
 }
 #breadcrumbs{
-	background: linear-gradient(to left, rgb(125, 127, 221), rgb(0, 153, 255));
 	color: #fff;
 	font-size: 1.5rem;
 	line-height: 64px;
-	padding-left: 32px;
+	padding: 0 0 0 32px;
+	border: none;
 }
 #breadcrumbs a{
 	color: #fff
+}
+#breadcrumbs+div{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 64px;
+	z-index: -1;
+	background: linear-gradient(to left, rgb(125, 127, 221), rgb(0, 153, 255));
 }
 
 /* Wiki 词条标题中表示义项 */

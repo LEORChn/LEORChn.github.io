@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: "zh-CN" }}">
+<html lang="{{ site.lang | default: "en-US" }}">
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-{% seo %}
+		
+{%- capture nooutput -%}
+{% capture vseo %}{% include virtual_seo %}{% endcapture %}
+{% assign output = vseo | split: '</title>' %}
+{%- endcapture -%}
+{{ output[0] | append: '百科</title>' | append: output[1] }}
 		<link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
 	</head>
 	<body>
 		<div class="container-lg px-3 my-5 markdown-body" style="margin-top:0 !important">
 			{% if site.title and site.title != page.title %}
-				<h1 id="breadcrumbs"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a> &gt; 百科学堂</h1>
+				<h1 id="breadcrumbs"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a> &gt; 百科</h1>
+				<div></div>
 			{% endif %}
 
 			{% assign c = content %}
@@ -24,11 +30,11 @@
 						
 					{% endfor %}
 				endif
-			endfor
+			{% endfor %}
 			{% endcomment %}
 			{% if site.github.private != true and site.github.license %}
 			<div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
-				This site is open source. {% github_edit_link "Improve this page" %}.
+				This site is open source. {% comment %}{% github_edit_link "Improve this page" %}.{% endcomment %}
 			</div>
 			{% endif %}
 			<div>
@@ -39,7 +45,7 @@
 		<br>
 		page.url: {{ page.url }}
 		<br>
-		absolute_url: {{ absolute_url }}
+		article.url: {{ article.url }}
 		<br>
 		article.published_at: {{ article.published_at }}
 		<br>
@@ -76,8 +82,6 @@
 		page.url-trim: {{page.url}}
 		<br>
 		absolute_url-trim: {{absolute_url}}
-		<br>
-		{% github_edit_link "Improve this page" %}
 		<style>
 			@import "/css/jekyll.css";
 		</style>
