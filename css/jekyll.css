@@ -2,6 +2,16 @@
 .page-content{
 	padding: 0 0 30px
 }
+#breadcrumbs{
+	background: linear-gradient(to left, rgb(125, 127, 221), rgb(0, 153, 255));
+	color: #fff;
+	font-size: 1.5rem;
+	line-height: 64px;
+	padding-left: 32px;
+}
+#breadcrumbs a{
+	color: #fff
+}
 
 /* Wiki 词条标题中表示义项 */
 h1>i:not([class]), h1>em{

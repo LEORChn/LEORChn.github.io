@@ -2,6 +2,7 @@
 title: 苦黏寒毒
 
 permalink: /wiki/BSCP/
+tags: wiki furry game
 ---
 
 <style>
