@@ -24,7 +24,8 @@
 				{% assign cdnurl = cdnurl | append: 'https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io' %}
 			{% endif %}
 	{% endcase %}
-	{% if '/' != paramurl | slice: 0 %}
+	{% assign srcprefix = paramurl | slice: 0 %}
+	{% if srcprefix != '/' %}
 		{% assign cdnurl = cdnurl | append: page.url %}
 	{% endif %}
 	{% assign output = cdnurl | append: paramurl %}

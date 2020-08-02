@@ -41,7 +41,7 @@ http://www.github.com/favicon.ico | 外链图片
 <div class="gallery">
 	<div>
 		{%- assign images = include.src | newline_to_br | split: '<br />' -%}
-		{%- assign output = '' -%}
+		{%- assign output2 = '' -%}
 		{%- capture nooutput -%}
 			{% for i in images %}
 				{% if i.size < 3 %}
@@ -55,9 +55,9 @@ http://www.github.com/favicon.ico | 外链图片
 			<div>{{ p[1] | replace: ' br ', '<br>' | strip }}</div>
 		</span>
 				{%- endcapture -%}
-				{% assign output = output | append: preoutput %}
+				{% assign output2 = output2 | append: preoutput %}
 			{% endfor %}
 		{%- endcapture -%}
-		{{ output }}
+		{{ output2 }}
 	</div>
 </div>
