@@ -23,18 +23,15 @@
 		<label><input type="radio" name="speed" value="100">快速</label>
 		<h2>后记</h2>
 		<div>这个游戏的灵感来源是<a target="_blank" href="https://www.zhihu.com/zvideo/1271107629914808320">这个知乎视频</a>，当时就是想试试看自己能不能复刻一个。仅学习交流使用。</div>
-		<div>复刻开发耗时：2020-8-4 4:28 - 6:24</div>
-		{%- assign ts = 'now' | date: '%s' -%}
-		{%- capture nooutput -%}
-			{% assign tz = 'now' | date: '%Z' %}
-			{% if tz == 'UTC' %}
-				{% assign ts = ts | plus: 28800 | date: '%Y-%m-%d %H:%M' | append: ' UTC+8' %}
-			{% else %}
-				{% assign ts = ts | date: '%Y-%m-%d %H:%M %Z' %}
-			{% endif %}
-		{%- endcapture -%}
-		<div>全站最后更新时间：{{ ts }}<br><a target="_blank" href="https://github.com/LEORChn/LEORChn.github.io/commits">查看更新...</a></div>
+		<div>&nbsp;</div>
+		<div>复刻开发耗时：</div>
+		<div>2020年8月4日 4:28 至 6:24</div>
+		<div>&nbsp;</div>
+		<div>看看本站最近有啥其他的更新？<br><a target="_blank" href="https://github.com/LEORChn/LEORChn.github.io/commits">查看更新...</a></div>
 <style>
+a:not(:hover){
+	text-decoration: none
+}
 #game-area{
 	-webkit-user-select: none;
 	-moz-user-select: none;
