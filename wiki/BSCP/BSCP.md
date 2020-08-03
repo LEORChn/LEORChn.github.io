@@ -5,15 +5,13 @@ permalink: /wiki/BSCP/
 tags: wiki furry game
 ---
 
-<style>
-	@import "/css/jekyll.css";
-</style>
 
 {% include hint-nsfw.html reason="正在浏览的页面没有问题，但是作品中的某些内容（行为、观念等）可能不受欢迎" %}
 
 # 苦黏寒毒*系列游戏*
 
-![](title.jpg# float-right)**苦黏寒毒**是一个系列文字冒险游戏。全部剧本由 **KCN杏仁** 完成。包含**《苦》《黏》《寒》**和**《毒》**。
+{% include img src="title.jpg# float-right" %}
+**苦黏寒毒**是一个系列文字冒险游戏。全部剧本由 **KCN杏仁** 完成。包含**《苦》《黏》《寒》**和**《毒》**。
 
 原版与**《苦&黏》重制版**的不同点在于：
 

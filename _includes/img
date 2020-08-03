@@ -1,0 +1,23 @@
+{%- comment -%}
+
+用法：（自带 CDN 加速）
+	
+	{% include img src="1.jpg" %}
+	
+	{% include img src="/2.jpg" %}
+	
+	{% include img src="/3.jpg" alt="" title="" %}
+	
+	alt 和 title 参数是可选的。
+	
+{%- endcomment -%}
+{%- capture func_img_output -%}<img src="{% include cdn src=include.src %}"{%- endcapture -%}
+{%- capture nooutput -%}
+	{% if include.alt %}
+		{% assign func_img_output = func_img_output | append: ' alt="'   | append: include.alt   | append: '"' %}
+	{% endif %}
+	{% if include.title %}
+		{% assign func_img_output = func_img_output | append: ' title="' | append: include.title | append: '"' %}
+	{% endif %}
+{%- endcapture -%}
+{{ func_img_output | append: '/>'}}

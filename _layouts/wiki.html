@@ -10,7 +10,8 @@
 {% assign output = vseo | split: '</title>' %}
 {%- endcapture -%}
 {{ output[0] | append: '百科</title>' | append: output[1] }}
-		<link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+		<link rel="stylesheet" href="{{            "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+		<link rel="stylesheet" href="{% capture css %}{{ "/css/jekyll.css?v=" | append: site.github.build_revision | relative_url }}{% endcapture %}{% include imagecdn src=css %}">
 	</head>
 	<body>
 		<div class="container-lg px-3 my-5 markdown-body" style="margin-top:0 !important">
@@ -18,7 +19,6 @@
 				<h1 id="breadcrumbs"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a> &gt; 百科</h1>
 				<div></div>
 			{% endif %}
-			<style>@import "/css/jekyll.css";</style>
 
 			{% assign c = content %}
 			{{ c }}
@@ -38,7 +38,7 @@
 				This site is open source. {% comment %}{% github_edit_link "Improve this page" %}.{% endcomment %}
 			</div>
 			{% endif %}
-			<div>本站最后更新时间：{{ "now" | date: "%Y-%m-%d %H:%M" }} UTC</div>
+			<div>全站最后更新时间：{{ "now" | date: "%Y-%m-%d %H:%M" }} UTC</div>
 		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
 		<script>anchors.add();</script>

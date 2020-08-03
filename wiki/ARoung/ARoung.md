@@ -8,6 +8,7 @@ avatar: ''
 
 # ARoung*furry*
 
+{% include img src="title.jpg# float-right" %}
 为[原版《黏》](../BSCP)绘制了一张CG。
 
 微博：https://weibo.com/p/1005052741078500
