@@ -18,6 +18,7 @@
 				<h1 id="breadcrumbs"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a> &gt; 百科</h1>
 				<div></div>
 			{% endif %}
+			<style>@import "/css/jekyll.css";</style>
 
 			{% assign c = content %}
 			{{ c }}
@@ -39,9 +40,6 @@
 			{% endif %}
 			<div>本站最后更新时间：{{ "now" | date: "%Y-%m-%d %H:%M" }} UTC</div>
 		</div>
-		<style>
-			@import "/css/jekyll.css";
-		</style>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
 		<script>anchors.add();</script>
 		{% if site.google_analytics %}
