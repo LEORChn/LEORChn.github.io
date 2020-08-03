@@ -8,20 +8,20 @@
 		{% include hint.html color="red" src="/img/hint/error.png" title="停止更新" desc="应作者要求，页面不再继续更新内容。" %}
 
 {% endcomment %}
-{% assign color = include.color | default: '#36c' %}
-{% assign icon  = include.src   | default: '/img/hint/info.png' %}
-{% assign title = include.title | default: '<i style="color:#888">无标题模板</i>' %}
-{% assign desc  = include.desc  | default: '<i style="color:#888">模板没有说明。</i>' %}
+{% assign func_hint_color = include.color | default: '#36c' %}
+{% assign func_hint_icon  = include.src   | default: '/img/hint/info.png' %}
+{% assign func_hint_title = include.title | default: '<i style="color:#888">无标题模板</i>' %}
+{% assign func_hint_desc  = include.desc  | default: '<i style="color:#888">模板没有说明。</i>' %}
 <div class="hint">
-	<div style="background:{{ color }}"></div>
+	<div style="background:{{ func_hint_color }}"></div>
 	<div>
 		<div></div>
-		<img src="{% include imagecdn src=icon %}">
+		<img src="{% include cdn src=func_hint_icon %}">
 		<div></div>
 	</div>
 	<div>
-		<b>{{ title }}</b>
-		<div>{{ desc }}</div>
+		<b>{{ func_hint_title }}</b>
+		<div>{{ func_hint_desc }}</div>
 	</div>
 </div>
 {% comment %}

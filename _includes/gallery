@@ -51,7 +51,7 @@ http://www.github.com/favicon.ico | 外链图片
 				{% assign paramurl = p[0] | strip %}
 				{% capture preoutput %}
 		<span>
-			<img src="{% include imagecdn src=paramurl %}">
+			<img src="{% include cdn src=paramurl %}">
 			<div>{{ p[1] | replace: ' br ', '<br>' | strip }}</div>
 		</span>
 				{%- endcapture -%}
