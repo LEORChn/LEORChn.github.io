@@ -34,14 +34,28 @@
 </style>
 <div class="gallery">
 	{% assign images = include.src | split: ';' %}
-	{% assign len = images | size | plus: -1 %}
+	{% assign len = images.size | plus: -1 %}
 	{% if include.title %}
 		{% assign titles = include.title | split: ';' %}
 	{% endif %}
 	<div>
 		{% for i in (0..len) %}
+			{% assign paramurl = images[i] | strip %}
+			{% assign cdnurl = '' %}
+			{% case paramurl | slice: 0, 6 %}
+				{% when 'http://' %}
+				{% when 'https:/' %}
+				{% else %}
+					{% if paramurl | slice: 0, 1 != '//' %}
+						{% assign cdnurl = cdnurl | append: 'https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io' %}
+					{% endif %}
+			{% endcase %}
+			{% if '/' != paramurl | slice: 0 %}
+				{% assign cdnurl = cdnurl | append: page.url %}
+			{% endif %}
+			{% assign cdnurl = cdnurl | append: paramurl %}
 			<span>
-				<img src="{{ images[i] | strip }}">
+				<img src="{{ cdnurl }}">
 				<div>
 					{% if i <= titles.size %}
 						{{ titles[i] | strip }}
