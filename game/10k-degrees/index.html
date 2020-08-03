@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>十步万度 | 瑞兽谷</title>
+	</head>
+	<body>
+		<h2>十步万度<sub>简易复刻版</sub></h2>
+		<div>利用连锁反应，取得更高分数。</div>
+		<div style="max-width:250px">
+			<div>
+				<span id="chance"></span>
+				<input type="button" value="重置" onclick="gamereset()" style="float:right">
+			</div>
+			<div id="score"></div>
+		</div>
+		<div id="game-area"></div>
+		游戏速度
+		<label><input type="radio" name="speed" value="500" checked>慢速</label>
+		<label><input type="radio" name="speed" value="250">中速</label>
+		<label><input type="radio" name="speed" value="100">快速</label>
+		<h2>后记</h2>
+		<div>这个游戏的灵感来源是<a target="_blank" href="https://www.zhihu.com/zvideo/1271107629914808320">这个知乎视频</a>，当时就是想试试看自己能不能复刻一个。仅学习交流使用。</div>
+		<div>复刻开发耗时：2020-8-4 4:28 - 6:24</div>
+		{%- assign ts = 'now' | date: '%s' -%}
+		{%- capture nooutput -%}
+			{% assign tz = 'now' | date: '%Z' %}
+			{% if tz == 'UTC' %}
+				{% assign ts = ts | plus: 28800 | date: '%Y-%m-%d %H:%M' | append: ' UTC+8' %}
+			{% else %}
+				{% assign ts = ts | date: '%Y-%m-%d %H:%M %Z' %}
+			{% endif %}
+		{%- endcapture -%}
+		<div>全站最后更新时间：{{ ts }}<br><a target="_blank" href="https://github.com/LEORChn/LEORChn.github.io/commits">查看更新...</a></div>
+<style>
+#game-area{
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+.gameover:after{
+	content: '游戏结束';
+	color: red;
+	margin-left: 125px;
+}
+#chance:before{
+	content: '操作剩余次数：'
+}
+#score:before{
+	content: '得分：'
+}
+[deg]{
+	display: inline-block;
+	position: relative;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #000;
+	border-radius: 50%;
+	margin: 5px;
+}
+[deg]:after{
+	content: '';
+	display: inline-block;
+	position: absolute;
+	left: 50%;
+	width: 1px;
+	height: 15px;
+	background: red;
+}
+[deg="1"]{
+	transform: rotate(90deg)
+}
+[deg="2"]{
+	transform: rotate(180deg)
+}
+[deg="3"]{
+	transform: rotate(270deg)
+}
+</style>
+		<script src="/js/baseLib.js"></script>
+<script>
+(function(){
+	gamereset();
+})();
+var score, chance, upnext, playerturn;
+
+function gamereset(){
+	$('#chance').innerText = chance = 10;
+	$('#score').innerText = score = 0;
+	upnext = -1;
+	playerturn = false;
+	var ga = $('#game-area');
+	while(ga.children.length) ga.children[0].remove();
+	for(var i=0; i<25; i++){
+		var b = ct('div');
+		b.setAttribute('deg', 0);
+		b.setAttribute('block-index', i);
+		b.onclick = onplayer;
+		ga.appendChild(b);
+		if(i % 5 == 4) ga.appendChild(ct('br'));
+	}
+	playerturn = true;
+}
+
+function onplayer(){
+	if(!playerturn) return;
+	playerturn = false;
+	$('#chance').innerText = chance = chance - 1;
+	upnext = parseInt(this.getAttribute('block-index'));
+	onrolling();
+}
+function onrolling(){
+	var cur = $('[deg][block-index="' + upnext + '"]');
+	var nextdeg = [1, 2, 3, 0][cur.getAttribute('deg')];
+	cur.setAttribute('deg', nextdeg);
+	var release = false;
+	switch(nextdeg){
+		case 0:
+			if(release = upnext < 5);
+			else upnext -= 5;
+			break;
+		case 1:
+			if(release = upnext % 5 == 4);
+			else upnext += 1;
+			break;
+		case 2:
+			if(release = upnext >= 20);
+			else upnext += 5;
+			break;
+		case 3:
+			if(release = !(upnext % 5));
+			else upnext -= 1;
+			break;
+		default:
+			throw new Error('what the fuck are you doing???');
+	}
+	$('#score').innerText = score += 90;
+	if(!release){
+		var speed = parseInt($('[name=speed]:checked').value);
+		setTimeout(onrolling, speed);
+		return;
+	}
+	if(chance) playerturn = true;
+	else $('#game-area').appendChild(ct('div.gameover'));
+}
+
+</script>
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-174341933-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-174341933-1');
+		</script>
+	</body>
+</html>
