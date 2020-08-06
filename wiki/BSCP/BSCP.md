@@ -60,6 +60,14 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 " %}
 
+{% include dashed_divider %}
+
+{% include bbslist src='
+
+同人小说 | 续写十年后 <b style="color:#ccc;font-size:.5em">正在争取收录授权...</b> | 亓官
+
+'%}
+
 ## 制作人员
 
 ### 《苦》原版
@@ -68,7 +76,7 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 |                  |                                     |
 | ---------------- | ----------------------------------- |
-| 剧本、脚本、立绘 | KCN杏仁                             |
+| 剧本、脚本、立绘 | [[KCN杏仁]]                         |
 | 音乐             | IB<br>海猫鸣泣之时<br>K<br>炼狱庭园 |
 
 ### 《黏》原版

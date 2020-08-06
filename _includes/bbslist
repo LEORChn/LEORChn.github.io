@@ -1,0 +1,57 @@
+<style>
+.bbs .row{
+  display: flex;
+  position: relative;
+  padding: 5px 0 5px 30px;
+}
+.bbs .row:hover{
+  background:#f1f1f1
+}
+.bbs .category:before{ content: '[' }
+.bbs .category:after { content: ']' }
+.bbs .category{
+  color:#007CD5;
+  font-size:12px;
+  min-width:6em;
+  text-align:center
+}
+.bbs .title{
+  flex:1;
+  min-height:28px
+}
+.bbs .title .stat{
+	position: absolute;
+	left: 5px;
+	top: calc(50% - 17px / 2);
+	width: 17px;
+	height: 17px;
+	background: url(/img/bbs/folder_common.gif)
+}
+.bbs .title a:link+.stat{
+	background: url(/img/bbs/folder_new.gif)
+}
+</style>
+<div class="bbs">
+	{%- assign bbs_output = '' -%}
+	{%- capture nooutput -%}
+		{% assign bbs_articles = include.src | newline_to_br | split: '<br />' %}
+		{% for i in bbs_articles %}
+			{% if i.size < 3 %}
+				{% continue %}
+			{% endif %}
+			{% assign p = i | split: '|' %}
+			{% capture bbs_preoutput %}
+	<div class="row">
+		<div class="title">
+			<span class="category">{{ p[0] | strip }}</span>
+			{{ p[1] }}
+			<span class="stat"></span>
+		</div>
+		<div>{{ p[2] }}</div>
+	</div>
+			{%- endcapture -%}
+			{% assign bbs_output = bbs_output | append: bbs_preoutput %}
+		{% endfor %}
+	{%- endcapture -%}
+	{{ bbs_output }}
+</div>
