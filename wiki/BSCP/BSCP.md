@@ -2,7 +2,7 @@
 title: 苦黏寒毒
 layout: wiki
 permalink: /wiki/BSCP/
-tags: wiki furry game
+tags: furry game
 ---
 
 
@@ -11,11 +11,11 @@ tags: wiki furry game
 # 苦黏寒毒*系列游戏*
 
 {% include img src="title.jpg# float-right" %}
-**苦黏寒毒**是一个系列文字冒险游戏。全部剧本由 **KCN杏仁** 完成。包含**《苦》《黏》《寒》**和**《毒》**。
+**苦黏寒毒**是一个系列文字冒险游戏。全部剧本由 **[[KCN杏仁]]** 完成。包含**《苦》《黏》《寒》**和**《毒》**。
 
 原版与**《苦&黏》重制版**的不同点在于：
 
-1. 重制版使用 **Zoharwolf** 的美术风格，程序由 **Zoharwolf** 编写。
+1. 重制版使用 **[[Zoharwolf]]** 的美术风格，程序由 **[[Zoharwolf]]** 编写。
 2. 原版《黏》有独占CG，在重制版的相同剧情位置没有CG。
 
 ## 下载
@@ -48,9 +48,9 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 {% include gallery src="
 
-20150302_Zoharwolf.jpg | Zoharwolf br 2015年3月2日
+20150302_Zoharwolf.jpg | [[Zoharwolf]] br 2015年3月2日
 
-20150314_Zoharwolf.jpg | Zoharwolf br 2015年3月14日
+20150314_Zoharwolf.jpg | [[Zoharwolf]] br 2015年3月14日
 
 20180924_森石灰水饺.jpg | 森石灰水饺 br 2018年9月24日
 
@@ -64,7 +64,7 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 {% include bbslist src='
 
-同人小说 | 续写十年后 <b style="color:#ccc;font-size:.5em">正在争取收录授权...</b> | 亓官
+同人小说 | [[苦黏寒毒续写 - 亓官]] | 2019年5月2日
 
 '%}
 
@@ -85,8 +85,8 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 |                  |                                                              |
 | ---------------- | ------------------------------------------------------------ |
-| 剧本、脚本、立绘 | KCN杏仁                                                      |
-| CG               | AROUNG                                                       |
+| 剧本、脚本、立绘 | [[KCN杏仁]]                                                  |
+| CG               | [[ARoung]]                                                   |
 | 音乐             | Sentive                                                      |
 | 特别感谢         | 嘎嘎土狼犬<br>COOKIZI<br>狼崽棕毛<i style="opacity:.5">（小崽崽狼）</i><br>漠狼 |
 
@@ -96,8 +96,8 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 |            |                                                              |
 | ---------- | ------------------------------------------------------------ |
-| 剧本       | KCN杏仁                                                      |
-| 程序、立绘 | 匈魔剑                                                       |
+| 剧本       | [[KCN杏仁]]                                                  |
+| 程序、立绘 | [[匈魔剑]]                                                   |
 | 音乐       | Sentive<br>炼狱庭园<br>魔王魂                                |
 | 客串       | AISP<br>嘎嘎土狼犬<br>麦德<br>亚罗神虎<br>凯洛<br>倏尔破晓<br>Suntik |
 
@@ -105,21 +105,21 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 {% include table-no-head.html %}
 
-|            |          |
-| ---------- | -------- |
-| 剧本、脚本 | KCN杏仁  |
-| 立绘       | 水饺猫   |
-| 音乐       | 毛绒虎爪 |
+|            |              |
+| ---------- | ------------ |
+| 剧本、脚本 | [[KCN杏仁]]  |
+| 立绘       | 水饺猫       |
+| 音乐       | [[毛绒虎爪]] |
 
 ### 《毒》
 
 {% include table-no-head.html %}
 
-|            |          |
-| ---------- | -------- |
-| 剧本、脚本 | KCN杏仁  |
-| 立绘       | 薄荷     |
-| 音乐       | 毛绒虎爪 |
+|            |              |
+| ---------- | ------------ |
+| 剧本、脚本 | [[KCN杏仁]]  |
+| 立绘       | 薄荷         |
+| 音乐       | [[毛绒虎爪]] |
 
 
 

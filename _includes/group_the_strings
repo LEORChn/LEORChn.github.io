@@ -1,0 +1,42 @@
+{%- comment -%}
+
+将字符串以空格拆分为标签式，并且支持引号连续化组。
+用法：
+	{% assign g_tags_div = "%|%g_tags%|%" %}
+	{% capture g_tags %}{% include group_the_strings src='animate sci-fi "Rick and Morty" season-3' div=g_tags_div %}{% endcapture %}
+	{{ g_tags | split: g_tags_div | inspect }}
+	- ["animate", "sci-fi", "Rick and Morty", "season-3"]
+
+{%- endcomment -%}
+{%- assign g_str_out = '' -%}
+{%- capture nooutput -%}
+	{% assign g_str_src = include.src | split: ' ' %}
+	{% assign g_str_gtmp = '' %}
+	{% for g_str_item in g_str_src %}
+		{% assign g_str_item_startswith = g_str_item | slice: 0 %}
+		{% assign g_str_item_endswith   = g_str_item | slice: -1 %}
+		{% if g_str_gtmp.size > 0 %} <!-- 状态：组词模式。前面有引号包裹 -->
+			{% if g_str_item_endswith == '"' %} <!-- 组词模式结束 -->
+				{% if g_str_out.size > 0 %}
+					{% assign g_str_out = g_str_out | append: include.div %}
+				{% endif %}
+				{% assign g_str_gtmp_cutoff = g_str_gtmp.size | plus: g_str_item.size | plus: -1 %}
+				{% assign g_str_gtmp = g_str_gtmp | append: ' ' | append: g_str_item | slice: 1, g_str_gtmp_cutoff %}
+				{% assign g_str_out = g_str_out | append: g_str_gtmp %}
+				{% assign g_str_gtmp = '' %}
+			{% else %} <!-- 组词模式继续 -->
+				{% assign g_str_gtmp = g_str_gtmp | append: ' ' | append: g_str_item %}
+			{% endif %}
+		{% else %} <!-- 状态：单词模式 -->
+			{% if g_str_item_startswith == '"' %} <!-- 组词模式开始 -->
+				{% assign g_str_gtmp = g_str_item %}
+			{% else %} <!-- 直接划为一组 -->
+				{% if g_str_out.size > 0 %}
+					{% assign g_str_out = g_str_out | append: include.div %}
+				{% endif %}
+				{% assign g_str_out = g_str_out | append: g_str_item %}
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+{%- endcapture -%}
+{{ g_str_out }}

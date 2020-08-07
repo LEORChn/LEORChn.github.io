@@ -12,7 +12,7 @@
 	{% include cdn src="https://www.github.com/favicon.ico" %}
 
 {%- endcomment -%}
-{%- assign output = '' -%}
+{%- assign cdn_output = '' -%}
 {%- capture nooutput -%}
 	{% assign paramurl = include.src %}
 	{% assign cdnurl = '' %}
@@ -24,10 +24,17 @@
 				{% assign cdnurl = cdnurl | append: 'https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io' %}
 			{% endif %}
 	{% endcase %}
-	{% assign srcprefix = paramurl | slice: 0 %}
-	{% if srcprefix != '/' %}
-		{% assign cdnurl = cdnurl | append: page.url %}
+	{% assign cdn_src_prefix = paramurl | slice: 0 %}
+	{% if cdn_src_prefix != '/' %} <!-- 想要读取同目录的文件 -->
+		{% assign current_page_is_path = page.url | slice: -1 %}
+		{% if current_page_is_path == '/' %} <!-- 当前页面路径是目录 -->
+			{% assign current_page_path_size = page.url.size %}
+		{% else %} <!-- 当前页面路径不是目录 -->
+			{% assign current_page_path_size = page.url | split: '/' | last | size | minus: page.url.size | abs %}
+		{% endif %}
+		{% assign current_page_path = page.url | slice: 0, current_page_path_size %}
+		{% assign cdnurl = cdnurl | append: current_page_path %}
 	{% endif %}
-	{% assign output = cdnurl | append: paramurl %}
+	{% assign cdn_output = cdnurl | append: paramurl %}
 {%- endcapture -%}
-{{ output }}
+{{ cdn_output }}

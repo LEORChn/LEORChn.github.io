@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: "en-US" }}">
+<html lang="{{ site.lang | default: "zh-CN" }}">
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-{%- capture nooutput -%}
-{% capture vseo %}{% include virtual_seo %}{% endcapture %}
-{% assign output = vseo | split: '</title>' %}
-{%- endcapture -%}
-{{ output[0] | append: '百科</title>' | append: output[1] }}
+{% capture vseo %}{% include virtual_seo %}{% endcapture %}{%- assign seo_output = vseo | split: '</title>' -%}
+{{ seo_output[0] | append: '百科</title>' | append: seo_output[1] }}
 		<link rel="stylesheet" href="{{            "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
 		<link rel="stylesheet" href="{% capture css %}{{ "/css/jekyll.css?v=" | append: site.github.build_revision | relative_url }}{% endcapture %}{% include cdn src=css %}">
 	</head>
@@ -20,24 +17,51 @@
 				<div></div>
 			{% endif %}
 
-			{% assign c = content %}
-			{{ c }}
-			{% comment %}
-			{% for tag in site.tags %}
-				if tag[0] == 'wiki'
-					assign enrties = tag[1] | map: 'title'
-					assign urls    = tag[1] | map: 'url'
-					{% for pos in tag[1] %}
-						
-					{% endfor %}
-				endif
-			{% endfor %}
-			{% endcomment %}
+			{%- assign page_tags_div = "%|%bio_tags%|%" -%} {% capture page_tags %}{% include group_the_strings src=page.tags div=page_tags_div %}{% endcapture %}
+			{%- assign page_tags = page_tags | split: page_tags_div -%}
+			<!-- 前增avatar，并且 wikiz_src = content 变量会保留到下个 section 继续使用 -->
+			{%- assign wikiz_src = content -%}
+			<!-- 已计算头图路径 -->
+			{%- capture nooutput -%}
+				{% if page.avatar %}
+					<!-- 计算头图路径 -->
+					{% assign title_img_path = '/wiki/title/' | append: page.title | append: '.jpg# float-right' %}
+					
+					<!-- 写出头图 -->
+					{% capture wikiz_src %}<h1>{{ page.title }}<em>{{ bio_tags[0] }}</em></h1>{% include img src=title_img_path %}{{ wikiz_src }}{% endcapture %}
+				{% endif %}
+			{%- endcapture -%}
+			
+			<!-- 替换 wiki 内链。试验场：/_includes/wikization -->
+			{%- capture nooutput -%}
+				{% assign wikiz_pages = site.pages | where: "layout", "wiki" %}
+				{% for p in wikiz_pages %} <!-- 以【标题】替换 wiki 内链 -->
+					{% capture wikiz_rep  %}[[{{ p.title }}]]{% endcapture %}
+					{% capture wikiz_rep2 %}<a href="{{ p.url }}">{{ p.title }}</a>{% endcapture %}
+					{% assign wikiz_src = wikiz_src | replace: wikiz_rep, wikiz_rep2 %}
+					
+					{% if p.alias %} <!-- 以【别名】替换 wiki 内链 -->
+						{% assign wikiz_alias_div = "%|%wikiz_alias_div%|%" %}
+						{% capture wikiz_alias %}{% include group_the_strings src=p.alias div=wikiz_alias_div %}{% endcapture %}
+						{% assign wikiz_alias = wikiz_alias | split: wikiz_alias_div %}
+						{% for wikiz_alias_item in wikiz_alias %}
+							{% capture wikiz_rep  %}[[{{ wikiz_alias_item }}]]{% endcapture %}
+							{% capture wikiz_rep2 %}<a href="{{ p.url }}">{{ wikiz_alias_item }}</a>{% endcapture %}
+							{% assign wikiz_src = wikiz_src | replace: wikiz_rep, wikiz_rep2 %}
+						{% endfor %}
+					{% endif %}
+				{% endfor %}
+			{%- endcapture -%}
+			{{ wikiz_src }}
+			
+			<!-- 页脚：Github License -->
 			{% if site.github.private != true and site.github.license %}
 			<div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
 				This site is open source. {% comment %}{% github_edit_link "Improve this page" %}.{% endcomment %}
 			</div>
 			{% endif %}
+			
+			<!-- 页脚：全站更新时间 -->
 			{%- assign ts = 'now' | date: '%s' -%}
 			{%- capture nooutput -%}
 				{% assign tz = 'now' | date: '%Z' %}
@@ -49,18 +73,11 @@
 			{%- endcapture -%}
 			<div>全站最后更新时间：{{ ts }}<br><a target="_blank" href="https://github.com/LEORChn/LEORChn.github.io/commits">查看更新...</a></div>
 		</div>
+		
+		<!-- 页脚：添加抛锚JS -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
 		<script>anchors.add();</script>
-		{% if site.google_analytics %}
-		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			ga('create', '{{ site.google_analytics }}', 'auto');
-			ga('send', 'pageview');
-		</script>
-		{% endif %}
+		
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-174341933-1"></script>
 		<script>
