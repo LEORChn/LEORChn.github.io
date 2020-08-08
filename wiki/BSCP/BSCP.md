@@ -123,9 +123,9 @@ lh_gg.png | 嘎嘎土狼犬 br [微博](https://weibo.com/p/1005051190657853)
 
 lh_nd.png | 克里修麦德 br [微博](https://weibo.com/p/1005053865370878)
 
-bg_cafe.png | Alysterwolf_AISP 等 多位角色 br [查看角色列表](bg_cafe_png)
+bg_cafe.png | Alysterwolf_AISP 等多位角色 br [查看角色列表](bg_cafe_png)
 
-bg_change.png | 亚罗神虎 等 多位角色 br [查看角色列表](bg_change_png)
+bg_change.png | 亚罗神虎 等多位角色 br [查看角色列表](bg_change_png)
 
 bg_yuroom.png | Suntik br [查看角色列表](bg_yuroom_png)
 

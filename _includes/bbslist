@@ -30,6 +30,9 @@
 .bbs .title a:link+.stat{
 	background: url(/img/bbs/folder_new.gif)
 }
+.bbs .date{
+	margin-left: 1em
+}
 </style>
 <div class="bbs">
 	{%- assign bbs_output = '' -%}
@@ -47,7 +50,7 @@
 			{{ p[1] }}
 			<span class="stat"></span>
 		</div>
-		<div>{{ p[2] }}</div>
+		<div class="date">{{ p[2] }}</div>
 	</div>
 			{%- endcapture -%}
 			{% assign bbs_output = bbs_output | append: bbs_preoutput %}
