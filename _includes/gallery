@@ -25,11 +25,25 @@ http://www.github.com/favicon.ico | 外链图片
 .gallery>div{
 	overflow: auto;
 	white-space: nowrap;
-	padding-right: 10px;
+	padding: 5px 20px 5px 5px;
 }
 .gallery span{
 	display: inline-block;
-	text-align: center
+	text-align: center;
+	position: relative;
+	vertical-align: top;
+}
+.gallery span:hover:after{
+	content: ' ';
+	position: absolute;
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	left: -3px;
+	top: -3px;
+	z-index: -1;
+	background: linear-gradient(to bottom, #fcfdfe, #f2f7fe);
+	border: 1px solid #b8d6fb;
+	border-radius: 3px;
 }
 .gallery img{
 	height: 120px
@@ -52,7 +66,7 @@ http://www.github.com/favicon.ico | 外链图片
 				{% capture preoutput %}
 		<span>
 			<img src="{% include cdn src=paramurl %}">
-			<div>{{ p[1] | replace: ' br ', '<br>' | strip }}</div>
+			<div>{{ p[1] | replace: ' br ', '<br>' | strip | markdownify }}</div>
 		</span>
 				{%- endcapture -%}
 				{% assign output2 = output2 | append: preoutput %}

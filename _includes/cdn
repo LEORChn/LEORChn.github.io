@@ -21,7 +21,10 @@
 		{% when 'https:/' %}
 		{% else %}
 			{% if paramurl | slice: 0, 1 != '//' %}
-				{% assign cdnurl = cdnurl | append: 'https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io' %}
+				{% assign cdnurl = 'https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io' %}
+				{% if DEBUG %} <!-- 本地调试环境禁用CDN。但是会先解析文章指令，再解析布局指令。如果调试标记位于布局中，需要在布局即将引用文章时替换CDN为根 -->
+					{% assign cdnurl = '' %}
+				{% endif %}
 			{% endif %}
 	{% endcase %}
 	{% assign cdn_src_prefix = paramurl | slice: 0 %}

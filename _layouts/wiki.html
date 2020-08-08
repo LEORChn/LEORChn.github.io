@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{%- capture cdn_root -%}{% include cdn src='/' %}{%- endcapture -%}
 		
 {% capture vseo %}{% include virtual_seo %}{% endcapture %}{%- assign seo_output = vseo | split: '</title>' -%}
 {{ seo_output[0] | append: '百科</title>' | append: seo_output[1] }}
@@ -28,7 +29,7 @@
 					{% assign title_img_path = '/wiki/title/' | append: page.title | append: '.jpg# float-right' %}
 					
 					<!-- 写出头图 -->
-					{% capture wikiz_src %}<h1>{{ page.title }}<em>{{ bio_tags[0] }}</em></h1>{% include img src=title_img_path %}{{ wikiz_src }}{% endcapture %}
+					{% capture wikiz_src %}<h1>{{ page.title }}<em>{{ page_tags[0] }}</em></h1>{% include img src=title_img_path %}{{ wikiz_src }}{% endcapture %}
 				{% endif %}
 			{%- endcapture -%}
 			
@@ -51,6 +52,11 @@
 						{% endfor %}
 					{% endif %}
 				{% endfor %}
+				
+				<!-- 调试模式，禁用CDN -->
+				{% if DEBUG %}
+					{% assign wikiz_src = wikiz_src | replace: cdn_root, '/' %}
+				{% endif %}
 			{%- endcapture -%}
 			{{ wikiz_src }}
 			

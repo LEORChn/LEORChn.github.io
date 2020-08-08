@@ -72,7 +72,7 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 ### 《苦》原版
 
-{% include table-no-head.html %}
+{% include table-no-head %}
 
 |                  |                                     |
 | ---------------- | ----------------------------------- |
@@ -81,29 +81,45 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 ### 《黏》原版
 
-{% include table-no-head.html %}
+{% include table-no-head %}
 
 |                  |                                                              |
 | ---------------- | ------------------------------------------------------------ |
 | 剧本、脚本、立绘 | [[KCN杏仁]]                                                  |
 | CG               | [[ARoung]]                                                   |
 | 音乐             | Sentive                                                      |
-| 特别感谢         | 嘎嘎土狼犬<br>COOKIZI<br>狼崽棕毛<i style="opacity:.5">（小崽崽狼）</i><br>漠狼 |
+| 特别感谢         | 嘎嘎土狼犬<br>COOKIZI<br>[[狼崽棕毛]]<i style="color:#888">（小崽崽狼）</i><br>漠狼 |
 
 ### 《苦&黏》重制版
 
-{% include table-no-head.html %}
+{% include table-no-head %}
 
 |            |                                                              |
 | ---------- | ------------------------------------------------------------ |
 | 剧本       | [[KCN杏仁]]                                                  |
 | 程序、立绘 | [[匈魔剑]]                                                   |
 | 音乐       | Sentive<br>炼狱庭园<br>魔王魂                                |
-| 客串       | AISP<br>嘎嘎土狼犬<br>麦德<br>亚罗神虎<br>凯洛<br>倏尔破晓<br>Suntik |
+| 客串       | AISP<br>嘎嘎土狼犬<br>麦德<br>[[亚罗神虎]]<br>凯洛<br>倏尔破晓<br>[[Suntik]] |
+
+{% include gallery src="
+
+lh_ai.png | Alysterwolf_AISP br [微博](https://weibo.com/u/1739645180)
+
+lh_gg.png | 嘎嘎土狼犬 br [微博](https://weibo.com/p/1005051190657853)
+
+lh_nd.png | 克里修麦德 br [微博](https://weibo.com/p/1005053865370878)
+
+bg_cafe.png | Alysterwolf_AISP 等 多位角色 br [查看角色列表](bg_cafe_png)
+
+bg_change.png | 亚罗神虎 等 多位角色 br [查看角色列表](bg_change_png)
+
+bg_yuroom.png | Suntik br [查看角色列表](bg_yuroom_png)
+
+" %}
 
 ### 《寒》
 
-{% include table-no-head.html %}
+{% include table-no-head %}
 
 |            |              |
 | ---------- | ------------ |
@@ -113,7 +129,7 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 ### 《毒》
 
-{% include table-no-head.html %}
+{% include table-no-head %}
 
 |            |              |
 | ---------- | ------------ |
