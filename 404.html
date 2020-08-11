@@ -2,15 +2,57 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-		<style>a{text-decoration:none}</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 		<title>404 - 瑞兽谷</title>
+		<style>
+			body{
+				margin: 30px 0 3px
+			}
+			a:not(:hover){
+				text-decoration: none
+			}
+			.img430x640{
+				max-width: 100%;
+				max-height: calc(100vh - 45px - 3em);
+				margin: auto;
+				pointer-events: none;
+			}
+			#report-stat:after{
+				content: '正在反馈此错误...'
+			}
+			#report-stat.success:after{
+				color: #0b0;
+				content: '错误已成功反馈，谢谢您的支持';
+			}
+			#report-stat.fail:after{
+				color: #f00;
+				content: '无法反馈错误，请关闭广告插件'
+			}
+		</style>
 	</head>
 	<body>
-		<div id="page">
-			<div style="text-align:center">您超越了边界，迷路了。 <a href="/" >返回首页</a></div>
-			<div style="max-width: 430px; height: 640px; background: url(/img/404_1.jpg) -185px -60px no-repeat;margin: auto;"></div>
-			<div style="text-align:center">Source: <a target="_blank" href="https://twitter.com/foxperia/status/1059448027042078720" >Twitter</a></div>
+		<div id="page" style="text-align: center">
+			<div>您超越了边界。<a href="/">返回瑞兽谷</a></div>
+			<img class="img430x640" src="https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io/img/404_1.png">
+			<div>Source: <a target="_blank" href="https://twitter.com/foxperia/status/1059448027042078720">Twitter</a></div>
+			<div id="report-stat"></div>
 		</div>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-174341933-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-174341933-1');
+		</script>
+		<script src="/js/baseLib.js"></script>
+		<script src="/js/http.js"></script>
+		<script>
+			http('get https://www.googletagmanager.com/gtag/js?id=UA-174341933-1', function(){
+				$('#report-stat').className = 'success';
+			}, function(){
+				$('#report-stat').className = 'fail';
+			});
+		</script>
 	</body>
 </html>
