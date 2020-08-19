@@ -70,8 +70,45 @@ h1>i:not([class]), h1>em{
 /* 图片效果 - 右浮动 */
 img[src~="float-right"]{
 	float: right;
+	clear: right;
 	margin-left: 1.5em;
 	width: 180px;
+}
+@media (max-width: 540px){
+	img[src~="float-right"]{
+		margin-left: .5em;
+		width: 90px;
+	}
+	img[src~="float-right"][src*="/title"]{
+		width: 135px;
+	}
+}
+/* 图片效果 - 针对小标题后同时有右浮效果的第一个图片，向上挪一点距离 */
+h3+p>img[src~="float-right"]:first-of-type{
+	margin-top: calc(-1.25em - 16px);
+}
+
+/* 剧透内容 - 粗斜体代码块 */
+strong>em:only-child>code:only-child{
+	font-style: normal;
+	font-weight: normal;
+	transition: .12s;
+}
+strong>em:only-child>code:only-child:not(:hover){
+	background: #000;
+	color: #000;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+/* 流程图 - mermaid */
+.mermaid{
+	text-align: center;
+	max-width: 100%;
+	overflow-x: auto;
 }
 
 /* 无头表格 */

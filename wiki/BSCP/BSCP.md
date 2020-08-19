@@ -22,7 +22,9 @@ tags: furry game
 
 本游戏支持 Windows。
 
-Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red">苦黏重制版除外</span>。
+Android 系统需要使用 吉里吉里模拟器 运行。
+
+<span style="color:red">苦黏重制版由于游戏引擎问题，已知仅支持在 Windows 运行。（在 Linux 中使用 Wine 或许可以运行）</span>
 
 {% include hint-download.html %}
 
@@ -44,7 +46,70 @@ Android 系统需要使用 吉里吉里模拟器 运行，<span style="color:red
 
 {% include hint.html title="版权声明：二次打包的发布" desc="出于方便玩家的目的，瑞兽谷站长<b>LEORChn</b>对游戏文件进行了二次打包。<br>比如原版的《苦》游戏首次发布时使用了<b>流氓软件《快压》</b>进行压缩，其生成的文件非标准压缩格式，几乎任何解压缩软件均无法解压正常内容，包括但不限于 7-Zip、WinRAR、Bandizip、Windows10 资源管理器 和 ZArchive。<br>瑞兽谷站长<b>LEORChn</b>出于对原作者意愿的尊重，如以上行为有侵犯原作者版权的，请原作者本人联系告知，以进行后续处理。" %}
 
-## 热门相关作品
+## 故事与角色梗概
+
+### 故事线
+
+《苦黏寒毒》讲述了七相、凌子、焦雨和年年的情感历程。
+
+前三个故事均讲述其中两位角色之间的经历，并在《毒》将所有角色汇集，给玩家五味杂陈的阅读和游玩体验。
+
+剧情时间线：
+```mermaid
+graph LR;
+	B((苦)); S((黏)); C((寒)); P((毒));
+	C --> B --> P;
+	C --> S --> P;
+```
+游戏发布时间线：
+```mermaid
+graph LR;
+	B((苦)) --> S((黏)) --> zohar(苦黏重制版) --> C((寒)) --> P((毒));
+```
+
+### 七相
+
+{% include img src="char_qx_v4_1.png# float-right" %}
+犬兽人，警察，常在咖啡店喝冰咖啡。焦雨曾是他的授课教师。
+
+{% include clear-both %}
+
+
+### 凌子
+
+{% include img src="char_lz_v4.png# float-right" %}
+狮子兽人，***`警察局长之子`***。习惯混迹街头和吸烟，经常因为犯事而成为警局常客。
+
+{% include clear-both %}
+
+### 焦雨
+
+{% include img src="char_jy_v4.png# float-right" %}
+犬兽人，警察，厨艺很好。毛发从小就很茂密，冬天即使不穿什么衣服也不会觉得冷。他一直从心底里意识到温暖别人是他应该做的。
+
+#### 主创访谈
+
+LEORChn：关于焦雨的身份是 先毒贩后警察 还是 先警察后毒贩？
+
+KCN杏仁：***`我没有明说，但通常来说肯定是先警察的`***
+
+{% include clear-both %}
+
+### 年年
+
+{% include img src="char_nn_v4.png# float-right" %}
+
+全身洁白的狐兽人，管理着一家旅馆。***`艾滋病患者`***。
+
+### 咖啡店老板
+
+冷门咖啡店的店长。七相在《毒》中被调遣到另一城市之前，经常去他的店里喝咖啡。
+
+### 警察局长
+
+狮子兽人。***`凌子的父亲`***。在《毒》中七相调遣到另一城市后的上司。
+
+## 相关作品
 
 {% include gallery src="
 

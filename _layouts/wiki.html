@@ -26,7 +26,9 @@
 			{%- capture nooutput -%}
 				{% if page.avatar %}
 					<!-- 计算头图路径 -->
-					{% assign title_img_path = '/wiki/title/' | append: page.title | append: '.jpg# float-right' %}
+					{% assign permalink = page.permalink | default: page.url %}
+					{% assign title_img_name = permalink | split: '/' | last %}
+					{% assign title_img_path = '/wiki/title/' | append: title_img_name | append: '.jpg# float-right' %}
 					
 					<!-- 写出头图 -->
 					{% capture wikiz_src %}<h1>{{ page.title }}<em>{{ page_tags[0] }}</em></h1>{% include img src=title_img_path %}{{ wikiz_src }}{% endcapture %}
@@ -81,7 +83,7 @@
 		</div>
 		
 		<!-- 页脚：添加抛锚JS -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+		<script src="{% include cdn src="/js/anchor.4.1.0.min.js" %}"></script>
 		<script>anchors.add();</script>
 		
 		<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -93,5 +95,7 @@
 			gtag('config', 'UA-174341933-1');
 		</script>
 
+		<!-- mermaid flowchart -->
+		<script src="{% include cdn src="/js/mermaid.5.15.0.min.js" %}"></script>
 	</body>
 </html>
