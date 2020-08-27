@@ -220,7 +220,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 	var NEXT_MINUTE_STARTS = ts[1] + FIRST_MINUTE_KEEPS;
 	
 	var TIMECLOCK_TEMPLATE = 'Dialogue: 2,{0},{1},clock,,0,0,0,,{2}\r\n',
-		TIMECLOCK_FMT = 'yyyy-MM-dd HH:mm';
+		TIMECLOCK_FMT = 'yyyy-MM-dd HH:mm wc';
 	
 	out += TIMECLOCK_TEMPLATE.format(
 		'0:00:00.00',

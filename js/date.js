@@ -3,6 +3,7 @@
 
 Date.prototype.format = function(fmt){
   var o = {
+    "wc" : '周' + ('日一二三四五六'.split('')[this.getDay()]),  // 周天
     "M+" : this.getMonth()+1,                 //月份
     "d+" : this.getDate(),                    //日
     "[Hh]+" : this.getHours(),                //小时
