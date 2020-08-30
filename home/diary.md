@@ -16,7 +16,7 @@ permalink: /home/
 {% assign diary_output = '' %}
 {-% capture nospace %}
 	{% for row in site.data.diary %}
-		<!-- 提取当前行字符串 -->
+		<!-- ========== 行开始：提取当前行字符串 ========== -->
 		{% assign diary_content = nil %}
 		{% for col in row %}
 			{% unless diary_content %}
@@ -27,7 +27,7 @@ permalink: /home/
 		{% endfor %}
 		{% assign plain_output = plain_output | append: diary_content %}
 		
-		<!-- 开始构建 -->
+		<!-- 判断行类型 -->
 		{% assign cmd = diary_content | split: ' ' %}
 		{% assign exec = cmd | first %}
 		{% case exec %}
@@ -39,8 +39,10 @@ permalink: /home/
 				{% assign diary_is_day = cmd[0] | isNumber %}
 				{% if diary_is_day %}
 				
-					<!-- 新建日记之前，结束上一篇日记（如果有） -->
+					<!-- cmd = {{ cmd | inspect }} -->
+					<!-- diary_is_day = {{ diary_is_day | inspect }} -->
 					{% if diary_hold %}
+						<!-- 新建日记之前，结束上一篇日记 -->
 						{% assign diary_output = diary_output | append: diary_hold %}
 						{% assign diary_hold = nil %}
 					{% endif %}
@@ -58,7 +60,7 @@ permalink: /home/
 					{% continue %}
 				{% endif %}
 				
-				<!-- 当前行是正文 -->
+				<!-- 添加正文 -->
 				{% assign diary_content_first = diary_content | slice: 0 %}
 				{% if diary_content_first != '<' %}
 					{% assign diary_content = diary_content | escape %}
