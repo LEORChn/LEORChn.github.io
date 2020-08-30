@@ -13,10 +13,8 @@ permalink: /home/
 			<br>
 			<div class="grid" masonry gutter="10" itemselector=".grid-item" columnwidth=".sizer">
 				<div class="sizer mui-panel"></div>
-<div>site.data={{ site.data | inspect }}</div>
-<div>site.data.diary={{ site.data.diary | inspect }}</div>
 {% assign diary_output = '' %}
-{% capture nospace %}
+{-% capture nospace %}
 	{% for row in site.data.diary %}
 		<!-- 提取当前行字符串 -->
 		{% assign diary_content = nil %}
@@ -84,12 +82,13 @@ permalink: /home/
 				{% assign diary_output = diary_output | append: diary_item_output %}
 		{% endcase %}
 	{% endfor %}
-{% endcapture %}
+{-% endcapture %}
 {{- diary_output }}{{ diary_hold }}
 			</div>
 		</div>
 	</div>
 </div>
+<div>site.data.diary={{ site.data.diary | inspect }}</div>
 <style>
 iframe{
 	width: 100%;
