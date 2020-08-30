@@ -88,6 +88,18 @@ css{display:none}
 		initLocation(); //加载地址栏页面
 		
 		initNavigate(oDiv);
+		
+		var mc = window['masonry-container'] = [];
+		setInterval(function(){
+			var e = $('[masonry=""]');
+			if(!e) return;
+			e.setAttribute('masonry', 'processed');
+			mc.push(new Masonry(e, {
+				gutter: parseInt(e.getAttribute('gutter')),
+				itemSelector: e.getAttribute('itemselector'),
+				columnWidth: e.getAttribute('columnwidth')
+			}));
+		}, 1000);
 	})();
 	function jump2(i){
 		msgbox('这个按钮只不过是用来测试在手机上滚动导航条啦，没别的事。');
