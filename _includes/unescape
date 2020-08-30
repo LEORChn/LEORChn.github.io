@@ -1,0 +1,13 @@
+{% comment %}
+	测试一个变量是不是数值。
+	
+	用法：
+		{% include isNumber src={{ var }} %}
+		{% assign var_isNumber = isNumber %}
+	
+	部署：
+		需要在 /_layouts/*.html 中添加：
+			{{ content | replace: '<!--!html-unescape!', '' | replace: '!html-unescape!-->', '' | replace: '!html-unescape!&quot;!html-unescape!', '"'}}
+
+{%- endcomment -%}
+<!--!html-unescape!{{ include.src | replace: '&quot;', '!html-unescape!&quot;!html-unescape!'}}!html-unescape!-->

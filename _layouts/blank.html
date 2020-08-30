@@ -1,1 +1,1 @@
-{{ content }}
+{{ content | replace: '<!--!html-unescape!', '' | replace: '!html-unescape!-->', '' | replace: '!html-unescape!&quot;!html-unescape!', '"'}}

@@ -14,7 +14,7 @@ permalink: /home/
 			<div class="grid" masonry gutter="10" itemselector=".grid-item" columnwidth=".sizer">
 				<div class="sizer mui-panel"></div>
 {% assign diary_output = '' %}
-{-% capture nospace %}
+{% capture nospace %}
 	{% for row in site.data.diary %}
 		<!-- ========== 行开始：提取当前行字符串 ========== -->
 		{% assign diary_content = nil %}
@@ -36,11 +36,11 @@ permalink: /home/
 			{% when 'm' %}
 				{% assign diary_month = cmd[1] %}
 			{% else %}
-				{% assign diary_is_day = cmd[0] | isNumber %}
-				{% if diary_is_day %}
+				{% assign tmp = cmd[0] %}
+				{% include isNumber src=tmp %}
+				{% assign diary_is_day = isNumber %}
+				{% if diary_is_day -%}
 				
-					<!-- cmd = {{ cmd | inspect }} -->
-					<!-- diary_is_day = {{ diary_is_day | inspect }} -->
 					{% if diary_hold %}
 						<!-- 新建日记之前，结束上一篇日记 -->
 						{% assign diary_output = diary_output | append: diary_hold %}
@@ -50,7 +50,9 @@ permalink: /home/
 					<!-- 新建日记 -->
 					{% assign diary_day = cmd[0] %}
 					{% assign diary_title = '' %}
-					{% assign diary_is_weekday = cmd | last | isNumber %}
+					{% assign tmp = cmd | last %}
+					{% include isNumber src=tmp %}
+					{% assign diary_is_weekday = isNumber %}
 					{% unless diary_is_weekday %}
 						{% assign diary_title = cmd | last %}
 					{% endunless %}
@@ -65,7 +67,8 @@ permalink: /home/
 				{% if diary_content_first != '<' %}
 					{% assign diary_content = diary_content | escape %}
 				{% else %}
-					{% assign diary_content = diary_content | unescape %}
+					{% assign tmp = diary_content %}
+					{% capture diary_content %}{% include unescape src=diary_content %}{% endcapture %}
 				{% endif %}
 				{% capture diary_item_output %}
 					{%- if diary_hold -%}
@@ -84,13 +87,12 @@ permalink: /home/
 				{% assign diary_output = diary_output | append: diary_item_output %}
 		{% endcase %}
 	{% endfor %}
-{-% endcapture %}
+{% endcapture %}
 {{- diary_output }}{{ diary_hold }}
 			</div>
 		</div>
 	</div>
 </div>
-<div>site.data.diary={{ site.data.diary | inspect }}</div>
 <style>
 iframe{
 	width: 100%;
