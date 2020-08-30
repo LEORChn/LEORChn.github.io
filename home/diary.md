@@ -13,6 +13,8 @@ permalink: /home/
 			<br>
 			<div class="grid" masonry gutter="10" itemselector=".grid-item" columnwidth=".sizer">
 				<div class="sizer mui-panel"></div>
+<div>site.data={{ site.data | inspect }}</div>
+<div>site.data.diary={{ site.data.diary | inspect }}</div>
 {% assign diary_output = '' %}
 {% capture nospace %}
 	{% for row in site.data.diary %}
