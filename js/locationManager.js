@@ -19,8 +19,14 @@ function onLocationChanged(){
 	fv('brows').className='blur3';
 	http('get',location.href.replace('#',''),'',function(){
 		var brows=fv('brows');
-		if(this.status == 404){ location.href='/'; return; }
-		brows.innerHTML=this.responseText;
+		brows.innerHTML = '';
+		if(this.status == 404){
+			var iframe = ct('iframe');
+			iframe.srcdoc = this.responseText;
+			iframe.style.cssText = 'width:100%; height:calc(100vh - 400px); border:0; background:#fff';
+			brows.appendChild(iframe);
+		} else
+		brows.innerHTML = this.responseText;
 		// 开始加载页面CSS
 		var css=brows.getElementsByTagName('css');
 		for(var i=0;i<css.length;i++){
