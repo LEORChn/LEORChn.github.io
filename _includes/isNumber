@@ -9,16 +9,10 @@
 {%- capture nospace -%}
 	{% assign isnum_src = include.src %}
 	{% assign isnum_src_trim = isnum_src | strip %}
+	{% capture isnum_src %}{{ isnum_src | plus: 1 | plus: -1 }}{% endcapture %}
 	{% if isnum_src == isnum_src_trim %}
-		{% if isnum_src == 0 %}
-			{% assign isNumber = true %}
-		{% else %}
-			{% assign isnum_src = isnum_src | plus: 1 %}
-			{% if isnum_src == 1 %}
-				{% assign isNumber = false %}
-			{% else %}
-				{% assign isNumber = true %}
-			{% endif %}
-		{% endif %}
+		{% assign isNumber = true %}
+	{% else %}
+		{% assign isNumber = false %}
 	{% endif %}
 {% endcapture %}
