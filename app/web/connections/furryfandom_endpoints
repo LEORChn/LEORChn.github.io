@@ -1,10 +1,12 @@
-{% comment %}
+{%- comment -%}
 
 
 
-{% endcomment -%}
+{%- endcomment -%}
 {% capture furryfandom_endpoints_debug %}
 	{% assign furryfandom_endpoints = nil %}
+	{% assign furryfandom_categories = nil %}
+	{% assign ffep_category_index = -1 %}
 	{% for row in site.data.furryfandom_endpoints %}
 		{% for col in row %}
 			{{ col | inspect }}
@@ -22,15 +24,36 @@
 			{% when nil %}
 				{% continue %}
 			{% when 'category' %}
-				
+				{% assign ffep_category_index = ffep_category_index | plus: 1 %}
+				{% if furryfandom_categories %}
+					{% assign furryfandom_categories = furryfandom_categories | append: '||' %}
+				{% endif %}
+				{% assign furryfandom_categories = furryfandom_categories | append: ffep_rowalias %}
 			{% else %}
 				{% if furryfandom_endpoints %}
 					{% assign furryfandom_endpoints = furryfandom_endpoints | append: ',' %}
 				{% endif %}
-				{% capture ffep_tmp %}{name:'{{ ffep_rowname }}'}{% endcapture %}
+				{%- capture ffep_tmp -%}
+					{name:'{{ ffep_rowname }}'
+					{%- if ffep_category_index >= 0 -%}
+						,category: {{- ffep_category_index -}}
+					{%- endif -%}
+					}
+				{%- endcapture -%}
 				{% assign furryfandom_endpoints = furryfandom_endpoints | append: ffep_tmp %}
 		{% endcase %}
 	{% endfor %}
+	{% assign furryfandom_categories = furryfandom_categories | split: '||' %}
+	{% assign ffc_temp = nil %}
+	{% for ffc in furryfandom_categories %}
+		{%- capture ffc_temp -%}
+			{%- if ffc_temp -%}
+				{{ ffc_temp }},
+			{%- endif -%}
+			'{{ ffc }}'
+		{%- endcapture -%}
+	{% endfor %}
 	{% assign furryfandom_endpoints = '[' | append: furryfandom_endpoints | append: ']' %}
+	{% assign furryfandom_categories = '[{data:[' | append: ffc_temp | append: ']}]' %}
 	{{ furryfandom_endpoints }}
 {% endcapture %}

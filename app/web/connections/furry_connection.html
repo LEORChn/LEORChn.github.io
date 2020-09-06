@@ -26,10 +26,16 @@ permalink: /app/web/connections/
 <script>
 	{% include_relative furryfandom_endpoints %}
 	var dataArray = {{ furryfandom_endpoints }},
+		legendArray = {{ furryfandom_categories }},
 	{% include_relative furryfandom_links %}
 		linkArray = {{ furryfandom_links }};
+	var categoryArray = [];
+	legendArray[0].data.foreach(function(e, i){
+		categoryArray.push({
+			name: e
+		});
+	});
 </script>
-<!-- {{ furryfandom_links_debug }} -->
 		<script>
 			var c = document.getElementById('main');
 			var ec = echarts.init(c);
@@ -39,31 +45,19 @@ permalink: /app/web/connections/
 					trigger: 'item',
 					triggerOn: 'mousemove'
 				},
+				legend: legendArray,
 				series: [
 					{
 						type: 'graph',
 						layout: 'force',
 						symbolSize: 30, // dot size
 						roam: true,
-						//edgeSymbol: 'arrow arrow'.split(' '),
-						//edgeSymbolSize: [5, 5],
-						edgeLabel: {
-							normal: {
-								textStyle: {
-									fontSize: 20
-								}
-							}
-						},
 						force: {
-							repulsion: 2500,
-							edgeLength: [10, 50]
+							edgeLength: [10, 50],
+							gravity: 0.2,
+							repulsion: 2500
 						},
 						draggable: true,
-						itemStyle: {
-							normal: {
-								color: '#4b565b'
-							}
-						},
 						lineStyle: {
 							normal: {
 								width: 2,
@@ -77,6 +71,7 @@ permalink: /app/web/connections/
 							}
 						},
 						data: dataArray,
+						categories: categoryArray,
 						links: linkArray
 					}
 				]

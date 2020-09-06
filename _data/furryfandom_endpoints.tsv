@@ -1,5 +1,5 @@
 name	alias
-category	people
+category	人物
 疯狂小瑞瑞	leorchn
 神奇陆夫人	ladylu
 TommyCrash	tommy
@@ -58,7 +58,7 @@ Null Ghost	ng
 郁洛气球
 Haps	haps
 
-category	works
+category	游戏
 履云录
 苦黏寒毒 系列	bscp
 厷雏
@@ -70,9 +70,11 @@ Adastra	adastra
 形骸骑士	kelepot
 荧光	glowlight
 
+category	动画
 巨兵长城传
 大理寺日志
 
+category	静画
 大城小调	dachengxiaodiao
 布在摸鱼	buzaimoyu
 全兽出击	f2+a
@@ -91,7 +93,7 @@ EX档案 系列	file:ex fileex
 乩身之战
 大人的压力
 
-category	studio
+category	社团/工作室
 FCLG	fclg
 布格克斯社	bogex
 Studio Klondike	klondike
@@ -100,17 +102,17 @@ Studio Klondike	klondike
 煦风社
 雏影社
 
-category	trademark
+category	商标
 爪印文化	pawprint
 狛纳世界	bonasiah bona
 
-category	con
+category	兽展
 兽夏祭	furrysummergathering
 极兽聚	furrychina
 野兽大都汇
 绒雪节	furrysnowfest
 
-category	company
+category	公司
 北京无限飞互动娱乐	wxf
 武汉两点十分文化传播
 天津好传文化传播
@@ -123,5 +125,8 @@ category	company
 广州福瑞文化传播
 大连兽次元文化传播
 
-category	general
+category	未分类
 不知道该连啥	earth global
+不再漂泊-游戏
+不再漂泊-动画
+不再漂泊-兽展
