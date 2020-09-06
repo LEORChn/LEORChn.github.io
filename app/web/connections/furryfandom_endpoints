@@ -1,0 +1,36 @@
+{% comment %}
+
+
+
+{% endcomment -%}
+{% capture furryfandom_endpoints_debug %}
+	{% assign furryfandom_endpoints = nil %}
+	{% for row in site.data.furryfandom_endpoints %}
+		{% for col in row %}
+			{{ col | inspect }}
+			{% if col[0] == 'name' %}
+				{% capture ffep_rowname %}{{ col[1] }}{% endcapture %}
+			{% elsif col[0] == 'alias' %}
+				{% capture ffep_rowalias %}{{ col[1] }}{% endcapture %}
+			{% endif %}
+		{% endfor %}
+		rowname = {{ ffep_rowname }}
+		rowalias = {{ ffep_rowalias }}
+		{% case ffep_rowname %}
+			{% when '' %}
+				{% continue %}
+			{% when nil %}
+				{% continue %}
+			{% when 'category' %}
+				
+			{% else %}
+				{% if furryfandom_endpoints %}
+					{% assign furryfandom_endpoints = furryfandom_endpoints | append: ',' %}
+				{% endif %}
+				{% capture ffep_tmp %}{name:'{{ ffep_rowname }}'}{% endcapture %}
+				{% assign furryfandom_endpoints = furryfandom_endpoints | append: ffep_tmp %}
+		{% endcase %}
+	{% endfor %}
+	{% assign furryfandom_endpoints = '[' | append: furryfandom_endpoints | append: ']' %}
+	{{ furryfandom_endpoints }}
+{% endcapture %}

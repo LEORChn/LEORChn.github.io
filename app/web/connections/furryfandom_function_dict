@@ -1,0 +1,28 @@
+{% comment %}
+
+	usage:
+		{% include_relative furryfandom_function_dict src=alias_of_someone %}
+		{% assign origin_name = furryfandom_function_dict %}
+
+{% endcomment -%}
+{% capture furryfandom_function_dict_debug %}
+	{% assign fffd_return = false %}
+	{% for row in site.data.furryfandom_endpoints %}
+		{% if row['name'] == include.src %}
+			{% assign furryfandom_function_dict = include.src %}
+			{% break %}
+		{% else %}
+			{% assign fffd_aliases = row['alias'] | split: ' ' %}
+			{% for fffd_alias in fffd_aliases %}
+				{% if fffd_alias == include.src %}
+					{% assign furryfandom_function_dict = row['name'] %}
+					{% assign fffd_return = true %}
+					{% break %}
+				{% endif %}
+			{% endfor %}
+			{% if fffd_return %}
+				{% break %}
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+{% endcapture %}

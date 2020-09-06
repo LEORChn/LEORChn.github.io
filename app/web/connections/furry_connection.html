@@ -1,0 +1,86 @@
+---
+layout: blank
+permalink: /app/web/connections/
+---
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Furries' Fandom v1</title>
+	</head>
+	<body style="margin:0; padding:0">
+		<div style="position:absolute; z-index:9">
+			<noscript>需要开启 JavaScript 才能查看。</noscript>
+			<!--[if lt IE 8]>
+				<style>#browserhint:checked+*{display:none}</style>
+				<input type="checkbox" id="browserhint" style="display:none">
+				<div>
+					组件要求浏览器至少为 IE 8 才能运行。如果不能查看，请<a>升级到现代浏览器</a>。
+					<label for="browserhint" style="padding:10px; border:#000 solid 1px; border-radius:2px; background-color:#efe">明白了</label>
+				</div>
+			<![endif]-->
+		</div>
+		<div id="main" style="width:100vw; height:100vh"></div>
+		<script src="/js/baseLib.js"></script>
+		<script src="https://cdn.staticfile.org/echarts/4.8.0/echarts.js"></script>
+<script>
+	{% include_relative furryfandom_endpoints %}
+	var dataArray = {{ furryfandom_endpoints }},
+	{% include_relative furryfandom_links %}
+		linkArray = {{ furryfandom_links }};
+</script>
+<!-- {{ furryfandom_links_debug }} -->
+		<script>
+			var c = document.getElementById('main');
+			var ec = echarts.init(c);
+			//ec.showLoading();
+			ec.setOption(option = {
+				tooltip: {
+					trigger: 'item',
+					triggerOn: 'mousemove'
+				},
+				series: [
+					{
+						type: 'graph',
+						layout: 'force',
+						symbolSize: 30, // dot size
+						roam: true,
+						//edgeSymbol: 'arrow arrow'.split(' '),
+						//edgeSymbolSize: [5, 5],
+						edgeLabel: {
+							normal: {
+								textStyle: {
+									fontSize: 20
+								}
+							}
+						},
+						force: {
+							repulsion: 2500,
+							edgeLength: [10, 50]
+						},
+						draggable: true,
+						itemStyle: {
+							normal: {
+								color: '#4b565b'
+							}
+						},
+						lineStyle: {
+							normal: {
+								width: 2,
+								color: '#4b565b'
+							}
+						},
+						label: {
+							normal: {
+								show: true,
+								textStyle: {}
+							}
+						},
+						data: dataArray,
+						links: linkArray
+					}
+				]
+			});
+		</script>
+	</body>
+</html>
