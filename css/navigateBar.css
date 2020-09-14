@@ -9,7 +9,17 @@
 float{padding:0 0 1px;display:block} float.adapting{overflow:scroll}
 .floating{background-color:#00a1d6;position:fixed;top:0px;z-index:295;}
 nav{min-width:650px;background-color:white;height:66px;padding-left:4px}
-fl:hover{color:#00a1d6} fl{color:#000000;float:left;margin-left:16px;height:66px;cursor:pointer;}
+fl{
+	color: #000000;
+	float: left;
+	margin-left: 12px;
+	height: 66px;
+	cursor: pointer;
+	transition: .2s;
+}
+fl:hover{
+	color: #00a1d6;
+}
 pht{background-color:#FFFFFF;position:relative;display:block}
 .curPage{background-color:#00a1d6;color:#00a1d6}
 
@@ -26,6 +36,9 @@ pht{
 	}
 	nav, fl{
 		height: 48px
+	}
+	fl{
+		margin-left: 5px
 	}
 	pht{
 		line-height: 44px

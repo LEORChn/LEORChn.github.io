@@ -52,7 +52,7 @@ css{display:none}
 		</div>
 		<a id="loadpage"></a>
 		<div class="float-nav-holder">
-			<float class="device" style="visibility:hidden; margin:0; overflow:scroll; overflow:-moz-hidden-unscrollable">
+			<float class="device float-nav" style="margin:0; overflow:scroll; overflow:-moz-hidden-unscrollable">
 				<nav>
 					<fl onclick="jump(0)"><!--PageForm-->
 						<pht>动态</pht><!--PageHolderText (normal)-->
@@ -75,18 +75,15 @@ css{display:none}
 	<div style="height:50px"></div>
 </div>
 <script src="js/baseLib.js"></script>
-<script src="js/http.js"></script>
 <script src="js/navigateBar.js" async ></script>
+<script src="js/http.js"></script>
 <script src="js/locationManager.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/desandro/masonry/dist/masonry.pkgd.min.js"></script>
 <script language="javascript">
 	var brows;
 	(function(){
 		brows=fv('brows');
-		var oDiv=ft('float')[0];
 		initLocation(); //加载地址栏页面
-		
-		initNavigate(oDiv);
 		
 		var mc = window['masonry-container'] = [];
 		setInterval(function(){

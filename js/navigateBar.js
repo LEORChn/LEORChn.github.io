@@ -1,9 +1,9 @@
 //使用到的 style:
 //class: floating
 //tagName: pht
-function initNavigate(oDiv){
+(function(oDiv){
 	setNavigateBarFloat(oDiv);
-}
+})($('.float-nav'));
 function setNavigateBarFloat(oDiv){
 	var H=0, iE6, Y=oDiv;//导航栏悬浮
 	while(Y){H+=Y.offsetTop;Y=Y.offsetParent}; 
