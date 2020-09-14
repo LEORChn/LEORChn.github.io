@@ -321,20 +321,6 @@ function webpReplace(e,u){
 	a.src=/url\(\"?([^\"]*)\"?\)/.exec(e.style.backgroundImage)[1];
 	a.onerror=function(){
 		e.style.backgroundImage=u? u: 'url('+this.src.replace(/\.webp$/,'.png')+')';
-		if(fv('webp-notice')) return;
-		var root = ct('div'),
-			style = ct('style', '#webp-notice{display:none} #webp-notice:checked+div{transform:translateY(-100%); transition:2s}'),
-			inp = ct('input#webp-notice'),
-			hint = ct('span', '您的浏览器不支持 WebP。'),
-			wiki = ct('a','维基百科'),
-			btn = ct('label', '关闭提示');
-		root.style.cssText = 'position:fixed; right:0; top:0; background-color:#fff; z-index:999';
-		wiki.href = "https://en.wikipedia.org/wiki/WebP";
-		wiki.target = '_blank';
-		inp.type = 'checkbox';
-		btn.setAttribute('for', 'webp-notice');
-		root.appendChildren(style, hint, wiki, btn);
-		htmlbody.appendChildren(inp, root);
 	}
 }
 
@@ -390,13 +376,25 @@ function addCss(url) {
 	htmlhead.appendChild(link);
 }
 
-function copy(text){
-	var ta = document.createElement("textarea");
-	ta.style.position = 'fixed';
-	ta.style.top = ta.style.left = '100%';
-	ta.value = text;
-	document.body.appendChild(ta);
-	ta.select();
+function copy(t){
+	var inlineCreated = false;
+	switch(type(t)){
+		case 'String':
+			var ta = ct('textarea');
+			ta.value = t;
+			ta.style.position = 'fixed';
+			ta.style.top = ta.style.left = '100%';
+			document.body.appendChild(ta);
+			inlineCreated = t = ta;
+		case 'HTMLTextAreaElement':
+			t.select();
+	}
+//	var ta = document.createElement("textarea");
+//	ta.style.position = 'fixed';
+//	ta.style.top = ta.style.left = '100%';
+//	ta.value = text;
+//	document.body.appendChild(ta);
+//	ta.select();
 	try{
 		var successful = document.execCommand('copy');
 		var msg = successful ? '成功复制到剪贴板' : '该浏览器不支持点击复制到剪贴板';
@@ -404,7 +402,9 @@ function copy(text){
 	}catch(e){
 		alert('浏览器不支持点击复制到剪贴板');
 	}
-	document.body.removeChild(textArea);
+	if(inlineCreated){
+		document.body.removeChild(inlineCreated);
+	}
 }
 
 function cok_a(n,v,timeExpire,timeShift){

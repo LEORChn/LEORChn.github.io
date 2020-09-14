@@ -34,15 +34,9 @@ css{display:none}
 .mui--no-user-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 </style>
 <style>
-	.browspadding{
-		height:303px;
-	}
 	@media (max-width:1100px){
 		#header{
 			margin-top: calc((1100px - 100vw) / (1100 - 240) * -135);
-		}
-		.browspadding{
-			height: calc((1100px - 100vw) / (1100 - 240) * -135 + 303px)
 		}
 	}
 </style>
@@ -52,24 +46,26 @@ css{display:none}
 	<div id="page_loading">
 		<loader style="position:absolute; top:calc(50% - 16px); left:calc(50% - 16px)"></loader>
 	</div>
-	<div class="device browspadding">
+	<div class="device">
 		<div class="device" style="margin:0 0; overflow:hidden">
 			<div id="header" class="webp" style="background-image:url(https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io/img/Header_Starbound.webp);background-size:cover;width:1100px;height:224px"></div>
 		</div>
 		<a id="loadpage"></a>
-		<float class="device" style="visibility:hidden; margin:0; overflow:scroll; overflow:-moz-hidden-unscrollable">
-			<nav>
-				<fl onclick="jump(0)"><!--PageForm-->
-					<pht>动态</pht><!--PageHolderText (normal)-->
-				</fl>
-				<fl onclick="jump(1)"><pht>作品</pht></fl>
-				<fl onclick="jump(2)"><pht>公告</pht></fl>
-				<fl onclick="jump(3)"><pht>关于</pht></fl>
-				<fl onclick="jump(4)"><pht>博物馆</pht></fl>
-				<fl onclick="jump2(5)"><pht>My Activities</pht></fl>
-				<fl onclick="jump2(6)"><pht>Secret Zone</pht></fl>
-			</nav>
-		</float>
+		<div class="float-nav-holder">
+			<float class="device" style="visibility:hidden; margin:0; overflow:scroll; overflow:-moz-hidden-unscrollable">
+				<nav>
+					<fl onclick="jump(0)"><!--PageForm-->
+						<pht>动态</pht><!--PageHolderText (normal)-->
+					</fl>
+					<fl onclick="jump(1)"><pht>作品</pht></fl>
+					<fl onclick="jump(2)"><pht>公告</pht></fl>
+					<fl onclick="jump(3)"><pht>关于</pht></fl>
+					<fl onclick="jump(4)"><pht>博物馆</pht></fl>
+					<fl onclick="jump2(5)"><pht>My Activities</pht></fl>
+					<fl onclick="jump2(6)"><pht>Secret Zone</pht></fl>
+				</nav>
+			</float>
+		</div>
 	</div>
 	<noscript>请开启 JavaScript 功能访问。</noscript>
 	<div id="brows"></div>
@@ -80,7 +76,7 @@ css{display:none}
 </div>
 <script src="js/baseLib.js"></script>
 <script src="js/http.js"></script>
-<script src="js/navigateBar.js"></script>
+<script src="js/navigateBar.js" async ></script>
 <script src="js/locationManager.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/desandro/masonry/dist/masonry.pkgd.min.js"></script>
 <script language="javascript">

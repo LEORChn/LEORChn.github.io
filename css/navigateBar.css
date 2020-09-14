@@ -6,9 +6,28 @@
 	pht 导航栏的对象中的文字使用
 	.curPage 表示当前页面的导航栏对象使用的class，拥有它时表示当前是这个页面
 */
-float{height:67px;display:block} float.adapting{overflow:scroll}
+float{padding:0 0 1px;display:block} float.adapting{overflow:scroll}
 .floating{background-color:#00a1d6;position:fixed;top:0px;z-index:295;}
 nav{min-width:650px;background-color:white;height:66px;padding-left:4px}
 fl:hover{color:#00a1d6} fl{color:#000000;float:left;margin-left:16px;height:66px;cursor:pointer;}
-pht{background-color:#FFFFFF;padding-left:10px;padding-right:10px;position:relative;display:block}
+pht{background-color:#FFFFFF;position:relative;display:block}
 .curPage{background-color:#00a1d6;color:#00a1d6}
+
+pht{
+	padding: 0 10px;
+	line-height: 62px
+}
+.float-nav-holder{
+	height: calc(66px + 13px)
+}
+@media (max-height: 659px){
+	.float-nav-holder{
+		height: calc(48px + 13px)
+	}
+	nav, fl{
+		height: 48px
+	}
+	pht{
+		line-height: 44px
+	}
+}

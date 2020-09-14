@@ -123,6 +123,9 @@ iframe{
 }
 
 /* 列宽 width 应该为：Math.floor(1 / 列数 x 100%) - item左右padding - (间隔值 x 间隔数量 x Math.floor(间隔数量 / 列数)) */
+.sizer, .grid-item{
+	width:calc(100% - 30px)
+}
 @media (min-width:500px){
 	.sizer, .grid-item{
 		width:calc(50% - 30px - 5px)
