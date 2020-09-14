@@ -5,11 +5,11 @@
 	
 */
 
-function flvDuration(file, ondone){
+function flvDuration(file, ondone, onfail){
 	switch(file.name.toLowerCase().right(4)){
 		case '.mkv':
 		case '.mp4':
-			generalMediaDuration(file, ondone);
+			generalMediaDuration(file, ondone, onfail);
 			return;
 	}
 	var fr = new FileReader(),
@@ -27,8 +27,15 @@ function flvDuration(file, ondone){
 		18: 4,
 		70: 0
 	},
+	MAX_SEEK_BYTES = 1000000,
 	seeknext = function(){
-		fr.readAsArrayBuffer(file.slice(pointer));
+		if(Math.abs(pointer) < file.size){
+			fr.readAsArrayBuffer(file.slice(pointer));
+		}else{
+			pl(file);
+			pl(file.name+' 从文件尾部搜索时发生指针范围异常：\n指针为 '+pointer+'，而文件大小为 '+file.size);
+			if(onfail) onfail();
+		}
 	},
 	byte2int = function(bytes, order){
 		var a = 0;
@@ -40,9 +47,16 @@ function flvDuration(file, ondone){
 	fr.onload = function(){
 		var a = new Uint8Array(fr.result);
 		if(isNaN(SIZE_CHUNK_BASEHEAD[a[0]])){ // 根据标记查找块头，如果未找到，判断当前状态为首次查找，并且为块尾
-			pointer -= byte2int(a, [0, 1, 2, 3]);
+			var lastBlockSize = byte2int(a, [0, 1, 2, 3]);
+			if(Math.abs(lastBlockSize) > file.size){
+				pl(file);
+				pl(file.name+' 文件遇到意外文件尾 '+lastBlockSize+'，文件大小为 '+file.size+'，大出 '+(lastBlockSize-file.size));
+				if(onfail) onfail();
+				return;
+			}
+			pointer -= lastBlockSize;
 			seeknext();
-		}else{
+		}else{ // a 前几个字节为块头
 			var ts = byte2int(a, [7, 4, 5, 6]);
 			if(ts == 0){
 				pointer -= 4;
@@ -57,11 +71,14 @@ function flvDuration(file, ondone){
 }
 
 // mkv, mp4
-function generalMediaDuration(file, ondone){
+function generalMediaDuration(file, ondone, onfail){
 	var v = ct('video');
 	v.onloadedmetadata = function(){
-		ondone(v.duration * 1000);
+		if(ondone) ondone(v.duration * 1000);
 		v = null;
+	};
+	v.onerror = function(){
+		if(onfail) onfail();
 	};
 	v.src = URL.createObjectURL(file);
 }

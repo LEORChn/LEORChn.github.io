@@ -15,16 +15,17 @@ function main(){
 			},
 			shipmember: {},
 			manager: {
-				'布哥-BOOG':   1, // https://space.bilibili.com/7243615
-				'一株海白菜':  1, // https://space.bilibili.com/888383
+				'杏仁狮子':    1, //   https://space.bilibili.com/634320
+				'一株海白菜':  1, //   https://space.bilibili.com/888383
+				'言夕菌':      1, //   https://space.bilibili.com/4108737
 				'五行缺壹':    1, // ┌ https://space.bilibili.com/4204049
 				'洛炀零号C型': 1, // └ https://space.bilibili.com/4204049 2020-05-21
+				'werewolf33':  1, //   https://space.bilibili.com/5118576
 				'毛基阿灰':    1, // ┌ https://space.bilibili.com/5847584
 				'灰之燿':      1, // └ https://space.bilibili.com/5847584 2020-05-21
-				'werewolf33':  1, // https://space.bilibili.com/5118576
-				'言夕菌':      1, // https://space.bilibili.com/4108737
-				'飒冬皓':      1, // https://space.bilibili.com/7773151
-				'杏仁狮子':    1  // https://space.bilibili.com/634320
+				'布哥-BOOG':   1, //   https://space.bilibili.com/7243615
+				'飒冬皓':      1, //   https://space.bilibili.com/7773151
+				'狮纳先辈':    1, //   https://space.bilibili.com/7826036
 			},
 			vip: {},
 			special: ['疯狂小瑞瑞'],
@@ -189,6 +190,7 @@ function main(){
 			td_clean   = e.tr.querySelector('[rule=clean]');
 		
 		var startdat = new Date(parseInt(td_start.getAttribute('value')));
+		td_dur.innerText = '处理中……';
 		
 		// 计算FLV时长
 		flvDuration(e.mainobj, function(dur){
@@ -239,6 +241,8 @@ function main(){
 					chk(1); // 当前直播流开始时间早于上一段直播流结束时间，标异常
 				}
 			});
+		}, function(){
+			td_dur.innerText = '读取失败';
 		});
 	});
 	
