@@ -134,6 +134,7 @@ function main(){
 				break;
 			case '.flv': // 仅接受 flv 和 txt（以后可能新增）
 			case '.mkv':
+			case '.mp4':
 				appendTo = ls.tBodies[0];
 				
 				// 计算FLV文件起始时间
