@@ -1,0 +1,36 @@
+/*
+	adapting: Weibo 2020
+	compatbility: Chrome 43
+	update: 2020-10-2
+*/
+
+/* 修正微博展开后界面：图片 */
+div[class*="Viewer_wrap_"] > div[class*="Viewer_imgElm_"]{ /* 图片对象的父容器 */
+	position: fixed;
+	left: 0;
+	min-width: calc(100vw - 340px); /* 评论侧边栏的宽度是 340px */
+	max-width: calc(100vw - 340px); /* 因为该元素自身的宽高被设置了，所以同时加入 min 和 max 才能提升本条设置对宽度的优先级 */
+	min-height: calc(100vh - 160px); /* 因为内容上下各 80px padding，所以父容器高度减去 160px */
+	max-height: calc(100vh - 160px); /* 备注同 max-width */
+	padding: 80px 0; /* 上 80px padding 以免图片被功能按钮遮挡，下 80px padding 只是为了对称、好看 */
+	overflow: auto; /* 使长图能滚动 */
+}
+div[class*="Viewer_imgElm_"] > img{ /* 图片对象 */
+	height: auto !important;
+}
+
+/* 修正微博展开后界面：视频 */
+[class*="Viewer_container_"] div[id^="wbpv_video_"]{ /* 视频对象的父容器 */
+	position: fixed;
+	width: calc(100% - 340px);
+	left: 0;
+}
+
+/* 修正微博展开后界面：评论区 */
+.woo-box-item-flex[class*="Frame_right_"] .woo-box-flex[class*="Index_content_box_"]{ /*  */
+	height: 100vh
+}
+.woo-box-flex[class*="Index_content_box_"] > div:last-of-type{ /* 每条评论的父容器 */
+	flex: 0
+}
+

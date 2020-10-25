@@ -1,0 +1,19 @@
+/*
+	adapting: Chao Neng Sou
+	compatbility: Chrome 43
+	update: 2020-10-26
+*/
+
+.nuxt-wrap>iframe{ /* ad */
+	display: none !important;
+}
+/*
+	以下修复：布局显示异常的问题
+		iframe 高度不足。
+*/
+.right.window{
+	position: relative;
+}
+#window{
+	position: absolute;
+}
