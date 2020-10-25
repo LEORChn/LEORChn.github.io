@@ -12,7 +12,11 @@ setInterval(function(){
 	}else if(!autoNext){ // 界面中没有 “自动播放” 按钮
 		return;
 	}
-	// 如果运行到此处，说明界面中有 “自动播放” 开关。由于tab在切换后，Vue会删去组件，所以tab未切换，并且至少tab组件是可以找到的
+	/*	
+		如果运行到此处，说明界面中有 “自动播放” 开关。
+		由于tab在切换后，Vue会删去组件，所以目前状况应该是：
+			tab未切换，并且至少tab组件是可以找到的
+	*/
 	try{
 		var commentsTab = $('.woo-box-flex[class*="Index_content_box_"] .woo-tab-item-main>*');
 		commentsTab.click();
