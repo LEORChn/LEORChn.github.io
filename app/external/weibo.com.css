@@ -1,7 +1,7 @@
 /*
 	adapting: Weibo 2020
 	compatbility: Chrome 43
-	update: 2020-10-2
+	update: 2020-10-26
 */
 
 /* 修正微博展开后界面：图片 */
@@ -17,6 +17,13 @@ div[class*="Viewer_wrap_"] > div[class*="Viewer_imgElm_"]{ /* 图片对象的父
 }
 div[class*="Viewer_imgElm_"] > img{ /* 图片对象 */
 	height: auto !important;
+}
+
+[class*="Viewer_content_"] > [class*="Viewer_angleBtn_"]{ /* 图片多图模式：图片切换器（左右） */
+	top: 50vh;
+}
+[class*="Viewer_angleBtn_"]:not(:hover){ /* 使按钮在白色背景图片上也更加明显（至少我觉得有安全感） */
+	background: rgba(255,130,0,.5);
 }
 
 /* 修正微博展开后界面：视频 */
