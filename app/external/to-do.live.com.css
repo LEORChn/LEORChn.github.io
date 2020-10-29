@@ -1,0 +1,13 @@
+/*
+	adapting: Microsoft To Do
+	compatbility: Chrome 43
+	update: 2020-10-30
+*/
+
+/*
+	以下修复："添加新任务" 高度显示异常的问题
+		"添加新任务" 输入框高度不足。
+*/
+.main-background > span.addToTop{
+	min-height: 52px;
+}
