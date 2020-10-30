@@ -1,0 +1,86 @@
+/*
+	adapting: Github 仓库页面
+	compatbility: Chrome 43
+	update: 2020-10-30
+*/
+
+/* 仓库内导航栏 */
+.bg-gray-light{
+	background: #fafbfc;
+}
+.UnderlineNav{
+	box-shadow: inset 0 -1px 0 #eaecef;
+}
+.UnderlineNav-item{
+	color: #24292e;
+}
+
+/* 仓库互动计数器 */
+.btn{
+	background: #fafbfc;
+	border-color: rgba(27, 31, 35, .15);
+}
+.social-count{
+	border: 1px solid rgba(27, 31, 35, .15);
+}
+.select-menu-modal{ /* 关注 */
+	background: #fff;
+	border: 1px solid rgba(21, 31, 35, .15);
+	border-color: #e1e4e8;
+	box-shadow: 0 8px 24px rgba(149, 157, 165, .2);
+}
+.select-menu-item{
+	background: #fff;
+	border-bottom: 1px solid #eaecef;
+}
+.select-menu-item:hover{
+	background: #0366d6;
+	color: #fff;
+}
+
+/* 仓库内导航 */
+.btn-blue, .btn-primary{
+	background: #2ea44f;
+	color: #fff;
+}
+.SelectMenu-modal{
+    border: 1px solid #e1e4e8;
+    background: #fff;
+}
+.SelectMenu-item{
+	color: #24292e;
+	border-bottom: 1px solid #eaecef;
+}
+
+/* 文件列表 */
+[aria-labelledby=files] > .Box-row{
+	border-top: 1px solid #eaecef;
+	transition: .2s;
+}
+[aria-labelledby=files] > .Box-row:hover{ /* 这个部分，官方是用JS实现的 */
+	background: #f6f8fa;
+}
+.text-color-icon-directory{
+	color: #79b8ff;
+}
+
+/* 代码页头部 */
+.Box-header--blue{
+	background: #f1faff !important;
+	border-color: #c8e1ff;
+}
+.link-gray, .link-gray-dark{
+	color: #586069;
+}
+.link-gray:hover, .link-gray-dark:hover{
+	color: #0366d6 !important;
+}
+.Box{
+	border: 1px solid #e1e4e8;
+}
+
+/* 代码页身体 */
+.Box-header{
+	background: #f6f9fa;
+	border: 1px solid #e1e4e8;
+}

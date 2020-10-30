@@ -1,0 +1,75 @@
+/*
+	adapting: Github 全局和首页
+	compatbility: Chrome 43
+	update: 2020-10-30
+*/
+
+/* 全局 */
+a{
+	color: #0366d6;
+}
+/* 头部栏的文字颜色 */
+.Header, .Header-old{
+	color: rgba(255, 255, 255, .7); /* 搜索栏文字颜色。不太精确，其实他是用HSLA */
+	background: #24292e;
+}
+.Header-link, .HeaderMenu-link, .text-white{
+	color: #fff;
+}
+.header-search-wrapper{
+	border: 1px solid #444d56;
+}
+.Header-old .header-search-wrapper{
+	border: 1px solid #444d56 !important;
+}
+
+/* 下拉菜单，例如点击右上角头像弹出的 */
+.dropdown-menu{
+	background: #fff;
+	border: 1px solid #e1e4e8;
+	box-shadow: 0 8px 24px rgba(149, 157, 165, .2);
+}
+.dropdown-item{
+	color: #24292e;
+}
+.dropdown-item:focus, .dropdown-item:hover{
+	color: #fff;
+	background: #0366d6;
+}
+.header-nav-current-user .user-profile-link{
+	color: #24292e;
+}
+.border{
+	border: 1px solid #e1e4e8 !important;
+}
+.text-gray{
+	color: #585069;
+}
+
+/* 首页 */
+.bg-white {
+	background-color: white !important;
+}
+.border-right {
+	border-right: 1px solid #e1e4e8 !important;
+}
+.bg-gray{
+	background-color: #f6f8fa !important;
+}
+.bg-gray-dark {
+	background-color: #24292e !important;
+}
+
+/* 首页 - 最近动态 */
+.Label--gray, .Label--outline {
+	color: #586069;
+	border-color: #0366d6;
+}
+.Box {
+	background-color: #fff;
+	border: 1px solid #e1e4e8;
+}
+a.branch-name {
+	color: #0366d6;
+	background-color: #eaf5ff;
+}

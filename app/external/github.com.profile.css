@@ -1,0 +1,21 @@
+/*
+	adapting: Github 个人资料页
+	compatbility: Chrome 43
+	update: 2020-10-30
+*/
+
+[fill="var(--color-calendar-graph-day-bg)"]{
+	fill: #ebedf8;
+}
+[fill="var(--color-calendar-graph-day-L1-bg)"]{
+	fill: #9be9a8;
+}
+[fill="var(--color-calendar-graph-day-L2-bg)"]{
+	fill: #40c463;
+}
+[fill="var(--color-calendar-graph-day-L3-bg)"]{
+	fill: #30a14e;
+}
+[fill="var(--color-calendar-graph-day-L4-bg)"]{
+	fill: #216e39;
+}
