@@ -1,7 +1,7 @@
 {%- comment -%}
 
 用法：
-	{%- include weibo id="微博名称" uid=微博永久链接ID -%}
+	{%- include weibo id="微博名称" uid="微博永久链接ID" -%}
 
 {%- endcomment -%}
-<a target="_blank" style="margin:0 1em" href="https://weibo.com/u/{{ include.uid }}" ><img style="height:1.5em; vertical-align:bottom" src="/img/app/weibo.svg"> {{ include.id }}</a>
+<a target="_blank" href="https://weibo.com/u/{{ include.uid }}" style="margin:0 1em" rel="noreferrer" ><img style="height:1.5em; vertical-align:bottom" src="/img/app/weibo.svg"> {{ include.id }}</a>

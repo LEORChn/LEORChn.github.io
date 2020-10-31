@@ -6,7 +6,7 @@ tags: furry novel
 
 # 日夜兼程
 
-作者：{% include weibo id="碳酸陪着钙" uid=5453660060 %} 2018年08月13日
+作者：碳酸陪着钙 {% include weibo id="碳酸陪着钙" uid=5453660060 %} 2018年04月22日
 
 ## 导言
 

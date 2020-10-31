@@ -4,4 +4,4 @@
 	{%- include tieba id="贴吧ID" -%}
 
 {%- endcomment -%}
-<a target="_blank" style="margin:0 1em" href="https://tieba.baidu.com/home/main?un={{ include.id }}" ><img style="height:1.5em; vertical-align:bottom" src="/img/app/tieba.svg"> {{ include.id }}</a>
+<a target="_blank" href="https://tieba.baidu.com/home/main?un={{ include.id }}" style="margin:0 1em" rel="noreferrer" ><img style="height:1.5em; vertical-align:bottom" src="/img/app/tieba.svg"> {{ include.id }}</a>
