@@ -4,6 +4,17 @@
 	update: 2020-10-26
 */
 
+/* 修正图标按钮hover阴影偏移 */
+.wbpro-iconbed:before{
+	left: 0;
+}
+
+/* 修正个人页面的返回按钮因为使用旧版浏览器不支持的sticky布局而导致导航栏被遮挡、无法点击的情况 */
+[class*=Bar_main_][class*=Bar_transparent_]{
+	position: relative;
+	top: 0;
+}
+
 /* 修正微博展开后界面：图片 */
 div[class*="Viewer_wrap_"] > div[class*="Viewer_imgElm_"]{ /* 图片对象的父容器 */
 	position: fixed;
@@ -39,5 +50,8 @@ div[class*="Viewer_imgElm_"] > img{ /* 图片对象 */
 }
 .woo-box-flex[class*="Index_content_box_"] > div:last-of-type{ /* 每条评论的父容器 */
 	flex: 0
+}
+[replylist] .info>:first-child{ /* 一条评论的信息div（发布时间）内容太长时，应该禁止换行 */
+	white-space: nowrap;
 }
 

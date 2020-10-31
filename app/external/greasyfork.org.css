@@ -1,0 +1,9 @@
+/*
+	adapting: GreasyFork
+	compatbility: Chrome 43
+	update: 2020-10-30
+*/
+
+.inline-script-stats{
+	-webkit-column-count: 2;
+}

@@ -1,0 +1,67 @@
+/*
+	adapting: Twitter 2020
+	compatbility: Chrome 43
+	update: 2020-11-1
+*/
+/*
+	推特使用的是 Bootstrap 做布局
+	class 全都被混淆了的，比微博还乱
+	因此只能靠一些其他的属性来勉强支撑定位
+	也导致了以下的代码可读性很差，可能活得不太久
+*/
+
+/* 多图模式 全屏 底部操作栏（评论/转发/点赞） */
+[role=dialog] [style*="transition-property:"][style*="background-color:"]{
+	bottom: 0;
+	position: absolute;
+}
+
+/* 多图模式 全屏 图片切换器（左右） */
+[role=dialog] [role=group][aria-roledescription=carousel] > div:last-child{
+	position: absolute;
+	top: 0;
+}
+
+/*
+	看图模式 全屏 图片内容
+	
+	真实图片有两个元素都能显示，一个是 div+background-image，另一个是 img
+	此CSS隐藏前者而显示后者，因为
+	个人爱好原因，如果要设计一个长图模式的界面，必须要固定宽度，然后自动高度，但前者的大小比较难以调整控制。
+	
+	上下滚动到头时上下留白也是个人爱好。
+	
+	下面5个选择器，第一行都是单图模式，第二行都是多图模式
+ */
+[role=dialog] [style*="transition-property:"] [style*="width:"],
+[role=dialog] [role=group][aria-roledescription=carousel] [style*="width:"]{
+	width: 100% !important;
+}
+[role=dialog] [style*="transition-property:"] [style*="width:"][style*="height:"],
+[role=dialog] [role=group][aria-roledescription=carousel] [style*="width:"][style*="height:"]{
+	height: calc(100vh - 50px) !important;
+	position: absolute;
+	top: 0;
+}
+/* 图片高出父元素边界时，父元素显示滚动条 */
+[role=dialog] [style*="transition-property:"] [style*="width:"] [style*="max-height:"],
+[role=dialog] [role=group][aria-roledescription=carousel] [style*="width:"] [style*="max-height:"]{
+	overflow-y: auto;
+}
+/* 两个图片元素，正如上面所说。 */
+[role=dialog] [style*="transition-property:"] [style*="background-image:"],
+[role=dialog] [role=group][aria-roledescription=carousel] [style*="background-image:"]{
+	display: none;
+}
+[role=dialog] [style*="transition-property:"] [style*="background-image:"] + img,
+[role=dialog] [role=group][aria-roledescription=carousel] [style*="background-image:"] + img{
+	height: auto; /* 确保图片显示 */
+	opacity: 1;   /* 确保图片显示 */
+	padding: 60px 0; /* 图片上下留白 */
+}
+
+/* 搜索结果 右侧过滤器 | 异常状态是上下滚轮时会乱飞 */
+[data-testid=sidebarColumn] [style*="top:"]:not([style*="-top"]),
+[data-testid=sidebarColumn] [style*="bottom:"]:not([style*="-bottom"]){
+	top: 0 !important;
+}

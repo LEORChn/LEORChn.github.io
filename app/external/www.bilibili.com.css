@@ -1,0 +1,10 @@
+/*
+	adapting: Bilibili
+	compatbility: Chrome 43
+	update: 2020-10-31
+*/
+
+.article-holder.unable-reprint{
+	user-select: all !important;
+	-webkit-user-select: all !important;
+}

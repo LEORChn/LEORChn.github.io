@@ -8,6 +8,9 @@
 a{
 	color: #0366d6;
 }
+.muted-link:not(:hover){
+	color: #586069;
+}
 /* 头部栏的文字颜色 */
 .Header, .Header-old{
 	color: rgba(255, 255, 255, .7); /* 搜索栏文字颜色。不太精确，其实他是用HSLA */
