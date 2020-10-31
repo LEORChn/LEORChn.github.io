@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "zh-CN" }}">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{%- capture cdn_root -%}{% include cdn src='/' %}{%- endcapture -%}
+		
+{% capture vseo %}{% include virtual_seo %}{% endcapture %}{%- assign seo_output = vseo | split: '</title>' -%}
+{{ seo_output[0] | append: '百科</title>' | append: seo_output[1] }}
+		<link rel="stylesheet" href="{{            "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+		<link rel="stylesheet" href="{% capture css %}{{ "/css/jekyll.css?v=" | append: site.github.build_revision | relative_url }}{% endcapture %}{% include cdn src=css %}">
+	</head>
+	<body>
+		<div class="container-lg px-3 my-5 markdown-body" style="margin-top:0 !important">
+			{% if site.title and site.title != page.title %}
+				<h1 id="breadcrumbs"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a> &gt; 百科</h1>
+				<div></div>
+			{% endif %}
+
+			{%- assign page_tags_div = "%|%bio_tags%|%" -%} {% capture page_tags %}{% include group_the_strings src=page.tags div=page_tags_div %}{% endcapture %}
+			{%- assign page_tags = page_tags | split: page_tags_div -%}
+			<!-- 前增avatar，并且 wikiz_src = content 变量会保留到下个 section 继续使用 -->
+			{%- assign wikiz_src = content -%}
+			<!-- 已计算头图路径 -->
+			{%- capture nooutput -%}
+				{% if page.avatar %}
+					<!-- 计算头图路径 -->
+					{% assign permalink = page.permalink | default: page.url %}
+					{% assign title_img_name = permalink | split: '/' | last %}
+					{% assign title_img_path = '/wiki/title/' | append: title_img_name | append: '.jpg# float-right' %}
+					
+					<!-- 写出头图 -->
+					{% capture wikiz_src %}<h1>{{ page.title }}<em>{{ page_tags[0] }}</em></h1>{% include img src=title_img_path %}{{ wikiz_src }}{% endcapture %}
+				{% endif %}
+			{%- endcapture -%}
+			
+			<!-- 替换 wiki 内链。试验场：/_includes/wikization -->
+			{%- capture nooutput -%}
+				{% assign wikiz_pages = site.pages | where: "layout", "wiki" %}
+				{% for p in wikiz_pages %} <!-- 以【标题】替换 wiki 内链 -->
+					{% capture wikiz_rep  %}[[{{ p.title }}]]{% endcapture %}
+					{% capture wikiz_rep2 %}<a href="{{ p.url }}">{{ p.title }}</a>{% endcapture %}
+					{% assign wikiz_src = wikiz_src | replace: wikiz_rep, wikiz_rep2 %}
+					
+					{% if p.alias %} <!-- 以【别名】替换 wiki 内链 -->
+						{% assign wikiz_alias_div = "%|%wikiz_alias_div%|%" %}
+						{% capture wikiz_alias %}{% include group_the_strings src=p.alias div=wikiz_alias_div %}{% endcapture %}
+						{% assign wikiz_alias = wikiz_alias | split: wikiz_alias_div %}
+						{% for wikiz_alias_item in wikiz_alias %}
+							{% capture wikiz_rep  %}[[{{ wikiz_alias_item }}]]{% endcapture %}
+							{% capture wikiz_rep2 %}<a href="{{ p.url }}">{{ wikiz_alias_item }}</a>{% endcapture %}
+							{% assign wikiz_src = wikiz_src | replace: wikiz_rep, wikiz_rep2 %}
+						{% endfor %}
+					{% endif %}
+				{% endfor %}
+				
+				<!-- 调试模式，禁用CDN -->
+				{% if DEBUG %}
+					{% assign wikiz_src = wikiz_src | replace: cdn_root, '/' %}
+				{% endif %}
+			{%- endcapture -%}
+			{{ wikiz_src }}
+			
+			<!-- 页脚：Github License -->
+			{% if site.github.private != true and site.github.license %}
+			<div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+				This site is open source. {% comment %}{% github_edit_link "Improve this page" %}.{% endcomment %}
+			</div>
+			{% endif %}
+			
+			<!-- 页脚：全站更新时间 -->
+			{%- assign ts = 'now' | date: '%s' -%}
+			{%- capture nooutput -%}
+				{% assign tz = 'now' | date: '%Z' %}
+				{% if tz == 'UTC' %}
+					{% assign ts = ts | plus: 28800 | date: '%Y-%m-%d %H:%M' | append: ' UTC+8' %}
+				{% else %}
+					{% assign ts = ts | date: '%Y-%m-%d %H:%M %Z' %}
+				{% endif %}
+			{%- endcapture -%}
+			<div>全站最后更新时间：{{ ts }}<br><a target="_blank" href="https://github.com/LEORChn/LEORChn.github.io/commits">查看更新...</a></div>
+		</div>
+		
+		<!-- 页脚：添加抛锚JS -->
+		<script src="{% include cdn src="/js/anchor.4.1.0.min.js" %}"></script>
+		<script>anchors.add();</script>
+		
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-174341933-1"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-174341933-1');
+		</script>
+
+		<!-- mermaid flowchart -->
+		<script src="{% include cdn src="/js/mermaid.5.15.0.min.js" %}"></script>
+	</body>
+</html>
