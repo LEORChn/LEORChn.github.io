@@ -6,7 +6,9 @@ tags: furry novel
 
 # 在乎
 
-作者：碳酸陪着钙 {% include weibo id="碳酸陪着钙" uid=5453660060 %} 2019年02月02日
+作者：碳酸陪着钙 2019年02月02日
+
+{% include weibo id="碳酸陪着钙" uid=5453660060 %}
 
 ## 导言
 

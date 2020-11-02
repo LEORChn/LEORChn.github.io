@@ -6,7 +6,9 @@ tags: furry fan novel
 
 # 《苦黏寒毒》续写
 
-作者：亓官 {% include tieba id="herorine1" %} 2019年05月02日
+作者：亓官 2019年05月02日
+
+{% include tieba id="herorine1" %}
 
 ## 导言
 在下亓官，又逢五一小长假，在下虽然并没有放假，但是晚自习提前一小时下课（从10:30提前到9:30）着实是写写渣文的好机会~
