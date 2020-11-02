@@ -32,6 +32,7 @@ css{display:none}
 .mui-panel:after{clear:both}
 .mui--text-headline{font-weight:400;font-size:24px;line-height:32px}
 .mui--no-user-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+[onclick*=jump2]:not(:hover){ opacity:.1 }
 </style>
 <style>
 	@media (max-width:1100px){
@@ -58,11 +59,11 @@ css{display:none}
 						<pht>动态</pht><!--PageHolderText (normal)-->
 					</fl>
 					<fl onclick="jump(1)"><pht>作品</pht></fl>
-					<fl onclick="jump(2)"><pht>公告</pht></fl>
 					<fl onclick="jump(3)"><pht>关于</pht></fl>
 					<fl onclick="jump(4)"><pht>博物馆</pht></fl>
-					<fl onclick="jump2(5)"><pht>My Activities</pht></fl>
-					<fl onclick="jump2(6)"><pht>Secret Zone</pht></fl>
+					<fl onclick="jump2(5)"><pht>游戏厅</pht></fl>
+					<fl onclick="jump2(5)"><pht>科研所</pht></fl>
+					<fl onclick="jump2(6)"><pht>神秘小屋</pht></fl>
 				</nav>
 			</float>
 		</div>
@@ -98,7 +99,7 @@ css{display:none}
 		}, 1000);
 	})();
 	function jump2(i){
-		msgbox('这个按钮只不过是用来测试在手机上滚动导航条啦，没别的事。');
+		msgbox('即将推出，敬请期待');
 	}
 </script>
 </body>
