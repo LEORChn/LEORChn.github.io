@@ -1,7 +1,7 @@
 /*
 	adapting: Github 仓库页面
 	compatbility: Chrome 43
-	update: 2020-10-30
+	update: 2020-11-1
 */
 
 /* 仓库内导航栏 */
@@ -13,6 +13,9 @@
 }
 .UnderlineNav-item{
 	color: #24292e;
+}
+.UnderlineNav-item:focus, .UnderlineNav-item:hover{
+	border-bottom-color: #d1d5da;
 }
 
 /* 仓库互动计数器 */
@@ -42,14 +45,6 @@
 .btn-blue, .btn-primary{
 	background: #2ea44f;
 	color: #fff;
-}
-.SelectMenu-modal{
-    border: 1px solid #e1e4e8;
-    background: #fff;
-}
-.SelectMenu-item{
-	color: #24292e;
-	border-bottom: 1px solid #eaecef;
 }
 
 /* 文件列表 */

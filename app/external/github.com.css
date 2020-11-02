@@ -8,8 +8,13 @@
 a{
 	color: #0366d6;
 }
-.muted-link:not(:hover){
+.muted-link:not(:hover){ /* 功能图标在非hover时的不同颜色 */
 	color: #586069;
+}
+.flash{ /* 位于头部栏下方的顶部蓝色提示信息 */
+	color: #24292e;
+	background-color: #dbedff;
+	border-color: rgba(4, 66, 137, .2);
 }
 /* 头部栏的文字颜色 */
 .Header, .Header-old{
@@ -26,7 +31,7 @@ a{
 	border: 1px solid #444d56 !important;
 }
 
-/* 下拉菜单，例如点击右上角头像弹出的 */
+/* 点击右上角头像弹出的下拉菜单 */
 .dropdown-menu{
 	background: #fff;
 	border: 1px solid #e1e4e8;

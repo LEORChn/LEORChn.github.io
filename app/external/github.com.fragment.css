@@ -1,0 +1,45 @@
+/*
+	adapting: Github 全局 Fragment
+	compatbility: Chrome 43
+	update: 2020-11-1
+*/
+
+.SelectMenu-header{
+	border-bottom: 1px solid #eaecef;
+}
+.SelectMenu-modal{
+    border: 1px solid #e1e4e8;
+    background: #fff;
+}
+details-menu .form-control, .form-select{
+	color: #24292e;
+	border: 1px solid #e1e4e8;
+}
+details-menu .form-control:focus, .form-select:focus{
+	border-color: #0366d6;
+	box-shadow: 0 0 0 3px rgba(3, 102, 214, .3);
+}
+.SelectMenu-tabs{
+	box-shadow: inset 0 -1px 0 #eaecef;
+}
+.SelectMenu-tab{
+	color: #6a737d;
+	box-shadow: inset 0 -1px 0 #eaecef;
+}
+.SelectMenu-tab[aria-selected="true"]{
+	background-color: #fff;
+	border-color: #eaecef;
+}
+.SelectMenu-item{
+	color: #24292e;
+	border-bottom: 1px solid #eaecef;
+}
+.SelectMenu-item:hover{
+	background-color: #f6f8fa;
+}
+
+/* 仓库 提交记录 合并状态 列表 item */
+.merge-status-item{
+	background-color: #f6f8fa;
+	border-bottom: 1px solid #e1e4e8;
+}

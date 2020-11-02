@@ -1,0 +1,20 @@
+/*
+	adapting: Github 仓库提交记录页面
+	compatbility: Chrome 43
+	update: 2020-11-1
+*/
+
+/* 列表item分隔线 */
+.Box-row{
+	border-top: 1px solid #eaecef;
+}
+
+/* 列表item:hover */
+[class*="js-commits-list-item"]:hover{
+	background-color: #f6f8fa;
+}
+
+/* 列表时间线item */
+.TimelineItem:before {
+	background-color: #eaecef;
+}
