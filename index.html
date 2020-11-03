@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
-<title>瑞兽谷</title>
+<title>瑞兽谷</title><!-- https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io -->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io/css/noSideScrollBar.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io/css/navigateBar.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io/home/about.css" />
@@ -32,7 +32,7 @@ css{display:none}
 .mui-panel:after{clear:both}
 .mui--text-headline{font-weight:400;font-size:24px;line-height:32px}
 .mui--no-user-select{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
-[onclick*=jump2]:not(:hover){ opacity:.1 }
+label[disabled]:not(:hover){ opacity:.1 }
 </style>
 <style>
 	@media (max-width:1100px){
@@ -53,17 +53,17 @@ css{display:none}
 		</div>
 		<a id="loadpage"></a>
 		<div class="float-nav-holder">
-			<float class="device float-nav" style="margin:0; overflow:scroll; overflow:-moz-hidden-unscrollable">
+			<float class="device float-nav" style="margin:0; overflow:scroll; overflow:-moz-hidden-unscrollable" onselectstart="return false;">
 				<nav>
-					<fl onclick="jump(0)"><!--PageForm-->
-						<pht>动态</pht><!--PageHolderText (normal)-->
-					</fl>
-					<fl onclick="jump(1)"><pht>作品</pht></fl>
-					<fl onclick="jump(3)"><pht>关于</pht></fl>
-					<fl onclick="jump(4)"><pht>博物馆</pht></fl>
-					<fl onclick="jump2(5)"><pht>游戏厅</pht></fl>
-					<fl onclick="jump2(5)"><pht>科研所</pht></fl>
-					<fl onclick="jump2(6)"><pht>神秘小屋</pht></fl>
+					<label nav="home/">动态</label>
+					<label nav="artwork/">作品</label>
+					<label nav="home/about.html">关于</label>
+					<label nav="archive/">博物馆</label>
+					<label disabled>工程车间</label>
+					<label disabled>游戏厅</label>
+					<label disabled>站长的窝～☆</label>
+					<label disabled>神秘小屋</label>
+					<label disabled><img src="/img/app/travellings.svg" style="height:1em; margin-right:.3em">公交站牌</label>
 				</nav>
 			</float>
 		</div>
@@ -84,6 +84,8 @@ css{display:none}
 	var brows;
 	(function(){
 		brows=fv('brows');
+		
+		initNavigationBarStyle();
 		initLocation(); //加载地址栏页面
 		
 		var mc = window['masonry-container'] = [];
@@ -100,6 +102,23 @@ css{display:none}
 	})();
 	function jump2(i){
 		msgbox('即将推出，敬请期待');
+	}
+	function initNavigationBarStyle(){
+		var labels = $$('nav > label');
+		arr(labels).foreach(function(e){
+			var radio = ct('input');
+			radio.type = 'radio';
+			radio.name = 'nav';
+			if(e.getAttribute('disabled') != null){
+				radio.disabled = true;
+				e.setAttribute('onclick', 'jump2()');
+			}
+			e.setAttribute('for', radio.id = ('nav-' + Math.random()).replace('0.', ''));
+			e.parentNode.insertBefore(radio, e);
+			radio.onchange = function(){ // 该段代码在点击切换为 true 时触发，而通过修改 checked 时不会触发
+				url($('label[nav][for="' + this.id + '"]').getAttribute('nav'));
+			};
+		});
 	}
 </script>
 </body>

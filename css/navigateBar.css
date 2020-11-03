@@ -7,7 +7,6 @@
 	.curPage 表示当前页面的导航栏对象使用的class，拥有它时表示当前是这个页面
 */
 float{
-	padding: 0 0 1px;
 	display: block;
 	background-color: white;
 }
@@ -23,41 +22,44 @@ float.adapting{
 nav{
 	overflow-x: auto;
 	white-space: nowrap;
+	text-align: left;
 	height: 66px;
 	padding: 0 16px 0 4px;
+	font-size: 0;
 }
-fl{
-	color: #000000;
+nav > input{
+	display: none;
+}
+nav > label{
+	color: #000;
 	display: inline-block;
+	line-height: 62px;
+	padding: 0 10px;
+	border-bottom: 4px solid rgba(0, 0, 0, 0);
 	margin-left: 12px;
-	height: 66px;
 	cursor: pointer;
 	transition: .2s;
+	font-size: 1rem;
 }
-fl:hover{
+nav > label:hover{
 	color: #00a1d6;
 }
-pht{background-color:#FFFFFF;position:relative;display:block}
-.curPage{background-color:#00a1d6;color:#00a1d6}
-
-pht{
-	padding: 0 10px;
-	line-height: 62px
+nav > input:checked + label{
+	color: #00a1d6;
+	border-bottom-color: #00a1d6;
 }
 .float-nav-holder{
 	height: calc(66px + 13px)
 }
 @media (max-height: 659px){
 	.float-nav-holder{
-		height: calc(48px + 13px)
+		height: calc(48px + 13px);
 	}
-	nav, fl{
-		height: 48px
+	nav{
+		height: 48px;
 	}
-	fl{
-		margin-left: 5px
-	}
-	pht{
-		line-height: 44px
+	nav > label{
+		margin-left: 5px;
+		line-height: 44px;
 	}
 }

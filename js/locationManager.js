@@ -1,23 +1,19 @@
-curpage=-1;
 function initLocation(){
 	regOnLocationChanged();
-	if(tryOldPath())return;
 	onLocationChanged();
 	//setATagLinks
 }
 function onLocationChanged(){
 	if(tryOldPath())return; //如果是老版路径，在那个方法里替换为新版路径并退出当前事件，由下一个当前事件来进行触发
 	// 判断导航栏是否应该亮
-	var afterPath=location.href.split('#'),
-		aflen=afterPath.length,
-		afkey=aflen>1?getNavigateMapKey(afterPath[1]):undefined;
-	//pl(afterPath+'\n'+aflen+'\n'+afkey);
-	remove();
-	if(vaild(afkey) && afkey >= 0) set(afkey);
+	var checkedRadio = $('nav > input:checked');
+	if(checkedRadio) checkedRadio.checked = false; // 复位
+	var checkedLabel = $('nav > label[nav="' + location.hash.replace('#', '') + '"]');
+	if(checkedLabel) checkedLabel.previousElementSibling.checked = true;
 	// 加载网页
 	fv('page_loading').style.display='';
 	fv('brows').className='blur3';
-	http('get',location.href.replace('#',''),'',function(){
+	http('get',location.hash.replace('#',''),'',function(){
 		var brows=fv('brows');
 		brows.innerHTML = '';
 		if(this.status == 404){
@@ -50,18 +46,15 @@ function onLocationChanged(){
 			brows.className='';
 		}, 1000);
 	},function(){
-		msgbox('Resourse load error.\nRefresh to retry.');
+		location.reload();
 	});
 }
-var lastHash;
 function regOnLocationChanged(){
 	if( ('onhashchange' in window) && ((typeof document.documentMode==='undefined') || document.documentMode==8)) {
     	window.onhashchange = onLocationChanged;
 	}else{
-		lastHash=window.location.hash;
 		setInterval(function(){ // 检测hash值或其中某一段是否更改的函数， 在低版本的iE浏览器中通过window.location.hash取出的指和其它的浏览器不同，要注意
 			if(lastHash != window.location.hash){
-				lastHash=window.location.hash;
 				onLocationChanged();
 			}
     	}, 300);
@@ -86,9 +79,8 @@ function tryOldPath(){ // 如果成功匹配自定捷径，则返回 true
 function changeLocation(u){
 	
 }
-function jump(i){ // 控制导航栏的跳转事件
-	if(i==curpage)return;
-	url(getNavigateMapKey(i));
+function jump(){ // 控制导航栏的跳转事件
+	url(this.getAttribute('nav'));
 }
 function getNavigateMapKey(intOrStr){ // 如果传入数字，返回导航栏对应的网址；如果传入网址，返回导航栏对应的数字索引
 	var t=['home/','artwork/','home/news.html','home/about.html','archive/','home/myactivities.html','home/myactivities.html'];
@@ -101,15 +93,6 @@ function getNavigateMapKey(intOrStr){ // 如果传入数字，返回导航栏对
 	}else if(intOrStr >= 0 && intOrStr <=t.length)
 		return t[intOrStr];
 	return null;
-}
-function set(i){ // 设置导航栏蓝条
-	ft('fl')[i].className="curPage";
-	curpage=i;
-}
-function remove(){ // 移除导航栏蓝条
-	if(curpage==-1)return;
-	ft('fl')[curpage].className="";
-	curpage=-1;
 }
 function url2(e){
 	if(e.nodeName.toUpperCase()!="A")return;
