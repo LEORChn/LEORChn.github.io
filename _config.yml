@@ -1,6 +1,10 @@
 
 title: 瑞兽谷
 lang: zh-CN
-plugins:
-  jekyll-sitemap
-  jekyll-feed
+feed:
+  collections:
+    articles:
+      path: "/feed.xml"
+    posts:
+      path: "/feed-posts.xml"
+sitemap: true

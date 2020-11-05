@@ -1,7 +1,7 @@
 /*
 	adapting: Github 仓库提交记录页面
 	compatbility: Chrome 43
-	update: 2020-11-1
+	update: 2020-11-5
 */
 
 /* 列表item分隔线 */
@@ -15,6 +15,38 @@
 }
 
 /* 列表时间线item */
-.TimelineItem:before {
+.TimelineItem:before{
 	background-color: #eaecef;
 }
+
+/* 代码文件 */
+.file{
+	border: 1px solid #e1e4e8;
+}
+
+/* 代码文件头 */
+.file-header{
+	background-color: #fafbfc;
+	border-bottom: 1px solid #e1e4e8;
+}
+
+/* 代码行的增加和减少 */
+.blob-code-addition{
+	background-color: #e6ffed;
+}
+.blob-code-deletion{
+	background-color: #ffeef0;
+}
+.blob-code-hunk{
+	background-color: #f1f8ff;
+}
+.blob-num-addition{
+	background-color: #cdffd8;
+}
+.blob-num-deletion{
+	background-color: #ffdce0;
+}
+.blob-num-expandable, .blob-num-hunk{
+	background-color: #dbedff;
+}
+
