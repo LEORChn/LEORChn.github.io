@@ -1,0 +1,49 @@
+/*
+	adapting: 哔哩哔哩直播 弹幕姬
+	compatbility: Chrome 43
+	update: 2020-11-5
+*/
+
+.inner{
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 400px;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+.inner > .left,
+.inner > .right > *{
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+.inner > .right{
+	height: 270px;
+	display: flex;
+	flex-direction: column;
+}
+.inner > .left > .wrap{
+	min-height: 50px;
+}
+.inner > .left > .danmaku{
+	overflow-y: scroll;
+}
+
+.inner > .right ul.gifts.empty-list,
+.inner > .right ul.super-chats.empty-list{
+	background-position-y: 0;
+    background-size: 99px;
+}
+
+/* 消除由于宽度过大导致显示横线滚动条而遮挡部分内容 */
+header.top-bar > .content,
+section.body{
+	width: inherit !important;
+	min-width: inherit !important;
+}
+/* 隐藏其他内容 */
+.hime.page > .tool{
+	display: none;
+}
