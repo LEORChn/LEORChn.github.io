@@ -1,0 +1,15 @@
+/*
+	adapting: V2EX
+	compatbility: Chrome 43
+	update: 2020-11-24
+*/
+
+.box{
+	background-color: #fff;
+	border-radius: 3px;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+.cell{
+	border-bottom: 1px solid #e2e2e2;
+}
