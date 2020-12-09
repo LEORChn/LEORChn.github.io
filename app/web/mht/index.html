@@ -58,14 +58,15 @@ body{
 	display:none
 }
 .help>pre{
-	position:absolute;
-	font-family:"monospace";
-	background:#efe;
-	tab-size:4;
-	-moz-tab-size:4;
-	margin-top:0;
-	border:solid 1px;
-	padding-right:2em;
+	position: absolute;
+	line-height: 1.3em;
+	font-family: "monospace";
+	background: #efe;
+	tab-size: 4;
+	-moz-tab-size: 4;
+	margin-top: 0;
+	border: solid 1px;
+	padding-right: 2em;
 }
 table tr:last-child{
 	text-align:center
@@ -83,7 +84,7 @@ table a{
 	</head>
 	<body>
 		<span class="help">
-			<input type="button" value="需要帮助？">
+			<input type="button" value="如何使用？">
 			<pre> 
 	--- 使用方法 ---
 	1.打开电脑QQ并登录
@@ -96,37 +97,67 @@ table a{
 	6.压缩优化的过程耗时可能较长，请耐心等待。
 	
 	7.下载优化版文件。
+			</pre>
+		</span>
+		<span class="help">
+			<input type="button" value="注意事项">
+			<pre> 
+	--- 法律相关注意 ---
+	　　如果你使用 MHT 格式存储聊天记录，由于此格式比较容易被篡改，
+	所以QQ不支持将其中的内容重新导入到自身数据库，在需要法律证据时
+	这种格式可能也不具有法律效力。
+	　　如需备份一份可重新导入且有法律效力的格式，请使用默认的
+	bak 加密数据库格式。
+	　　另请注意，加密数据库格式不包含图片、视频、语音和其他互相传输的文件，
+	因此在完成 bak 格式备份后，你还要额外备份其他多媒体文件以确保数据完整。
 	
-	--- 优化版与原版的不同之处 ---
+	毕竟我不能保证你天时地利人和，这使我无法相信你一定能得到腾讯的帮助。
+	
+	--- 优化版相比原版的优点 ---
 	1.体积更小，测试用文件原 400 KB，压缩后为 85 KB，仅需 21% 空间。
-	2.DOM 节点元素更少，这能让浏览器加载得更快。
-	3.能够灵活收起指定某天的全部记录。
+	2.加载得更快，因为 DOM 节点元素更少了。
+	3.操作更灵活，能够收起指定某天的全部记录。
 	
-	--- 缺陷 ---
+	--- 优化版的缺陷 ---
+	本工具为早期版本，功能尚未完善，还可能因为未完全覆盖测试而出现各种错误。
 	由于压缩后的网页文件使用伪元素显示重复内容，
-	因此很多浏览器将会无法选择、复制和搜索这部分文本，比如 Chrome 43，Firefox 56
-	但是可以通过“打印”选项保存为 PDF 格式，然后在 PDF 阅读器里选择文本。
-	IE 11 能够复制文本，但是不能从伪元素中间开始选择文本。
-	
-	注：当前为早期版本，有些功能尚未完善。
-		本工具无法在手机上运行，因为这是不必要的。
-	
+	但很多浏览器不支持选择、复制和搜索伪元素文本，比如 Chrome 43；
+	Firefox 83 可以搜索伪元素文本，但是不能复制；
+	IE 11 能够复制伪元素文本，但是不能从伪元素中间开始选择文本。
+	但是可以通过“打印”选项保存为 PDF 格式，然后在 PDF 阅读器里搜索或复制。
+			</pre>
+		</span>
+		<span class="help">
+			<input type="button" value="鸽王待办">
+			<pre> 
 	--- 计划中的后续更新内容 ---
-	1.支持加入图片
-	2.尝试去除图像冗余
+	1.支持打包图片、去除冗余
+	2.支持分析消息内容，比如有多少QQ不支持导出类型的消息、系统消息条目数
+	3.将处理代码分离到 worker，这样可以
+		1.显示进度条
+		2.避免堵塞主线程、导致界面假死的状况
 			</pre>
 		</span>
 		<span class="help">
 			<input type="button" value="更新日志">
 			<pre> 
+	v1.0.2  -  2020-12-9
+	【修复/兼容】新版QQ导出消息不显示帐号的情况。
+	以上反馈感谢：Doweny Rem
+	【优化体验】导出后页面的展开/折叠按钮热点区域
+	【优化体验】导出后页面的全部展开/折叠按钮保持在右上角
+	以上两项优化将导致文件大小增加 158 Byte ( 0.15 KiB ) 望周知
+	
 	v1.0.1  -  2020-7-7
 	【修复】当导出的聊天记录是12小时制时无法转换的问题。
-	反馈感谢：kaimo
+	以上反馈感谢：kaimo
 	
 	v1.0.0  -  2020-6-17
 	基础功能。
 			</pre>
 		</span>
+		<br><br>
+		现在开始 →
 		<input type="file" onchange="main()" accept="application/*, application/octet-stream, application/x-mimearchive, .mht, .mhtml">
 		<!-- leorchn base lib -->
 		<script src="/js/baseLib.js"></script>
@@ -195,7 +226,7 @@ table a{
 					var datecurrent = stoptime || new Date();
 					var timecurrent = datecurrent.getTime();
 					if(dl.rows.length > 1) timecost = timecurrent - parseInt(dl.rows[dl.rows.length -1].getAttribute('starttime'));
-					var sizedelta = [0, 'KB', 'MB', 'GB'];
+					var sizedelta = [0, 'KiB', 'MiB', 'GiB'];
 					while(size > 1024){
 						size = (size / 1024).toFixed(3);
 						sizedelta[0]++;

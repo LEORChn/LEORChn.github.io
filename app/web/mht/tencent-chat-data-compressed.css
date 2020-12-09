@@ -34,10 +34,16 @@ pre[head]:before{
 	display:none
 }
 [date][title]>input:first-child+label{
-	position:absolute;
-	line-height:24px;
-	margin-top:-29px;
-	right:10px;
+	position: absolute;
+	width: calc(100% - 10px);
+	line-height: 24px;
+	margin-top: -29px;
+	padding-right: 10px;
+	right: 0;
+	text-align: right;
+}
+[date][title]>input:first-child+label:hover{
+	background: rgba(0,0,0,.1);
 }
 [date][title]>input:first-child+label:before{
 	content:'收起'
