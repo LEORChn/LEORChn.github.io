@@ -40,12 +40,12 @@ function initDonationList(){
 			total += e.p;
 			var tr = ct('tr');
 			tr.appendChildren(
-				ct('td', e.n),
+				ct('td', e.n.endsWith(' *')? e.n.left(e.n.length - 2): e.n),
 				ct('td', e.s),
 				ct('td', e.p),
 				ct('td', e.t)
 			);
-			if(added < 8 || ('protect' in e)){
+			if(added < 8 || e.n.endsWith(' *')){
 				tbody.appendChild(tr);
 				added++;
 			}else{

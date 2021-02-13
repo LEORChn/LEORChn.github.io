@@ -71,14 +71,12 @@ permalink: /home/
 					{% capture diary_content %}{% include unescape src=diary_content %}{% endcapture %}
 				{% endif %}
 				{% capture diary_item_output %}
-					{%- if diary_hold -%}
-						<br>
-					{%- else %}
+					{%- unless diary_hold %}
 				<div class="post grid-item mui-panel">
 					<div class="title">{{ diary_title }}</div>
 					<div class="content">
-					{%- endif %}
-					{{- diary_content -}}
+					{%- endunless %}
+					<p>{{- diary_content -}}</p>
 				{% endcapture %}
 				{% capture diary_hold -%}
 					</div>
@@ -114,12 +112,17 @@ iframe{
 	content: '\201c';
 	font-size: 2em;
 	font-family: "monospace";
-	display: inline-block;
+	position: absolute;
 	color: #999999;
 }
-.post > .content > iframe{
+.post > .content > p{
+	text-indent: 2em;
+	margin: .5em 0;
+}
+.post > .content iframe{
 	width: 100%;
-	border: 0
+	border: 0;
+	margin-left: -2em;
 }
 
 /* 列宽 width 应该为：Math.floor(1 / 列数 x 100%) - item左右padding - (间隔值 x 间隔数量 x Math.floor(间隔数量 / 列数)) */
