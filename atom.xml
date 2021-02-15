@@ -46,7 +46,7 @@
 					{% assign diary_day = cmd[0] %}
 					{% continue %}
 				{% endif %}
-				{% capture diary_hold %}{{ diary_hold }}&lt;p>{{ row_content | escape }}&lt;/p>{% endcapture %}
+				{% capture diary_hold %}{{ diary_hold }}<p>{{ row_content }}</p>{% endcapture %}
 		{% endcase %}
 	{% endfor %}
 {%- endcapture -%}

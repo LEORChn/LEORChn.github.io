@@ -4,7 +4,7 @@
 		<category term="diary" />
 		<published>{{ include.date | date: '%Y-%m-%d' }}T23:59:59+08:00</published>
 		<id>/?{{ include.date }}</id>
-		<content type="html" xml:base="{{ site.url }}">{{ include.content }}</content>
+		<content type="html" xml:base="{{ site.url }}">{{ include.content | escape }}</content>
 		<summary type="html">{{ include.content | strip_html | truncate: 50 }}</summary>
 		<author><name /></author>
 	</entry>
