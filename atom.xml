@@ -1,0 +1,54 @@
+---
+---
+<?xml version="1.0" encoding="UTF-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
+	<generator>LEORChn Atom Generator</generator>
+	<link href="{{ site.url }}{{ page.url }}" rel="self" type="application/atom+xml" />
+	<link href="{{ site.url }}" rel="alternate" type="text/html" />
+	<updated>{{ 'now' | date: '%Y-%m-%dT%H:%M:%S' }}+00:00</updated>
+	<title type="html">瑞兽谷</title>
+	<subtitle>{{ site.description }}</subtitle>
+{%- capture nospace -%}
+	<!-- ========== 日记分类开始 ========== -->
+	{% assign diary_output = '' %}
+	{% for row in site.data.diary %}
+		<!-- ========== 行开始：提取当前行字符串 ========== -->
+		{% assign row_content = nil %}
+		{% for col in row %}
+			{% capture row_content %}{% if row_content %}	{% endif %}{{ col[1] }}{% endcapture %}
+		{% endfor %}
+		
+		<!-- 判断行类型 -->
+		{% assign cmd = row_content | split: ' ' %}
+		{% assign exec = cmd | first %}
+		{% case exec %}
+			{% when 'y' %}
+				{% assign diary_year = cmd[1] %}
+			{% when 'm' %}
+				{% assign diary_month = cmd[1] %}
+			{% else %}
+				{% assign tmp = cmd[0] %}
+				{% include isNumber src=tmp %}
+				{% if isNumber %}
+					<!-- if diary_is_day -->
+					{% if diary_hold %}
+						<!-- 新建日记之前，结束上一篇日记 -->
+						{% capture diary_date %}{{ diary_year }}-{{ diary_month }}-{{ diary_day }}{% endcapture %}
+						{% capture diary_output %}{{ diary_output }}{% include rss/diary_item_template_atom date=diary_date content=diary_hold %}{% endcapture %}
+						{% assign diary_hold = nil %}
+						{% increment diary_output_times %}
+						{% if diary_output_times >= 20 %}
+							{% break %}
+						{% endif %}
+					{% endif %}
+					
+					<!-- 新建日记 -->
+					{% assign diary_day = cmd[0] %}
+					{% continue %}
+				{% endif %}
+				{% capture diary_hold %}{{ diary_hold }}&lt;p>{{ row_content | escape }}&lt;/p>{% endcapture %}
+		{% endcase %}
+	{% endfor %}
+{%- endcapture -%}
+	{{ diary_output }}
+</feed>
