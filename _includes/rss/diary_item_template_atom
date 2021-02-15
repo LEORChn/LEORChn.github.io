@@ -1,8 +1,8 @@
-
-	<entry>{% assign dit_diary_month = include.date | date: '%m' | plus: 0 %}
-		<title type="html">{{ include.date | date: '%Y年m月%d日记' | replace: 'm', dit_diary_month }}</title>
+{% capture dit_diary_month_day %}{{ include.date | date: '%m' | plus: 0 }}月{{ include.date | date: '%d' | plus: 0 }}{% endcapture %}
+	<entry>
+		<title type="html">{{ include.date | date: '%Y年md日记' | replace: 'md', dit_diary_month_day }}</title>
 		<category term="diary" />
-		<published>{{ include.date | date: '%Y-%m-%d' }}T23:59:59+08:00</published>
+		<published>{{ include.date | date: '%F' }}T23:59:59+08:00</published>
 		<id>/?{{ include.date }}</id>
 		<content type="html" xml:base="{{ site.url }}">{{ include.content | escape }}</content>
 		<summary type="html">{{ include.content | strip_html | truncate: 50 }}</summary>

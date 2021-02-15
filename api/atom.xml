@@ -1,11 +1,12 @@
 ---
+permalink: /atom.xml
 ---
 <?xml version="1.0" encoding="UTF-8" ?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
 	<generator>LEORChn Atom Generator</generator>
 	<link href="{{ site.url }}{{ page.url }}" rel="self" type="application/atom+xml" />
 	<link href="{{ site.url }}" rel="alternate" type="text/html" />
-	<updated>{{ 'now' | date: '%Y-%m-%dT%H:%M:%S' }}+00:00</updated>
+	<updated>{{ 'now' | date: '%FT%T' }}+00:00</updated>
 	<title type="html">瑞兽谷</title>
 	<subtitle>{{ site.description }}</subtitle>
 {%- capture nospace -%}
@@ -33,7 +34,6 @@
 					<!-- if diary_is_day -->
 					{% if diary_hold %}
 						<!-- 新建日记之前，结束上一篇日记 -->
-						{% capture diary_date %}{{ diary_year }}-{{ diary_month }}-{{ diary_day }}{% endcapture %}
 						{% capture diary_output %}{{ diary_output }}{% include rss/diary_item_template_atom date=diary_date content=diary_hold %}{% endcapture %}
 						{% assign diary_hold = nil %}
 						{% increment diary_output_times %}
@@ -44,6 +44,7 @@
 					
 					<!-- 新建日记 -->
 					{% assign diary_day = cmd[0] %}
+					{% capture diary_date %}{{ diary_year }}-{{ diary_month }}-{{ diary_day }}{% endcapture %}
 					{% continue %}
 				{% endif %}
 				{% capture diary_hold %}{{ diary_hold }}<p>{{ row_content }}</p>{% endcapture %}
