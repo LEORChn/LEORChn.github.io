@@ -3,7 +3,7 @@
 article{
 	position: relative;
 	&:not([global-custom]){
-		padding: 15px 15px 0;
+		padding: 20px 15px;
 		@media (min-width: 544px){
 			width: 83.3333%;
 			margin-left: 8.3333%;

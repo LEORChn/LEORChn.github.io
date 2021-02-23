@@ -1,14 +1,17 @@
 ---
 title: 欢迎使用 LMUI
 layout: lmui-webapp
+thanks:
+  - ['MDUI', 'https://www.mdui.org/design/layout/structure.html#app-bar-figure-caption-6']
+  - ['MUI-CSS', 'https://muicss.com']
 ---
 
 LMUI 是一个为 Jekyll 打造的轻量级 Material Design 模板界面。
 
 ## 宗旨
 
-* 实现效果尽可能使用 CSS 和更少的 DOM 嵌套
-* 实现效果尽可能不使用 JavaScript
+* 实现效果尽可能使用 CSS 和更少的元素嵌套
+* 实现效果尽可能少用 JavaScript
 
 ## 兼容性
 
@@ -41,7 +44,7 @@ LMUI 是一个为 Jekyll 打造的轻量级 Material Design 模板界面。
 
 ### icon
 
-参数用法等同于 HTML img 标签中的 src 属性。
+参数用法等同于 HTML img 元素中的 src 属性。
 
 当出现此选项时，会给左上角的菜单按钮添加图标。
 
