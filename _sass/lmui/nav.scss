@@ -106,21 +106,17 @@ nav, .nav{
 			}
 			&:not(:checked) ~ ul{ /* (未展开时) */
 				pointer-events: none;
-				max-height: 0;
-				animation: collapse .2s forwards; /* 这个地方使用 animation 来控制透明度动画，因为 Chrome43 在渲染这个元素的透明度动画时会导致导航栏变暗背景的闪烁（其他系统和浏览器不会发生此渲染问题） */
+				margin: 0;
+				transition: .2s;
 				> li{
 					max-height: 0;
 					padding: 0;
+					a{
+						color: transparent;
+						transition: .2s;
+					}
 				}
 			}
 		}
-	}
-}
-@keyframes collapse{
-	100%{
-		opacity: 0;
-	}
-	99%{
-		opacity: 1;
 	}
 }
