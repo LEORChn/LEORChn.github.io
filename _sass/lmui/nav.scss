@@ -1,0 +1,126 @@
+@charset "UTF-8";
+/* ============================== begin nav.scss ============================== */
+/* 开关组件 - 持续隐藏 */
+#ui_expand_navigation{
+	display: none;
+	/* 未激活时侧边栏所显示的部分隐藏到左边 */
+	&:not(:checked) ~ nav{
+		left: -320px;
+		/* 未激活时侧边栏背景为透明并不可响应事件 */
+		.overlay-background{
+			background: transparent;
+			width: 100vw;
+			pointer-events: none;
+		}
+	}
+}
+/* 激活生效与失效（侧边栏出现隐藏、背景变暗变亮）动画时长 */
+nav .overlay-background, nav{
+	transition: .2s;
+}
+nav{
+	position: fixed;
+	max-width: 320px;
+	z-index: 1;
+	.overlay-background{
+	    position: fixed;
+	    right: 0;
+	    width: calc(100vw - 320px);
+		min-width: 56px;
+	    height: 100vh;
+	    background: rgba(0,0,0,.5);
+	}
+}
+.nav{
+	position: absolute;
+	max-width: 100%;
+	background: #fff;
+}
+/* 导航栏有效显示区域 */
+nav, .nav{
+	width: calc(100vw - 56px);
+	min-height: 100%;
+	left: 0;
+	top: 0;
+}
+/* 网站根 导航Item */
+.nav{
+	-webkit-user-select: none;
+	user-select: none;
+	> h2{
+		margin: 0;
+		a{
+			color: rgba(0,0,0,.38);
+			margin-left: 24px;
+			text-decoration: none;
+		}
+	}
+	ul, li{
+		list-style: none
+	}
+	/* 其他 导航Item */
+	> li{
+		font-size: .8125rem;
+		/* 其他 导航Item（首个）与以上的间隔 */
+		&:first-of-type{
+			padding-top: .9375rem;
+		}
+		a{
+			color: rgba(0,0,0,.87);
+			display: block;
+			padding: .9375rem 1.375rem;
+			font-weight: 700;
+			&:hover{
+				background-color: #e0e0e0;
+			}
+		}
+		/* 导航Item（可二级展开） */
+		label > [type=checkbox]{
+			display: none;
+			/* 导航Item 二级展开 状态小箭头 父元素 */
+			~ a{
+				position: relative;
+			}
+			/* (2) 导航Item 二级展开 状态小箭头 */
+			~ * > .mui-caret{
+				position: absolute;
+				top: calc(.9375rem + .5em);
+				right: 1.375rem;
+			}
+			&:checked ~ * > .mui-caret{ /* 展开时，箭头转向下 */
+				border-top-width: 0;
+				border-bottom: 4px solid #000;
+			}
+			/* 导航Item 二级展开 列表Item */
+			~ ul > li{
+				padding: .375rem 0;
+				max-height: calc(.9375rem * 2 + 1em);
+				transition: .2s;
+				a{
+					padding: 0;
+					font-weight: normal;
+					&:hover{
+						background-color: transparent;
+					}
+				}
+			}
+			&:not(:checked) ~ ul{ /* (未展开时) */
+				pointer-events: none;
+				max-height: 0;
+				animation: collapse .2s forwards; /* 这个地方使用 animation 来控制透明度动画，因为 Chrome43 在渲染这个元素的透明度动画时会导致导航栏变暗背景的闪烁（其他系统和浏览器不会发生此渲染问题） */
+				> li{
+					max-height: 0;
+					padding: 0;
+				}
+			}
+		}
+	}
+}
+@keyframes collapse{
+	100%{
+		opacity: 0;
+	}
+	99%{
+		opacity: 1;
+	}
+}

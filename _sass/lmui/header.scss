@@ -1,0 +1,65 @@
+@charset "UTF-8";
+header{
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	color: white;
+	font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 1;
+    &:not([immersive]){
+    	background-image: linear-gradient(to left, rgb(125, 127, 221), rgb(0, 153, 255));
+    	box-shadow: 0 2px 5px rgba(0,0,0,.26);
+    }
+    @media (orientation: landscape){
+		line-height: 48px
+	}
+	@media (orientation: portrait){
+		line-height: 56px;
+	}
+	@media (orientation: landscape) and (min-height: 640px){
+		line-height: 64px;
+	}
+}
+.caption-button{
+	vertical-align: top;
+	display: inline-block;
+	background: url(lmui/menu.svg) 50% 50% no-repeat;
+	background-size: 24px;
+	> img{
+		width: 50%;
+		height: 50%; /* (+2) 确保内部图片压成正方形 */
+		border-radius: 50%; /* 确保内部图片由正方形压成圆形 */
+		border: solid 1px #fff;  /* 然后再加个白边（电脑视图为2px宽） */
+		margin-top: calc(25% - 1px);
+		margin-left: calc(25% + 1px); /* (+2) 重新计算位置（记得白边也要算） */
+		pointer-events: none;
+	}
+    @media (orientation: landscape){
+		width: 48px;
+		height: 48px;
+		&:not(:empty){
+			background-position-x: -66%;
+		}
+	}
+	@media (orientation: portrait){
+		width: 56px;
+		height: 56px;
+		&:not(:empty){
+			background-position-x: -50%;
+		}
+	}
+	@media (orientation: landscape) and (min-height: 640px){
+		width: 64px;
+		height: 64px;
+		&:not(:empty){
+			background-position-x: -33%;
+		}
+		> img{
+			border: solid 2px #fff;  /* 然后再加个白边（非电脑视图为1px宽） */
+			margin-top: calc(25% - 2px);
+			margin-left: calc(25% + 2px); /* (+2) 重新计算位置（白边也算） */
+		}
+	}
+}

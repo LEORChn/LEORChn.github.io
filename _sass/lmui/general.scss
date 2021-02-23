@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+/* 全局和一些业内通用样式 */
+*{
+	scrollbar-width: thin;
+	&:not(ul):not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){
+		margin: 0;
+		padding: 0;
+	}
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar{
+	width: 7px;
+	height: 7px;
+	background-color: #fff;
+	&-thumb{
+	    background-color: #888;
+	    border-radius: 10px;
+	}
+}
+
+/* 以下是当 overlay 触发时，背景变暗效果（比如导航栏展开） */
+body[overlay]{
+	overflow: hidden;
+}
+body[overlay] nav, body[overlay] .nav{
+	overflow-x: hidden;
+	overflow-y: auto;
+}

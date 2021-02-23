@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>{{ page.title }} - 瑞兽谷</title>
+	{% seo %}
+</head>
+<body>
+	<input type="checkbox" id="ui_expand_navigation" onchange="overlay_change(this)">
+	<header>
+		<label class="caption-button" for="ui_expand_navigation">
+			{%- assign caption_icon = page.icon | default: layout.icon -%}
+			{%- if caption_icon -%}
+				<img src="{{ caption_icon }}">
+			{%- endif -%}
+		</label>
+		{{- page.title -}}
+	</header>
+	<nav>
+		<label class="overlay-background" for="ui_expand_navigation"></label>
+		<div class="nav left">
+			<h2 class="mui--appbar-line-height"><a href="/">瑞兽谷</a></h2>
+			<div class="mui-divider"></div>
+			{% for e in layout.nav -%}
+			<li><a href="{{ e[1] }}">{{ e[0] }}</a></li>
+			{% endfor -%}
+			{% if page.thanks -%}
+			<li>
+				<label>
+					<input type="checkbox">
+					<a>致谢<div class="mui-caret"></div></a>
+					<ul>
+					{%- for e in page.thanks %}
+						{% assign externalLinkOption = e[1] | slice: 0, 4 | lcase -%}
+						<li><a
+						{%- if externalLinkOption == 'http' %} target="_blank" rel="nofollow noreferrer" {% endif -%}
+						href="{{ e[1] }}">{{ e[0] }}</a></li>
+					{%- endfor %}
+					</ul>
+				</label>
+			</li>
+			{%- endif %}
+		</div>
+	</nav>
+	<article>
+		{{ content }}
+	</article>
+</body>
+<style>@import "/frame/lmui.css";</style>
+<script>
+function overlay_change(e){
+	if(e.checked)
+		document.body.setAttribute('overlay','');
+	else
+		document.body.removeAttribute('overlay');
+}
+</script>
+</html>

@@ -1,0 +1,29 @@
+@charset "UTF-8";
+/* ============================== begin section.scss ============================== */
+article{
+	position: relative;
+	&:not([global-custom]){
+		padding: 15px 15px 0;
+		@media (min-width: 544px){
+			width: 83.3333%;
+			margin-left: 8.3333%;
+		}
+		/* 部分内含网址的元素可能导致整个页面的宽度溢出，添加这个让滚动条限制在其自身内 */
+		> *{
+			overflow: auto;
+		}
+	}
+}
+
+/* 由于标题栏是浮空的，因此非沉浸模式下的第一个文章元素应产生与标题栏相当高度的顶部外边距 */
+*:not([immersive]) article:first-of-type{
+	@media (orientation: landscape){
+		margin-top: 48px;
+	}
+	@media (orientation: portrait){
+		margin-top: 56px;
+	}
+	@media (orientation: landscape) and (min-height: 640px){
+		margin-top: 64px;
+	}
+}
