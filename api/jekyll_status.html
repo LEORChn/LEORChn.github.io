@@ -1,0 +1,37 @@
+---
+layout: lmui
+title: 服务器状态
+permalink: jekyll_status
+icon: favicon.png
+---
+<pre>
+部署：{{ site.host }}:{{ site.port }}
+访问点：{{ site.url }}
+
+已启用插件：{{ site.plugins }}
+source: {{ site.source }}
+destination: {{ site.destination }}
+collections_dir: {{ site.collections_dir }}
+plugins_dir: {{ site.plugins_dir }}
+layouts_dir: {{ site.layouts_dir }}
+data_dir: {{ site.data_dir }}
+includes_dir: {{ site.includes_dir }}
+safe: {{ site.safe }}
+include: {{ site.include }}
+
+静态文件量：{{ site.static_files.size }}
+
+Markdown 转换程序：{{ site.markdown }}
+
+代码高亮转换程序：{{ site.highlighter }}
+
+时区：{{ site.timezone }}
+
+==============================
+
+{% unless site.unpublished %}
+	{{- site | inspect -}}
+{% endunless %}
+
+</pre>
+
