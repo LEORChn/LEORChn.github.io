@@ -6,7 +6,8 @@ article{
 		padding: 20px 15px;
 		@media (min-width: 544px){
 			width: 83.3333%;
-			margin-left: 8.3333%;
+			margin-left: auto;
+			margin-right: auto;
 		}
 		/* 部分内含网址的元素可能导致整个页面的宽度溢出，添加这个让滚动条限制在其自身内 */
 		> *{
