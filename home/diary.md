@@ -8,7 +8,7 @@ permalink: /home/
 			<div class="watermarkTopRight" onselectstart="return false">Recent</div>
 			<div class="h1">
 				<div style="display:inline">最近发布</div>
-				<a href="/api/rss.xml" style="font-size:medium"><img src="img/rss_24.gif" width="16" height="16" />RSS订阅</a>
+				<a href="/atom.xml" style="font-size:medium"><img src="img/rss_24.gif" width="16" height="16" />RSS订阅</a>
 			</div>
 			<br>
 			<div class="grid" masonry gutter="10" itemselector=".grid-item" columnwidth=".sizer">

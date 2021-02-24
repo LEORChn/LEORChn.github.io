@@ -1,0 +1,18 @@
+---
+permalink: /api/rss.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+	<channel>
+		<title>瑞兽谷 动态</title>
+		<link>https://leorchn.github.io/</link>
+		<description>瑞兽谷最新资讯</description>
+		<lastBuildDate>Wed, 24 Feb 2021 14:00:00 UTC+0000</lastBuildDate>
+		<generator>LEORChn RSS 2.0 Generator v1</generator>
+		<item>
+			<pubDate>Wed, 24 Feb 2021 14:00:00 UTC+0000</pubDate>
+			<title>RSS 功能转移通知</title>
+			<description>&lt;p&gt;由于RSS即将更换链接，订阅了此RSS源的用户请先换到另一个Atom源。&lt;/p&gt;&lt;p&gt;https://leorchn.github.io/atom.xml&lt;/p&gt;</description>
+		</item>
+	</channel>
+</rss>
