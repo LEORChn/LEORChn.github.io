@@ -1,0 +1,47 @@
+@charset "UTF-8";
+/* ============================== begin home.scss ============================== */
+
+article:not([global-custom]) > [home-header-img]{
+	overflow: visible;
+}
+[home-header-img]{
+	left: 0;
+	top: 0;
+	margin-top: -20px;
+	margin-left: calc((100vw - 100%) / -2);
+	pointer-events: none;
+	-webkit-user-select: none;
+	user-select: none;
+	> *{
+		position: relative;
+		width: 100vw;
+		overflow: hidden;
+		min-height: 90px;
+		@media (max-width: 1100px){
+			height: calc(224px - (1100px - 100vw) / 1100 * 224);
+			/* 适宜展示宽高 = 1100x224px。
+				先用最大适宜宽度减去屏幕宽度，得到所削减的宽度
+				然后用削减的宽度除以1100，得到图片宽度系数（屏宽1100时缩小0%，得到1px即100%；825时缩小25%，为0.75px；550时缩小50%，为0.5px）
+				然后用图片宽度系数乘以适宜展示高度，得到适宜展示高度应该削减的高度
+				最后用图片高度减去应该削减的高度，得到当前应该显示的高度
+			*/
+		}
+		@media (min-width: 1101px){
+			height: 25vh; /* 在没有超出图片比例，一般的情况下图片的展示高度为窗口高度的25% */
+			max-height: calc(100vw / 2035 * 415); /* 图片宽2035px，高415px */
+			min-height: calc(100vw / 1100 * 90); /* 最佳展示示例宽度1100px，在此宽度下最小高度为90px */
+		}
+		img{
+			position: absolute;
+			bottom: 0;
+			/* 当宽度小于 1100px 时，图片缩放倍率 = 0.54。超出部分进行裁剪 */
+			@media (max-width: 1100px){
+				width: 1100px;
+			}
+			/* 当宽度大于 1100px 时，图片缩放倍率 > 0.54 */
+			@media (min-width: 1101px){
+				width: 100%; /* 自适应缩放宽度和高度 */
+			}
+		}
+	}
+}

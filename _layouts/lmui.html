@@ -2,10 +2,13 @@
 <html>
 <head>
 	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>{{ page.title }} - 瑞兽谷</title>
+	<title>{% if page.title %}{{ page.title }} - {% endif %}瑞兽谷</title>
 	{% seo %}
 </head>
-<body>
+{% if layout.feature contains 'immersive' or page.feature contains 'immersive' %}
+	{% assign immersive = ' immersive' %}
+{% endif %}
+<body {{- immersive -}} >
 	<input type="checkbox" id="ui_expand_navigation" onchange="overlay_change(this)">
 	<header>
 		<label class="caption-button" for="ui_expand_navigation">
@@ -45,6 +48,7 @@
 	<article>
 		{{ content }}
 	</article>
+	<label class="caption-button" run-when-immersive></label>
 </body>
 <style>@import "/frame/lmui.css";</style>
 <script>

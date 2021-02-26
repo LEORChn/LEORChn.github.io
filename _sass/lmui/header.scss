@@ -1,18 +1,34 @@
 @charset "UTF-8";
+/* ============================== begin header.scss ============================== */
+/* 沉浸模式 */
+body[immersive]{
+	/* 标题栏将去除背景颜色， */
+	header{
+		background-image: none;
+		box-shadow: none;
+	}
+	/* 标题栏将去除背景颜色， */
+	.caption-button[run-when-immersive]{
+		background: rgba(0,0,0,.5);
+		position: fixed;
+		top: 0;
+		z-index: -1;
+	}
+}
+
+/* 标题栏 */
 header{
 	position: fixed;
 	top: 0;
 	width: 100vw;
 	color: white;
 	font-size: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    z-index: 1;
-    &:not([immersive]){
-    	background-image: linear-gradient(to left, rgb(125, 127, 221), rgb(0, 153, 255));
-    	box-shadow: 0 2px 5px rgba(0,0,0,.26);
-    }
-    @media (orientation: landscape){
+	white-space: nowrap;
+	overflow: hidden;
+	z-index: 1;
+	background-image: linear-gradient(to left, rgb(125, 127, 221), rgb(0, 153, 255));
+	box-shadow: 0 2px 5px rgba(0,0,0,.26);
+	@media (orientation: landscape){
 		line-height: 48px
 	}
 	@media (orientation: portrait){
@@ -22,6 +38,8 @@ header{
 		line-height: 64px;
 	}
 }
+
+/* 菜单按钮 */
 .caption-button{
 	vertical-align: top;
 	display: inline-block;
@@ -36,7 +54,7 @@ header{
 		margin-left: calc(25% + 1px); /* (+2) 重新计算位置（记得白边也要算） */
 		pointer-events: none;
 	}
-    @media (orientation: landscape){
+	@media (orientation: landscape){
 		width: 48px;
 		height: 48px;
 		&:not(:empty){

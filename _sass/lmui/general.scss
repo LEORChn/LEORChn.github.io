@@ -28,3 +28,10 @@ body[overlay] nav, body[overlay] .nav{
 	overflow-x: hidden;
 	overflow-y: auto;
 }
+
+/* 以下用于旧版浏览器（不支持scrollbar-width）在沉浸模式下，可能因为头图溢出而出现横向滚动条的情况 */
+@supports not (scrollbar-width: thin){
+	body[immersive]:not([global-custom]){
+		overflow-x: hidden;
+	}
+}

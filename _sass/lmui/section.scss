@@ -1,11 +1,17 @@
 @charset "UTF-8";
 /* ============================== begin section.scss ============================== */
+$article_width_request_to_screen: 83.3333vw;
+$article_padding_left: 15px;
+$article_padding_right: 15px;
+$article_padding_average_LR: ($article_padding_left + $article_padding_right) / 2;
+
+
 article{
 	position: relative;
 	&:not([global-custom]){
 		padding: 20px 15px;
 		@media (min-width: 544px){
-			width: 83.3333%;
+			width: $article_width_request_to_screen;
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -17,7 +23,7 @@ article{
 }
 
 /* 由于标题栏是浮空的，因此非沉浸模式下的第一个文章元素应产生与标题栏相当高度的顶部外边距 */
-*:not([immersive]) article:first-of-type{
+body:not([immersive]) article:first-of-type{
 	@media (orientation: landscape){
 		margin-top: 48px;
 	}
