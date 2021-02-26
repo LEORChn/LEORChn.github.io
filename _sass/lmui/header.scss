@@ -1,18 +1,26 @@
 @charset "UTF-8";
 /* ============================== begin header.scss ============================== */
-/* 沉浸模式 */
-body[immersive]{
-	/* 标题栏将去除背景颜色， */
-	header{
-		background-image: none;
-		box-shadow: none;
+
+body{
+	&[immersive]{
+		/* 沉浸模式下，标题栏将去除背景颜色和层级阴影 */
+		header{
+			background-image: none;
+			box-shadow: none;
+		}
+		/* 沉浸模式下，侧边栏菜单按钮背景会启用 */
+		.caption-button[run-when-immersive]{
+			background: rgba(0,0,0,.5);
+			position: fixed;
+			top: 0;
+			z-index: -1;
+		}
 	}
-	/* 标题栏将去除背景颜色， */
-	.caption-button[run-when-immersive]{
-		background: rgba(0,0,0,.5);
-		position: fixed;
-		top: 0;
-		z-index: -1;
+	/* 侧边栏菜单按钮背景在非沉浸模式时隐藏 */
+	&:not([immersive]){
+		.caption-button[run-when-immersive]{
+			display: none;
+		}
 	}
 }
 
@@ -39,7 +47,7 @@ header{
 	}
 }
 
-/* 菜单按钮 */
+/* 侧边栏菜单按钮 */
 .caption-button{
 	vertical-align: top;
 	display: inline-block;
