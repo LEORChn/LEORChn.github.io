@@ -12,19 +12,19 @@
 }
 
 /* 代码贡献记录图表 - 手动实现 */
-[fill="var(--color-calendar-graph-day-bg)"]{
+.ContributionCalendar-day{
 	fill: #ebedf8;
 }
-[fill="var(--color-calendar-graph-day-L1-bg)"]{
+.ContributionCalendar-day[data-level="1"]{
 	fill: #9be9a8;
 }
-[fill="var(--color-calendar-graph-day-L2-bg)"]{
+.ContributionCalendar-day[data-level="2"]{
 	fill: #40c463;
 }
-[fill="var(--color-calendar-graph-day-L3-bg)"]{
+.ContributionCalendar-day[data-level="3"]{
 	fill: #30a14e;
 }
-[fill="var(--color-calendar-graph-day-L4-bg)"]{
+.ContributionCalendar-day[data-level="4"]{
 	fill: #216e39;
 }
 
