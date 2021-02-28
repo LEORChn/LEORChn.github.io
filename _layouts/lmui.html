@@ -4,6 +4,7 @@
 	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>{% if page.title %}{{ page.title }} - {% endif %}瑞兽谷</title>
 	{% seo %}
+	<style>@import "{% include cdn src="/frame/lmui.css" %}";</style>
 </head>
 {% if layout.feature contains 'immersive' or page.feature contains 'immersive' %}
 	{% assign immersive = ' immersive' %}
@@ -50,7 +51,6 @@
 	</article>
 	<label class="caption-button" run-when-immersive></label>
 </body>
-<style>@import "/frame/lmui.css";</style>
 <script>
 function overlay_change(e){
 	if(e.checked)
