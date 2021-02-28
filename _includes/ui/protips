@@ -1,0 +1,57 @@
+{%- comment -%}
+	
+	Usage:
+		{% include ui/protips src='
+first, i want to say...
+second, i want to say...
+and...
+' %}
+
+	Optional Arguments:
+		height		def:66px
+		duration	def:10	(s)
+	
+{%- endcomment -%}
+
+{% assign protips = include.src | strip | split:'
+' %}
+<div protips style="overflow: hidden">
+	<div>
+		{%- for tmp in protips %}
+		<p>{{ tmp }}</p>
+		{%- endfor %}
+	</div>
+</div>
+<style>
+[protips]{
+	position: relative;
+	background-color: #fff;
+	height: {{ include.height | default: '66px' }};
+}
+[protips] div{
+	position: absolute;
+	animation: protips {{ include.duration | default: 10 }}s linear infinite;
+}
+[protips] p{
+	display: flex;
+	align-items: center;
+	padding: 0 26px;
+	height: {{ include.height | default: '66px' }};
+	text-indent: 2em;
+}
+@keyframes protips{ /* generate by liquid */
+{%- for tmp in (1..protips.size) %}
+	{% assign tmp2 = 100 | divided_by: protips.size | times: tmp -%}
+	{{ tmp2 | plus: -1 }}%{
+		{{- ' ' -}}
+		top: {{ tmp | plus: -1 | times: -100 }}%
+		{{- ' ' -}}
+	}
+	{{ tmp2 }}%{
+		{{- ' ' -}}
+		top: {% if tmp == protips.size %}0{% else %}{{ tmp | times: -100 }}%{% endif %}
+		{{- ' ' -}}
+	}
+{%- endfor %}
+}
+</style>
