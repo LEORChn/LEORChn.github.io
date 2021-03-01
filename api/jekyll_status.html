@@ -4,32 +4,38 @@ title: 服务器状态
 permalink: jekyll_status
 icon: favicon.png
 ---
+{% capture basictable %}
+| 键               | 值                              |
+| :--------------- | :------------------------------ |
+| 服务器程序部署   | {{ site.host }}:{{ site.port }} |
+| 网站访问点       | {{ site.url }}                  |
+|                  |                                 |
+| 构建时间         | {{ site.time }}                 |
+| 已启用插件       | {{ site.plugins }}              |
+| 构建源文件目录   | {{ site.source }}               |
+| 构建生成位置     | {{ site.destination }}          |
+|                  |                                 |
+| 已定义集合       | {{ site.collections_dir }}      |
+| 插件目录         | {{ site.plugins_dir }}          |
+| 布局模板目录     | {{ site.layouts_dir }}          |
+| 数据库目录       | {{ site.data_dir }}             |
+| 解耦模块目录     | {{ site.includes_dir }}         |
+| 安全模式         | {{ site.safe }}                 |
+| include          | {{ site.include }}              |
+|                  |                                 |
+| 静态文件量       | {{ site.static_files.size }}    |
+|                  |                                 |
+| Markdown转换程序 | {{ site.markdown }}             |
+|                  |                                 |
+| 代码高亮转换程序 | {{ site.highlighter }}          |
+|                  |                                 |
+| 时区             | {{ site.timezone }}             |
+
+---
+{% endcapture %}
+{{ basictable | markdownify }}
+<div style="page-break-after: always"></div>
 <pre>
-服务器程序部署：{{ site.host }}:{{ site.port }}
-网站访问点：    {{ site.url }}
-
-已启用插件：      {{ site.plugins | inspect }}
-构建源文件目录：  {{ site.source }}
-构建生成位置：    {{ site.destination }}
-构建时间：        {{ site.time }}
-已定义的集合目录：{{ site.collections_dir }}
-插件目录：        {{ site.plugins_dir }}
-布局模板目录：    {{ site.layouts_dir }}
-数据库目录：      {{ site.data_dir }}
-includes_dir：    {{ site.includes_dir }}
-安全模式：        {{ site.safe }}
-include：         {{ site.include }}
-
-静态文件量：{{ site.static_files.size }}
-
-Markdown 转换程序：{{ site.markdown }}
-
-代码高亮转换程序： {{ site.highlighter }}
-
-时区：{{ site.timezone }}
-
-==============================
-
 {% unless site.unpublished %}
 	{{- site | inspect -}}
 {% endunless %}

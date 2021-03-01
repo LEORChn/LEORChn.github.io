@@ -32,6 +32,9 @@ and...
 	position: absolute;
 	animation: protips {{ include.duration | default: 10 }}s linear infinite;
 }
+[protips]:hover div{
+	animation-play-state: paused;
+}
 [protips] p{
 	display: flex;
 	align-items: center;
