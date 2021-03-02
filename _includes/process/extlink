@@ -1,0 +1,4 @@
+{{- include.content | default: include.src
+| replace: '<a href="http://', '<a target="_blank" rel="nofollow noreferrer" href="http://'
+| replace: '<a href="https://', '<a target="_blank" rel="nofollow noreferrer" href="https://'
+-}}

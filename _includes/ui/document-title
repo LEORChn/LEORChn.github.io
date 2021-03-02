@@ -1,0 +1,11 @@
+{% capture noputput %}
+	{% if page.title %}
+		{% assign document_title = page.title %}
+		{% unless layout.feature contains 'document.title-no-tail' or page.feature contains 'document.title-no-tail' %}
+			{% assign document_title = document_title | append: ' - site.title' %}
+		{% endunless %}
+	{% else %}
+		{% assign document_title = 'site.title' %}
+	{% endif %}
+{% endcapture %}
+{{- document_title | replace: 'site.title', site.title -}}

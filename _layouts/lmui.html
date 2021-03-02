@@ -1,10 +1,20 @@
+{% comment %}
+
+	如果页面引用此布局，feature 可以加入下列值：
+
+		document.title-no-tail	不在浏览器标题栏末尾附加网站名小尾巴
+		global-custom	取消自带的左右边距，取消各种自带的兼容性措施
+		immersive	将可绘制区域的标题栏变透明，并关闭标题栏下方阴影
+
+{% endcomment %}
+{%- assign empty_array = '' | split: '' -%}
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>{% if page.title %}{{ page.title }} - {% endif %}瑞兽谷</title>
+	<title>{% include ui/document-title %}</title>
 	{% seo %}
-	<style>@import "{% include cdn src="/frame/lmui.css" %}";</style>
+	<style>@import "/frame/lmui.css";</style>
 </head>
 {% if layout.feature contains 'immersive' or page.feature contains 'immersive' %}
 	{% assign immersive = ' immersive' %}
@@ -12,6 +22,7 @@
 <body {{- immersive -}} >
 	<input type="checkbox" id="ui_expand_navigation" onchange="overlay_change(this)">
 	<header>
+		{{- '' -}}
 		<label class="caption-button" for="ui_expand_navigation">
 			{%- assign caption_icon = page.icon | default: layout.icon -%}
 			{%- if caption_icon -%}
@@ -25,10 +36,28 @@
 		<div class="nav left">
 			<h2 class="mui--appbar-line-height"><a href="/">瑞兽谷</a></h2>
 			<div class="mui-divider"></div>
-			{% for e in layout.nav -%}
-			<li><a href="{{ e[1] }}">{{ e[0] }}</a></li>
-			{% endfor -%}
-			{% if page.thanks -%}
+			{%- assign lmui_nav_layout = layout.nav | default: empty_array -%}
+			{%- assign lmui_nav_page   = page.nav   | default: empty_array -%}
+			{%- assign lmui_nav = lmui_nav_layout | concat: lmui_nav_page -%}
+			{% for e in lmui_nav -%}
+				{% if e[1].first -%}
+				<li>
+					<label>
+						<input type="checkbox">
+						<a>{{ e[0] }}<div class="mui-caret"></div></a>
+						<ul>
+						{%- for f in (1..e.size) -%}
+							{% if f == e.size %}{% break %}{% endif %}
+							<li><a href="{{ e[f][1] }}">{{ e[f][0] }}</a></li>
+						{% endfor -%}
+						</ul>
+					</label>
+				</li>
+				{% else -%}
+					<li><a href="{{ e[1] }}">{{ e[0] }}</a></li>
+				{% endif -%}
+			{% endfor %}
+			{%- if page.thanks -%}
 			<li>
 				<label>
 					<input type="checkbox">

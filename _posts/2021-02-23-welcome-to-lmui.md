@@ -48,9 +48,21 @@ LMUI 是一个为 Jekyll 打造的轻量级 Material Design 模板界面。
 
 参数用法等同于 HTML img 元素中的 src 属性。
 
-当出现此选项时，会给左上角的菜单按钮添加图标。
+【可选选项】当出现此选项时，会给左上角的菜单按钮添加圆形图标。默认行为是仅3条横线。
+
+### nav
+
+参数用法请参考： https://github.com/LEORChn/LEORChn.github.io/blob/master/index3.html
+
+【可选，但建议有】此选项用于绘制导航栏。当布局与页面都有此选项时，默认先添加页面的导航，然后添加布局的导航。
 
 ### feature
+
+#### document.title-no-tail
+
+如果检测到这个标签，那么浏览器的标题栏将不会添加网站名小尾巴。
+
+以瑞兽谷气象站为例，此选项用于当可绘制标题在解释功能时已经包含网站名的场景。
 
 #### global-custom
 

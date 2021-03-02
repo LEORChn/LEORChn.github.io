@@ -1,20 +1,33 @@
 ---
 layout: lmui
-title: 服务器状态
+title: 瑞兽谷气象站 - 服务器状态
+feature: document.title-no-tail
 permalink: jekyll_status
 icon: favicon.png
 ---
 {% capture basictable %}
-| 键               | 值                              |
+{% assign tz = 'now' | date: '%z' %}
+{% assign tz_shift_hour = tz | to_integer | divided_by: 100 %}
+{% assign tz_shift_minute = tz | to_integer | modulo: 100 %}
+{% assign tz_E8_shift_sec = 0 | minus: tz_shift_hour | times: 60 | minus: tz_shift_minute | plus: 480 | times: 60 %}
+{% assign time_E8 = site.time | date: '%s' | plus: tz_E8_shift_sec | date: '%F %T' %}
+## 简略
+
+| 检测项目         | 检测值                          |
 | :--------------- | :------------------------------ |
 | 服务器程序部署   | {{ site.host }}:{{ site.port }} |
 | 网站访问点       | {{ site.url }}                  |
 |                  |                                 |
+| 时区             | {{ tz }}                        |
 | 构建时间         | {{ site.time }}                 |
-| 已启用插件       | {{ site.plugins }}              |
+| 构建时间+8       | {{ time_E8 }} +0800             |
 | 构建源文件目录   | {{ site.source }}               |
 | 构建生成位置     | {{ site.destination }}          |
+| 静态文件量       | {{ site.static_files.size }}    |
 |                  |                                 |
+| Markdown转换程序 | {{ site.markdown }}             |
+| 代码高亮转换程序 | {{ site.highlighter }}          |
+| 已启用插件       | {{ site.plugins }}              |
 | 已定义集合       | {{ site.collections_dir }}      |
 | 插件目录         | {{ site.plugins_dir }}          |
 | 布局模板目录     | {{ site.layouts_dir }}          |
@@ -22,19 +35,11 @@ icon: favicon.png
 | 解耦模块目录     | {{ site.includes_dir }}         |
 | 安全模式         | {{ site.safe }}                 |
 | include          | {{ site.include }}              |
-|                  |                                 |
-| 静态文件量       | {{ site.static_files.size }}    |
-|                  |                                 |
-| Markdown转换程序 | {{ site.markdown }}             |
-|                  |                                 |
-| 代码高亮转换程序 | {{ site.highlighter }}          |
-|                  |                                 |
-| 时区             | {{ site.timezone }}             |
 
----
+<div style="page-break-after: always"></div>
+## 详细
 {% endcapture %}
 {{ basictable | markdownify }}
-<div style="page-break-after: always"></div>
 <pre>
 {% unless site.unpublished %}
 	{{- site | inspect -}}
