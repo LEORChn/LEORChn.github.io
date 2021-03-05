@@ -1,0 +1,23 @@
+{%- assign nav_list_output = '<div nav-tile-holder>' -%}
+{% capture nooutput %}
+{% assign nav_tiles = include.src | default: include.content | split: '
+' %}
+{% for nt_ftmp in nav_tiles %}
+	{% if nt_ftmp.size == 0 %}{% continue %}{% endif %}
+	{% assign nt_tmp = nt_ftmp | split: '|' %}
+	{% capture nav_list_output %}
+		{{- nav_list_output -}}
+		<a nav-tile
+			{%- if nt_tmp contains 'wip' %} wip{%- endif -%}
+		>
+		{{- nt_tmp[0] -}}
+		{%- if nt_tmp[1] and nt_tmp[1] != 'wip' -%}
+			<div desc>
+				{{- nt_tmp[1] -}}
+			</div>
+		{%- endif -%}
+	</a>
+	{% endcapture %}
+{% endfor %}
+{% endcapture %}
+{{- nav_list_output | append: '</div>' -}}

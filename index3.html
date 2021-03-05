@@ -13,11 +13,14 @@ nav:
     - 工程车间
     - /workshop
   -
-    - 休闲雅亭
+    - 休闲雅厅
     - /lounge
   -
     - 站长的小冰屋
     - /about
+  -
+    - 政务公示板
+    - /site_commits
   -
     - 广播站
     -
@@ -31,11 +34,23 @@ nav:
     - /mystery-shack
   -
     - 码头 - 开往下一个世界
-    - javascript:msgbox('离开瑞兽谷','记得回来呀~','好',function(){location.href='https://travellings.now.sh/'});
+    - javascript:msgbox('即将离开瑞兽谷','记得回来呀~','好',function(){location.href='https://travellings.now.sh/'});
 ---
 <div home-header-img><div><img src="/img/Header_Starbound.png"></div></div>
 {% include ui/protips height='66px' duration=10 src='
 欢迎来到瑞兽谷。日记、文档、百科、软件工具甚至其他网站的备份等，全都汇集此处。
 点击左上角菜单查看所有功能～
 ' %}
+
+{% include ui/nav-tile src='
+图书馆|wip
+博物馆|旧物展览|wip
+工程车间|自制小玩意|wip
+休闲雅厅|wip
+站长小冰屋|wip
+政务公示板
+神秘小屋|wip
+码头|开往下一个世界
+' %}
+
 

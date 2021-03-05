@@ -1,4 +1,11 @@
 @charset "UTF-8";
+$header_img_height: '(224px - (1100px - 100vw) / 1100 * 224)';
+$protips_height: 66px;
+$tile_rows_portrait: 4;
+$tile_margin_top: 5px;
+$tile_paddings_vertical: 20px;
+$tiles_margin_top_portrait: ($tile_rows_portrait * $tile_margin_top);
+$tiles_padding_vertical_portrait: ($tile_rows_portrait * $tile_paddings_vertical);
 /* ============================== begin home.scss ============================== */
 
 article:not([global-custom]) > [home-header-img]{
@@ -45,3 +52,66 @@ article:not([global-custom]) > [home-header-img]{
 		}
 	}
 }
+
+
+[nav-tile-holder]{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	margin-top: 5px;
+	[nav-tile]{
+		user-select: none;
+		-webkit-user-select: none;
+		text-decoration: none;
+		font-size: larger;
+		color: white;
+		border-radius: 10px;
+		margin-top: 5px;
+		padding: 10px;
+		position: relative;
+		display: inline-block;
+		width: calc(25% - 20px - 5px);
+		min-height: calc((100vh - #{$header_img_height} - #{$protips_height} - #{$tiles_margin_top_portrait} - #{$tiles_padding_vertical_portrait} - 15px) / #{$tile_rows_portrait});
+		background-image: linear-gradient(to bottom, rgba(255,255,255,.3), transparent 80%, rgba(0,0,0,.1));
+		@media (orientation: portrait){
+			width: calc(50% - 20px - 5px);
+		}
+		/* 在鼠标点击时缩小，感觉好像被按下去 */
+		&:active{
+			transform: scale(.9);
+		}
+		/* 在按下时没动画，但是松开时有回弹动画 */
+		&:not(:active){
+			transition: .2s;
+		}
+		/* 未完工，拉起警戒线 */
+		&[wip]:before{
+			content:'';
+			position: absolute;
+			height: 15%;
+			width: 100%;
+			bottom:0;
+			left:0;
+			border-radius: 0 0 10px 10px;
+			background: repeating-linear-gradient(-45deg,#000 , #000 1.5vw,#ff0 calc(1.5vw + 1px),#ff0 3vw);
+			@media (orientation: portrait){
+				background: repeating-linear-gradient(-45deg,#000 , #000 3vw,#ff0 calc(3vw + 1px),#ff0 6vw);
+			}
+		}
+		[desc]{
+			font-size: small;
+			opacity: .7;
+		}
+	}
+}
+$nav_tile_colors: (
+	#801313, #a13800, #ab5810, #124116,
+	#004346, #093170, #330e62, #333
+);
+@each $c in $nav_tile_colors{
+	$i: index($nav_tile_colors, $c);
+	[nav-tile]:nth-child(#{$i}){
+		background-color: $c;
+	}
+}
+
