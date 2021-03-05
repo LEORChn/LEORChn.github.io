@@ -1,5 +1,6 @@
 @charset "UTF-8";
-$header_img_height: '(224px - (1100px - 100vw) / 1100 * 224)';
+$header_img_height_landscape: '((1100px - 100vw) / 1100 * 224)';
+$header_img_height_portrait: '(224px - (1100px - 100vw) / 1100 * 224)';
 $protips_height: 66px;
 $tile_rows_portrait: 4;
 $tile_margin_top: 5px;
@@ -71,10 +72,11 @@ article:not([global-custom]) > [home-header-img]{
 		position: relative;
 		display: inline-block;
 		width: calc(25% - 20px - 5px);
-		min-height: calc((100vh - #{$header_img_height} - #{$protips_height} - #{$tiles_margin_top_portrait} - #{$tiles_padding_vertical_portrait} - 15px) / #{$tile_rows_portrait});
+		min-height: calc((100vh - #{$header_img_height_landscape} - #{$protips_height} - #{$tiles_margin_top_portrait} - #{$tiles_padding_vertical_portrait} - 15px) / #{$tile_rows_portrait});
 		background-image: linear-gradient(to bottom, rgba(255,255,255,.3), transparent 80%, rgba(0,0,0,.1));
 		@media (orientation: portrait){
 			width: calc(50% - 20px - 5px);
+			min-height: calc((100vh - #{$header_img_height_portrait} - #{$protips_height} - #{$tiles_margin_top_portrait} - #{$tiles_padding_vertical_portrait} - 15px) / #{$tile_rows_portrait});
 		}
 		/* 在鼠标点击时缩小，感觉好像被按下去 */
 		&:active{
