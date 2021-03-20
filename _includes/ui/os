@@ -1,0 +1,25 @@
+{%- assign os_template = '<i class="%OS%"></i><sub>%DESC%</sub>' -%}
+{%- if include.android -%}
+	{{ os_template | replace: '%OS%', 'android' | replace: '%DESC%', include.android }}
+{%- endif -%}
+{%- if include.ios -%}
+	{{ os_template | replace: '%OS%', 'ios' | replace: '%DESC%', include.ios }}
+{%- endif -%}
+{%- if include.javame -%}
+	{{ os_template | replace: '%OS%', 'javame' | replace: '%DESC%', include.javame }}
+{%- endif -%}
+{%- if include.windows -%}
+	{{ os_template | replace: '%OS%', 'windows' | replace: '%DESC%', include.windows }}
+{%- endif -%}
+{%- if include.mac -%}
+	{{ os_template | replace: '%OS%', 'mac' | replace: '%DESC%', include.mac }}
+{%- endif -%}
+{%- if include.steam -%}
+	{{ os_template | replace: '%OS%', 'steam' | replace: '%DESC%', include.steam }}
+{%- endif -%}
+{%- if include.xbox -%}
+	{{ os_template | replace: '%OS%', 'xbox' | replace: '%DESC%', include.xbox }}
+{%- endif -%}
+{%- if include.switch -%}
+	{{ os_template | replace: '%OS%', 'switch' | replace: '%DESC%', include.switch }}
+{%- endif -%}
