@@ -162,7 +162,7 @@ iframe[src*="store.steampowered.com/widget"]{
 }
 
 /* 操作系统图标 */
-.android, .ios, .javame, .mac, .steam, .switch, .windows, .xbox{
+.android, .ios, .javame, .mac, .playstation, .steam, .switch, .windows, .xbox{
 	display: inline-block;
 	width: 1.5em;
 	height: 1.5em;
@@ -174,28 +174,31 @@ h1>i, h2>i, h3>i{
 	height: 1em;
 }
 i.android{
-	background-image:url(/img/os/android.svg)
+	background-image: url(/img/os/android.svg)
 }
 i.ios{
-	background-image:url(/img/os/ios.svg)
+	background-image: url(/img/os/ios.svg)
 }
 i.javame{
-	background-image:url(/img/os/javame.svg)
+	background-image: url(/img/os/javame.svg)
 }
 i.mac{
-	background-image:url(/img/os/mac.svg)
+	background-image: url(/img/os/mac.svg)
+}
+i.playstation{
+	background-image: url(/img/os/playstation.svg)
 }
 i.steam{
-	background-image:url(/img/os/steam.svg)
+	background-image: url(/img/os/steam.svg)
 }
 i.switch{
-	background-image:url(/img/os/nintendoswitch.svg)
+	background-image: url(/img/os/nintendoswitch.svg)
 }
 i.windows{
-	background-image:url(/img/os/windows.svg)
+	background-image: url(/img/os/windows.svg)
 }
 i.xbox{
-	background-image:url(/img/os/xbox.svg)
+	background-image: url(/img/os/xbox.svg)
 }
 
 /* 操作系统图标 与 操作系统说明 */

@@ -23,3 +23,6 @@
 {%- if include.switch -%}
 	{{ os_template | replace: '%OS%', 'switch' | replace: '%DESC%', include.switch }}
 {%- endif -%}
+{%- if include.playstation -%}
+	{{ os_template | replace: '%OS%', 'playstation' | replace: '%DESC%', include.playstation }}
+{%- endif -%}

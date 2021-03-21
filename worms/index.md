@@ -12,11 +12,21 @@ title: 百战天虫游戏一览
 
 ## 最新
 
+### Worms Rumble<sub src="大混战（2020）"></sub>
+
+![](rumble/header.jpg){:display="right"}
+
+{% include ui/os windows="64Win 10" playstation="PS4" %}
+
+全新大逃杀玩法百战天虫已上线！
+
+支持最多3人组队、32人对战的跨平台即时战略。
+
 ### Worms W.M.D<sub src="战争武器（2016）"></sub>
 
 ![](wmd/header.jpg){:display="right"}
 
-{% include ui/os windows="Win 7+" mac="Mac OS X" steam="SteamOS" xbox="Xbox One" switch="NS" %}
+{% include ui/os windows="Win 7+" mac="Mac OS X" steam="SteamOS" xbox="Xbox One" switch="NS" playstation="PS4" %}
 
 支持本地多人合作、对战、人机对战；
 
@@ -26,10 +36,12 @@ title: 百战天虫游戏一览
 
 支持Steam云存档。
 
-| [{% include ui/os steam="" %} Steam购买](https://store.steampowered.com/app/327030) | 发售 | 2020-7-10 |
-| ------------------------------------------------------------ | ---- | --------- |
-| 原价                                                         | 129  | 118       |
-| 最低折价                                                     | 32   | 29        |
+{% include ui/os switch="" %}\*若购买 Switch 版本，将不能与 Windows 玩家联机。
+
+| [{% include ui/os steam="" %} Steam购买](https://store.steampowered.com/app/327030) | 发售 | 2020-7-10起 |
+| ------------------------------------------------------------ | ---- | ----------- |
+| 原价                                                         | 129  | 118         |
+| 最低折价                                                     | 32   | 29          |
 
 [《百战天虫：战争武器》百科页面](wmd/)
 
@@ -51,7 +63,7 @@ title: 百战天虫游戏一览
 
 ![](armageddon/header.jpg){:display="right"}
 
-{% include ui/os windows="" %}*联机游戏时需要第三方工具。
+{% include ui/os windows="" %}\*联机游戏时需要第三方工具。
 
 [《百战天虫：末日浩劫》百科页面](armageddon/)
 
