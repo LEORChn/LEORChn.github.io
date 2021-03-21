@@ -22,6 +22,8 @@ title: 百战天虫游戏一览
 
 支持最多3人组队、32人对战的跨平台即时战略。
 
+[{% include ui/os steam="" %} Steam购买](https://store.steampowered.com/app/1186040) \| 62元 \| 史低46元
+
 ### Worms W.M.D<sub src="战争武器（2016）"></sub>
 
 ![](wmd/header.jpg){:display="right"}
