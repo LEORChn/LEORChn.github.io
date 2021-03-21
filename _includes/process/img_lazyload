@@ -1,0 +1,3 @@
+{{- include.content | default: include.src
+| replace: '<img ', '<img loading="lazy" '
+-}}

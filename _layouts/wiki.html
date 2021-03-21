@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		{%- capture cdn_root -%}{% include cdn src='/' %}{%- endcapture -%}
 		
-{% capture vseo %}{% include virtual_seo %}{% endcapture %}{%- assign seo_output = vseo | split: '</title>' -%}
+{% capture vseo %}{% seo %}{% endcapture %}{%- assign seo_output = vseo | split: '</title>' -%}
 {{ seo_output[0] | append: '百科</title>' | append: seo_output[1] }}
 		<link rel="stylesheet" href="{{            "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
 		<link rel="stylesheet" href="{% capture css %}{{ "/css/jekyll.css?v=" | append: site.github.build_revision | relative_url }}{% endcapture %}{% include cdn src=css %}">
@@ -14,7 +14,7 @@
 	<body>
 		<div class="container-lg px-3 my-5 markdown-body" style="margin-top:0 !important">
 			{% if site.title and site.title != page.title %}
-				<h1 id="breadcrumbs"><a href="{{ "/" | absolute_url }}">{{ site.title }}</a> &gt; 百科</h1>
+				<h1 id="breadcrumbs"><a href="/">{{ site.title }}</a> &gt; 百科</h1>
 				<div></div>
 			{% endif %}
 
@@ -60,7 +60,8 @@
 					{% assign wikiz_src = wikiz_src | replace: cdn_root, '/' %}
 				{% endif %}
 			{%- endcapture -%}
-			{{ wikiz_src }}
+			{% capture wikiz_src %}{% include process/img_lazyload src=wikiz_src %}{% endcapture %}
+			{% include process/extlink src=wikiz_src %}
 			
 			<!-- 页脚：Github License -->
 			{% if site.github.private != true and site.github.license %}
