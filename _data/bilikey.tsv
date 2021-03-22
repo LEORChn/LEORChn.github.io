@@ -1,4 +1,4 @@
-versionCode	versionName	appKey	secretKey	ua	referrer
+versionCode	versionName	appKey	secretKey	ua	referrer	ref_time
 411007	1.11.7	c1b107428d337928	ea85624dfcf12d7cc7b2b3a94fac1f2c	Mozilla/5.0 BiliDroid/4.11.7 (bbcallen@gmail.com)
 519000	5.19.0	1d8b6e7d45233436	560c52ccd288fed045859ed18bffd973	Mozilla/5.0 BiliDroid/5.19.0 (bbcallen@gmail.com)
 527000	5.27.0	1d8b6e7d45233436	560c52ccd288fed045859ed18bffd973	Mozilla/5.0 BiliDroid/5.27.0 (bbcallen@gmail.com)	https://github.com/lzghzr/bilive_client/blob/master/bilive/lib/app_client.ts
