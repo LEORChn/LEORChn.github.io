@@ -1,4 +1,4 @@
-{%- assign os_template = '<i class="%OS%"></i><sub>%DESC%</sub>' -%}
+{%- assign os_template = '<span os><i class="%OS%"></i><sub>%DESC%</sub></span>' -%}
 {%- if include.android -%}
 	{{ os_template | replace: '%OS%', 'android' | replace: '%DESC%', include.android }}
 {%- endif -%}

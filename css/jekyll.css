@@ -202,5 +202,11 @@ i.xbox{
 }
 
 /* 操作系统图标 与 操作系统说明 */
-:not(a)>i+sub:before{content:' '}
-:not(a)>i+sub:after{content:' '}
+span[os]{
+	display: inline-block
+}
+[os] sub:before, [os]:after{
+	content: ' ';
+	display: inline-block;
+	width: 2px;
+}

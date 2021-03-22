@@ -3,9 +3,6 @@ layout: wiki
 title: 百战天虫游戏一览
 ---
 
-<style>
-@import "/css/jekyll.css";
-</style>
 百战天虫系列游戏（Worms）由 Team17 开发。
 
 与**美国艺电公司、THQ Wireless**合作完成部分手持设备版本。
@@ -22,7 +19,7 @@ title: 百战天虫游戏一览
 
 支持最多3人组队、32人对战的跨平台即时战略。
 
-[{% include ui/os steam="" %} Steam购买](https://store.steampowered.com/app/1186040) \| 62元 \| 史低46元
+[{% include ui/os steam="" %}Steam购买](https://store.steampowered.com/app/1186040) \| 62元 \| 史低46元
 
 ### Worms W.M.D<sub src="战争武器（2016）"></sub>
 
@@ -40,7 +37,7 @@ title: 百战天虫游戏一览
 
 {% include ui/os switch="" %}\*若购买 Switch 版本，将不能与 Windows 玩家联机。
 
-| [{% include ui/os steam="" %} Steam购买](https://store.steampowered.com/app/327030) | 发售 | 2020-7-10起 |
+| [{% include ui/os steam="" %}Steam购买](https://store.steampowered.com/app/327030) | 发售 | 2020-7-10起 |
 | ------------------------------------------------------------ | ---- | ----------- |
 | 原价                                                         | 129  | 118         |
 | 最低折价                                                     | 32   | 29          |
@@ -57,7 +54,7 @@ title: 百战天虫游戏一览
 
 支持Facebook帐号登录后云同步存档。
 
-[《百战天虫4》百科页面](4/) \| [{% include ui/os ios="" %} App Store](https://apps.apple.com/cn/app/worms-4/id981535263)
+[《百战天虫4》百科页面](4/) \| [{% include ui/os ios="" %}App Store](https://apps.apple.com/cn/app/worms-4/id981535263)
 
 ## 热度不减
 
