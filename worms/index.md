@@ -101,7 +101,7 @@ title: 百战天虫游戏一览
 
 [![我的虫时代](logo_myworms.png)我的虫时代](https://myworms.cn)
 
-[Steam组：百战天虫重装上阵中国组](https://steamcommunity.com/groups/worms_reloaded_cn)
+[{% include ui/os steam="" %}百战天虫重装上阵中国组](https://steamcommunity.com/groups/worms_reloaded_cn)
 
 ## 备注
 
