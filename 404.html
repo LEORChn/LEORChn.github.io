@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html>
 	<head>
@@ -29,10 +31,16 @@
 				content: '无法反馈错误，请关闭广告插件'
 			}
 		</style>
+<script>
+var redirect_table = {{ site.data.redirect | jsonify }};
+var redirectTableUrl = location.pathname.replace(/(\/+)$/, '').toLowerCase(); // 有些人可能无法区分大小写或者习惯在末尾加斜杠，这句用来保证这些情况都能匹配
+if(redirectTableUrl in redirect_table) location.pathname = redirect_table[redirectTableUrl];
+</script>
 	</head>
 	<body>
 		<div id="page" style="text-align: center">
 			<div>您超越了边界。<a href="/" target="_top">返回瑞兽谷</a></div>
+			<noscript><div style="color:green">或许只要您打开 JavaScript 就可以恢复正常。来试试看吧！</div></noscript>
 			<div id="report-stat"></div>
 			<img class="img430x640" src="https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io/img/404_1.png">
 			<div>Source: <a target="_blank" href="https://twitter.com/foxperia/status/1059448027042078720">Twitter</a></div>
