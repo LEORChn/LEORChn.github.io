@@ -1,0 +1,42 @@
+<!doctype html>
+<html xmlns:wb="http://open.weibo.com/wb">
+	<head>
+		<script src="//tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+		<style>a[tlink]:after{ content: attr(href) }</style>
+	</head>
+	<body>
+		<a href="/workshop" style="text-decoration: none">&lt; 返回瑞兽谷</a>
+		<details>
+			<summary>微博秀制作和API参考</summary>
+			<p>
+				大白技术控（Enjoy233）/华东师范大学 计算机科学与技术硕士：<a tlink target="_blank" href="https://cloud.tencent.com/developer/article/1398929"></a>
+				<br>备份链：<a tlink target="_blank" href="https://zhuanlan.zhihu.com/p/56628891"></a>
+				<br>点评：自己的 verifier 很容易拿到，显示自己的微博倒是很容易。但是别人的 verifier 怎么得到呢？这个暂且还是问题。
+				<br>于是后来虽然翻到这个知乎问题，但也并没有解决什么：<a tlink target="_blank" href="https://www.zhihu.com/question/22581909"></a>
+				<br>另附：在网上搜集了一些人公开的自己的微博秀 verifier，我整理到 <a tlink target="_blank" href="https://github.com/LEORChn/LEORChn.github.io/blob/master/_data/wbshow_verifier.tsv"></a> 了。猜测可能最后一步是用 CRC32 加密或者节选自 MD5 还是别的哈希结果，但是之前的加密步骤如何暂且不清楚
+			</p>
+			<p>
+				JsSDK/微博秀接口参数演示：<a tlink target="_blank" href="http://jssdk.sinaapp.com/widget/weiboshow.php"></a>
+				<br>点评：参数说明倒是有那么些详细的，但是也有错误。比如 verifier 应该是必选。
+			</p>
+		</details>
+		<details>
+			<summary>然而微博秀似乎并不能实现只显示指定单条微博的功能，</summary>
+			而必须且只能是显示该人的最新几条微博，iframe里放个关注按钮、换个皮肤等等。。
+		</details>
+		<wb:show uid="3196580460" verifier="7cb36b76" fans="0" width="200" height="300" titlebar="n" skin="green"></wb:show>
+		<wb:show uid="1798294781" verifier="a4b838a0" fans="0" width="200" height="300"></wb:show>
+		<wb:show uid="2606405674" verifier="d5cf5ffc" fans="0" width="200" height="300"></wb:show>
+		<wb:show uid="1763628267" verifier="a1171a80" fans="0" width="200" height="300"></wb:show>
+		<wb:show uid="1092107793" verifier="2149560e" fans="0" width="200" height="300"></wb:show>
+		<wb:show uid="2851851282" verifier="003053b3" fans="0" width="200" height="300"></wb:show>
+		<wb:show uid="6027205146" verifier="1bf02f8a" fans="0" width="200" height="300"></wb:show>
+		
+		<!--
+		<embed width="80%" height="200" class="share_self" scrolling="no" src="//widget.weibo.com/weiboshow/index.php?language=&width=0&height=200&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2606405674&verifier=d5cf5ffc&dpc=1"></embed>
+		<object data="//widget.weibo.com/weiboshow/index.php?language=&width=0&height=200&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1763628267&verifier=a1171a80&dpc=1" width="80%" height="200" type="text/html">
+		    Embedded data failed to be displayed.
+		</object>
+		-->
+	</body>
+</html>

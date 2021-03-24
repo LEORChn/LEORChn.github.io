@@ -1,0 +1,107 @@
+---
+layout: lmui
+title: 工程车间
+---
+
+<div class="mui-panel">
+	<div id="corner"></div>
+	<h1>Workshop</h1>
+	<div ul>
+	{%- assign workshoplist = site.data.workshop | where: 'group', 'workshop' %}
+	{%- for i in workshoplist %}
+		<div li>
+			<div class="mui-panel">
+				<div class="mui--text-headline">{{ i.name }}</div>
+				<div>{{ i.desc }}</div>
+				<a href="{{ i.url }}"></a>
+			</div>
+		</div>
+	{%- endfor %}
+	</div>
+</div>
+
+<div class="mui-panel" blueprints>
+	<h1>Blueprints</h1>
+	<div ul>
+	{%- assign workshoplist = site.data.workshop | where: 'group', 'blueprint' %}
+	{%- for i in workshoplist %}
+		<div li>
+			<div class="mui-panel">
+				<div class="mui--text-headline">{{ i.name }}</div>
+				<div>{{ i.desc }}</div>
+				<a href="{{ i.url }}"></a>
+			</div>
+		</div>
+	{%- endfor %}
+	</div>
+</div>
+
+<style>
+[blueprints]{
+	color: #fff;
+	background: url(blueprint.png);
+	background-position: 10px 20px;
+}
+[blueprints] div[li]{
+	color: #000;
+}
+div[ul]{
+	-webkit-column-width: 280px;
+	-moz-column-width: 280px;
+	column-width: 280px;
+	-webkit-column-gap: .5em;
+	column-gap: .5em;
+}
+div[li]{
+	-webkit-column-break-inside: avoid;
+	break-inside: avoid;
+	padding: 5px 2px .1px;
+}
+[ul] [li] .mui-panel{
+	position: relative;
+}
+a{
+	text-decoration: none;
+	color: #000;
+	cursor: pointer;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+div[li] .mui-panel{
+	background-color: #F8F8F8;
+	transition: .2s;
+}
+div[li] .mui-panel:hover{
+	background-color: #E8E8E8;
+}
+div[li] .mui-panel:active{
+	background-color: #D8D8D8;
+}
+</style>
+
+
+<style>
+#corner{
+	position: absolute;
+	right: 0;
+	top: 5px;
+	width: 160px;
+	height: 96px;
+	background: url(shipyardweldinglit.png) no-repeat;
+	background-size: cover;
+}
+</style>
+<script>
+(function(){
+	var c = document.getElementById('corner');// c = null;
+	var cframe = 0;
+	setInterval(function(){
+		c.style.backgroundPositionX = (cframe * -c.clientWidth) + 'px';
+		cframe++;
+		if(cframe >= 15) cframe = 0;
+	}, 100);
+})();
+</script>
