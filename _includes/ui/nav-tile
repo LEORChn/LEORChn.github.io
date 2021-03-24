@@ -9,6 +9,7 @@
 		{{- nav_list_output -}}
 		<a nav-tile
 			{%- if nt_tmp contains 'wip' %} wip{%- endif -%}
+			{%- if nt_tmp.last contains '#' %} href="{{ nt_tmp.last | slice: 1, nt_tmp.last.size }}"{%- endif -%}
 		>
 		{{- nt_tmp[0] -}}
 		{%- if nt_tmp[1] and nt_tmp[1] != 'wip' -%}
