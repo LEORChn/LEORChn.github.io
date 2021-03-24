@@ -2,10 +2,17 @@
 <html xmlns:wb="http://open.weibo.com/wb">
 	<head>
 		<script src="//tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
-		<style>a[tlink]:after{ content: attr(href) }</style>
+		<style>
+			a[tlink]:after{
+				content: attr(href)
+			}
+			body{
+				line-height: 1.5em;
+			}
+		</style>
 	</head>
 	<body>
-		<a href="/workshop" style="text-decoration: none">&lt; 返回瑞兽谷</a>
+		<a href="https://leorchn.github.io/workshop" style="text-decoration: none">&lt; 返回瑞兽谷</a>
 		<details>
 			<summary>微博秀制作和API参考</summary>
 			<p>
@@ -13,7 +20,7 @@
 				<br>备份链：<a tlink target="_blank" href="https://zhuanlan.zhihu.com/p/56628891"></a>
 				<br>点评：自己的 verifier 很容易拿到，显示自己的微博倒是很容易。但是别人的 verifier 怎么得到呢？这个暂且还是问题。
 				<br>于是后来虽然翻到这个知乎问题，但也并没有解决什么：<a tlink target="_blank" href="https://www.zhihu.com/question/22581909"></a>
-				<br>另附：在网上搜集了一些人公开的自己的微博秀 verifier，我整理到 <a tlink target="_blank" href="https://github.com/LEORChn/LEORChn.github.io/blob/master/_data/wbshow_verifier.tsv"></a> 了。猜测可能最后一步是用 CRC32 加密或者节选自 MD5 还是别的哈希结果，但是之前的加密步骤如何暂且不清楚
+				<br>另附：在网上搜集了一些人公开的自己的微博秀 verifier，我整理到 <a tlink target="_blank" href="https://github.com/LEORChn/LEORChn.github.io/blob/master/_data/weiboshow_verifier.tsv"></a> 了。猜测可能最后一步是用 CRC32 加密或者节选自 MD5 还是别的哈希结果，但是之前的加密步骤如何暂且不清楚
 			</p>
 			<p>
 				JsSDK/微博秀接口参数演示：<a tlink target="_blank" href="http://jssdk.sinaapp.com/widget/weiboshow.php"></a>
@@ -23,6 +30,13 @@
 		<details>
 			<summary>然而微博秀似乎并不能实现只显示指定单条微博的功能，</summary>
 			而必须且只能是显示该人的最新几条微博，iframe里放个关注按钮、换个皮肤等等。。
+		</details>
+		<details style="color:#ff6060">
+			<summary>备注三则（点击展开）<br>1.除了我自己的帐号以外，其他人我并不认识。仅作测试、学习交流用途。</summary>
+			2.微博秀偶尔会出现报错，这个情况通常是微博抽风了，等一两个小时应该会自己变好。
+			<br>3.本HTML页面较为纯净，除了中间这几段废话以外基本就都是和功能有关的了（包括被注释掉的代码）。
+			<br>你可以下载来自己修改和部署看看，效果应该是一样的。
+			<br>把注释取消掉是其他的实现方法，至于调整参数，能看懂英文应该也会调的对吧？
 		</details>
 		<wb:show uid="3196580460" verifier="7cb36b76" fans="0" width="200" height="300" titlebar="n" skin="green"></wb:show>
 		<wb:show uid="1798294781" verifier="a4b838a0" fans="0" width="200" height="300"></wb:show>
