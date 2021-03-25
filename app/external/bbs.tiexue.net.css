@@ -1,0 +1,15 @@
+/*
+	adapting: 铁血论坛
+	compatbility: Chrome 43
+	update: 2021-1-17
+*/
+
+/* 将发帖时间显示在帖子顶部 */
+.contents{
+	position: relative;
+}
+.contents > .date{
+	position: absolute;
+	top: 35px;
+	left: 10px;
+}
