@@ -1,0 +1,15 @@
+/*
+	adapting: Bilibili
+	compatbility: Chrome 43
+	update: 2021-3-22
+*/
+
+/* 未登录提示 */
+.unlogin-popover, .login-tip{
+	display: none;
+}
+
+/* 旧浏览器 - 修复图片显示 */
+.post-content .imagesbox{
+	max-width: 100%;
+}
