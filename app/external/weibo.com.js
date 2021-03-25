@@ -1,7 +1,7 @@
 /*
 	adapting: Weibo 2020
-	compatbility: Chrome 43
-	update: 2020-10-2
+	compatbility: Chrome 43 / Firefox 86
+	update: 2020-10-2 / 2021-3-25
 */
 
 setInterval(function(){
@@ -27,3 +27,49 @@ setInterval(function(){
 		return document.querySelector(e);
 	}
 }, 2500);
+
+// 兼容性：FF 86
+// 在资料页面简介部分加上永久u链（2021当时所用的新版UI下有效）
+setInterval(function(){
+	if($('#leorchn_weibo_user_permalink')) return;
+	var injectHost = $('[class*=ProfileHeader_con3]');
+	var injectRequired = $('[owner_uid]');
+	if(injectHost && injectRequired); else return;
+	var uid = injectRequired.getAttribute('owner_uid');
+	var a = document.createElement('a');
+	a.id = 'leorchn_weibo_user_permalink';
+	a.innerText = '用户永久链接';
+	a.href = '/u/' + uid;
+	a.style.marginLeft = '2em'
+	injectHost.appendChild(a);
+	// 相册专辑
+	a = document.createElement('a');
+	a.innerText = '相册专辑';
+	a.href = 'https://photo.weibo.com/' + uid + '/albums';
+	a.style.marginLeft = '1em'
+	injectHost.appendChild(a);
+	// 头像大图
+	a = document.createElement('a');
+	a.innerText = '头像大图';
+	a.href = 'https://ww1.sinaimg.cn/large/' + /([^\/\?]+)(\?|$)/.exec($('[class*=ProfileHeader_avatar] img').src)[1];
+	a.target = '_blank';
+	a.style.marginLeft = '1em'
+	injectHost.appendChild(a);
+	function $(e){
+		return document.querySelector(e);
+	}
+}, 1500);
+
+// 兼容性：2015后任意版本谷浏/火狐
+// 在旧版个人资料页面免登录进入查看该人更多信息
+setInterval(function(){
+	var more_info_btn = $('.PCD_person_info .WB_cardmore');
+	if(!more_info_btn) return;
+	if(!more_info_btn.hasAttribute('action-type')) return; // 如果已注入，那么这个属性一定是斜杠/开头
+	more_info_btn.href = location.pathname + '/info?mod=pedit_more';
+	more_info_btn.removeAttribute('action-type');
+	more_info_btn.innerText = '查看更多 >';
+	function $(e){
+		return document.querySelector(e);
+	}
+}, 1500);
