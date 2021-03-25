@@ -65,7 +65,7 @@ setInterval(function(){
 setInterval(function(){
 	var more_info_btn = $('.PCD_person_info .WB_cardmore');
 	if(!more_info_btn) return;
-	if(!more_info_btn.hasAttribute('action-type')) return; // 如果已注入，那么这个属性一定是斜杠/开头
+	if(!more_info_btn.hasAttribute('action-type')) return;
 	more_info_btn.href = location.pathname + '/info?mod=pedit_more';
 	more_info_btn.removeAttribute('action-type');
 	more_info_btn.innerText = '查看更多 >';
