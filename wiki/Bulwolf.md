@@ -6,7 +6,7 @@ tags: furry
 avatar: ''
 ---
 
-![](/wiki/misc/20200526_bulwolf.jpg){:display="right"}《[[形骸骑士]]》游戏制作人。
+《[[形骸骑士]]》游戏制作人。
 
 在 [13年9月2日](https://www.pixiv.net/artworks/38257118) 至 [14年12月6日](https://www.pixiv.net/artworks/47768234) 期间，设定由蓝眼改为红眼。
 
@@ -15,6 +15,13 @@ avatar: ''
 <!-- 90年8月25日破壳 -->
 
 ## 兽装
+
+![](/wiki/misc/20200526_bulwolf.jpg){:align="right"}
+
+<!-- 
+https://t.bilibili.com/393597528926936090?tab=2
+https://weibo.com/2108467963/J3Ijnv0iI
+-->
 
 {:display="origin"}
 

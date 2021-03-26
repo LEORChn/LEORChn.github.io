@@ -94,7 +94,8 @@ img[src~="float-right"]{
 		width: 135px;
 	}
 }
-img[display=right]{
+img[display=right],
+img[align=right]{
 	float: right;
 	clear: right;
 	width: 25vw;
