@@ -96,8 +96,9 @@ img[src~="float-right"]{
 }
 img[display=right]{
 	float: right;
+	clear: right;
 	width: 25vw;
-	max-width: calc(1012px / 4);
+	max-width: 200px;
 	min-width: 150px;
 }
 
