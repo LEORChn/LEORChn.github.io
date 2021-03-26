@@ -1,0 +1,48 @@
+---
+layout: lmui
+title: 政务公示板
+permalink: politics
+icon: favicon.png
+---
+{% capture markdown %}
+## 更新记录
+
+<div commits></div>
+
+[查看更多...](https://github.com/LEORChn/LEORChn.github.io/commits){:target="_blank"}
+{% endcapture %}
+
+<div class="mui-panel">
+{{ markdown | markdownify }}
+</div>
+
+<style>
+[commits]:empty:after{
+	content: '';
+	display: block;
+	height: 32px;
+	width: 32px;
+	background: url(/img/loading.gif);
+}
+</style>
+
+<script src="/js/baseLib.js"></script>
+<script src="/js/http.js"></script>
+<script src="/js/date.js"></script>
+<script>
+httpj('get https://api.github.com/repos/LEORChn/LEORChn.github.io/commits', function(j){
+	var c = $('[commits]');
+	j.data.foreach(function(e){
+		var p = ct('div.mui-panel');
+		var caption = e.commit.message.split('\n\n');
+		p.appendChildren(
+			ct('div.mui--text-headline', caption[0]),
+			ct('time', new Date(e.commit.committer.date).format('yyyy年M月d日 HH:mm'))
+		);
+		if(caption.length > 1){
+			p.appendChild(ct('div', caption.slice(1).join('\n\n')));
+		}
+		c.appendChild(p);
+	});
+});
+</script>
