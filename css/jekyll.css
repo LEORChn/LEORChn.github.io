@@ -132,8 +132,8 @@ strong>em:only-child>code:only-child:not(:hover){
 }
 
 /* 无头表格 */
-[table-no-head], [table-no-head]+table>thead{
-	display:none
+table[no-thead] > thead{
+	display: none
 }
 
 /* 正文通用加粗 - 覆盖 空layout */
