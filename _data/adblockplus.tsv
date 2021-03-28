@@ -5,3 +5,4 @@ live.bilibili.com
 weibo.com	"[node-type=""recommend""]>.otherlist"	在阅读微博文章时免受推荐内容干扰
 zhihu.com	.AdblockBanner	知乎具有一定反侦察能力。。
 fanyi.baidu.com	.desktop-guide	在隐身模式下免受客户端广告干扰
+cn.bing.com	#ev_talkbox_wrapper	在使用必应搜索时免受小冰干扰。比如有时会推荐虚拟恋人对话模板之类乱七八糟的功能
