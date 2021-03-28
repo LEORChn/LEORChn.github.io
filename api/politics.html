@@ -5,11 +5,11 @@ permalink: politics
 icon: favicon.png
 ---
 {% capture markdown %}
-## 更新记录
+[查看全部](https://github.com/LEORChn/LEORChn.github.io/commits){:target="_blank" style="float:right"}
+
+## 施工日志
 
 <div commits></div>
-
-[查看更多...](https://github.com/LEORChn/LEORChn.github.io/commits){:target="_blank"}
 {% endcapture %}
 
 <div class="mui-panel">
@@ -32,17 +32,27 @@ icon: favicon.png
 <script>
 httpj('get https://api.github.com/repos/LEORChn/LEORChn.github.io/commits', function(j){
 	var c = $('[commits]');
+	var first_sha, count_page1_commits = 0;
 	j.data.foreach(function(e){
+		if(!count_page1_commits) first_sha = e.sha;
+		count_page1_commits++;
 		var p = ct('div.mui-panel');
 		var caption = e.commit.message.split('\n\n');
-		p.appendChildren(
-			ct('div.mui--text-headline', caption[0]),
-			ct('time', new Date(e.commit.committer.date).format('yyyy年M月d日 HH:mm'))
-		);
+		var headline = ct('div.mui--text-headline'),
+			headlinea = ct('a', caption[0]),
+			time = ct('time', new Date(e.commit.committer.date).format('yyyy年M月d日 HH:mm'));
+		headlinea.href = e.html_url;
+		headlinea.target = '_blank';
+		headline.appendChild(headlinea);
+		p.appendChildren(headline, time);
 		if(caption.length > 1){
 			p.appendChild(ct('div', caption.slice(1).join('\n\n')));
 		}
 		c.appendChild(p);
 	});
+	var nextpage = ct('a', '查看更多...');
+	nextpage.href = `https://github.com/LEORChn/LEORChn.github.io/commits?after=${first_sha}+${count_page1_commits-1}`;
+	nextpage.target = '_blank';
+	c.appendChild(nextpage);
 });
 </script>
