@@ -15,3 +15,9 @@ UTAU兽人中华组 青音ガイ。
 
 [^fursona-birthday]: 视频发布时间2015年12月22日，视频简介表明两周年生日 https://www.bilibili.com/video/BV1Bs41197vG
 
+## 社交帐号
+
+微博：<https://weibo.com/u/2950979382>
+
+## 备注
+
