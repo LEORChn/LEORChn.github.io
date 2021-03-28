@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>客户端校验码计算器测试</title>
+</head>
+<body>
+	<fieldset id="bili">
+		<legend>bilibili client signature parameter calculator</legend>
+		<form onsubmit="return bilicalc(this)">
+			<div style="display:flex">
+				URL：
+				<input name="url" style="flex:1" placeholder="也可以输入一个类似 JavaScript 中 location.search 的值。一般称之为“检索参数”。">
+			</div>
+			<div>
+				检索参数重新排序：
+				<label><input name="order" type="radio" value="asc" checked>升序（默认）</label>
+				<label><input name="order" type="radio" value="desc">降序</label>
+				<label><input name="order" type="radio" value="">不排序</label>
+			</div>
+			<div style="display:flex">
+				私钥：
+				<select onchange="biliseckeyswitch(this)">
+					<option value="">自行填写</option>
+					<option value="560c52ccd288fed045859ed18bffd973">Android 5.19.0</option>
+				</select>
+				<input name="seckey" style="flex:1">
+			</div>
+			<input type="submit" value="计算 [Enter]">
+			<output name="output"></output>
+			<div style="display:flex">
+				验算：
+				<input name="verify" style="flex:1" placeholder="事前放入一个想匹配的sign值，上方重新计算时会进行对比验算">
+			</div>
+			<div>
+				提问：
+				<a target="_blank" rel="noreferrer" href="https://www.runoob.com/jsref/prop-loc-search.html">什么是location.search？</a>
+				<a href="javascript:alert('1.解析并获取一段URL中所有的检索参数。\n2.将所有的检索参数存储为key-value字典。\n3.对这个字典以键名进行排序（默认情况是忽略大小写，并且下划线开头的键名排最前）\n4.将所有的键名和键值按照字典的当前顺序重新输出为原先的UrlSearch格式字符串（不要问号以及之前的部分）\n5.在最末尾追加私钥字符串，然后将上一步得到的字符串进行一次MD5哈希运算。\n6.在原始URL末尾追加一个sign键，键值为上一步MD5运算结果。')">这里的参数签名，计算过程是怎样的？</a>
+				<a href="javascript:alert('由于URL解析器处于早期版本，如果检索参数中包含有类似 &amp;amp; &amp;lt; &amp;gt; 以&开头的转义符，可能会导致解析异常。')">一个意料之中的BUG？</a>
+			</div>
+		</form>
+	</fieldset>
+	<script src="https://cdn.staticfile.org/crypto-js/3.1.2/components/core.js"></script>
+	<script src="https://cdn.staticfile.org/crypto-js/3.1.2/components/md5.js"></script>
+	
+<script>
+function bilicalc(f){ // 计算哔哩哔哩客户端的参数签名值
+	try{
+		bilicalcImpl(f); // 确保即使内部出错也不会影响屏蔽系统默认刷新
+	}catch{}
+	// 屏蔽系统默认操作（刷新）
+	return false;
+}
+function bilicalcImpl(f){
+	var values = {
+		url:    f.elements.url.value,
+		order:  f.elements.order.value,
+		seckey: f.elements.seckey.value
+	};
+	f.elements.output.value = ''; // 先清空，过100ms输出新数据到这上面，这样可以在即使两次计算值相同的情况下也让用户感觉到数据已经更新过了
+	var params = values.url;
+	if(params.includes('?')){
+		params = params.substr(params.indexOf('?') + 1);
+	}
+	// 暂时没找到一个好的解析器，先这样吧
+	var lastCurrect = '';
+	var dict = params.split('&').map(function(e){
+		var eq = e.split('=');
+		if(eq.length == 2){
+			lastCurrect = eq[0];
+			return eq;
+		}
+		alert('检测到一个导致解析错误的参数 ' + eq[0] + '\n\n上一个正确的参数是 ' + lastCurrect);
+	});
+	// 键名排序
+	if(values.order){
+		dict = dict.sort(function(a, b){
+			return [a, b].sort()[values.order == 'asc'? 0: 1] == a? -1: 1;
+			// 改自 baseLib "典型对比"
+		});
+	}
+	// 组合字符串
+	var prehash = dict.map(function(e){
+		return e[0] + '=' + e[1];
+	}).join('&') + values.seckey;
+	// 输出
+	setTimeout(function(){
+		var hash = md5(prehash);
+		var verify = f.elements.verify.value;
+		f.elements.output.value = hash;
+		if(!verify) return;
+		f.elements.output.style.backgroundColor = hash == verify? '#c0ffc0': '#ffc0c0';
+	}, 100);
+}
+function biliseckeyswitch(sw){
+	if(sw.value){
+		sw.nextElementSibling.setAttribute('disabled', '');
+	}else{
+		sw.nextElementSibling.removeAttribute('disabled');
+		sw.nextElementSibling.focus();
+	}
+	sw.nextElementSibling.value = sw.value;
+}
+
+function md5(s){
+	return CryptoJS.MD5(s);
+}
+</script>
+	</body>
+</html>
