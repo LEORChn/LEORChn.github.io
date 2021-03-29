@@ -4,14 +4,15 @@ layout: wiki
 permalink: /wiki/bulwolf/
 alias: Bulwolf
 tags: furry
-avatar: ''
 ---
+
+![](bulwolf.jpg){:display="right"}
 
 《[[形骸骑士]]》游戏制作人。
 
 在 [13年9月2日](https://www.pixiv.net/artworks/38257118) 至 [14年12月6日](https://www.pixiv.net/artworks/47768234) 期间，设定由蓝眼改为红眼。
 
-<!-- 90年8月25日破壳 -->
+生日：<!-- 90年 -->8月25日
 
 ## 兽装
 
@@ -34,7 +35,11 @@ https://weibo.com/2108467963/J3Ijnv0iI
 
 {% include gallery src="
 
+20150922_bulwolf_7dacaafbjw1ewbgvgpsehj20ps0hsgpa_200w.jpg | [[ARoung]] br 2015年9月22日
+
 20170825_bulwolf_7dacaafbly1fiv9mw3hwij211p0qo4qp_200w.jpg | [[ARoung]] br 2017年8月25日
+
+20200520_bulwolf.gif | Bulwolf br 2020年5月20日
 
 " %}
 

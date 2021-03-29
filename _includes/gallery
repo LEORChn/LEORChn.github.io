@@ -11,7 +11,8 @@ http://www.github.com/favicon.ico | 外链图片
 {% endcomment %}
 <style>
 .gallery{
-	position:relative
+	position: relative;
+	overflow: auto;
 }
 .gallery:after{
 	content: ' ';
