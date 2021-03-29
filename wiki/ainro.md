@@ -8,6 +8,22 @@ avatar: ''
 
 《[[履云录]]》系列游戏的制作人。
 
+## 相关作品
+
+{% include gallery src='
+
+../misc/20180806_ainro,zoharwolf_xiaoniuqianbei.jpg | 小牛前辈 br 2018年8月6日 br 今日份的尖叫！！XMSL！！
+
+' %}
+
+{% include dashed_divider %}
+
+{% include bbslist src='
+
+同人漫画 | [[2018年Zoharwolf生贺沙雕小剧场 - 吃汉益达]] | 2018年7月25日
+
+' %}
+
 ## 事件
 
 ### 头像互换：匈魔剑
