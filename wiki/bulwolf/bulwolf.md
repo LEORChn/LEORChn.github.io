@@ -39,6 +39,8 @@ https://weibo.com/2108467963/J3Ijnv0iI
 
 20170825_bulwolf_7dacaafbly1fiv9mw3hwij211p0qo4qp_200w.jpg | [[ARoung]] br 2017年8月25日
 
+../misc/20180324_bulwolf,zoharwolf_zixiong.jpg | [[子雄]] br [2018年3月24日](https://twitter.com/i/status/977785358917218304) br @[[Zoharwolf]]
+
 20200520_bulwolf.gif | Bulwolf br 2020年5月20日
 
 " %}

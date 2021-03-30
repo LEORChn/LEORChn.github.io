@@ -12,7 +12,7 @@ avatar: ''
 
 {% include gallery src='
 
-../misc/20180806_ainro,zoharwolf_xiaoniuqianbei.jpg | 小牛前辈 br 2018年8月6日 br 今日份的尖叫！！XMSL！！
+../misc/20180806_ainro,zoharwolf_xiaoniuqianbei.jpg | 小牛前辈 br 2018年8月6日 br 今日份的尖叫！！XMSL！！ br @[[Zoharwolf]]
 
 ' %}
 

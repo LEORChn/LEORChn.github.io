@@ -38,9 +38,9 @@ description: 匈魔剑，程序员、游戏制作人、绘师。所参与制作�
 
 20170729_zoharwolf_nore-white.jpg | nore_white br [2017年7月29日](https://twitter.com/i/status/891359579967180800) br HB~
 
-../misc/20180324_bulwolf,zoharwolf_zixiong.jpg | [[子雄]] br [2018年3月24日](https://twitter.com/i/status/977785358917218304) br 另一位是 [[Bulwolf]]
+../misc/20180324_bulwolf,zoharwolf_zixiong.jpg | [[子雄]] br [2018年3月24日](https://twitter.com/i/status/977785358917218304) br @[[Bulwolf]]
 
-../misc/20180806_ainro,zoharwolf_xiaoniuqianbei.jpg | 小牛前辈 br 2018年8月6日 br 今日份的尖叫！！XMSL！！
+../misc/20180806_ainro,zoharwolf_xiaoniuqianbei.jpg | 小牛前辈 br 2018年8月6日 br 今日份的尖叫！！XMSL！！ br @[[亚罗神虎]]
 
 20190724_zoharwolf_kerestan.jpg | [[五口唔]] br [2019年7月24日](https://weibo.com/6395424176/HEYnafxwf) br 生日快乐[二哈]
 
