@@ -1,0 +1,66 @@
+---
+title: AdBlock 额外规则
+layout: lmui
+---
+
+<div class="mui-panel">
+<table id="abprules" rules="rows">
+	<tr>
+		<th colspan="2"><input type="button" value="一键复制" id="onekeycopy" onclick="onekeycopy()" disabled>域名规则
+		<noscript>
+			<br><span class="noscript">需要开启 JavaScript</span>
+		</noscript></th>
+		<th>说明</th>
+	</tr>
+{% for row in site.data.adblockplus %}
+	<tr>
+		<td><input type="checkbox" value="{{ row.host }}##{{ row.rule | xml_escape }}" checked></td>
+		<td><span>{{ row.host }}</span>##<wbr>{{ row.rule | xml_escape }}</td>
+		<td>{{ row.desc }}</td>
+	</tr>
+{%- endfor %}
+</table>
+</div>
+<script async src="/js/baseLib.js"></script>
+<script>
+	var unlockerInterval = setInterval(function(){
+		if('copy' in window); else return;
+		$('#abprules [disabled]').removeAttribute('disabled');
+		clearInterval(unlockerInterval);
+	}, 1000);
+	function onekeycopy(){
+		copy(arr($$('#abprules :checked')).map(function(e){
+			return e.value;
+		}).join('\n'));
+	}
+</script>
+<style>
+	.mui-panel{
+		position: relative
+	}
+	#onekeycopy{
+		float: left
+	}
+	#onekeycopy:not(:hover) + * .noscript{
+		display: none
+	}
+	#onekeycopy:hover + * .noscript{
+		position: absolute;
+		padding: 1em;
+		margin-left: 15px;
+		left: 0;
+		background: #fff;
+		border: 1px solid #000;
+		border-radius: 2em;
+	}
+	td:first-child{
+		min-width: 1.5em
+	}
+	td:nth-child(2) > span{
+		background-color: #fcc
+	}
+	td:last-child{
+		min-width: 10em;
+		padding: .5em
+	}
+</style>
