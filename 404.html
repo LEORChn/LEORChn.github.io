@@ -31,11 +31,6 @@
 				content: '无法反馈错误，请关闭广告插件'
 			}
 		</style>
-<script>
-var redirect_table = {{ site.data.redirect | jsonify }};
-var redirectTableUrl = location.pathname.replace(/(\/+)$/, '').toLowerCase(); // 有些人可能无法区分大小写或者习惯在末尾加斜杠，这句用来保证这些情况都能匹配
-if(redirectTableUrl in redirect_table) location.pathname = redirect_table[redirectTableUrl];
-</script>
 	</head>
 	<body>
 		<div id="page" style="text-align: center">
@@ -45,22 +40,38 @@ if(redirectTableUrl in redirect_table) location.pathname = redirect_table[redire
 			<img class="img430x640" src="https://cdn.jsdelivr.net/gh/LEORChn/LEORChn.github.io/img/404_1.png">
 			<div>Source: <a target="_blank" href="https://twitter.com/foxperia/status/1059448027042078720">Twitter</a></div>
 		</div>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-174341933-1"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'UA-174341933-1');
-		</script>
-		<script src="/js/baseLib.js"></script>
-		<script src="/js/http.js"></script>
-		<script>
-			http('get https://www.googletagmanager.com/gtag/js?id=UA-174341933-1', function(){
-				$('#report-stat').className = 'success';
-			}, function(){
-				$('#report-stat').className = 'fail';
-			});
-		</script>
+<script>
+	var redirect_success = false;
+	var redirect_table = {{ site.data.redirect | jsonify }};
+	var redirectTableUrl = location.pathname.replace(/(\/+)$/, '').toLowerCase(); // 有些人可能无法区分大小写或者习惯在末尾加斜杠，这句用来保证这些情况都能匹配
+	if(redirectTableUrl in redirect_table){
+		location.pathname = redirect_table[redirectTableUrl];
+		redirect_success = true;
+	}
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-174341933-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	if(!redirect_success){
+		gtag('js', new Date());
+		gtag('config', 'UA-174341933-1');
+		gtag('config', 'G-8FET0HN743');
+		gtag('event', 'exception', {
+			'description': '404',
+			'fatal': true
+		});
+	}
+</script>
+<script src="/js/baseLib.js"></script>
+<script src="/js/http.js"></script>
+<script>
+	http('get https://www.googletagmanager.com/gtag/js?id=UA-174341933-1', function(){
+		$('#report-stat').className = 'success';
+	}, function(){
+		$('#report-stat').className = 'fail';
+	});
+</script>
 	</body>
 </html>
