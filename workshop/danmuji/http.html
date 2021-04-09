@@ -8,6 +8,7 @@ body{
 	margin-top: 0;
 	margin-bottom: 0;
 	font-size: 16px;
+	overflow: hidden; /* 适配小屏模式，否则会出现滚动条 */
 }
 a{
 	text-decoration: none;
@@ -195,9 +196,28 @@ function onFormRoomId(e){
 						ts = new Date(e.timeline).getTime(),
 						uid = e.uid;
 					if(lastDMK){
-						var lastTS = parseInt(lastDMK.getAttribute('ts')),
-							lastUID = parseInt(lastDMK.getAttribute('uid'));
-						if(lastTS > ts || (lastTS == ts && lastUID == uid)) return; // continue foreach
+						while(1){
+							/*	while块是在发现某两条弹幕不断刷屏的bug后新增的
+								因为新读取的第9和第10条弹幕的发送时间一样，但是发送者不一样
+								第9条在进行重复判定时所选择的最后一条是上次的第10条，因此会添加到屏幕
+								第10条在进行重复判定时所选择的最后一条是刚刚的第9条，因此会添加到屏幕
+								于是这样，这两条弹幕会重复刷屏。
+							*/
+							
+							var lastTS = parseInt(lastDMK.getAttribute('ts')),
+								lastUID = parseInt(lastDMK.getAttribute('uid'));
+							if(lastTS > ts || (lastTS == ts && lastUID == uid)) return; // continue foreach
+							// 如果屏幕最后弹幕比新弹幕的时间新，或者
+							// 如果屏幕最后弹幕与新弹幕的时间相同，并且发送者相同，那么就不在屏幕输出此弹幕
+							
+							var prevDMK = lastDMK.previousElementSibling;
+							if(prevDMK && parseInt(prevDMK.getAttribute('ts')) == lastTS){
+								// 如果屏幕最后弹幕与他之前弹幕的时间相同，那么就重新定义“最后弹幕”
+								lastDMK = prevDMK;
+								continue;
+							}
+							break;
+						}
 					}
 					var c = ct('div');
 					c.setAttribute('ts', ts);
