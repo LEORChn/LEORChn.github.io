@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>直播弹幕机 (HTTP)</title>
+<style>
+body{
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 16px;
+}
+a{
+	text-decoration: none;
+}
+#dmk_root{
+	max-height: 100vh;
+	max-width: calc(300px - 50px);
+	overflow-y: auto;
+	padding-left: 50px;
+}
+#dmk_root > *{
+	text-indent: -50px;
+}
+#dmk_root + div{
+	top: -1em;
+	opacity: 0;
+	transition: .2s;
+	position: absolute;
+	border-bottom: 1px solid #000;
+	padding: 8px;
+}
+#dmk_root:not(:empty):hover + div,
+#dmk_root:not(:empty) + div:hover,
+#dmk_root:empty + div{
+	top: 0;
+	opacity: 1;
+	background: #fff;
+}
+
+.hover-expand{
+	position: relative;
+}
+.hover-expand:not(:hover) > :not(input){
+	pointer-events: none;
+	opacity: 0;
+	max-height: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	overflow: hidden;
+}
+.hover-expand > :not(input){
+	position: absolute;
+	padding: .5em;
+	margin: 0;
+	left: 0;
+	background: #efe;
+	border: 1px solid #000;
+	tab-size: 4;
+	transition: .2s;
+}
+</style>
+</head>
+<body>
+	<div id="dmk_root"></div>
+	<div>
+		<a href="https://leorchn.github.io/workshop/">&lt; 返回瑞兽谷</a>
+		<span class="hover-expand">
+			<input type="button" value="设置">
+			<div style="left: auto">
+				<form onsubmit="return onFormRoomId(this)">
+					<div style="white-space: nowrap">
+						直播间号
+						<input name="roomid" style="width: 5em">
+						<input type="submit" value="连接">
+						<input type="button" value="复制快捷链接" onclick="copy_shotcut(this)">
+					</div>
+				</form>
+				<form id="tts_setting">
+					TTS引擎：
+					<select name="engine">
+						<option value="off">关闭</option>
+						<option value="baidu">百度</option>
+						<option value="google" disabled>谷歌 (施工中)</option>
+					</select>
+					<div style="white-space: nowrap">
+						TTS音量：
+						<input name="volumn" type="range" min="0" max="100" value="50">
+					</div>
+				</form>
+			</div>
+		</span>
+		<span class="hover-expand">
+			<input type="button" value="使用说明">
+			<pre style="left: auto">
+注意事项：
+1.本工具需要使用瑞兽谷辅助脚本运行
+2.由于实现原理为HTTP，因此可能会出现10秒左右的延迟，
+并且若观众弹幕频繁则会有遗漏。
+3.无法监控送礼、进入直播间、醒目留言等内容。
+4.若无法接受上述缺陷，请换用其他版本（如：WebSocket）
+
+本工具特点：
+1.语音提醒弹幕内容
+2.多实例运行
+3.支持启动参数（详见下文）
+4.响应式布局，不限制浏览器高度
+5.隐式兼容保存弹幕信息（详见下文）
+
+----- 关于 启动参数 -----
+本工具支持在网址中添加 roomid 参数直接启动相应直播间
+但是需要注意：
+必须输入直播间原号，不能输入直播间短号！
+
+----- 关于 隐式兼容保存弹幕 -----
+本页面不会自动清空早前弹幕信息（但是切换直播间会），
+会将发送时间和用户ID保存在DOM节点属性中。
+因此用户若需要保存直播弹幕则可以直接保存此网页，
+后续可以转换成其他格式。
+
+另外，由于支持多实例运行，
+因此即使监控多个直播间也不会发生数据冲突，请放心使用
+</pre>
+		</span>
+		<span id="helper-required">未检测到辅助脚本</span>
+	</div>
+</body>
+<script src="/js/baseLib.js"></script>
+<script src="/js/tts.js"></script>
+<script>
+function onHelperMain(){
+	$('#helper-required').style.display = 'none';
+	// ===== TTS设置 =====
+	var eng = $('#tts_setting [name=engine]'),
+		vol = $('#tts_setting [name=volumn]');
+		
+	// 读取和保存设置
+	if('danmuji_tts' in localStorage){
+		try{
+			var setting = JSON.parse(localStorage.danmuji_tts);
+			eng.value = setting.engine;
+			vol.value = setting.volume;
+		}catch(e){}
+	}
+	eng.onchange = vol.onchange = function(){
+		localStorage['danmuji_tts'] = JSON.stringify({
+			engine: eng.value,
+			volume: vol.value
+		});
+	};
+	
+	// 将用户设置应用到组件
+	window.tts.engine = eng.value;
+	window.tts.volume = vol.value / 100;
+	eng.oninput = function(){
+		window.tts.engine = this.value;
+	};
+	vol.oninput = function(){
+		window.tts.volume = this.value / 100;
+	};
+	// ===== TTS设置 结束 =====
+	// ===== 启动参数 =====
+	var command = _GET('roomid');
+	if(command){
+		var idInput = $('form [name=roomid]');
+		idInput.value = command;
+		idInput.form.onsubmit();
+	}
+	
+}
+function onFormRoomId(e){
+	try{
+		setRoomId(e.elements.roomid.value);
+	}catch(e){} // 当没有辅助脚本时以上函数会报错
+	return false;
+}
+(function(){
+	var curInterval;
+	
+	// 设置所监视的直播间，需要直播间原房间号而不是短号。比如115直播间为1016；3号直播间为23058
+	window.setRoomId = function (roomid){
+		history.pushState({}, '', '?roomid=' + roomid);
+		if(curInterval){
+			clearInterval(curInterval);
+			var r = $('#dmk_root');
+			while(r.children.length) r.children[0].remove();
+		}
+		var query = 'get https://api.live.bilibili.com/xlive/web-room/v1/dM/gethistory?roomid=' + roomid;
+		dmk_fetch();
+		curInterval = setInterval(dmk_fetch, 10000);
+		function dmk_fetch(){
+			httpj(query, function(e){
+				var r = $('#dmk_root');
+				e.data.room.foreach(function(e){
+					var lastDMK = r.lastElementChild,
+						ts = new Date(e.timeline).getTime(),
+						uid = e.uid;
+					if(lastDMK){
+						var lastTS = parseInt(lastDMK.getAttribute('ts')),
+							lastUID = parseInt(lastDMK.getAttribute('uid'));
+						if(lastTS > ts || (lastTS == ts && lastUID == uid)) return; // continue foreach
+					}
+					var c = ct('div');
+					c.setAttribute('ts', ts);
+					c.setAttribute('uid', uid);
+					r.appendChild(c);
+					c.innerText = e.nickname + ': ' + e.text;
+					r.scrollTop = r.scrollHeight; // 自动滚屏
+					tts(e.nickname + '说：' + e.text);
+				});
+			});
+		};
+	}
+})();
+function copy_shotcut(e){
+	var roomid = e.form.elements.roomid.value;
+	copy(location.protocol + '//' + location.host + location.pathname + (roomid? '?roomid=' + roomid: ''));
+}
+</script>
+</html>
