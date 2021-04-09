@@ -1,0 +1,99 @@
+<style>
+fieldset > :not(legend){
+	font-size: 14px;
+}
+a[href]:not(:hover){
+	text-decoration: none;
+}
+a[href]:empty:after{
+	content: attr(href);
+}
+</style>
+<a href="https://leorchn.github.io/workshop/">&lt; &#36820;&#22238;&#29790;&#20861;&#35895;</a>
+<fieldset style="tab-size:2">
+	<legend>Compatibility - <a target="_blank" href="https://zhuanlan.zhihu.com/p/133918498"></a></legend>
+	<pre>
+	column-width:
+		IE >= 10
+		Firefox >= 50 else "-moz-column-width"
+		Chrome >= 50 else "-webkit-column-width"
+		Chrome 43 VERIFIED
+
+	column-gap (Multi-column Layout):
+		IE >= 10
+		Firefox >= 52 else "-moz-column-gap"
+		Chrome >= 50 else "-webkit-column-gap"
+		Chrome 43 VERIFIED
+
+	column-break-inside:
+		???
+	&#8593; in fact: break-inside:
+		IE >= 10
+		Firefox >= 65
+		Chrome >= 50
+		Chrome 43 VERIFIED "-webkit-column-break-inside"
+
+	more compatible details see:
+		<a target="_blank" href="https://caniuse.com/multicolumn"></a>
+	</pre>
+</fieldset>
+<style>
+.columns {
+  -webkit-column-width: 320px;
+  -webkit-column-gap: 15px;
+  -moz-column-width: 320px;
+  -moz-column-gap: 15px;
+  column-width: 320px;
+  column-gap: 15px;
+  width: 90%;
+  max-width: 1100px;
+  margin: 50px auto;
+}
+.columns figure {
+  display: inline-block;
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  /* column-break-inside: avoid;
+  /* ^ so... what the fuck is this? */
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  border-radius: 8px;
+}
+.columns figure img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+</style>
+<div class="columns">
+	<figure>
+		<img src="https://source.unsplash.com/random?city" alt />
+	</figure>
+	<figure>
+		<img src="https://source.unsplash.com/random?night" alt />
+	</figure>
+	<figure>
+		<img src="https://source.unsplash.com/random?developer" alt />
+	</figure>
+	<figure>
+		<img src="https://source.unsplash.com/random?building" alt />
+	</figure>
+	<figure>
+		<img src="https://source.unsplash.com/random?water" alt />
+	</figure>
+	<figure>
+		<img src="https://source.unsplash.com/random?coding" alt />
+	</figure>
+	<figure>
+		<img src="https://source.unsplash.com/random?stars" alt />
+	</figure>
+	<figure>
+		<img src="https://source.unsplash.com/random?forest" alt />
+	</figure>
+	<figure>
+		<img src="https://source.unsplash.com/random?girls" alt />
+	</figure>
+	<figure>
+		<img src="https://source.unsplash.com/random?working" alt />
+	</figure>
+</div>
