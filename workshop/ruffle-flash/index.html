@@ -1,0 +1,100 @@
+---
+title: Ruffle Flash 模拟器示例
+description: 受到 FurAffinity 启发而制作的，一个使用 Ruffle 模拟器播放 Flash 的示例。
+---
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Ruffle Flash Sample</title>
+	{% seo %}
+<style>
+html{
+	scrollbar-width: thin
+}
+a:not(:hover){
+	text-decoration: none;
+}
+ruffle-player:not(:fullscreen){
+	width: 90vw;
+	border: 1px solid #ccc;
+}
+</style>
+<style id="ruffle-shadow-style">
+/* 去除 FLASH 警告提示 */
+#message_overlay{
+	display: none;
+}
+/* 汉化右键菜单 */
+#context-menu .menu_item{
+	color: transparent !important;
+	font-size: 0;
+}
+#context-menu .menu_item:before{
+	color: #000;
+	font-size: 1rem;
+}
+#context-menu .menu_item:nth-child(1):before{
+	content: '全屏';
+}
+#context-menu .menu_item:nth-child(3):before{
+	content: 'Ruffle 模拟器 v0.1.2021.2.2';
+}
+</style>
+</head>
+<body>
+	<a href="https://leorchn.github.io/workshop/">&lt; 返回瑞兽谷</a>
+	<pre style="font-size: 14px; white-space: pre-wrap">
+受到 FurAffinity 的启发，
+这是一个使用 Ruffle 模拟器播放 Flash 的示例。
+
+已知特性：
+* 似乎不会受到自动播放限制，并且还可以自动播放声音
+* 能在手机上运行（Android 8.1 / <span style="display: inline-block">Chrome 81.0.4044.117</span>）
+
+注意事项：
+* 需要浏览器支持 WebAssembly
+* 此组件有 4.9 M，加载过程请耐心等待
+* 成功加载 SWF 文件后，读取时可能会卡住 UI 线程
+
+WebAssembly 兼容性：
+	Chrome >= 51
+	Chrome >= 57 （完全支持）
+	Firefox >= 47
+	Firefox >= 52 （完全支持）
+
+另外，以下两个示例还进行了如下修改：
+* 在加载完毕后自动暂停，用户点击播放
+* 去除 FLASH 警告提示
+* 汉化右键菜单
+* 非全屏时添加一个边框，因为我觉得这样有安全感
+* 编写封装类，可以直接把以上功能打包带走
+</pre>
+</body>
+<script src="ruffle_v2021.2.2.furaffinity.js"></script>
+<script>
+// 加载URL。这里换成文件也行
+//p1.load('zoharwolf.fa.9519770.swf');
+//p1.load('guy-buddy.swf'); // 能玩的游戏示例
+//p1.load('nitrome/avalanche/main.swf'); // 异常的游戏示例
+// 新式加载法
+var p1 = new Flash('zoharwolf.fa.9519770.swf', document.body),
+	p2 = new Flash('guy-buddy.swf', document.body);
+
+function Flash(swf, container){
+	if(!(this instanceof Flash)) return;
+	var p1 = this.player = RufflePlayer.newest().createPlayer();
+	container.appendChild(p1); // 拿到播放器后必须第一时间把播放器放入 DOM
+	p1.load(swf); // 必须要先把播放器放入 DOM 才能调用 load
+	// 载入完毕暂停一次，以及注入
+	var onloadinterval = setInterval(function(){
+		p1.pause();
+		if(p1.shadowRoot.querySelector('canvas')){
+			// 警告去除和菜单汉化注入
+			p1.shadowRoot.querySelector('#dynamic_styles').innerHTML = document.querySelector('#ruffle-shadow-style').innerText;
+			clearInterval(onloadinterval);
+		}
+	}, 100);
+}
+</script>
+</html>
