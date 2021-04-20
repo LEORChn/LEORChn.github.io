@@ -1,0 +1,137 @@
+---
+title: 性价比计算器
+description: 主要用于计算卖家设定的多个套餐哪个更划算。
+layout: lmui
+---
+<style>
+@import "/assets/css/style.css";
+
+/* ----- 隐藏 spinner 点击输入 ----- */
+input[type=number]::-webkit-inner-spin-button{
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type=number]{
+	-moz-appearance: textfield;
+}
+
+/* ----- 表格样式 ----- */
+table input{
+	width: 3em;
+}
+table textarea{
+	width: 6em;
+}
+/* 覆盖 primer 主题的表格样式编辑 */
+.markdown-body table tr td{
+	padding-left: 3px;
+	padding-right: 3px;
+}
+</style>
+{% capture md %}
+## 前言
+
+在这个计算器出现之前，我曾经被商品的多个促销套餐所困扰。
+
+比如什么打包组合优惠、满多少减多少优惠等。
+
+钱有是有，买也不介意多买点，所以究竟哪个套餐性价比更高？
+
+有了这个计算器，我将能很快得出结论。
+
+## 用法
+
+### 常规用法
+
+大多数时候只需要填写单价，以及用这个价格能购买多少份量这两个数据就行。
+
+那么什么是份量？比如
+
+* 克、千克之类的质量单位
+* 毫升、升之类的容积单位
+* 立方厘米、立方米之类的体积单位
+
+但是，请务必确保填写的数值采用相同的单位，否则性价比算出来不符合实际情况那可概不负责哦。
+
+### 优惠券计算用法
+
+在单价和份量输入框之上，可以看到满XX减XX输入框。这是用于应对优惠券优惠计算。
+
+第一个空指的是优惠券的门槛。如果优惠券是无门槛，那么就不用填写，让他默认为零即可。
+
+如果填写了优惠券信息，那么计算器会以能达到优惠条件的购买量来计算性价比。
+
+### 打包优惠计算用法
+
+在份量之中，支持使用乘法符号应对打包优惠。支持使用英文字母 X 或者星号 * 代表乘法，不需要加空格。
+
+比如，雪碧2升瓶，6瓶组合装，可以写作：2000x6，也可以写作：2000*6
+
+{% endcapture %}
+<div class="markdown-body">
+	<table>
+		<tr>
+	 		<td>备注</td>
+			<td></td>
+			<td>性价比</td>
+		</tr>
+		<tfoot>
+		<tr>
+			<td colspan="3" onclick="addTable()">+</td>
+		</tr>
+		</tfoot>
+	</table>
+	{{ md | markdownify }}
+</div>
+<script src="https://LEORChn.github.io/js/baseLib.js"></script>
+<script>
+function text(s){
+	return document.createTextNode(s);
+}
+addTable();
+function addTable(){
+	var td = [ct("td"), ct("td"), ct("td")],
+		performance = ct("span");
+var comp = [
+	ct("input"),
+	ct("input"),
+	ct("input"),
+	ct("input")
+];
+td[0].appendChild(ct("textarea"));
+td[1].appendChildren(text("满"), comp[0], text("减"), comp[1], ct("br"), text("单价"), comp[2], text("份量"), comp[3]);
+td[2].appendChild(performance);
+var tr = ct("tr");
+tr.appendChildren(td[0], td[1], td[2]);
+$("table").appendChild(tr);
+comp[0].size = comp[1].size = 5;
+comp[0].placeholder = comp[1].placeholder = "0";
+comp[0].type = comp[1].type = comp[2].type = "number";
+comp[2].setAttribute('autofocus', '');
+var func_input = function(){
+	var v = [
+		comp[0].valueAsNumber || 0,
+		comp[1].valueAsNumber || 0,
+		comp[2].valueAsNumber,
+		parseInt(comp[3].value),
+	];
+	var volumeCalc = comp[3].value.replace("*","x").split("x");
+	if(volumeCalc.length == 2){
+		if(isNaN(parseInt(volumeCalc[1])))
+			volumeCalc[1] = 1;
+		v[3] = parseInt(volumeCalc[0]) * volumeCalc[1];
+	}
+	var atleastbuy = Math.max(1,Math.ceil(v[0] / v[2]));
+	var totalprice = atleastbuy * v[2] - v[1];
+	var totalvolume = atleastbuy * v[3] / totalprice;
+	var value = isNaN(totalvolume)?
+		"请正确输入":
+		totalvolume.toFixed(Math.max(0,7-(Math.floor(totalvolume)+"").length));
+	performance.innerText = value;
+};
+
+comp.foreach(function(e){
+	e.oninput = func_input;
+});
+}
+</script>
