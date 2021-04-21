@@ -1,17 +1,17 @@
-group	url	name	desc
-blueprint	ppr-calc	性价比计算器	主要用于计算卖家设定的多个套餐哪个更划算。
-workshop	leorchn-helper	瑞兽谷辅助脚本	一个超越浏览器限制，在瑞兽谷使用众多强力功能的辅助脚本。
-workshop	abprules	AdBlock 额外规则	这里整理了一些ABP默认不屏蔽但同样恼人界面的屏蔽规则。
-workshop		mhtml 工具	目前只有一个压缩QQ聊天记录的功能，后续再开放：通用 MHT 格式解压功能。
-workshop		danmuji2ass	将弹幕姬的弹幕文件转换为ASS格式，并配合x264压制到录播姬的直播录像中。
-workshop		瑞兽谷日历	发生在瑞兽谷的重大事件。
-workshop		id18gen	Input first 17 numbers and get calculated 18th number!
-workshop		Wiki表格转换器	将 XLS 或 XLSX 表格文件转换为 MediaWiki 源代码。
-workshop		图床工具	Image Hosting Service
-workshop		QQ群工具	如果你的QQ客户端打开群公告、群相册或群文件时卡死或出现其他问题，可以使用这些工具。
-blueprint	ruffle-flash	Ruffle Flash 模拟器测试	受到 FurAffinity 启发而制作的一个使用 Ruffle 模拟器播放 Flash 的示例。
-blueprint	danmuji/http.html	B站弹幕机 (HTTP)	一个能够多实例运行、带TTS功能的B站弹幕机。需要瑞兽谷辅助脚本才能运行。
-blueprint	weiboshow	微博秀测试	本来是想测试把多个单条微博提取出来组成微博流，结果并没如愿。
-blueprint	h5vplay/bili.html	哔哩站外播放器测试	计划用于在百科板块引用这个组件。
-blueprint	h5vplay/yk.html	优酷站外播放器测试	计划用于在百科板块引用这个组件。
-blueprint	waterfall/1.html	瀑布流测试#1	一个纯CSS的实现测试。使用多列布局，但其实这个 “瀑布流” 的排列结果跟平常说的并不一样。
+group	create	update	url	name	desc
+blueprint	2021-4-20		ppr-calc	性价比计算器	主要用于计算卖家设定的多个套餐哪个更划算。
+blueprint	2021-4-12		ruffle-flash	Ruffle Flash 模拟器测试	受到 FurAffinity 启发而制作的一个使用 Ruffle 模拟器播放 Flash 的示例。
+blueprint	2021-4-9		danmuji/http.html	B站弹幕机 (HTTP)	一个能够多实例运行、带TTS功能的B站弹幕机。需要瑞兽谷辅助脚本才能运行。
+workshop	2021-4-2		abprules	AdBlock 额外规则	这里整理了一些ABP默认不屏蔽但同样恼人界面的屏蔽规则。
+blueprint	2021-3-24		weiboshow	微博秀测试	本来是想测试把多个单条微博提取出来组成微博流，结果并没如愿。
+blueprint	2021-1-12		h5vplay/bili.html	哔哩站外播放器测试	计划用于在百科板块引用这个组件。
+blueprint	2021-1-12		h5vplay/yk.html	优酷站外播放器测试	计划用于在百科板块引用这个组件。
+workshop	2020-6-17	2020-12-9		mhtml 工具	目前只有一个压缩QQ聊天记录的功能，后续再开放：通用 MHT 格式解压功能。
+workshop	2020-5-21	2020-10-21		danmuji2ass	将弹幕姬的弹幕文件转换为ASS格式，并配合x264压制到录播姬的直播录像中。
+workshop	2020-3-23	2020-5-13		瑞兽谷日历	发生在瑞兽谷的重大事件。
+workshop	2019-11-18			id18gen	Input first 17 numbers and get calculated 18th number!
+workshop	2019-10-14	2019-11-2		Wiki表格转换器	将 XLS 或 XLSX 表格文件转换为 MediaWiki 源代码。
+workshop	2019-9-15			QQ群工具	如果你的QQ客户端打开群公告、群相册或群文件时卡死或出现其他问题，可以使用这些工具。
+workshop	2019-4-11	2021-4-9	leorchn-helper	瑞兽谷辅助脚本	一个超越浏览器限制，在瑞兽谷使用众多强力功能的辅助脚本。
+workshop	2019-4-2			图床工具	Image Hosting Service
+blueprint	2020-5-23	2021-4-10	waterfall/1.html	瀑布流测试#1	一个纯CSS的实现测试。使用多列布局，但其实这个 “瀑布流” 的排列结果跟平常说的并不一样。
