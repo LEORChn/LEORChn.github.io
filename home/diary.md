@@ -8,7 +8,12 @@ permalink: /home/
 			<div class="watermarkTopRight" onselectstart="return false">Recent</div>
 			<div class="h1">
 				<div style="display:inline">最近发布</div>
-				<a href="/atom.xml" style="font-size:medium"><img src="img/rss_24.gif" width="16" height="16" />RSS订阅</a>
+				<span style="font-size: medium">
+					<img src="img/rss.svg" style="height: 1.5em; vertical-align: bottom">
+					RSS订阅:
+				</span>
+				<a href="/atom.xml" style="font-size:medium">文章推送</a>
+				<a href="https://github.com/LEORChn/LEORChn.github.io/commits/master.atom" style="font-size:medium">整站更新</a>
 			</div>
 			<br>
 			<div class="grid" masonry gutter="10" itemselector=".grid-item" columnwidth=".sizer">
