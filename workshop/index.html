@@ -37,14 +37,7 @@ title: 工程车间
 </div>
 
 <style>
-[blueprints]{
-	color: #fff;
-	background: url(blueprint.png);
-	background-position: 10px 20px;
-}
-[blueprints] div[li]{
-	color: #000;
-}
+/* 多列布局 */
 div[ul]{
 	-webkit-column-width: 280px;
 	-moz-column-width: 280px;
@@ -57,6 +50,7 @@ div[li]{
 	break-inside: avoid;
 	padding: 5px 2px .1px;
 }
+/* 确保A元素填充 */
 [ul] [li] .mui-panel{
 	position: relative;
 }
@@ -70,6 +64,7 @@ a{
 	top: 0;
 	left: 0;
 }
+/* 列表子元素 */
 div[li] .mui-panel{
 	background-color: #F8F8F8;
 	transition: .2s;
@@ -80,8 +75,26 @@ div[li] .mui-panel:hover{
 div[li] .mui-panel:active{
 	background-color: #D8D8D8;
 }
+/* 蓝图板块 */
+[blueprints]{
+	color: #fff;
+	background: url(blueprint.png);
+	background-position: 10px 20px;
+}
+[blueprints] div[li] .mui-panel{
+	background: #5677b0 url(blueprint-normal.png);
+	border: #fff 2px solid;
+}
+[blueprints] div[li] .mui-panel:hover{
+	background: #5677ae;
+}
+[blueprints] div[li] .mui-panel:active{
+	background: #6a87b7 url(blueprint-active.png);
+}
 </style>
 
+<!-- 蓝图板块 - 提前加载图片 -->
+<img src="blueprint-active.png" style="opacity: 0">
 
 <style>
 #corner{
