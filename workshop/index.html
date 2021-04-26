@@ -37,69 +37,40 @@ title: 工程车间
 </div>
 
 <style>
-/* 多列布局 */
+{% capture scss %}
+/* 所有板块 */
 div[ul]{
+	/* 多列布局 - 子项容器 */
 	-webkit-column-width: 280px;
 	-moz-column-width: 280px;
 	column-width: 280px;
 	-webkit-column-gap: .5em;
 	column-gap: .5em;
+	div[li]{
+		/* 多列布局 - 子项 */
+		-webkit-column-break-inside: avoid;
+		break-inside: avoid;
+		padding: 5px 2px .1px;
+		.mui-panel{
+			/* 确保A元素填充 */
+			position: relative;
+			a{
+				text-decoration: none;
+				color: #000;
+				cursor: pointer;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+			}
+		}
+	}
 }
-div[li]{
-	-webkit-column-break-inside: avoid;
-	break-inside: avoid;
-	padding: 5px 2px .1px;
-}
-/* 确保A元素填充 */
-[ul] [li] .mui-panel{
-	position: relative;
-}
-[ul] [li] a{
-	text-decoration: none;
-	color: #000;
-	cursor: pointer;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-}
-/* 列表子元素 */
-div[li] .mui-panel{
-	background-color: #F8F8F8;
-	transition: .2s;
-}
-div[li] .mui-panel:hover{
-	background-color: #E8E8E8;
-}
-div[li] .mui-panel:active{
-	background-color: #D8D8D8;
-}
-/* 蓝图板块 */
-[blueprints]{
-	color: #fff;
-	background: url(blueprint.png);
-	background-position: 10px 20px;
-}
-[blueprints] div[li] .mui-panel{
-	background: #5677b0 url(blueprint-normal.png);
-	border: #fff 2px solid;
-	transition: 0s;
-}
-[blueprints] div[li] .mui-panel:hover{
-	background: #5677ae;
-}
-[blueprints] div[li] .mui-panel:active{
-	background: #6a87b7 url(blueprint-active.png);
-	border-color: rgba(255, 255, 255, .5);
-}
-</style>
 
-<!-- 蓝图板块 - 提前加载图片 -->
-<img src="blueprint-active.png" style="opacity: 0">
-
-<style>
+/* 车间板块 */
 #corner{
+	/* 动画标 */
 	position: absolute;
 	right: 0;
 	top: 5px;
@@ -107,11 +78,49 @@ div[li] .mui-panel:active{
 	height: 96px;
 	background: url(shipyardweldinglit.png) no-repeat;
 	background-size: cover;
+	& ~ div[ul] div[li] .mui-panel{
+		/* 按钮样式 */
+		background-color: #F8F8F8;
+		transition: .2s;
+		&:hover{
+			background-color: #E8E8E8;
+		}
+		&:active{
+			background-color: #D8D8D8;
+		}
+	}
 }
+
+/* 蓝图板块 */
+[blueprints]{
+	/* 容器样式 */
+	color: #fff;
+	background: url(blueprint.png);
+	background-position: 10px 20px;
+	div[li] .mui-panel{
+		/* 按钮样式 */
+		background: #5677b0 url(blueprint-normal.png);
+		border: #fff 2px solid;
+		&:hover{
+			background: #5677ae;
+		}
+		&:active{
+			background: #6a87b7 url(blueprint-active.png);
+			border-color: rgba(255, 255, 255, .5);
+		}
+	}
+}
+{% endcapture %}
+{{ scss | scssify }}
 </style>
+
+<!-- 蓝图板块 - 提前加载图片 -->
+<img src="blueprint-active.png" style="opacity: 0">
+
 <script>
+/* 车间板块 动画标 */
 (function(){
-	var c = document.getElementById('corner');// c = null;
+	var c = document.getElementById('corner');
 	var cframe = 0;
 	setInterval(function(){
 		c.style.backgroundPositionX = (cframe * -c.clientWidth) + 'px';
