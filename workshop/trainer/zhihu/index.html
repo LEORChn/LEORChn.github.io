@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+	<title>trainer/zhihu v2</title>
+	<script src="/js/stats.js" async></script>
+<style>
+:root{
+	font-size: 12px;
+}
+table img{
+	max-height: 1.5em;
+}
+table[rules=all] td:not(:first-child){
+	padding: .25em .5em;
+	text-align: center;
+}
+#zhihu-club-trainer td:not(:nth-child(2)){
+	text-align: right;
+}
+</style>
+</head>
+<body>
+	<table rules="all" id="zhihu-club-trainer"></table>
+	<table rules="all">
+		<tr>
+			<td>Combo</td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td>4</td>
+			<td>5</td>
+			<td>6</td>
+			<td>7</td>
+			<td>29</td>
+			<td>30</td>
+			<td>31+</td>
+		</tr>
+		<tr>
+			<td>Exp</td>
+			<td>1</td>
+			<td>2</td>
+			<td>4</td>
+			<td>6</td>
+			<td>8</td>
+			<td>10</td>
+			<td colspan="2">15</td>
+			<td>30</td>
+			<td>15</td>
+		</tr>
+	</table>
+</body>
+<script src="expTable.js" async></script>
+<script src="zsEncrypt.js"></script>
+<script src="/js/baseLib.js"></script>
+<script>
+var trainer = [];
+var ua = 'user-agent: ZhihuHybrid DefaultBrowser com.zhihu.android/Futureve/6.25.0 Mozilla/5.0 (Linux; Build/OPM1.171019.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/62.0.3202.84 Mobile Safari/537.36';
+function onHelperMain(){
+	httpj('get https://www.zhihu.com/api/v4/clubs/joined?limit=8&offset=0&sortby=visit_count', function(j){
+		var table = $('#zhihu-club-trainer');
+		var table_columns = ' 圈子名 Lv Exp Ext Combo Today'.split(' ');
+		var tr = ct('tr');
+		table.appendChild(tr);
+		table_columns.foreach(function(e){
+			tr.appendChild(ct('td', e));
+		});
+		
+		j.data.foreach(function(e){
+			var tr = ct('tr');
+			table.appendChild(tr);
+			table_columns.foreach(function(e){
+				tr.appendChild(ct('td'));
+			});
+			trainer.push(new ZhihuClubTrainer(e.id, tr));
+		});
+	});
+	function ZhihuClubTrainer(club_id, table_row, cookie){
+		if(!(this instanceof ZhihuClubTrainer)) return;
+		var inf = {
+			login_date: 0, // 设为0以表示初始化刷新
+			id: club_id,
+			tr: table_row,
+			cok: cookie? cookie.trim().toLowerCase().startsWith('cookie:')? cookie: 'cookie:' + cookie: '',
+			set push(table){
+				for(var key in table) inf[key] = table[key];
+			}
+		};
+		
+		fetchUserInfo();
+		setInterval(fetchUserInfo, 7200 * 1000); // 状态检查间隔：2小时
+		function fetchUserInfo(){
+			if(inf.login_date != getServerDate()){
+				inf.push = { // 到达了新的一天，清除任务状态
+					login_date: getServerDate(),
+					quest_share: 0
+				};
+			}
+			// 获取此帐号在该圈子中的身份号和签到状态，但是此接口不提供已积累经验数和连签天数
+			httpj('get https://api.zhihu.com/clubs/' + inf.id, function(j){
+				inf.push = {
+					img:   j.avatar,
+					name:  j.name,
+					mask:  j.login_mask.id,
+					level: j.login_mask.mask_level.level,
+					quest_checkin: j.is_checkin
+				};
+				// 获取此帐号在该圈子已积累经验数和连签天数
+				httpj('get https://api.zhihu.com/api/v4/clubs/' + inf.id + '/masks/' + inf.mask, function(j){
+					inf.push = {
+						exp: j.mask_level.score,
+						checkin_combo: j.checkin_day_count
+					};
+					ui();
+					if(!inf.quest_checkin) quest_checkin();
+					if(inf.quest_share < 2) quest_share(); // 理论上来说如果当日没签到直接运行本程序，那么这一条会连续执行2次
+					// 因为，如果是未签到，那么在 quest_checkin 之后会执行一次 quest_share，而 quest_checkin 得到 success 状态后，会再执行一次 fetchUserInfo，因此会执行第二次 quest_share
+				});
+			});
+		}
+		function quest_checkin(){
+			var headers = [
+				'content-type: application/json',
+				'referer: https://www.zhihu.com/club/' + club_id,
+				ua,
+				'x-zse-83: 3_2.0'
+			].join('\n'),
+			post = zsEncrypt(JSON.stringify({
+				club_id: inf.id,
+				timestamp: Date.now() / 1000
+			}));
+			httpj('post https://www.zhihu.com/api/v4/clubs/' + inf.id + '/checkin', headers, post, function(j){
+				if(j.success) fetchUserInfo();
+			});
+		}
+		function quest_share(){
+			var headers = [
+				'referer: https://www.zhihu.com/club/' + inf.id,
+				ua
+			].join('\n');
+			httpj('post https://www.zhihu.com/api/v4/clubs/' + inf.id + '/share', headers, function(j){
+				if(j.success){
+					inf.quest_share++;
+					ui();
+				}
+			});
+		}
+		
+		function ui(){
+			[
+				inf.tr.children[0].innerHTML? null: '<img src="' + inf.img + '">',
+				inf.name,
+				inf.level,
+				inf.exp,
+				inf.quest_share * 5,
+				inf.checkin_combo,
+				inf.quest_checkin? '已签到': '未签到'
+			].foreach(function(e, i){
+				if(e == null) return;
+				inf.tr.children[i].innerHTML = e;
+			});
+		}
+		
+		function getServerDate(){ // 获取知乎服务器时间（当月第几日），应该不会受到客户端时区影响
+			return new Date(Date.now() + 480 * 60000).getUTCDate();
+		}
+	}
+}
+</script>
+</html>

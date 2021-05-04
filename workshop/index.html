@@ -52,6 +52,17 @@ div[ul]{
 		break-inside: avoid;
 		padding: 5px 2px .1px;
 		.mui-panel{
+			> .mui--text-headline hr{
+				display: inline-block;
+				border: none;
+				vertical-align: middle;
+				width: 1.3em;
+				height: 1.3em;
+				margin-right: .2em;
+				&[dir]{
+					background: url(/img/os/windows/dir-32.png);
+				}
+			}
 			/* 确保A元素填充 */
 			position: relative;
 			a{

@@ -29,7 +29,7 @@
 				<img src="{{ caption_icon }}">
 			{%- endif -%}
 		</label>
-		{{- page.title -}}
+		{{- page.caption | default: layout.caption | default: page.title -}}
 	</header>
 	<nav>
 		<label class="overlay-background" for="ui_expand_navigation"></label>
@@ -89,13 +89,7 @@ function overlay_change(e){
 }
 </script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-174341933-1"></script>
-<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'UA-174341933-1');
-</script>
+<script async src="/js/stats.js"></script>
+
 
 </html>

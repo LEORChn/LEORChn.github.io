@@ -1,4 +1,5 @@
 group	create	update	url	name	desc
+trainer	2021-5-3		zhihu	zhihu club	Gather 25 exp points each day. The browser helper is required.
 blueprint	2021-4-20		ppr-calc	性价比计算器	主要用于计算卖家设定的多个套餐哪个更划算。
 blueprint	2021-4-12		ruffle-flash	Ruffle Flash 模拟器测试	受到 FurAffinity 启发而制作的一个使用 Ruffle 模拟器播放 Flash 的示例。
 blueprint	2021-4-9		danmuji/http.html	B站弹幕机 (HTTP)	一个能够多实例运行、带TTS功能的B站弹幕机。需要瑞兽谷辅助脚本才能运行。
@@ -6,6 +7,7 @@ workshop	2021-4-2		abprules	AdBlock 额外规则	这里整理了一些ABP默认�
 blueprint	2021-3-24		weiboshow	微博秀测试	本来是想测试把多个单条微博提取出来组成微博流，结果并没如愿。
 blueprint	2021-1-12		h5vplay/bili.html	哔哩站外播放器测试	计划用于在百科板块引用这个组件。
 blueprint	2021-1-12		h5vplay/yk.html	优酷站外播放器测试	计划用于在百科板块引用这个组件。
+workshop	2021-1-1		trainer	<hr dir>trainer	
 workshop	2020-6-17	2020-12-9		mhtml 工具	目前只有一个压缩QQ聊天记录的功能，后续再开放：通用 MHT 格式解压功能。
 blueprint	2020-5-23	2021-4-10	waterfall/1.html	瀑布流测试#1	一个纯CSS的实现测试。使用多列布局，但其实这个 “瀑布流” 的排列结果跟平常说的并不一样。
 workshop	2020-5-21	2020-10-21		danmuji2ass	将弹幕姬的弹幕文件转换为ASS格式，并配合x264压制到录播姬的直播录像中。
