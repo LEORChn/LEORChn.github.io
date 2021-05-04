@@ -7,7 +7,7 @@
 // @include           https://127.0.0.1:1101/workshop/*
 // @include           https://127.0.0.1:81/workshop/*
 // @namespace         https://greasyfork.org/users/159546
-// @version           1.0
+// @version           1.0.2
 // @author            LEORChn
 // @run-at            document-end
 // @grant             GM_xmlhttpRequest
@@ -19,6 +19,9 @@
 // @connect           baidu.com
 // @connect           bilibili.com
 
+// @connect           zhihu.com
+
+// @connect           people.com.cn
 // ==/UserScript==
 
 unsafeWindow['http'] = http;
