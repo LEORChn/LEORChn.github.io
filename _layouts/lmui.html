@@ -9,9 +9,9 @@
 {% endcomment %}
 {%- assign empty_array = '' | split: '' -%}
 <!DOCTYPE html>
-<html>
+<html lang="{{ page.lang | default: layout.lang | default: site.lang }}">
 <head>
-	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
 	<title>{% include ui/document-title %}</title>
 	{% seo %}
 	<style>@import "/frame/lmui.css";</style>
@@ -38,7 +38,9 @@
 			<div class="mui-divider"></div>
 			{%- assign lmui_nav_layout = layout.nav | default: empty_array -%}
 			{%- assign lmui_nav_page   = page.nav   | default: empty_array -%}
-			{%- assign lmui_nav = lmui_nav_layout | concat: lmui_nav_page -%}
+			{%- assign lmui_nav = lmui_nav_layout | concat: lmui_nav_page %}
+			<ul>
+				{{ '' -}}
 			{% for e in lmui_nav -%}
 				{% if e[1].first -%}
 				<li>
@@ -73,6 +75,7 @@
 				</label>
 			</li>
 			{%- endif %}
+			</ul>
 		</div>
 	</nav>
 	<article>
