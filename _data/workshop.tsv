@@ -4,6 +4,7 @@ blueprint	2021-4-20		ppr-calc	性价比计算器	主要用于计算卖家设定�
 blueprint	2021-4-12		ruffle-flash	Ruffle Flash 模拟器测试	受到 FurAffinity 启发而制作的一个使用 Ruffle 模拟器播放 Flash 的示例。
 blueprint	2021-4-9		danmuji/http.html	B站弹幕机 (HTTP)	一个能够多实例运行、带TTS功能的B站弹幕机。需要瑞兽谷辅助脚本才能运行。
 workshop	2021-4-2		abprules	AdBlock 额外规则	这里整理了一些ABP默认不屏蔽但同样恼人界面的屏蔽规则。
+workshop	2021-3-31	2021-5-5	userchrome	userChrome.css	在 Firefox 里体验旧版 Chrome 的界面。
 blueprint	2021-3-24		weiboshow	微博秀测试	本来是想测试把多个单条微博提取出来组成微博流，结果并没如愿。
 blueprint	2021-1-12		h5vplay/bili.html	哔哩站外播放器测试	计划用于在百科板块引用这个组件。
 blueprint	2021-1-12		h5vplay/yk.html	优酷站外播放器测试	计划用于在百科板块引用这个组件。

@@ -1,0 +1,73 @@
+
+#titlebar{
+	#TabsToolbar{
+		> .titlebar-spacer[type="pre-tabs"]{
+			/* 去除第一个选项卡左边的白线 */
+			display: none !important;
+		}
+		> .toolbar-items{
+			padding-top: 20px !important;
+			#tabbrowser-tabs{
+				--tab-min-height: 25px !important;
+				> #tabbrowser-arrowscrollbox{
+					height: 25px;
+					> tab.tabbrowser-tab{
+						/* 限制标签页宽度 */
+						max-width: 200px !important;
+						/* 将外部方块背景透明 */
+						background-color: transparent !important;
+						border: none !important;
+						&:first-child{
+							/* 由于使用透视法把选项卡变成梯形，因此最左边的选项卡需要往右边稍微挪一点，否则其左边的部分会在可绘制区域外 */
+							margin-left: 10px !important;
+						}
+						&:before, &:after{
+							/* 两个页面标签之间的分隔线，删除掉 */
+							display: none !important;
+						}
+						.tab-background{
+							/* 将内部方块背景变梯形（透视法） */
+							transform: perspective(100px) rotateX(20deg) !important;
+							/* 顶边两个角有点弧度 */
+							border-radius: 5px 5px 0 0;
+							/* 伪造的阴影效果 */
+							border: 1px solid rgba(38, 38, 38, .5) !important;
+							border-bottom-color: #fff !important;
+							> .tab-line{
+								/* 削除默认主题在梯形顶边绘制的粗线 */
+								display: none !important;
+							}
+							/* 变色效果（动画时长） */
+							transition: .5s !important;
+						}
+						&[selected="true"] .tab-background{
+							/* 渐变背景色（标签状态为前台、无论是否指向） */
+							background: #fff linear-gradient(to bottom, #fff, #f6f6f6) !important;
+						}
+						&:not([selected="true"]){
+							&:not(:hover) .tab-background{
+								/* 变色效果（标签状态为后台、未指向） */
+								background: rgb(216, 223, 231) !important;
+							}
+							&:hover .tab-background{
+								/* 变色效果（标签状态为后台、指向中） */
+								background: rgb(226, 235, 244) !important;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+#nav-bar{
+}
+
+.tabbroweser-tab:first-child{
+	margin-left: 10px !important;
+}
+
+/* 把地址栏中的 “网站信息” 提示文字隐藏，缩小按钮大小 */
+#identity-icon-label{
+	display: none;
+}
