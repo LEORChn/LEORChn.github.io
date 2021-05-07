@@ -1,0 +1,40 @@
+---
+layout: lmui
+title: 正在前往...
+feature: document.title-no-tail
+---
+<div dialog="alert">
+	<i></i>
+	<div>前方太危险了，皇家骑士团已经阻止你前进！</div>
+</div>
+<style>
+html{
+	background: #333b4c url(QkVFS0JH.png);
+	background-size: 20.5vw;
+}
+header{
+	background: #384c62;
+}
+[dialog]{
+	position: relative;
+	width: 250px;
+	height: 180px;
+	background-image: url(moledialog.svg);
+	text-align: center;
+	padding: 25px;
+}
+[dialog] > i{
+	display: inline-block;
+	margin: 10px 0 5px;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+[dialog] > div{
+	max-width: 250px;
+}
+[dialog=alert] > i{
+	width: 100px;
+	height: 66px;
+	background-image: url(shape357.png);
+}
+</style>

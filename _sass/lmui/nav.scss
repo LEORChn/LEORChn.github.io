@@ -60,7 +60,8 @@ nav, .nav{
 	}
 	/* 其他 导航Item */
 	> ul{
-		padding-inline-start: 0;
+		-webkit-padding-start: 0; /* Chrome 43 */
+		padding-inline-start: 0; /* 现代浏览器 */
 		> li{
 			font-size: .8125rem;
 			/* 其他 导航Item（首个）与以上的间隔 */
