@@ -1,4 +1,5 @@
 group	create	update	url	name	desc
+blueprint	2021-5-8	2021-5-9	h5-audio-gapless	无缝音频播放示例	计划用于 HTML5 游戏工程。
 trainer	2021-5-3		zhihu	zhihu club	Gather 25 exp points each day. The browser helper is required.
 blueprint	2021-4-20		ppr-calc	性价比计算器	主要用于计算卖家设定的多个套餐哪个更划算。
 blueprint	2021-4-12		ruffle-flash	Ruffle Flash 模拟器测试	受到 FurAffinity 启发而制作的一个使用 Ruffle 模拟器播放 Flash 的示例。

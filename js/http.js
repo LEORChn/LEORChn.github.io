@@ -1,6 +1,7 @@
 function http(){
 	var pointer = 0,
-		method, url, formed, dofun, dofail, onprogress;
+		method, url, formed, dofun, dofail, onprogress,
+		responseType = '';
 	arr(arguments).foreach(function(e){
 		switch(pointer){
 			case 0:
@@ -13,31 +14,36 @@ function http(){
 			case 1: url = e; break;
 			case 2:
 				if(e instanceof Function){ // 允许不添加 http-body 而直接撰写行为。
-					pointer++; // 偏移到下一个
+					pointer = 3; // 偏移到function
 				}else{
 					formed = e;
 					break;
 				}
-			case 3: dofun = e; break;
-			case 4: dofail = e; break;
-			case 5: onprogress = e;
+			case 3:
+				if(e.name == 'ArrayBuffer'){
+					responseType = 'arraybuffer';
+					break;
+				}else pointer++;
+			case 4: dofun = e; break;
+			case 5: dofail = e; break;
+			case 6: onprogress = e;
 		}
 		pointer++;
 	});
 	var x = window['XMLHttpRequest']?
 		new XMLHttpRequest():
-		/* @deprecated */ new ActiveXObject("Microsoft.XMLHTTP");
+		new ActiveXObject("Microsoft.XMLHTTP"); // deprecated
 	if(location.protocol.includes('https'))
-		url=url.replace('^http:', 'https:');
+		url = url.replace('^http:', 'https:');
 	x.open(method, url, true);
-	x.timeout=60000;
-	x.responseType="text"; // IE要求先open才能设置timeout和responseType
-	x.onload=dofun;
-	x.ontimeout=x.onerror= dofail? dofail: null;
-	x.onprogress=onprogress;
+	x.timeout = 60000;
+	x.responseType = responseType; // IE要求先open才能设置timeout和responseType
+	x.onload = dofun;
+	x.ontimeout = x.onerror = dofail? dofail: null;
+	x.onprogress = onprogress;
 	if(formed)
 		x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8'); // TODO: 暂不明确IE是否适用
-	x.send(formed?formed:'');
+	x.send(formed? formed: '');
 }
 function httpj(){
 	var a = arr(arguments);

@@ -1,0 +1,100 @@
+---
+layout: lmui
+title: 无缝音频播放示例
+description: 最简单的 HTML5 无缝音频播放示例。兼容 Chrome、Edge 和 Firefox。
+---
+最简单无缝音频播放示例：
+<input type="file" onchange="play1(this)">
+<input type="button" onclick="stop1()" value="停止">
+<div>
+	音频示例：
+	<input type="button" onclick="sample11(this)" value="舒缓音乐（38s, 298k）">
+	<input type="button" onclick="sample12(this)" value="激烈音乐（75s, 1170k）">
+</div>
+
+<pre style="font-size: 1rem">
+AudioContext 兼容性：
+IE 不支持
+Chrome >= 35
+Edge >= 12
+Firefox >= 25
+
+实际测试：
+Chrome 43 完美
+Firefox 88 对部分音频有一点点瑕疵
+</pre>
+
+参考资料：<a rel="noreferrer" target="_blank" href="https://blog.csdn.net/culi4814/article/details/108380315"></a>
+
+<style>
+input{
+	padding: revert;
+}
+a:empty:after{
+	content: attr(href);
+}
+</style>
+<script src="/js/baseLib.js"></script>
+<script src="/js/http.js"></script>
+<script>
+// ===== ===== 如下，这是一个最简单的无缝播放示例 ===== ===== //
+var context = new AudioContext(), // 新建一个音频上下文对象（放在全局）
+	buffersource1; // 给音频缓冲源定义一个变量空间
+function play1(element){
+	var fr = new FileReader(); // 新建一个文件读入器
+	fr.onload = function(){ // 定义成功读取时行为
+		context.decodeAudioData(fr.result, function(buff){ // 使用音频上下文解码音频，并让解码器在解码完成时将音频缓冲 [AudioBuffer] 传入函数
+			if(buffersource1) stop1();                     // 如果有一个正在播放中的音频缓冲源，那么就停止他。
+			buffersource1 = context.createBufferSource();  // 音频缓冲源一旦停止，就会过期。因此要用音频上下文重新创建一个缓冲源
+			buffersource1.buffer = buff;                   // 给缓冲源输入一个已解码的音频
+			buffersource1.connect(context.destination);    // 给缓冲源连接一个音频输出硬件（比如扬声器）
+			buffersource1.loop = true;                     // 设定缓冲源的循环属性
+			// buffersource1.loopStart = 0;                // 【音频不完美循环时用】如果音频本身前后自带切断，应使用这两个属性
+			// buffersource1.loopEnd = buff.duration - 1;
+			buffersource1.start();                         // 播放缓冲源
+		});
+	};
+	fr.readAsArrayBuffer(element.files[0]);
+}
+function stop1(){
+	buffersource1.stop();
+}
+// ===== ===== 如上 ===== ===== //
+
+// ===== ===== 下面就是实战时间 ===== ===== //
+function sample(buffersourceName, url, element){
+	element.disabled = true;
+	http('get ' + url, ArrayBuffer, function(){
+		element.disabled = false;
+		context.decodeAudioData(this.response, function(buff){
+			var bs = window[buffersourceName];
+			if(bs) bs.stop();
+			bs = window[buffersourceName] = context.createBufferSource();
+			bs.buffer = buff;
+			bs.connect(context.destination);
+			bs.loop = true;
+			bs.start();
+		});
+	}, function(){
+		element.disabled = false;
+		alert('fail to load ' + url + '\nyou may retry to fix it.');
+	}, function(prog){
+		if(!element.hasAttribute('origintext'))
+			element.setAttribute('origintext', element.value);
+		element.value = element.getAttribute('origintext') + Math.round(prog.loaded / prog.total * 100) + '%';
+	});
+}
+function sample11(element){
+	sample('buffersource1', 'BGM_078.mp3', element);
+}
+function sample12(element){
+	sample('buffersource1', 'bgm_boss_loop.mp3', element);
+}
+
+
+function main(){ // code below is for the debugging environment
+	play1({
+		files: f
+	});
+}
+</script>
