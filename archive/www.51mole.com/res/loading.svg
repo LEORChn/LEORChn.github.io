@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-300 -300 600 600">
+	<defs>
+		<g id="c3" fill="rgba(0,153,204,.3)">
+			<circle id="c1" cx="0" cy="-245" r="55" />
+			<circle cx="122.5" cy="-212.176" r="55" />
+			<circle cx="212.176" cy="-122.5" r="55" />
+		</g>
+	</defs>
+	<g id="gWheel">
+		<use xlink:href="#c3" style="transform:rotateZ(17deg)" />
+		<use xlink:href="#c3" style="transform:rotateZ(-73deg)" />
+		<use xlink:href="#c3" style="transform:rotateZ(197deg)" />
+		<use xlink:href="#c1" style="transform:rotateZ(107deg); fill:rgba(0,153,204,1)" />
+		<use xlink:href="#c1" style="transform:rotateZ(137deg); fill:rgba(0,153,204,.8)" />
+		<use xlink:href="#c1" style="transform:rotateZ(167deg); fill:rgba(0,153,204,.6)" />
+	</g>
+<script>
+//<![CDATA[
+var gWheel = document.getElementById('gWheel');
+var gwDeg = -1;
+setInterval(function(){
+	gwDeg = (gwDeg + 1) % 12;
+	gWheel.style.transform = 'rotateZ(' + (gwDeg * -30) + 'deg)';
+}, 1000 / 12);
+//]]>
+</script>
+</svg>
