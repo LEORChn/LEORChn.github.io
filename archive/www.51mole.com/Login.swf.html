@@ -1,7 +1,7 @@
 <html>
 <head></head>
 <body>
-<svg width="960" height="560" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg id="svg" width="960" height="560" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<rect x="0" y="0" width="960" height="560" fill="rgba(0,0,0,.1)" />
 	<foreignObject x="450" y="220" width="60" height="60">
 		<object data="res/loading.svg" type="image/svg+xml"></object>
@@ -9,7 +9,10 @@
 	<foreignObject x="0" y="280" width="960" height="2em">
 		<div align="center">请稍候，正在进入瑞兽谷摩尔庄园...</div>
 	</foreignObject>
-	<text x="16" y="500" align="right">建议使用 Chrome、Edge 或 Firefox 浏览器</text>
+	<foreignObject x="0" y="530" width="960" height="2em">
+		<div align="center">建议使用 <a target="_blank" href="https://www.google.cn/chrome/">Chrome</a>、<a target="_blank" href="https://www.microsoft.com/zh-cn/edge">Edge</a> 或 <a target="_blank" href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> 浏览器</div>
+	</foreignObject>
+	
 </svg>
 <style>
 *{
@@ -20,7 +23,42 @@ body{
 	max-width: 960px;
 	max-height: 560px;
 	overflow: hidden;
+	text-shadow: 0 0 10px #fff;
+}
+a:not(:hover){
+	text-decoration: none;
 }
 </style>
+<script>
+SVGElement.prototype.prependChild = SVGElement.prototype.prependChildren = function(){
+	var _this = this;
+	Array.prototype.slice.call(arguments).map(function(e){
+		if(_this.children.length){
+			_this.insertBefore(e, _this.children[0]);
+		}else{
+			_this.appendChild(e);
+		}
+	});
+};
+function ctsvg(src, x, y, w, h, onload){
+	var fo = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+	fo.setAttribute('x', x);
+	fo.setAttribute('y', y);
+	fo.setAttribute('width', w);
+	fo.setAttribute('height', h);
+	var o = document.createElement('object');
+	o.data = src;
+	o.type = 'image/svg+xml';
+	o.onload = onload;
+	fo.appendChild(o);
+	return fo;
+}
+setTimeout(function(){
+	svg.prependChild(ctsvg('module/main_resource/73.svg', -15, 0, 975, 560, onsvgload));
+	svg.children[1].style.fill = 'rgba(0,0,0,.5)';
+	function onsvgload(){
+	}
+}, 5000);
+</script>
 </body>
 </html>
