@@ -3,10 +3,12 @@
 /* 全局和一些业内通用样式 */
 *{
 	scrollbar-width: thin;
-}
-:not(ul), :not(h1), :not(h2), :not(h3), :not(h4), :not(h5), :not(h6){
 	margin: 0;
 	padding: 0;
+}
+ul, ol, li, h1, h2, h3, h4, h5, h6{
+	margin: initial;
+	padding: initial;
 }
 
 /* 滚动条样式 */

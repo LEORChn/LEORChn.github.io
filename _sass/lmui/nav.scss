@@ -95,6 +95,10 @@ nav, .nav{
 					border-bottom: 4px solid #000;
 				}
 				/* 导航Item 二级展开 列表Item */
+				~ ul{ /* 这是一个奇怪的补丁 */
+					-webkit-padding-start: 40px; /* Chrome 43 */
+					padding-inline-start: 40px; /* 现代浏览器 */
+				}
 				~ ul > li{
 					padding: .375rem 0;
 					max-height: calc(.9375rem * 2 + 1em);
