@@ -1,0 +1,40 @@
+body{
+	margin: 0;
+	padding: 0;
+	color: #fff;
+}
+body > input[type=radio]{
+	display: none;
+}
+header{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 32px;
+}
+.icon-insert:before{
+	content: '';
+	display: block;
+	border: 40px solid transparent;
+	border-bottom-color: white;
+	margin-top: -20px;
+	max-width: 0;
+}
+.icon-insert:after{
+	content: '';
+	display: block;
+	max-width: 80px;
+	margin: 10px 0;
+	height: 10px;
+	background: #fff;
+}
+input[value=vmin]:checked ~ #content > *{
+	display: block;
+	margin: auto;
+	width: 100vmin;
+}
+input[value=vf]:checked ~ #content > *{
+	display: block;
+	margin: auto;
+	width: 100%;
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<title></title>
+		<style>:root{background:#2b3a42}#drive{display:none}</style>
+		<style>@import "style.css";</style>
+	</head>
+	<body>
+		<script async src="zip.min.20210520.js" type="module"></script>
+		<script async src="handler.zip.js"></script>
+		<script async src="/js/baseLib.js"></script>
+		<script async src="main.js"></script>
+		<input type="radio" id="radasp0" name="aspect" value="vmin" checked>
+		<input type="radio" id="radasp1" name="aspect" value="vf">
+		<input type="radio" id="radasp2" name="aspect" value="hl">
+		<input type="radio" id="radasp3" name="aspect" value="hr">
+		<header style="background:rgba(0,0,0,.2)">
+			<label for="radasp0"><img src="vmin.png"></label>
+			<label for="radasp1"><img src="vf.png"></label>
+			<label for="radasp2"><img src="hl.png"></label>
+			<label for="radasp3"><img src="hr.png"></label>
+			<div style="float:right">
+				<div id="loadinglabel" style="display:inline-block"></div>
+				<label for="drive" style="display:inline-block">
+					<div style="max-width:32px; margin:auto; text-align:center">
+						<div style="border:16px solid transparent; border-bottom-color:white; margin-top:-12px"></div>
+						<div style="margin:4px 0; height:4px; background:rgba(255,255,255,.5)"></div>
+					</div>
+				</label>
+			</div>
+		</header>
+		<input type="file" id="drive">
+		<div id="content" style="padding-top:32px">
+			<label for="drive">
+				<div style="max-width:80px; margin:auto; text-align:center">
+					<div style="border:40px solid transparent; border-bottom-color:white; margin-top:-20px"></div>
+					<div style="margin:10px 0; height:10px; background:#fff"></div>
+					插入磁碟
+				</div>
+			</label>
+		</div>
+		<!-- 特别感谢：
+			https://gildas-lormeau.github.io/zip.js/demos/demo-read-file.html
+		-->
+	</body>
+</html>
