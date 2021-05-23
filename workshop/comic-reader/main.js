@@ -2,6 +2,21 @@ var requiredModule = (
 	'zip zipHandler ' +
 	'fv'
 ).split(' ');
+
+document.body.ondragover = function(){
+	event.block();
+	event.dataTransfer.dropEffect = 'link';
+	return false; // 增加此函数并返回 false，让浏览器识别到该元素的拖放操作已被接管，从而让浏览器取消默认操作
+}
+document.body.ondrop = function(){
+	event.block();
+	drive.files = window.event.dataTransfer.files; // 在元素的 ondrop 事件中，通过获取 event.dataTransfer.files 获取文件列表 FileList 对象
+	try{
+		main();
+	}catch(e){}
+	return false; // 然后返回 false，避免执行到默认操作
+};
+
 window.onload = function(){
 	console.clear();
 	drive.onchange = main;
