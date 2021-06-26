@@ -7,7 +7,7 @@
 // @include           https://127.0.0.1:1101/workshop/*
 // @include           https://127.0.0.1:81/workshop/*
 // @namespace         https://greasyfork.org/users/159546
-// @version           1.0.2
+// @version           1.1.3
 // @author            LEORChn
 // @run-at            document-end
 // @grant             GM_xmlhttpRequest
@@ -19,16 +19,22 @@
 // @connect           baidu.com
 // @connect           bilibili.com
 
+// @connect           qq.com
+
 // @connect           zhihu.com
 
 // @connect           people.com.cn
+
+// @connect           uni-market.com
 // ==/UserScript==
 
 unsafeWindow['http'] = http;
 unsafeWindow['httpj'] = httpj;
 try{
     unsafeWindow.onHelperMain();
-}catch(e){}
+}catch(e){
+    console.log('error from helper: ', e);
+}
 
 function http(){
     var args = Array.prototype.slice.call(arguments);
@@ -76,7 +82,8 @@ function http(){
         headers: getHeaders(headers),
         responseType: responseType,
         onload: dofun,
-        onerror: dofail
+        onerror: dofail,
+        onprogress: onprogress
     });
 }
 function pl(s){console.log(s);}
@@ -92,7 +99,11 @@ function httpj(){
                 resp = this.responseText;
             try{
                 j = JSON.parse(resp || '{}');
-            }catch(e){console.debug('json cannot parse?\n' + j);}
+            }catch(e){
+                var fix1 = json_fix(resp);
+                if(fix1) j = fix1;
+                else console.debug('json cannot parse?\n' + j);
+            }
             if(Array.isArray(j)) // JSON Array
 				j = { httpstat:stat, data:j }
 			else if(j instanceof Object) // JSON Object
@@ -104,6 +115,13 @@ function httpj(){
         break;
     }
     http(args);
+}
+function json_fix(str){
+    try{
+        var invisible_chars = /[\u0000-\u001f\u007f-\u00ff]/g;
+        return invisible_chars.test(str)? JSON.parse(str.replace(invisible_chars, '')): false;
+    }catch(e){}
+    return false;
 }
 function getHeaders(t){
     var obj = {};

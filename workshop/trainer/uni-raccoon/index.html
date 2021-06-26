@@ -1,0 +1,315 @@
+<!doctype html>
+<html>
+<head>
+	<title>trainer/uni-raccoon</title>
+	<script src="/js/stats.js" async></script>
+<style>
+:root{
+	font-size: 12px;
+}
+table img{
+	max-height: 1.5em;
+}
+table[rules=all] td:not(:first-child){
+	padding: .25em .5em;
+	text-align: center;
+}
+#uni-raccoon-trainer td:not(:nth-child(2)){
+	text-align: right;
+}
+</style>
+</head>
+<body>
+	<div>
+		活动结束于 2021-12-31
+		<span expire></span>
+		<input type="button" value="手动登录" onclick="mlogin()">
+		<span helper style="padding: 2px; border: red 2px solid">需要辅助脚本才能运行。</span>
+	</div>
+	<table rules="all" id="uni-raccoon-trainer"></table>
+</body>
+<script src="sign.js" async></script>
+<script src="/js/3/gibberish-aes.1.0.0.min.js" async></script>
+<script src="/js/date.js" async></script>
+<script src="/js/baseLib.js"></script>
+<script>
+var trainer = [
+	// 在此处填写登录凭证，为一个网址
+	// 形如：https://qr.uni-market.com/publicEntrance/index?...
+];
+
+var ua = 'user-agent: Mozilla/5.0 (Linux; Android; Build/OPM1.171019.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045409 Mobile Safari/537.36 MMWEBID/7469 MicroMessenger/7.0.19.1760(0x27001335) Process/tools WeChat/arm64 NetType/WIFI Language/zh_CN ABI/arm64';
+ua.name = 'wx_1760';
+
+var tableUI = {
+	column: '用户名 银两 卡片 重复卡/保底兑换 签到状态 预期银两 预期卡片/兑换 大奖:预期差额/补齐 刷新'.split(' '),
+	id:     'uname money cards rep signin expectedM expectedC expectBalance update'.split(' ')
+};
+
+// 初始化，以及对插件的验证
+$('[helper]').style.display = '';
+function onHelperMain(){
+	$('[helper]').style.display = 'none';
+	var table = $('#uni-raccoon-trainer'),
+	thr = ct('tr');
+	table.appendChild(thr);
+	tableUI.column.foreach(function(e){
+		thr.appendChild(ct('td', e));
+	});
+	trainer = trainer.map(function(e){
+		return new Trainer(e);
+	});
+	oninit_preset();
+}
+
+// 因为自己想到处运行而不想记那么长的登录凭证，因此放一个预设以兼顾方便和安全
+var presets = [
+	'U2FsdGVkX18Xy8VRvFi/wg0qXsPJH+lnXrPvcDWGveBDI4aZCHLZ3z+N63NBQr2O86ewy7n6bKyl5ZVOXxLG2ZLE81s9EFbkLxPeGlJ4D58pjkFYw9+WUK5ODaSAj7zQXI4g0Rz7zpI756e0hsCz/PULV5Emt5g3BzgJMaXRAbwOdvPSp59yxGd12MeHk0uv0+Joc4WLClZoB6tItIbJcjEPunzd7yzyUkqN6UdDBDzoGNP6t9xWf3AVY38fWbdguLFM2qrIm1Ovc/rO4d75WqjQuanoAEsdLucIqpmf7Cn8mj+Ymy62y2KLPjHYq6GXycswfPeWjxUbRbRIwXpwDWTVDHM66Y3vgzD52HRl1KJRT/T9dQA0sdaIL/OHLQgC5sM+5gHVC1ZbY2RkubAjATVK36cCHR0QwJ/iN9ow1pLXUkt2TrnDCp0bxI5BPmU9N955d3JJhycR+i8BZBKbiEHonQfmkLgeRLI1lO+AZzG4E5f2lDTEy19d/z85lut6H9LfpQ/PyaUur5/+n/SBoh3Ao8CbhsAoC48Tc1oSM6a9MTKTCQ9+Mp6vT7vqxhivwLpgcCmcA2XXuBwCxbz+obyTIpY53Ebc4SlA+m97oNRehevfgJ/5Z3Jxx3+VuZfqHJdElfAUlA4KUzu4UBBtQzZfX+VUPqF/VmGVb5jbpfpFjP3o05vxcwxMdL5l8FtAphUojCMwAwSpG66WjBciN1VguYNZ5dM7OAkgfS4Rn0ab9zVKr6sj22Xw6tG6Fo77QmtMTufOBMPXvaupQc++sQ=='
+];
+// dpsfEsssz.mirr.int might helps
+function oninit_preset(){
+	var preset = _GET('preset');
+	if(!preset) return;
+	if(!('GibberishAES' in window)) return setTimeout(oninit_preset, 1000);
+	presets.foreach(function(e){
+		try{
+			var token = GibberishAES.dec(e, preset);
+			trainer.push(new Trainer(token));
+			return true;
+		}catch(f){}
+	});
+}
+function mlogin(){
+	var token = inputbox('在此处填写登录凭证，为一个网址。\n形如：https://qr.uni-market.com/publicEntrance/index?... 凭证可以在用微信登录时抓包获得。');
+	if(!token) return;
+	trainer.push(new Trainer(token));
+}
+
+// 对UI任务列表进行管理
+var task_factory = {
+	request: function(){
+		var tr = ct('tr'),
+			td = {};
+		$('#uni-raccoon-trainer').appendChild(tr);
+		tableUI.id.foreach(function(e){
+			tr.appendChild(td[e] = ct('td'));
+		});
+		var obj = {
+			set money    (d){ obj.g('money', d) },
+			set cards    (d){ obj.g('cards', d) },
+			set reCards  (d){ obj.g('rep', d + ' / ' + (d * 50)) },
+			set signStat (d){ obj.g('signin', d) },
+			set exMoney  (d){ obj.g('expectedM', d) },
+			set exCards  (d){ obj.g('expectedC', d + ' / ' + (d * 50)) },
+			set exBalance(d){
+				var balanceBuy = Math.ceil(d / 60 / .3);
+				// 还需要购买多少包小浣熊可以补齐？算法：
+				// 1.差额银两除以60，扫码时获得10银两和一张卡片（理想化，全部算为重复卡片，保底50）
+				// 2.卡片出货率为30%，因此还要除以30%（实际上如果好运的话一箱可以50%，省钱省时）
+				obj.g('expectBalance', d + ' / ' + balanceBuy + '包(' + Math.ceil(balanceBuy / 30) + '箱)');
+				var percent = ((15000 - d) / 15000 * 100) + '%';
+				td.expectBalance.style.background = `linear-gradient(to right, lime ${percent}, transparent ${percent})`;
+			},
+			update: function(){
+				td.update.innerText = new Date().format('MM-dd HH:mm');
+			},
+			g: function(id, v){
+				obj.update(), td[id].innerText = v;
+			}
+		};
+		return obj;
+	}
+};
+function Trainer(entrance){
+	if(this == window) return;
+	var _this = this;
+	this.entrance = entrance;
+	// this.user
+	// this.signin
+	this.task = task_factory.request();
+	setInterval((oninterval(), oninterval), 7200 * 1000); // 2小时更新定时器
+	function oninterval(islogin){
+		if(!islogin) return login();
+		var finished_fetch_ui = 0;
+		new Promise(fetchSignin).then(ui);
+		new Promise(fetchCurrency).then(ui);
+		new Promise(fetchCards).then(ui);
+		function ui(){
+			if(++finished_fetch_ui < 3) return;
+			var money, recards, exMoney, exCards;
+			_this.task.money   = money   = _this.user.money;
+			_this.task.cards   = _this.user.cards;
+			_this.task.reCards = recards = _this.user.reCards;
+			_this.task.exMoney = exMoney = calc.availableSigninMoney(_this.signin);
+			_this.task.exCards = exCards = calc.availableSigninCards(_this.signin);
+			
+			_this.task.exBalance = 15000 - money - recards * 50 - exMoney - exCards * 50;
+			// 算法：大奖手办 = 15K银两，
+			// 1.减去当前持有的银两
+			// 2.减去重复卡可兑换的银两（每张保底50，每天5次）
+			// 3.减去未来签到可获得的银两
+			// 4.减去未来签到可获得的卡片（理想化，全部为重复卡片）
+			
+			_this.signin.foreach(function(e, i){
+				if(e.stat > 1) _this.task.signStat = `已签 ${i}天`;
+				if(e.stat != 1) return e.stat > 1; // 1 = 今日未签到
+				_this.task.signStat = `第 ${i+1} 天`;
+				setTimeout(doSignin, 300000); // 今日未签到，5分钟后执行签到
+				return true;
+			});
+		}
+	}
+	function login(){
+		// 登录状态每隔一段时间会过期，可能是30分钟左右。因此在请求读取时需要先调用这个静态接口
+		// 调用登录接口时，服务器会先响应一个302跳转，然后得到一个静态网页。
+		// 但是其中一个在以后调用接口时所需的参数（csi）目前只能在这个302之中发现并获取，
+		// 因此这个接口需要在 onprogress 阶段就读取响应头数据，而不应该等到 onload。
+		http('get ' + _this.entrance, ua, function(){}, function(){}, function(){
+			var header = this.responseHeaders;
+			if(!/tm-finalurldhdg:/.test(header)) return; // 此处尝试读取服务器的 Location 响应头，而在 GM_xmlhttpRequest 中表现为 tm-finalurldhdg
+			_this.user = {
+				oi: /companyOpenid=([_\w\d]*)/.exec(header)[1],
+				cpi:       /companyId=([\d]*)/.exec(header)[1],
+				csi:      /consumerId=([\d]*)/.exec(header)[1]
+			};
+			oninterval(true);
+		});
+	}
+	function doSignin(){
+		var id_addSign = null;
+		_this.signin.foreach(function(e){
+			if(e.stat != 1) return e.stat > 1;
+			return (id_addSign = e.id, true);
+		});
+		if(id_addSign === null) return; // 怕官方突然把 ID 改为 0 并因此导致异常，所以设置为全等 null 才为表示已签到过
+		var headers = getHeaders() + '\nnContent-Type: application/json;charset=UTF-8',
+			formdata = `{id:${id_addSign}}`;
+		httpj('post https://api-qr.uni-market.com/qdwz/xhx/addSignin', headers, formdata, function(j){
+			pl(j);
+			oninterval(true);
+		});
+	}
+	function fetchSignin(promise_ok){
+		httpj('post https://api-qr.uni-market.com/qdwz/xhx/findSigninPrize', getHeaders(), function(j){
+			_this.signin = j.data.prizes.sort(function(a, b){
+				return a.signinDayNum - b.signinDayNum;
+			}).map(function(e){
+				return {
+					id:         e.id,        // 执行签到操作时提交此id
+					stat:       e.signFlag,  // 签到状态。0=该天已签到；1=该天可签到；2=该天还没到
+					rewardType: e.priceType, // 签到奖品类型。1=钱；2=卡片
+					rewardNum:  e.value      // 签到奖品数量。钱可能为5~40，共8个值；卡片可能为1~2，共2个值
+				};
+			});
+			if(promise_ok instanceof Function) promise_ok();
+		});
+	}
+	function fetchCurrency(promise_ok){
+		var header = getHeaders() + '\nContent-Type: application/json;charset=UTF-8',
+			formdata = '{}';
+		httpj('post https://api-qr.uni-market.com/qdwz/xhx/stage/findUserInfo', header, formdata, function(j){
+			_this.user.money = j.data.surplusSilverBalance;
+			_this.user.cards = j.data.surplusCardBalance;
+			promise_ok();
+		});
+	}
+	function fetchCards(promise_ok){
+		httpj('get https://api-qr.uni-market.com/qdwz/xhx/findUserCard?cardStockType=0', getHeaders(), function(j){
+			var reCards = 0;
+			j.data.prizes.foreach(function(e){
+				reCards += e.surplusNum > 1? e.surplusNum - 1: 0;
+			});
+			_this.user.reCards = reCards;
+			promise_ok();
+		});
+	}
+	function getHeaders(){
+		var ts = Date.now(),
+			seckey = 'apiGugwe#kin23568',
+			user = _this.user;
+		return [
+			ua,
+			'oi:'  + user.oi,
+			'cpi:' + user.cpi,
+			'csi:' + user.csi,
+			'times:' + ts,
+			's:' + sign(user.oi + user.cpi + user.csi + seckey + ts) // sign.js
+		].join('\n');
+	}
+}
+var calc = {
+	availableSigninDays: function(){ // 活动剩余时间天数。例如为1则今天为最后一天，为0则已过期。
+		return Math.ceil(Math.max(0, new Date('2021-12-31 UTC+0800').getTime() - Date.now()) / 83600000);
+		// 先规定21年12月31日为最后一天，
+		// 减去当前的时间戳可得剩余时间毫秒数，
+		// 如果现在已超过活动时间，那么 Math.max 的其中一个参数为 0 确保活动剩余天数不会为负数
+		// 除以一天的毫秒数则得天数（但不一定是整数），
+		// 如果天数不是整数，则 Math.ceil 会在把天数转为整数的同时加 1（算入今天）
+	},
+	availableSigninMoney: function(e){ // 计算以后可通过签到获得的奖励（仅包括银两）
+		return calc.shared_lib_availableSignin(e, [5, 10, 15, 20, 0, 25, 30, 35, 40, 0]);
+	},
+	availableSigninCards: function(e){ // 计算以后可通过签到获得的奖励（仅包括卡片）
+		return calc.shared_lib_availableSignin(e, [0, 0, 0, 0, 1, 0, 0, 0, 0, 2]);
+	},
+	shared_lib_availableSignin: function(e, db){
+		var days = calc.availableSigninDays(),
+			lastDays = days,
+			isTodaySigned = true,
+			cycleTotal = 0,
+			cycleLast = 0,
+			valueCycleThis = 0,
+			valueCyclesTotal = 0,
+			valueCycleLast = 0;
+		e.foreach(function(e){
+			if(e.stat == 1) isTodaySigned = false;
+			return e.stat;
+		});
+		if(isTodaySigned) lastDays--;
+		
+		// 第一阶段：计算出本周期还剩多少可获利
+		e.foreach(function(e, i){
+			cycleTotal += db[i]; // 准备第二阶段 - 统计一个周期的总量
+			if(e.stat == 0) return;
+			if(days == 0) return;
+			lastDays--;
+			valueCycleThis += db[i];
+		});
+		
+		// 第二阶段：计算剩余天数所剩完整周期的数量对应的获利量
+		valueCyclesTotal = cycleTotal * Math.floor(lastDays / 10);
+		lastDays -= Math.floor(lastDays / 10) * 10;
+		
+		// 第三阶段：计算出最后一周期还剩多少可获利
+		e.foreach(function(e, i){
+			if(lastDays < i) return;
+			valueCycleLast += db[i];
+		});
+		return valueCycleThis + valueCyclesTotal + valueCycleLast;
+	},
+	// @deprecated
+	shared_lib_availableSignin2: function(e, db){
+		var days = calc.availableSigninDays(),
+			value = 0;
+		var remain = -1,
+			isTodaySigned = true;
+		e.foreach(function(e){
+			if(e.stat == 1) isTodaySigned = false;
+			return (remain++, e.stat);
+		});
+		if(isTodaySigned) days--;
+		for(var i = remain; i < days + remain; i++){
+			value += db[i % 10];
+		}
+		return value;
+	}
+};
+setInterval((updateExpire(), updateExpire), 300000);
+function updateExpire(){
+	var lastDays = calc.availableSigninDays();
+	$('span[expire]').innerText = lastDays?
+		`还剩${lastDays < 11? '不到': ''} ` + lastDays + ' 天':
+		'活动已结束';
+}
+</script>
+</html>
