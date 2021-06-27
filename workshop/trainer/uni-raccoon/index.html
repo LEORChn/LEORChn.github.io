@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>trainer/uni-raccoon</title>
 	<script src="/js/stats.js" async></script>
 <style>
@@ -24,7 +25,7 @@ table[rules=all] td:not(:first-child){
 		活动结束于 2021-12-31
 		<span expire></span>
 		<input type="button" value="手动登录" onclick="mlogin()">
-		<span helper style="padding: 2px; border: red 2px solid">需要辅助脚本才能运行。</span>
+		<span helper style="color: red">需要辅助脚本才能运行。</span>
 	</div>
 	<table rules="all" id="uni-raccoon-trainer"></table>
 </body>
@@ -239,7 +240,7 @@ function Trainer(entrance){
 }
 var calc = {
 	availableSigninDays: function(){ // 活动剩余时间天数。例如为1则今天为最后一天，为0则已过期。
-		return Math.ceil(Math.max(0, new Date('2021-12-31 UTC+0800').getTime() - Date.now()) / 83600000);
+		return Math.ceil(Math.max(0, new Date('2021/12/31 UTC+0800').getTime() - Date.now()) / 83600000);
 		// 先规定21年12月31日为最后一天，
 		// 减去当前的时间戳可得剩余时间毫秒数，
 		// 如果现在已超过活动时间，那么 Math.max 的其中一个参数为 0 确保活动剩余天数不会为负数
