@@ -1,0 +1,66 @@
+---
+permalink: bdmap
+---
+<!DOCTYPE html> <!-- baidu map 2.0.3 -->
+<html>
+	<head>
+		<meta name="referrer" content="no-referrer">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<style type="text/css">
+body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"simhei";}
+		</style>
+		<script src="//api.map.baidu.com/getscript?v=2.0&ak=&services="></script>
+		<title>trial</title>
+	</head>
+	<!--
+		gcj02:
+			https://cn.bing.com/maps
+			https://www.google.com/maps
+		bd09:
+			http://api.map.baidu.com/lbsapi/creatmap/
+	-->
+	<body>
+		<div id="allmap"></div>
+	</body>
+	<script src="/js/baseLib.js"></script>
+	<script>
+var gcj = _GET('gcj');
+var zoom = _GET('z') || (gcj? 18: 10);
+var userzoom = _GET('uz') || false;
+var bd09;
+try{
+	gcj = (gcj || '109.42198,24.331519').split(',').map(function(e){return parseFloat(e);});
+	bd09 = gcj2bd(gcj[0], gcj[1]);
+	zoom = parseInt(zoom);
+}catch(e){
+	alert('map init failed ' + location.search);
+	alert(e);
+}
+var map = new BMap.Map("allmap");
+var point = new BMap.Point(bd09[0], bd09[1]);
+
+map.centerAndZoom(point, zoom);
+map.addControl(new BMap.MapTypeControl({
+	mapTypes:[
+		BMAP_NORMAL_MAP,
+		BMAP_HYBRID_MAP
+	]
+}));
+if(userzoom) map.enableScrollWheelZoom();
+map.addOverlay(new BMap.Marker(point));
+function gcj2bd(lng, lat){ // https://github.com/wandergis/coordtransform/blob/master/index.js
+	var x_PI = 3.14159265358979324 * 3000.0 / 180.0;
+	var lat = +lat;
+	var lng = +lng;
+	var z = Math.sqrt(lng * lng + lat * lat) + 0.00002 * Math.sin(lat * x_PI);
+	var theta = Math.atan2(lat, lng) + 0.000003 * Math.cos(lng * x_PI);
+	var bd_lng = z * Math.cos(theta) + 0.0065;
+	var bd_lat = z * Math.sin(theta) + 0.006;
+	return [bd_lng, bd_lat];
+}
+	</script>
+	<style>
+#allmap>.anchorBL, #allmap>[unselectable]{display: none}
+	</style>
+</html>

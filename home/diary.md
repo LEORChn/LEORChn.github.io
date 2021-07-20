@@ -97,10 +97,15 @@ permalink: /home/
 	</div>
 </div>
 <style>
-iframe{
+iframe, earth{
 	width: 100%;
 	height: 240px;
 	border: 0;
+	background-color: #eee;
+}
+earth{
+	display: block;
+	border: solid 1px #888;
 }
 .sizer{
 	visibility: hidden

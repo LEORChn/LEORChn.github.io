@@ -77,6 +77,15 @@ label[disabled]:not(:hover){ opacity:.1 }
 <script src="js/locationManager.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/desandro/masonry/dist/masonry.pkgd.min.js"></script>
 <script language="javascript">
+	
+	earthMapInterval();
+	function earthMapInterval(){
+		if(!('$' in window)) return setTimeout(earthMapInterval, 1000);
+		var e = $('earth[gcj]');
+		setTimeout(earthMapInterval, e? 1000: 5000);
+		if(e) e.outerHTML = '<iframe frameborder="0" src="/bdmap?gcj=' + e.getAttribute('gcj') + '"></iframe>';
+	}
+	
 	var brows;
 	(function(){
 		brows=fv('brows');
