@@ -25,6 +25,15 @@ body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-fami
 	</body>
 	<script src="/js/baseLib.js"></script>
 	<script>
+var alertEntity = alertEntity || alert;
+alert = function(e){
+	console.log('alert ', arguments);
+	if(e && e.contains('/apiconsole/key')){
+		var a = ct('div', '\u5730\u56FE\u52A0\u8F7D\u5931\u8D25\n\u53EF\u80FD\u662F\u6D4F\u89C8\u5668\u95EE\u9898');
+		a.style.cssText = 'position:fixed; top:calc(50vh - 1em); width:100vw; text-align:center';
+		document.body.appendChild(a);
+	};
+};
 var gcj = _GET('gcj');
 var zoom = _GET('z') || (gcj? 18: 10);
 var userzoom = _GET('uz') || false;
