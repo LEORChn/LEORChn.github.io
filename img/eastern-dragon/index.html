@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Eastern Dragon</title>
+		<meta property="og:title" content="Eastern Dragon">
+		<meta property="og:description" content="A growable eastern dragon.">
+		<meta property="og:image" content="https://leorchn.github.io/img/eastern-dragon/1.png">
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				user-select: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+			}
+			body{
+				overflow-x: hidden;
+			}
+			img{
+				display: block;
+				pointer-events: none;
+			}
+			[controls]{
+				display: none;
+				padding: 5px;
+			}
+			[ext]{
+				height: 212px; /* 5120 减去负偏移的 300 得到 4820 */
+				transition: 1s height;
+				background-size: 512px;
+				margin-top: -7px;
+				background-position-y: -300px;
+				background-repeat: repeat-y;
+				background-repeat-x: no-repeat;
+			}
+			.help:not(:hover) pre{
+				display: none
+			}
+			.help pre{
+				position: absolute;
+				line-height: 1.3em;
+				font-family: "monospace";
+				background: #efe;
+				tab-size: 4;
+				-moz-tab-size: 4;
+				margin-top: 0;
+				border: solid 1px;
+				padding-right: 2em;
+			}
+			@media (max-width: 512px){
+				img{
+					width: 100vw;
+				}
+				[ext]{
+					/* height: calc(1000vw - (100vw / 512 * -300)); */
+					height: calc(100vw + (100vw / 512 * -300));
+					background-size: 100vw;
+					margin-top: calc(100vw / 512 * -7);
+					background-position-y: calc(100vw / 512 * -300);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div controls>
+			<span class="help">
+				<button style="padding: .1em">
+					<span langs>
+						<span lang="en en-US">Help & About</span>
+						<span lang="zh zh-CN zh-Hans">帮助和关于</span>
+					</span>
+				</button>
+<span langs>
+<pre lang="en en-US">
+
+	Startup parameters:
+	?feature=controls	Display this controls
+	?feature=autoplay	Apply "Keep growing"
+	?feature=controls,autoplay	Apply multi parameter
+	
+	You can find the keys on the keyboard:
+	Home		Go to top of the page
+	End			Go to bottom of the page
+	Page Up		Scrolling up the page
+	Page Down	Scrolling down the page
+
+	Thanks pulexart.com for sharing.
+
+</pre>
+<pre lang="zh zh-CN zh-Hans">
+
+	启动参数：
+	?feature=controls	显示控制面板
+	?feature=autoplay	应用“持续生长”设置
+	?feature=controls,autoplay	连续应用指令的示例
+	
+	你可以在键盘上找到如下按键：
+	Home		回到顶部
+	End			去往底部
+	Page Up		向上翻页
+	Page Down	向下翻页
+
+	感谢作者 pulexart.com 的分享
+
+</pre>
+</span>
+			</span>
+			<label>
+				<input type="checkbox" id="autoplay">
+				<span langs>
+					<span lang="en en-US">Keep growing</span>
+					<span lang="zh zh-CN zh-Hans">持续生长</span>
+				</span>
+			</label>
+		</div>
+		<img src="1.png">
+		<div ext style="background-image: url(2.png)"></div>
+		<img src="3.png">
+		<img src="4.png" style="margin-top: -1px">
+	</body>
+	<script async src="/js/languages.js"></script>
+	<script src="/js/baseLib.js"></script>
+	<script>
+(function(){
+var feature = _GET('feature');
+if(!feature) return;
+feature.split(',').foreach(function(e){
+	switch(e){
+		case 'controls':
+			$('[controls]').style.display = 'block';
+			break;
+		case 'autoplay':
+			autoplay.checked = true;
+			break;
+	}
+});
+})();
+
+window.addEventListener('load', function(){
+	var aut = autoplay,
+		gdiv = $('[ext]'),
+		times = 1;
+	// (times * 100vw) + (100vw / 512 * -300);
+	setInterval(function(){
+		if(!aut.checked) return;
+		var vw = Math.min(512, innerWidth);
+		gdiv.style.height = ((times * vw) + (vw / 512 * -300)) + 'px';
+		times++;
+	}, 1000);
+});
+	</script>
+</html>
