@@ -1,3 +1,6 @@
+// quantum(object, name, function, innerObject)
+// $$ auto arr
+// htmlElement.clear
 var htmlhead=document.head,
  htmlbody=document.body;
 (function(){
@@ -82,14 +85,24 @@ var htmlhead=document.head,
 	};
 	_proto(Array, 'filterRepeat', norepeat);
 	_proto(Array, 'removeRepeat', norepeat);
+	_proto(Array, 'contains', string_includes);
+	_proto(Array, 'includes', string_includes);
+	
+	_proto(Uint8Array, 'slice', function(start, end){
+		return this.subarray(start, end);
+	});
 	
 	_proto(HTMLElement, 'appendChildren', function(){ var t = this; arr(arguments).foreach(function(e){ t.appendChild(e); }); });
 	_proto(HTMLElement, 'prependChild', function(e){
-		var f=this.firstElementChild;
+		var f=this.firstChild;
 		if(f) this.insertBefore(e,f); else this.appendChild(e);
 	});
 	_proto(HTMLElement, 'insertAfter', function(e,f){
-		f=f.nextElementSibling;
+		if(type(f) == 'Undefined'){
+			console.error('HTMLElement.insertAfter: need 2nd argument.'); return;
+		}
+		if(type(f) == 'Number') f = this.children[f];
+		f = f.nextElementSibling;
 		if(f) this.insertBefore(e,f); else this.appendChild(e);
 	});
 	_proto(Event, 'block', function(){ this.preventDefault(); this.stopPropagation(); });
@@ -172,6 +185,44 @@ function ct(tag, t){
 				tag.entity.id = e; break;
 			default:
 				tag.entity = document.createElement(e);
+				var nodeNameSpaceDict = {
+					'svg': 'http://www.w3.org/2000/svg',
+					'image': 'http://www.w3.org/2000/svg'
+				};
+				var nodeAttrSpaceDict = {
+					'image:href': 'http://www.w3.org/1999/xlink'
+				};
+				if(nodeNameSpaceDict[e]){
+					tag.entity = document.createElementNS(nodeNameSpaceDict[e], e);
+					tag.entity.setAttribute = function(n, s){
+						var nn = nodeAttrSpaceDict[this.nodeName + ':' + n];
+						n = nn? [nn, n]: [null, n]; // 此处可能有bug，因为NS和非NS版可能要剥离不同函数调用
+						return this.setAttributeNS(n[0], n[1], s);
+					};
+				}else{
+					tag.entity = document.createElement(e);
+				}
+				/*   以下是初版代码。。如果没有用的，可以删掉
+				var nn = e.replace('>', ':').split(':'), // nn = NodeName
+				nsDict = {
+					'svg': 'http://www.w3.org/2000/svg',
+					'xlink': 'http://www.w3.org/1999/xlink'
+				};
+				if(nn.length == 2){
+					tag.entity = document.createElementNS(nsDict[nn[0]], nn[1]);
+					tag.entity.setAttribute = function(n, s){
+						n = n.replace('>', ':').split(':');
+						n = n.length == 2? [nsDict[n[0]], n[1]]: [null, n[0]]; // 此处可能有bug，因为NS和非NS版可能要剥离不同函数调用
+						return this.setAttributeNS(n[0], n[1], s);
+					};
+				}else{
+					tag.entity = document.createElement(nn[0]);
+					if(nn[0] == 'svg'){
+						tag.entity.setAttribute('xmlns', nsDict['svg']);
+						tag.entity.setAttribute('xmlns:xlink', nsDict['xlink']);
+					}
+				}
+				*/
 				nextStart --;
 		}
 		nextStart += e.length + 1;
@@ -240,7 +291,7 @@ function base64(e, f){
 		return;
 	}
 	switch(true){
-		case e instanceof Array:
+		case e instanceof Array || e instanceof ArrayBuffer:
 			e = new Uint8Array(e);
 		case e instanceof Uint8Array:
 			e = new Blob([e]);
