@@ -23,10 +23,9 @@
     精简版仅用于检测各HTTPS网站的响应时间。
 
     标准版可以检测：
-        非HTTPS网站。
         HTTPS证书错误。
         域名/服务器过期/未备案。
-        莫名原因重定向到非HTTPS。
+        莫名原因重定向及相关问题。
         回链及徽标的有效性和所处位置。
     但由于标准版容易滋生对抗，出于防止被研究出对抗方法而不公开此版本的使用。
 </pre>
@@ -111,7 +110,7 @@ function startingDetection(table){
 		urlProgress++;
 		if(urlProgress >= table.children.length) return;
 		var tr = table.children[urlProgress],
-			url = new URL(text('url'));
+			url = new URL(text('url') || 'about:blank');
 		if(url.protocol != 'https:'){
 			text('onload', '略过.已移除');
 			if(url.protocol != 'about:'){
