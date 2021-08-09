@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+		<title>开往检测 Lite</title>
+		<style>
+			a{
+				text-decoration: none;
+			}
+			td:nth-child(2), td:nth-child(3){
+				text-align: center;
+			}
+			tr.removed, tr.connected{
+				display: none;
+			}
+		</style>
+		<script src="/js/stats.js"></script>
+	</head>
+	<body>
+		<a href="/workshop">&lt; 返回瑞兽谷</a>
+		<h2>开往检测 精简版</h2>
+		<pre style="font-size: 16px; line-height: 1.25em; white-space: pre-wrap">
+    精简版仅用于检测各HTTPS网站的响应时间。
+
+    标准版可以检测：
+        非HTTPS网站。
+        HTTPS证书错误。
+        域名/服务器过期/未备案。
+        莫名原因重定向到非HTTPS。
+        回链及徽标的有效性和所处位置。
+    但由于标准版容易滋生对抗，出于防止被研究出对抗方法而不公开此版本的使用。
+</pre>
+		<div class="loading">加载中...</div>
+	</body>
+	<script async src="https://volfclub.github.io/travellings/assets/travelling.js"></script>
+	<script src="/js/base.js"></script>
+	<script src="/js/http.js"></script>
+	<script src="http.js"></script>
+<script>
+var columnTitle = 'No. 响应时间 加载时间 跨域 URL 诊断建议'.split(' '),
+	columnId = 'num onresponse onload cors url suggest'.split(' ');
+onload = main;
+function main(){
+	var waitingInterval = setInterval(function(){
+		if(!('travelling' in window)) return;
+		clearInterval(waitingInterval);
+		travelling = (travelling.toString() + 'postMessage(travelling());')
+			.replace('https://travellings.link/assets/rip.html', '')
+			.replace('window.location = url[ints];', 'return url; function document(){}')
+			.toWorker();
+		travelling.onmessage = onGotUrls;
+	}, 100);
+	function onGotUrls(e){
+		var t = ct('table'),
+			th = ct('tr');
+		t.rules = 'all';
+		hbody.appendChild(t);
+		t.appendChild(
+			th.appendChildren(
+				columnTitle.map(function(e, i){
+					return ct('th', e);
+				})
+			)
+		);
+		e.data.foreach(function(e, i){
+			var classes = ''
+			if(!e) classes += '.removed';
+			t.appendChild(
+				ct('tr' + classes).appendChildren(
+					ct('td', i),
+					ct('td'),
+					ct('td'),
+					ct('td'),
+					ct('td', e),
+					ct('td')
+				)
+			);
+		});
+		if(loading_component()) return;
+		var startbtn = ct('input');
+		startbtn.type = 'button';
+		startbtn.value = '开始使用';
+		$('.loading').clearChildren().appendChild(startbtn);
+		startbtn.onclick = function(){
+			this.remove();
+			startingDetection(t);
+		};
+		var dnsPrefetchInterval = setInterval(dnsPrefetch, 100);
+		var dnsPrefetchProgress = 0;
+		function dnsPrefetch(){
+			pl('dnsPrefetch');
+			if(dnsPrefetchProgress >= e.data.length) return clearInterval(dnsPrefetchInterval);
+			var href = e.data[dnsPrefetchProgress];
+			dnsPrefetchProgress++;
+			if(!href) return;
+			var link = ct('link');
+			link.rel = 'dns-prefetch';
+			link.href = href;
+			document.head.appendChild(link);
+		}
+	}
+	function loading_component(){
+		return Date.now() > 1640908800000;
+	}
+}
+
+function startingDetection(table){
+	var urlProgress = 0;
+	next();
+	function next(){
+		urlProgress++;
+		if(urlProgress >= table.children.length) return;
+		var tr = table.children[urlProgress],
+			url = new URL(text('url'));
+		if(url.protocol != 'https:'){
+			text('onload', '略过.已移除');
+			if(url.protocol != 'about:'){
+				text('onload', '略过.非HTTPS');
+				text('suggest', '未履行强制启用HTTPS。');
+			}
+			return next();
+		}
+		var corsPolicy = null;
+		var c_readystatechange = 01, c_progress = 01;
+		var loadStartTime = Date.now(),
+			onReadyStateChangeTime = 0;
+		var timer = setInterval(function(){
+			text('onload', parseInt((Date.now() - loadStartTime) / 1000));
+		}, 1000);
+		text('onresponse', '检测中');
+		pl(`-----------------starting ${urlProgress - 1} ${url.href}`);
+		http2('get ' + url.href, function(){
+			// onreadystatechange
+			pl('onreadystatechange');
+			// c_readystatechange++; // 无意义。能跨域的自然也就会产生多个此事件
+			if(onReadyStateChangeTime) return;
+			onReadyStateChangeTime = (Date.now() - loadStartTime) / 1000;
+			text('onresponse', onReadyStateChangeTime);
+			tr.children[getChildIndex('onresponse')].style.backgroundColor = getColor(onReadyStateChangeTime);
+		}, function(){
+			// progress
+			pl('progress');
+			// c_progress++; // 无意义。能跨域的自然也就会产生多个此事件
+		}, function(){
+			// onload
+			pl('onload'); // 允许跨域
+			corsPolicy = true;
+			text('cors', '是');
+			table.children[urlProgress].children[getChildIndex('cors')].style.textAlign = 'right';
+		}, function(){
+			// onerror
+			pl('onerror'); // 不允许跨域
+			corsPolicy = false;
+			text('cors', '否');
+		}, function(){
+			// onloadend
+			pl('onloadend');
+			//tr.appendChild(ct('td', this.getAllResponseHeaders()));
+			clearInterval(timer);
+			var suggest = text('suggest');
+			suggest = suggest? [suggest]: [];
+			var responseTime = (Date.now() - loadStartTime) / 1000;
+			tr.children[getChildIndex('onload')].style.backgroundColor = getColor(responseTime);
+			
+			text('onload', responseTime);
+			if(corsPolicy){
+				if(responseTime > 5)
+					suggest.push('该站点服务器连接速度较慢，请注意维护。');
+			}else if(corsPolicy === false){
+				if(responseTime > 15)
+					suggest.push('连接超时！该站点很可能无法加载');
+				else if(responseTime > 5)
+					suggest.push('DNS解析或SSL握手时间过长，请手动检测是否可用');
+			}
+			if(c_readystatechange != 1 || c_progress != 1)
+				text('redirect', `${c_readystatechange}/${c_progress}`);
+			if(corsPolicy === null)
+				suggest.push('检测到由HTTPS重定向到HTTP，可能域名已过期');
+			text('suggest', suggest.join('\n'));
+			next();
+		});
+	}
+	
+	var prevWebsiteTimeout;
+	function getChildIndex(id){
+		return columnId.indexOf(id);
+	}
+	function text(id, innerText){
+		if(type(innerText) == 'Undefined') return table.children[urlProgress].children[getChildIndex(id)].innerText;
+		table.children[urlProgress].children[getChildIndex(id)].innerText = innerText;
+	}
+	function getColor(time){
+		var r;
+		[5, 15, 30, 9999].foreach(function(e, i){
+			if(time < e) return r = '#' + '0f0 ff0 fa0 faa'.split(' ')[i];
+		});
+		return r;
+	}
+}
+
+</script>
+</html>

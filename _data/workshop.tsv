@@ -1,4 +1,6 @@
 group	create	update	url	name	desc
+spider	2021-8-5	2021-8-9	travellings	开往检测 Lite	试用版
+workshop	2021-8-5		spider	<hr dir>spider	
 trainer	2021-6-27		uni-raccoon	uni raccoon 2020	Expire on 2021-12-31. Gather 5 to 40 money each day. The browser helper is required.
 blueprint	2021-5-20	2021-5-21	comic-reader	漫画阅读器	一个漫画阅读器，暂时只支持zip。第三方库要求浏览器支持es6
 client	2021-5-15		zhihu	zhihu	Based on 6.25.0
