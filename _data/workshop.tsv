@@ -1,6 +1,5 @@
 group	create	update	url	name	desc
 seat	2021-8-11	2021-8-14	pinyin2familyname	Pinyin2FamilyName	
-workshop	2021-8-11		seat	<hr dir>S.E.A.T.	
 spider	2021-8-5	2021-8-9	travellings	开往检测 Lite	试用版
 workshop	2021-8-5		spider	<hr dir>spider	
 trainer	2021-6-27		uni-raccoon	uni raccoon 2020	Expire on 2021-12-31. Gather 5 to 40 money each day. The browser helper is required.
@@ -22,7 +21,8 @@ workshop	2020-6-17	2020-12-9		mhtml 工具	目前只有一个压缩QQ聊天记�
 blueprint	2020-5-23	2021-4-10	waterfall/1.html	瀑布流测试#1	一个纯CSS的实现测试。使用多列布局，但其实这个 “瀑布流” 的排列结果跟平常说的并不一样。
 workshop	2020-5-21	2020-10-21		danmuji2ass	将弹幕姬的弹幕文件转换为ASS格式，并配合x264压制到录播姬的直播录像中。
 workshop	2020-3-23	2020-5-13		瑞兽谷日历	发生在瑞兽谷的重大事件。
-workshop	2019-11-18			id18gen	Input first 17 numbers and get calculated 18th number!
+seat	2019-11-18			id18gen	Input first 17 numbers and get calculated 18th number!
+workshop	2019-11-18		seat	<hr dir>s.e.a.t.	
 workshop	2019-10-14	2019-11-2		Wiki表格转换器	将 XLS 或 XLSX 表格文件转换为 MediaWiki 源代码。
 workshop	2019-9-15			QQ群工具	如果你的QQ客户端打开群公告、群相册或群文件时卡死或出现其他问题，可以使用这些工具。
 workshop	2019-4-11	2021-4-9	leorchn-helper	瑞兽谷辅助脚本	一个超越浏览器限制，在瑞兽谷使用众多强力功能的辅助脚本。

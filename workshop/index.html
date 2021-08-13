@@ -9,9 +9,13 @@ title: 工程车间
 	<div ul>
 	{%- assign workshoplist = site.data.workshop | where: 'group', 'workshop' %}
 	{%- for i in workshoplist %}
+		{%- assign dirChildrenCount = '' -%}
+		{% if i.name contains 'dir>' %}
+			{%- capture dirChildrenCount -%}<span class="dir-children-count">{{ site.data.workshop | where: 'group', i.url | size }} inside</span>{%- endcapture -%}
+		{% endif %}
 		<div li>
 			<div class="mui-panel">
-				<div class="mui--text-headline">{{ i.name }}</div>
+				<div class="mui--text-headline">{{ i.name }}{{ dirChildrenCount }}</div>
 				<div>{{ i.desc }}</div>
 				<a href="{{ i.url }}"></a>
 			</div>
@@ -62,6 +66,12 @@ div[ul]{
 				&[dir]{
 					background: url(/img/os/windows/dir-32.png);
 				}
+			}
+			.dir-children-count{
+				position: absolute;
+				right: .5em;
+				bottom: 0;
+				font-size: .7em;
 			}
 			/* 确保A元素填充 */
 			position: relative;
