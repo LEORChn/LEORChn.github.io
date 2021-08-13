@@ -1,4 +1,6 @@
 group	create	update	url	name	desc
+seat	2021-8-11	2021-8-14	pinyin2familyname	Pinyin2FamilyName	
+workshop	2021-8-11		seat	<hr dir>S.E.A.T.	
 spider	2021-8-5	2021-8-9	travellings	开往检测 Lite	试用版
 workshop	2021-8-5		spider	<hr dir>spider	
 trainer	2021-6-27		uni-raccoon	uni raccoon 2020	Expire on 2021-12-31. Gather 5 to 40 money each day. The browser helper is required.
