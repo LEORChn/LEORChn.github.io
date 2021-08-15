@@ -110,6 +110,7 @@ Object.assign.weakly(Array.prototype, { // =====-----<  Array  >-----===== //
 });
 
 Object.assign.weakly(Blob.prototype, {
+	// 由于File 继承 Blob，因此也可以对 File 使用这些函数
 	toURL: function(){
 		return URL.createObjectURL(this);
 	}
