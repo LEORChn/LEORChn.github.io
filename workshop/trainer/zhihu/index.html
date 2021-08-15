@@ -21,33 +21,6 @@ table[rules=all] td:not(:first-child){
 </head>
 <body>
 	<table rules="all" id="zhihu-club-trainer"></table>
-	<table rules="all">
-		<tr>
-			<td>Combo</td>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-			<td>5</td>
-			<td>6</td>
-			<td>7</td>
-			<td>29</td>
-			<td>30</td>
-			<td>31+</td>
-		</tr>
-		<tr>
-			<td>Exp</td>
-			<td>1</td>
-			<td>2</td>
-			<td>4</td>
-			<td>6</td>
-			<td>8</td>
-			<td>10</td>
-			<td colspan="2">15</td>
-			<td>30</td>
-			<td>15</td>
-		</tr>
-	</table>
 </body>
 <script src="expTable.js" async></script>
 <script src="zsEncrypt.js"></script>
@@ -112,7 +85,7 @@ function onHelperMain(){
 					};
 					ui();
 					if(!inf.quest_checkin) quest_checkin();
-					if(inf.quest_share < 2) quest_share(); // 理论上来说如果当日没签到直接运行本程序，那么这一条会连续执行2次
+					if(inf.quest_share < 3) quest_share(); // 理论上来说如果当日没签到直接运行本程序，那么这一条会连续执行2次
 					// 因为，如果是未签到，那么在 quest_checkin 之后会执行一次 quest_share，而 quest_checkin 得到 success 状态后，会再执行一次 fetchUserInfo，因此会执行第二次 quest_share
 				});
 			});
