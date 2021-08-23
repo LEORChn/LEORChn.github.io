@@ -1,0 +1,114 @@
+---
+layout: lmui
+title: CRC2BUID
+caption: CRC2BUID
+feature: document.title-no-tail
+---
+
+<pre>
+备注：
+  1.这个工具使用了双引擎。
+  2.其中一个引擎感觉比另一个好，
+    但是需要较新的语法才能运行，
+    在一些不支持 class 语法的旧浏览器上将无法运行。
+    （实际上是我懒得做 ES5 转译）
+  3.可能出现多个数字共用一个 CRC32 的情况，
+    请手动确认更有可能的那个数字。
+</pre>
+
+<style>
+#out_str{
+	margin-left: -10px;
+}
+#out_str > a{
+	margin-left: 10px;
+}
+td:nth-child(1){
+	text-align: right;
+}
+td:nth-child(2){
+	white-space: nowrap;
+}
+td:nth-child(3) > a{
+	display: block;
+	text-align: right;
+}
+</style>
+
+<form>
+	<input id="in_str" placeholder="crc32" maxlength="8">
+	<input type="reset">
+</form>
+<div id="out_str"></div>
+
+<br>
+
+danmaku.xml <input type="file" multiple id="in_danmaku_xml">
+<table id="out_danmaku_xml" rules="all">
+	<thead>
+		<th>相对时间</th>
+		<th>现实时间</th>
+		<th>数字</th>
+		<th>文本</th>
+	</thead>
+	<tbody></tbody>
+</table>
+
+<script src="/js/base.js"></script>
+<script src="/js/date.js"></script>
+<script src="/js/3/crc_engine.2016.11.15.js"></script>
+<script src="/js/3/Crc32Engine.2019.9.9.js"></script>
+
+<script>
+var ce = typeof Crc32Engine === 'function'? new Crc32Engine(): null;
+
+in_str.oninput = function(){
+	if(this.value.length != 8) return;
+	var digit = this.value.asHex(16);
+	if(!digit) return;
+	var uid = ce? ce.crack(this.value): [crc_engine(this.value)];
+	var anchor = uid.map(function(e){
+		return e == -1? -1: new URL('https://space.bilibili.com/' + e).toAnchor(e);
+	});
+	out_str.clearChildren();
+	out_str.appendChildren(anchor.length? anchor: ct('a', -1));
+}
+in_str.onmousemove = function(){
+	this.select();
+}
+in_danmaku_xml.onchange = function(){
+	var f = this.files;
+	if(!f.length) return;
+	var fr = new FileReader();
+	fr.onload = onload;
+	fr.readAsText(f[0]);
+	function onload(e){
+		function ts(){
+			return new Date().format('yyyy-M-d H:mm:ss');
+		}
+		pl('开始解析XML... ' + ts());
+		var x = new DOMParser().parseFromString(fr.result, 'text/xml');
+		var trs = [];
+		pl('开始计算数据... ' + ts());
+		x.querySelectorAll('d[p]').foreach(function(e){
+			var attr = e.getAttribute('p').split(','),
+				crc = attr[6],
+				uid = ce? ce.crack(crc): [crc_engine(crc)],
+			anchor = uid.map(function(e){
+				return e == -1? -1: new URL('https://space.bilibili.com/' + e).toAnchor(e);
+			});
+			trs.push(
+				ct('tr').appendChildren(
+					ct('td', attr[0]),
+					ct('td', new Date(parseInt(attr[4] + '000')).format('yyyy-MM-dd H:mm')),
+					ct('td').appendChildren(anchor).setAttr('title', crc),
+					ct('td', e.textContent)
+				)
+			);
+		});
+		pl('正在加载网页节点...' + ts());
+		out_danmaku_xml.tBodies[0].clearChildren().appendChildren(trs);
+		pl('完成 ' + ts());
+	}
+}
+</script>
