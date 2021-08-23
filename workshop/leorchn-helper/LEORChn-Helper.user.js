@@ -7,14 +7,17 @@
 // @include           https://127.0.0.1:1101/workshop/*
 // @include           https://127.0.0.1:81/workshop/*
 // @namespace         https://greasyfork.org/users/159546
-// @version           1.1.3
+// @version           1.1.4
 // @author            LEORChn
 // @run-at            document-end
 // @grant             GM_xmlhttpRequest
-
+//         trainer
 // @connect           gateway.live-a-hero.jp
 // @connect           raw.githubusercontent.com
 // @connect           d1itvxfdul6wxg.cloudfront.net
+// @connect           uni-market.com
+//         spider
+// @connect           catalogueoflife.org
 
 // @connect           baidu.com
 // @connect           bilibili.com
@@ -24,8 +27,6 @@
 // @connect           zhihu.com
 
 // @connect           people.com.cn
-
-// @connect           uni-market.com
 // ==/UserScript==
 
 unsafeWindow['http'] = http;

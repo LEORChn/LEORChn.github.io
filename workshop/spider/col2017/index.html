@@ -1,0 +1,141 @@
+---
+layout: lmui
+title: 生物分类2017
+---
+<style>
+@import "/assets/css/style.css";
+body{
+	background-color: transparent;
+}
+</style>
+{% capture md %}
+## 注意事项
+
+* 需要使用 【油猴 + [瑞兽谷辅助脚本](/workshop/leorchn-helper)】 才能运行。
+* 由于数据量极大，为了防止内存占用量过大导致崩溃，推荐使用 Edge v92 以上浏览器（如果是 Windows系统）。
+* 只有基本的爬取功能。<br>一旦启动，无法停止。暂未提供中途保存选项，可学习jszip相关操作代码对z变量进行操作。
+
+## 状态和控制面板
+
+<div class="helper-root"></div>
+
+## 预爬取
+
+| 版本      | 范围         | 文件量 | 大小  | 下载                                                         |
+| --------- | ------------ | ------ | ----- | ------------------------------------------------------------ |
+| 2021.8.22 | 目录: 门->种 | 142530 | 637 M | [下载](https://github.com/LEORChn/cdn/releases/download/Biology/Biology_Animal-Kingdom_210822-2009_142530.zip) |
+
+{% endcapture %}
+<div class="mui-panel markdown-body">
+	{{ md | markdownify }}
+</div>
+<script src="/js/base.js"></script>
+<script src="/js/date.js"></script>
+<script src="/js/3/jszip.3.3.0.min.js"></script>
+<script>
+var z = new JSZip();
+var cates = {
+	files: 0,
+	totals: 0
+}, cates_translate = {
+	files:       '',
+	totals:      '文件',
+	phylum:      '门',
+	class:       '纲',
+	order:       '目',
+	superfamily: '超科',
+	family:      '科',
+	genus:       '属',
+	species:     '种',
+	subspecies:  '亚种',
+	variety:     '变种',
+	form:        '形式',
+	'not assigned': '未指定'
+};
+var hash;
+function onHelperMain(){
+	$('.helper-root').appendChildren(
+		ct('input#ui_startfetch').setAttr('type', 'button').setAttr('value', '开始使用'),
+		ct('', ' '),
+		ct('span#ui_starttime'),
+		ct('', ' '),
+		ct('span', '已发现：').appendChildren(
+			ct('span#ui_walks')
+		)
+	);
+	ui_startfetch.onclick = function(){
+		this.value = '运行中';
+		this.disabled = true;
+		this.onclick = null;
+		http('get //www.catalogueoflife.org/annual-checklist/2017/browse/tree/', function(){
+			/* /<script(\s.*)?>([\s\S]*?)<\/script>/gi.exec(this.responseText); */
+			hash = /treehash[\W]+(\w+)/gi.exec(this.responseText)[1];
+			fetchRoot();
+		});
+		var startTime = Date.now(),
+			_this = ui_starttime,
+			d = new Date();
+		setInterval(function(){
+			var ts = Date.now() - startTime,
+				days = parseInt(ts / 86400000);
+			d.setTime(ts + d.getTimezoneOffset() * 60000);
+			_this.innerText = (days? days + '天, ': '') + d.format('H:mm:ss');
+		}, 1000);
+	};
+}
+var queue = [],
+	queueProgress = 0;
+function fetchRoot(){
+	httpj('get //www.catalogueoflife.org/annual-checklist/2017/browse/tree/fetch/taxa?id=0&start=0', function(j){
+		z.file('0.json', JSON.stringify(j));
+		fetchTree(j.items[0].id);
+	});
+}
+function fetchTree(id){
+	var url = 'get //www.catalogueoflife.org/annual-checklist/2017/browse/tree/fetch/taxa'
+	httpj(url + `?id=${id}&hash=${hash}&start=0`, function(j){
+		pl(j);
+		cates.files++;
+		z.file(id + '.json', JSON.stringify(j));
+		
+		// 添加子ID到队列，以及统计各个级别采集到的数量
+		var hadChildren = [];
+		j.items.foreach(function(e){
+			if(e.numChildren) hadChildren.push(e.id);
+			if(!(e.type in cates)) cates[e.type] = 0;
+			cates[e.type]++;
+		});
+		cates.totals += hadChildren.length;
+		if(hadChildren.length) queueAdd(hadChildren);
+		updateCategoryProgressUI();
+		
+		queueNext();
+	});
+}
+function updateCategoryProgressUI(){
+	var keys = [],
+		values = [];
+	for(var key in cates){
+		keys.push(key in cates_translate? cates_translate[key]: key);
+		values.push(cates[key]);
+	}
+	ui_walks.innerText = keys.map(function(e, i){
+		return values[i] + e;
+	}).join(', ');
+}
+function queueAdd(array){
+	queue.prepend(array.shuffle());
+}
+function queueNext(){
+	if(queue.length == 0) return;
+	//if(queueProgress > 20) return;
+	queueProgress++;
+	setTimeout(function(){
+		fetchTree(queue.pop());
+		// shift 前序遍历
+		// pop   层序遍历
+	}, 1500);
+}
+
+
+</script>
