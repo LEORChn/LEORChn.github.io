@@ -1,5 +1,7 @@
 
 /* 浏览器兼容性报告
+ *   2015年9月2日，Chrome 45 正式支持 Array.fill
+ *   2015年9月2日，Chrome 45 正式支持 Object.assign
  *   2016年3月8日，Firefox 45 正式支持 HTMLElement.innerText。新于此时间的浏览器支持率为100%
  *   
  */
@@ -24,8 +26,8 @@ Object.assign.weakly(window, { // global vars
 	arr: function(e){
 		return Array.prototype.slice.call(e);
 	},
-	pl: function(e){ // named from java System.out.println
-		console.log(e);
+	pl: function(){ // named from java System.out.println
+		console.log.apply(console, arguments);
 	},
 	_GET: function(n){ // named from php $_GET
 		var r = location.search.match(new RegExp('[\?\&]' + n + '=([^\&]+)', 'i'));
@@ -80,6 +82,18 @@ Object.assign.weakly(String.prototype, { // =====-----<  String  >-----===== //
 	copy: function(){
 		
 	},
+	padLeft: function(length){ // FIXME: 函数的命名不太标准？
+		return (Array(length).join('0') + this).slice(-length);
+	},
+	reverse: function(){
+		return this.split('').reverse().join('');
+	},
+	asHex: function(bit){ // FIXME: 不稳定实现
+		var i = parseInt(this, 16),
+			keep = Math.pow(2, bit) - 1,
+			nega = Math.pow(2, bit - 1) & i;
+		return (keep & i) - (nega? Math.pow(2, bit): 0);
+	},
 	toBlob: function(){
 		return new Blob([this]);
 	},
@@ -88,6 +102,23 @@ Object.assign.weakly(String.prototype, { // =====-----<  String  >-----===== //
 	},
 	includes: generalContains,
 	contains: generalContains // named from java
+});
+
+Object.assign.weakly(Number.prototype, { // =====-----<  Number  >-----===== //
+	padLeft: function(length){ // FIXME: 函数的命名不太标准？
+		return (Array(length).join('0') + this).slice(-length);
+	},
+	toHex: function(bit){ // FIXME: 不稳定实现
+		var _this = this | 0;
+		// 只有在调用时加入位数限制参数且参数为大于0的整数才使用自定处理方法，否则使用系统的处理方法
+		if(!bit || type(bit) != 'Number' || (bit |= 0) <= 0) return this.toString(16);
+		// JS的最大安全整数为2的53次方减1，如果参数为14或更大，那么需要能够处理2的56次方以上才能正确完成计算操作的执行
+		if(bit > 13) console.warn(`Number.toHex: calculate the param(${bit}) to 2^${bit * 4} is over than MAX_SAFE_INTERGER(2^53 -1), it might output incorrect result.`);
+		if(_this < 0){ // 如果原数为负数，全部填满F再减去原数即可。
+			return (Math.pow(16, bit) + _this).toString(16);
+		}
+		return _this & Math.pow(16, bit) - 1;
+	}
 });
 
 Object.assign.weakly(Array.prototype, { // =====-----<  Array  >-----===== //
@@ -105,8 +136,35 @@ Object.assign.weakly(Array.prototype, { // =====-----<  Array  >-----===== //
 			return _this.indexOf(e) == i;
 		});
 	},
+	prepend: function(){
+		var a = arguments;
+		if(a.length == 0) return this;
+		this.unshift.apply(this, a.length == 1 && a[0] instanceof Array? a[0]: a);
+		return this;
+	},
+	clone: function(){
+		return this.concat();
+	},
+	shuffle: function(){
+		var a = this;
+		for(var i = a.length - 1; i >= 0; i--){
+			var randomIndex = Math.random()*(i+1) | 0;
+			var itemAtIndex = a[randomIndex];
+			a[randomIndex] = a[i];
+			a[i] = itemAtIndex;
+		}
+		return a;
+	},
+	fill: Polyfill_Array_fill, // 腻子代码 Chrome < 45
 	includes: generalContains,
 	contains: generalContains // named from java
+});
+Object.assign.weakly(Event.prototype, {
+	block: function(){
+		this.preventDefault();
+		this.stopPropagation();
+		this.stopImmediatePropagation();
+	}
 });
 
 Object.assign.weakly(Blob.prototype, {
@@ -152,13 +210,13 @@ Object.assign.weakly(window, { // old css
 	gquery: _GET // @deprecated name
 });
 
-window.PromiseChain = function(){
+window.PromiseQueue = function(){
 	if(this == window) return;
 	var chain = [];
 	this.then = then;
 	function then(func){
 		chain.push(func);
-		if(chain.length == 1) next(); // 只有当
+		if(chain.length == 1) next();
 	}
 	function next(){
 		if(!chain.length) return;
@@ -208,8 +266,7 @@ function registForArrayLike(){
 	}
 }
 
-function registerObjectAssign(){
-	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#polyfill
+function registerObjectAssign(){ // 腻子代码 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#polyfill
 	if(typeof Object.assign === 'function') return registerObjectAssignWeakly();
 	Object.defineProperty(Object, 'assign', {
 		configurable: true,
@@ -256,6 +313,35 @@ function registerObjectAssign(){
 			}
 		});
 	}
+}
+function Polyfill_Array_fill(value){ // 腻子代码 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
+	// Steps 1-2.
+	if(this == null) throw new TypeError('this is null or not defined');
+	var O = Object(this);
+	// Steps 3-5.
+	var len = O.length >>> 0;
+	// Steps 6-7.
+	var start = arguments[1];
+	var relativeStart = start >> 0;
+	// Step 8.
+	var k = relativeStart < 0 ?
+		Math.max(len + relativeStart, 0) :
+		Math.min(relativeStart, len);
+	// Steps 9-10.
+	var end = arguments[2];
+	var relativeEnd = end === undefined ?
+		len : end >> 0;
+	// Step 11.
+	var final = relativeEnd < 0 ?
+		Math.max(len + relativeEnd, 0) :
+		Math.min(relativeEnd, len);
+	// Step 12.
+	while (k < final) {
+		O[k] = value;
+		k++;
+	}
+	// Step 13.
+	return O;
 }
 
 })();
