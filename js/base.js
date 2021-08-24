@@ -341,22 +341,16 @@ function Polyfill_Array_fill(value){ // 腻子代码 https://developer.mozilla.o
 	return O;
 }
 function Polyfill_Array_map(callback){ // 腻子代码 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-	var T, A, k;
-	var O = Object(this);
-	var len = O.length >>> 0;
-	if(typeof callback !== 'function') {
-		throw new TypeError(callback + ' is not a function');
-	}
-	if(arguments.length > 1) {
-		T = arguments[1];
-	}
-	A = new Array(len);
-	k = 0;
+	if(typeof callback !== 'function') throw new TypeError(callback + ' is not a function');
+	var T, O = Object(this),
+		len = O.length >>> 0,
+		A = new Array(len),
+		k = 0;
+	if(arguments.length > 1) T = arguments[1];
 	while(k < len) {
-		var kValue, mappedValue;
 		if(k in O) {
-			kValue = O[k];
-			mappedValue = callback.call(T, kValue, k, O);
+			var kValue = O[k],
+				mappedValue = callback.call(T, kValue, k, O);
 			A[k] = mappedValue;
 		}
 		k++;
