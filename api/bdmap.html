@@ -10,7 +10,6 @@ permalink: bdmap
 		<style type="text/css">
 body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"simhei";}
 		</style>
-		<script src="//api.map.baidu.com/getscript?v=2.0&ak=&services="></script>
 		<title>trial</title>
 	</head>
 	<!--
@@ -34,6 +33,9 @@ alert = function(e){
 		document.body.appendChild(a);
 	};
 };
+	</script>
+	<script src="//api.map.baidu.com/getscript?v=2.0&ak=&services="></script>
+<script>
 var gcj = _GET('gcj');
 var zoom = _GET('z') || (gcj? 18: 10);
 var userzoom = _GET('uz') || false;
