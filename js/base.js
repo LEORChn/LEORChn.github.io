@@ -105,6 +105,10 @@ Object.assign.weakly(String.prototype, { // =====-----<  String  >-----===== //
 });
 
 Object.assign.weakly(Number.prototype, { // =====-----<  Number  >-----===== //
+	flag: function(fi){ // fi: flag_int
+		fi = fi | 0;
+		return (this | 0) & fi == fi;
+	},
 	padLeft: function(length){ // FIXME: 函数的命名不太标准？
 		return (Array(length).join('0') + this).slice(-length);
 	},
