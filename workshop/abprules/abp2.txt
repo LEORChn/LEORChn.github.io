@@ -1,0 +1,15 @@
+---
+---
+[Adblock Plus 2.0]
+{% capture nooutput %}
+{% assign sorted_array = site.data.adblockplus | sort: 'host' %}
+{% for row in sorted_array %}
+	{% capture output -%}
+{{ output }}
+{{ row.host }}##{{ row.rule }}
+!   {{ row.desc }}
+{{ ''-}}
+	{% endcapture %}
+{% endfor %}
+{% endcapture %}
+{{- output -}}

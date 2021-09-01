@@ -1,8 +1,16 @@
-host	rule	desc
-bilibili.com	.unlogin-popover,.login-top	在隐身模式下免受登录提示干扰
-live.bilibili.com	".check-pop-mask,.link-popup-panel[style*=""350px""]"	在开播管理界面免受新版直播间提示干扰
-weibo.com	"[node-type=""recommend""]>.otherlist"	在阅读微博文章时免受推荐内容干扰
-zhihu.com	.AdblockBanner	知乎具有一定反侦察能力。。
-fanyi.baidu.com	.desktop-guide	在隐身模式下免受客户端广告干扰
-cn.bing.com	#ev_talkbox_wrapper	在使用必应搜索时免受小冰干扰。比如有时会推荐虚拟恋人对话模板之类乱七八糟的功能
-stackoverflow.com	body>.js-consent-banner	在隐身模式下免受COOKIE提示干扰
+update	host	rule	desc
+2021-3-23	bilibili.com	.unlogin-popover, .login-top	在隐身模式下免受登录提示干扰
+2021-3-23	bilibili.com	.bilibili-player-video-top-mask	在全屏观看视频时阻止顶部遮罩遮挡弹幕
+2021-3-23	live.bilibili.com	.check-pop-mask	在开播管理界面免受新版直播间提示干扰
+2021-3-23	live.bilibili.com	.link-popup-panel[style*='350px']	在开播管理界面免受新版直播间提示干扰
+2021-3-23	weibo.com	[node-type='recommend'] >.otherlist	在阅读微博文章时免受推荐内容干扰
+2021-3-23	zhihu.com	.AdblockBanner	知乎具有一定反侦察能力。。
+2021-3-28	fanyi.baidu.com	.desktop-guide	在隐身模式下免受客户端广告干扰
+2021-3-28	bing.com	#ev_talkbox_wrapper	在使用必应搜索时免受小冰干扰。比如有时会推荐虚拟恋人对话模板之类乱七八糟的功能
+2021-4-3	stackoverflow.com	body > .js-consent-banner	在隐身模式下免受COOKIE提示干扰
+	superuser.com	body > .js-consent-banner	在隐身模式下免受COOKIE提示干扰
+	bing.com	#b_notificationContainer_bop	在使用必应搜索时免受浏览器扩展程序推广提示干扰
+	baidu.com	.tieba-custom-pass-login	在隐身模式下免受登录提示干扰
+2021-8-30	blog.csdn.net	.toolbar-advert:first-child	免受CSDN夏季送会员活动霸屏干扰
+2021-8-30	blog.csdn.net	.login-mark, #passportbox	在隐身模式下免受登录提示干扰
+2021-9-1	google.cn	iframe[src*='//ogs.google']	在使用谷歌翻译时免受Chrome推广干扰

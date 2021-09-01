@@ -1,9 +1,23 @@
 ---
 title: AdBlock 额外规则
-layout: lmui
+layout: lmui-doc
 ---
+{% capture md %}
+### 自动更新方案
 
-<div class="mui-panel">
+[点此复制链接](abp2.txt){:onclick="return copy_url(this)"}
+
+1. 进入 Adblock Plus 设置页面
+2. 点击左侧 “高级”
+3. 点击 “通过 URL 添加过滤列表”
+4. 粘贴链接
+5. 点击 “添加过滤列表”
+6. 恭喜！自动更新设置完成。
+
+### 手动复制
+
+{% endcapture %}
+{{ md | markdownify }}
 <table id="abprules" rules="rows">
 	<tr>
 		<th colspan="2"><input type="button" value="一键复制" id="onekeycopy" onclick="onekeycopy()" disabled>域名规则
@@ -20,7 +34,6 @@ layout: lmui
 	</tr>
 {%- endfor %}
 </table>
-</div>
 <script async src="/js/baseLib.js"></script>
 <script>
 	var unlockerInterval = setInterval(function(){
@@ -33,11 +46,12 @@ layout: lmui
 			return e.value;
 		}).join('\n'));
 	}
+function copy_url(_this){
+	copy(_this.href);
+	return false;
+}
 </script>
 <style>
-	.mui-panel{
-		position: relative
-	}
 	#onekeycopy{
 		float: left
 	}
@@ -53,14 +67,7 @@ layout: lmui
 		border: 1px solid #000;
 		border-radius: 2em;
 	}
-	td:first-child{
-		min-width: 1.5em
-	}
 	td:nth-child(2) > span{
 		background-color: #fcc
-	}
-	td:last-child{
-		min-width: 10em;
-		padding: .5em
 	}
 </style>
