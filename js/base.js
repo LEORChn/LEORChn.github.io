@@ -164,10 +164,6 @@ Object.assign.weakly(Array.prototype, { // =====-----<  Array  >-----===== //
 	contains: generalContains // named from java
 });
 
-Object.assign.weakly(Uint32Array.prototype, {
-	map: Polyfill_Array_map
-});
-
 Object.assign.weakly(Event.prototype, {
 	block: function(){
 		this.preventDefault();
@@ -193,12 +189,26 @@ Object.assign.weakly(URL.prototype, {
 	}
 });
 
+Function.prototype.__defineGetter__('innerText', function(){
+	var re = /function[\s\S]*?\/\*([\s\S]*)\*\//g.exec(this.toString());
+	return re? re[1]: '';
+});
+
 Object.assign.weakly(HTMLElement.prototype, {
 	appendChildren: function(){
 		var _this = this, a = arguments;
 		a = type(a[0]) == 'Array'? a[0]: arr(a);
 		a.foreach(function(e){
 			_this.appendChild(e);
+		});
+		return this;
+	},
+	prependChildren: function(){
+		var _this = this, a = arguments, f = this.firstChild;
+		if(!f) return this.appendChildren.apply(a);
+		a = type(a[0]) == 'Array'? a[0]: arr(a);
+		a.foreach(function(e){
+			_this.insertBefore(e, f);
 		});
 		return this;
 	},
@@ -273,6 +283,11 @@ function registForArrayLike(){
 			contains: generalContains // named from java
 		});
 	}
+	[Uint8Array, Uint16Array, Uint32Array].foreach(function(e){
+		Object.assign(e.prototype, { // map 要硬气
+			map: Polyfill_Array_map
+		});
+	});
 }
 
 function registerObjectAssign(){ // 腻子代码 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#polyfill
