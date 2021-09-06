@@ -14,3 +14,5 @@ update	host	rule	desc
 2021-8-30	blog.csdn.net	.toolbar-advert:first-child	免受CSDN夏季送会员活动霸屏干扰
 2021-8-30	blog.csdn.net	.login-mark, #passportbox	在隐身模式下免受登录提示干扰
 2021-9-1	google.cn	iframe[src*='//ogs.google']	在使用谷歌翻译时免受Chrome推广干扰
+2021-9-5		#layui-layer-shade1	在使用堡塔国内版后端管理面板时免受登录提示干扰
+2021-9-5		#layui-layer1[style*='420px'][style*='425px']	在使用堡塔国内版后端管理面板时免受登录提示干扰
