@@ -26,9 +26,7 @@ Object.assign.weakly(window, { // global vars
 	arr: function(e){
 		return Array.prototype.slice.call(e);
 	},
-	pl: function(){ // named from java System.out.println
-		console.log.apply(console, arguments);
-	},
+	pl: console.log.bind(console), // named from java System.out.println
 	_GET: function(n){ // named from php $_GET
 		var r = location.search.match(new RegExp('[\?\&]' + n + '=([^\&]+)', 'i'));
 		return r == null || r.length < 1? '': r[1];
@@ -195,6 +193,12 @@ Function.prototype.__defineGetter__('innerText', function(){
 });
 
 Object.assign.weakly(HTMLElement.prototype, {
+	$: function(e){ // named from jQuery
+		return this.querySelector(e);
+	},
+	$$: function(e){ // named from jQuery
+		return this.querySelectorAll(e);
+	},
 	appendChildren: function(){
 		var _this = this, a = arguments;
 		a = type(a[0]) == 'Array'? a[0]: arr(a);
