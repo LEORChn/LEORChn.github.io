@@ -3,6 +3,7 @@ title: 苦黏寒毒
 layout: wiki
 permalink: /wiki/BSCP/
 tags: furry game
+ver: 20
 ---
 
 
@@ -58,14 +59,11 @@ Android 系统需要使用 吉里吉里模拟器 运行。
 前三个故事均讲述其中两位角色之间的经历，并在《毒》将所有角色汇集，给玩家五味杂陈的阅读和游玩体验。
 
 剧情时间线：
-{% raw %}
 ```mermaid
+%% {% assign var_a = '{{"分支：立功"}}' %}{% assign var_b = '{{"分支：负伤"}}' %}
 graph LR;
-	B((苦)); S((黏)); C((寒)); P((毒));P1{{分支: 立功}};P2{{分支: 负伤}};SP((刺));
-	C --> B --> P --> P1;
-	C --> S --> P --> P2 --> SP;
+	C((寒)) --> B((苦)) & S((黏)) -->  P((毒)) --> P1{{var_a}} & P2{{var_b}}; P2 --> SP((刺));
 ```
-{% endraw %}
 游戏发布时间线：
 ```mermaid
 graph LR;
@@ -124,15 +122,15 @@ KCN杏仁：***`我没有明说，但通常来说肯定是先警察的`***
 
 20210716_llggzs.jpg | 流浪狗工作室 br [2021年7月16日](https://weibo.com/5156323699/Kp14ieWLv)
 
-20150302_Zoharwolf.jpg | [[Zoharwolf]] br 2015年3月2日
-
-20150314_Zoharwolf.jpg | [[Zoharwolf]] br 2015年3月14日
-
-20180924_森石灰水饺.jpg | 森石灰水饺 br 2018年9月24日
+20190511_herorine1.jpg | herorine1 br 2019年5月11日
 
 20190502_herorine1.jpg | herorine1 br 2019年5月2日
 
-20190511_herorine1.jpg | herorine1 br 2019年5月11日
+20180924_森石灰水饺.jpg | 森石灰水饺 br 2018年9月24日
+
+20150314_Zoharwolf.jpg | [[Zoharwolf]] br 2015年3月14日
+
+20150302_Zoharwolf.jpg | [[Zoharwolf]] br 2015年3月2日
 
 " %}
 
@@ -140,7 +138,7 @@ KCN杏仁：***`我没有明说，但通常来说肯定是先警察的`***
 
 {% include bbslist src='
 
-同人小说 | 甜 - 伊铭 | 2021年8月1日
+同人小说 | [[甜 - 伊铭]] | 2021年8月1日
 
 同人小说 | 《毒》改写 - tb_qaz1587bd | 2019年9月24日
 
