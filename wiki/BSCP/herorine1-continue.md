@@ -6,9 +6,16 @@ tags: furry fan novel
 
 # 《苦黏寒毒》续写
 
-作者：亓官 2019年05月02日
+作者：亓官 2019年5月2日 {% include ui/permission-granted %}
 
-{% include tieba id="herorine1" %}
+{% include tieba id="herorine1" %} [查看原文](https://tieba.baidu.com/p/6119543959)
+
+```mermaid
+%% {% assign var_a = '{{"分支：立功"}}' %}{% assign var_b = '{{"分支：负伤"}}' %}
+graph LR;
+	C((寒)) --> B((苦)) & S((黏)) -->  P((毒)) --> P1{{var_a}} & P2{{var_b}}; P2 --> herorine1(["《续写》"]) & SP((刺))
+	style herorine1 stroke:orange, fill:#fed
+```
 
 ## 导言
 在下亓官，又逢五一小长假，在下虽然并没有放假，但是晚自习提前一小时下课（从10:30提前到9:30）着实是写写渣文的好机会~
