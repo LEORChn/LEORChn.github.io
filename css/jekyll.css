@@ -44,7 +44,7 @@ sub[src]:before{
 /* Wiki 词条小贴士 */
 .hint{
 	display: flex;
-	width: 80%;
+	max-width: 700px;
 	background: #eee;
 	border: 1px #aaa solid;
 	border-left: none;
