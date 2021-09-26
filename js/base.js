@@ -8,6 +8,7 @@
 (function(){
 
 registerObjectAssign(); // Compat target: IE 9
+registerForWorkerCompatibility(); // 检测 Worker 环境，仅用于使本库能正常初始化。不保证某些功能可以正常运行
 registForArrayLike();
 
 Object.assign.weakly(window, { // global vars
@@ -105,9 +106,9 @@ Object.assign.weakly(String.prototype, { // =====-----<  String  >-----===== //
 Object.assign.weakly(Number.prototype, { // =====-----<  Number  >-----===== //
 	flag: function(fi){ // fi: flag_int
 		fi = fi | 0;
-		return (this | 0) & fi == fi;
+		return ((this | 0) & fi) == fi;
 	},
-	padLeft: function(length){ // FIXME: 函数的命名不太标准？
+	paddingLeft: function(length){
 		return (Array(length).join('0') + this).slice(-length);
 	},
 	toHex: function(bit){ // FIXME: 不稳定实现
@@ -221,7 +222,7 @@ Object.assign.weakly(HTMLElement.prototype, {
 		return this;
 	},
 	setAttr: function(key, value){
-		this.setAttribute(key, value);
+		this.setAttribute(key, value === undefined? '': value);
 		return this;
 	}
 });
@@ -275,6 +276,12 @@ function registForArrayLike(){
 	];
 	for(var i=0; i<listObj.length; i++){
 		Object.assign.weakly(listObj[i].prototype, {
+			map: function(e){
+				return arr(this).map(e);
+			},
+			filter: function(e){
+				return arr(this).filter(e);
+			},
 			foreach: function(func){
 				for(var i=0; i < this.length; i++)
 					try{
@@ -379,6 +386,26 @@ function Polyfill_Array_map(callback){ // 腻子代码 https://developer.mozilla
 		k++;
 	}
 	return A;
+}
+
+function registerForWorkerCompatibility(){ // 这个方法仅保证本库能在 Worker 环境中初始化，而不保证所有功能都可用
+	if('window' in self) return;
+	self.window = self;
+	Object.assign(self, {
+		document: {
+			head: null,
+			body: null
+		},
+		HTMLCollection: {
+			prototype: {}
+		},
+		HTMLElement: {
+			prototype: {}
+		},
+		NodeList: {
+			prototype: {}
+		}
+	});
 }
 
 })();
