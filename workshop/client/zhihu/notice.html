@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body style="margin:0">
+		<div class="header">通知</div>
+		<input type="checkbox" id="expand-category">
+		<div class="category-list">
+			<label for="expand-category">展开分类</label>
+		</div>
+		<div class="question-list"></div>
+		<div class="new-answer-in-following-question"></div>
+	</body>
+<style>
+@import "notice.css";
+.header{
+	line-height: 32px;
+	padding: 8px;
+	border-bottom: 1px solid #000;
+}
+</style>
+<script src="/js/base.js"></script>
+<script src="zhihu.js"></script>
+<script>
+function onHelperMain(){
+	httpj('get https://api.zhihu.com/notifications/v2/timeline?offset=0&limit=20', getHeaders(), function(j){
+		if('error' in j) return hbody.appendChild(
+			ct('', j.error.code + ' ' + j.error.message)
+		);
+		j.data.foreach(function(e){
+			createEntry(e);
+		});
+		httpj('get https://api.zhihu.com/notifications/v2/timeline/entry/count', getHeaders(), function(j){
+			var uc = j.entry_unread_count;
+			for(var o in uc){
+				if(uc[o] == 0) continue;
+				var spot = $(`.${o} .spot`);
+				if(spot) spot.innerText = uc[o];
+			}
+		});
+	});
+	setTimeout(location.reload, 7200000);
+}
+function Listsub(e){
+	var a = ct('a.item-root' + (e.subtype? '.' + e.subtype: ''));
+	var avatar = ct('span.avatar'),
+		spot = ct('span.spot', e.spot || '');
+	avatar.style.backgroundImage = `url(${e.avatar})`;
+	avatar.appendChild(spot);
+	
+	var timeNext = [60, 60, 24, 30, 12, 100];
+	var timeExt = '刚刚 x分钟前 x小时前 x天前 x个月前 x年前 x个世纪前'.split(' ');
+	var timeDisplay = parseInt(Date.now() / 1000) - e.ts;
+	timeNext.foreach(function(e, i){
+		if(timeDisplay < e) return timeDisplay = timeExt[i].replace('x', timeDisplay);
+		timeDisplay = parseInt(timeDisplay / e);
+	});
+	
+	var summary_root = ct('div'),
+		category = ct('div.category', e.category),
+		title    = ct('div.title',    e.title),
+		question = ct('div.question', e.question),
+		time     = ct('div.time',     timeDisplay);
+	summary_root.appendChildren(category, title, question, time);
+	
+	a.appendChildren(avatar, summary_root);
+	if('href' in e){
+		a.target = '_blank';
+		a.rel = 'noopener noreferrer nofollow';
+		a.href = e.href;
+	}
+	return a;
+}
+function createEntry(e){
+	if(e.noti_subtype == 'answer'){
+		var a = Listsub({
+			subtype:  e.noti_subtype,
+			avatar:   e.head.avatar_url,
+			spot:     e.unread_count,
+			category: e.content.title + ' ' + e.content.sub_title,
+			title:    e.content.text,
+			question: e.content.sub_text,
+			ts:       e.created
+		});
+		$('.new-answer-in-following-question').appendChild(a);
+		return;
+	}else{
+		var a = Listsub({
+			subtype:  e.noti_subtype,
+			avatar:   e.head.avatar_url,
+			spot:     e.unread_count,
+			category: e.detail_title,
+			title:    e.content.text,
+			question: e.content.sub_text,
+			ts:       e.created
+		});
+		$('.category-list').appendChild(a);
+	}
+	
+	a.onclick = function(){
+		var func = {
+			entry_invite: function(){
+				
+				return ct('div', '暂不支持显示邀请');
+			},
+			entry_like: function(){
+				
+				return ct('div', '暂不支持显示点赞');
+			},
+			entry_comment: function(root){
+				httpj('get https://api.zhihu.com/notifications/v2/timeline/entry/comment?limit=20&offset=0', getHeaders(), function(j){
+					j.data.foreach(function(e){
+						var a = Listsub({
+							href:     e.target_source.target_link,
+							subtype:  e.noti_subtype,
+							avatar:   e.head.avatar_url,
+							spot:     e.unread_count,
+							category: e.content.sub_title,
+							title:    `${e.content.title}: ${e.content.abstract_text}`,
+							question: e.content.text,
+							ts:       e.created
+						});
+						root.appendChild(a);
+					});
+					window.scrollTo(0, 500);
+				});
+			},
+			entry_follow: function(){
+				
+				return ct('div', '暂不支持显示关注');
+			},
+			entry_community: function(){
+				return ct('div', '暂不支持显示站务通知');
+			},
+			entry_club: function(){
+				return ct('div', '暂不支持显示圈子通知');
+			},
+			medal: function(){
+				return ct('div', '暂不支持显示获得勋章');
+			},
+			'item-root': function(){
+				return ct('div', '暂不支持显示此分类');
+			}
+		};
+		for(var o in func){
+			if(!a.classList.contains(o)) continue;
+			var ql = $('.question-list');
+			while(ql.children.length) ql.children[0].remove();
+			var ret = func[o](ql);
+			if(ret instanceof HTMLElement) ql.appendChild(ret);
+			return;
+		}
+	}
+}
+</script>
+</html>

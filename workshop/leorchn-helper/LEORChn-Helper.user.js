@@ -7,7 +7,7 @@
 // @include           https://127.0.0.1:1101/workshop/*
 // @include           https://127.0.0.1:81/workshop/*
 // @namespace         https://greasyfork.org/users/159546
-// @version           1.1.4
+// @version           1.1.5
 // @author            LEORChn
 // @run-at            document-end
 // @grant             GM_xmlhttpRequest
@@ -16,6 +16,7 @@
 // @connect           raw.githubusercontent.com
 // @connect           d1itvxfdul6wxg.cloudfront.net
 // @connect           uni-market.com
+// @connect           gankeapp.com
 //         spider
 // @connect           catalogueoflife.org
 

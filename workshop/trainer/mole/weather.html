@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+		<title>摩尔庄园手游 天气预报</title>
+<style>
+body{
+	margin: 0;
+	padding: 0
+}
+#offical{
+	width: 325px;
+	height: 400px;
+	overflow: hidden;
+}
+iframe{
+	border: none;
+	width: 350px;
+	height: 200vw;
+	margin-top: -155px;
+	margin-left: calc(-.39rem * 2 - 1px);
+}
+td:first-child{
+	text-align: right;
+	padding: 0 .5em;
+}
+td:not(:first-child){
+	width: calc((100vw - 4em) / 6);
+	text-align: center;
+}
+img{
+	width: 1em;
+}
+</style>
+	</head>
+	<body>
+		<div id="offical">
+			<iframe src="https://www.gankeapp.com/moleWeather?from=molewx" scrolling="no"></iframe>
+		</div>
+	</body>
+	<script src="/js/base.js"></script>
+<script>
+function onHelperMain(){
+	setInterval(fetchWeatherInfo, 86400000);
+	setInterval(updateWeatherUI, 60000);
+	fetchWeatherInfo();
+}
+function fetchWeatherInfo(){
+	httpj('get https://www.gankeapp.com/common_data/mole_weather', function(j){
+		offical.clearChildren();
+		var table = ct('table').setAttr('rules', 'all').appendChildren(
+			ct('tr').appendChildren(
+				' 0 4 8 12 16 20'.split(' ').map(function(e){
+					return ct('th', e);
+				})
+			)
+		);
+		offical.appendChild(table);
+		j.data.map(function(e, i){ // 拿到数据直接一个筛选
+			if(i < 2) return; // 筛掉公告等
+			return e.map(function(e, i){
+				if(i > 6) return; // 筛掉时段说明
+				return i? 
+					({
+						'晴天': 1,
+						'下雨': 2
+					})[e]:
+					getDate(e);
+			}).filter(function(e){
+				return e; // 清空垃圾：时段说明
+			});
+		}).filter(function(e){
+			return e; // 清空垃圾：公告等
+		}).foreach(function(e){
+			table.appendChildren(
+				ct('tr').setAttr('ts', e[0].getTime()).appendChildren( // 在表格行写个时间以便后面更新用
+					e.map(function(e){
+						return ct('td').appendChildren(type(e) == 'Date'?
+							ct('', `${e.getMonth() + 1}.${e.getDate()}`): // 写日期
+							ct('img').setAttr('src', ['', 'sunny.png', 'rainy.png'][e]) // 写图标
+						)
+					})
+				)
+			);
+		});
+		updateWeatherUI();
+	});
+}
+function updateWeatherUI(){
+	$$('tr[ts]').foreach(function(e){
+		var dayts = parseInt(e.getAttribute('ts'));
+		if(Date.now() - dayts > 86400000){ // 清空昨天及前天等的上色
+			e.children.foreach(function(e){
+				if(!e.style.background) return 1;
+				e.style.background = '';
+			});
+			return;
+		}
+		var tms = '0 4 8 12 16 20 24'.split(' ');
+		tms.foreach(function(r, i){
+			if(r == '0'){
+				e.children[0].style.background = 'chartreuse';
+				return;
+			}
+			var _ = parseInt(r), __ = parseInt(tms[i+1]);
+			//pl(Date.now(), i, _,'\n'+( dayts + _ * 3600000), Date.now() > dayts + _ * 3600000);
+			if(Date.now() > dayts + _ * 3600000){
+				e.children[i].style.background = 'chartreuse';
+			}else{
+				var percent = (Date.now() - dayts - _ * 3600000 + 4 * 3600000) / (4 * 3600000) * 100;
+				//pl('perc', percent, (Date.now() - dayts - _ * 3600000 + 4 * 3600000) / (4*3600000));
+				e.children[i].style.background = `linear-gradient(to right, chartreuse ${percent}%, darkorange ${percent}%)`;
+				return 1;
+			}
+		});
+		return 1; // 防止给明天和后天等上色
+	});
+}
+function getDate(n){ // 从1900年以来经过的天数（踏马的你后端用VB6写的？）
+	var d = new Date('1900-01-01');
+	return new Date(d.getTime() + n * 86400000 - 480 * 60000); // 服务器时差+480分钟所以写死
+}
+</script>
+</html>

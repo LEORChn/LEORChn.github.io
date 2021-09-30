@@ -1,0 +1,125 @@
+---
+---
+{% capture scss %}
+.item-root{ /* 功能：基础列表 */
+	display: flex;
+	text-decoration: none;
+	cursor: pointer;
+	&:hover{
+		background-color: rgba(0,0,0,.03);
+	}
+	& > .avatar{ /* 头像 */
+		position: relative;
+		margin: .8em 1em;
+		min-width: 3em;
+		min-height: 3em;
+		max-height: 3em;
+		border-radius: 9em;
+		background-size: cover;
+		& > .spot:not(:empty){ /* 红点 */
+			position: absolute;
+			right: -.5em;
+			min-width: calc(1em - 4px);
+			padding: 2px 5px;
+			border-radius: 99px;
+			background: red;
+			color: #fff;
+			text-align: center;
+			font-size: 12px;
+			font-weight: bold;
+		}
+	}
+	& > :not(:first-child){ /* 文字 */
+		flex: 1;
+		padding: .8em 1em .8em 0;
+		border-bottom: 1px solid #d3d3d3;
+		color: #000;
+		line-height: 1.5em;
+		.category{
+			font-weight: bold;
+		}
+		.title{
+			color: #808080;
+		}
+		.question{
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		.time{
+			color: #bfbfbf;
+		}
+	}
+}
+
+#expand-category{ /* 功能：展开其他分类 */
+	display: none;
+	&:not(:checked) ~ .category-list{
+		position: relative;
+		max-height: 500px;
+		overflow: hidden;
+		[for=expand-category]{
+			position: absolute;
+			bottom: 0;
+			width: calc(100% - 2px);
+			line-height: 50px;
+			background-image: linear-gradient(to bottom, transparent, #fff 50%);
+			text-align: center;
+			cursor: pointer;
+			z-index: 99;
+		}
+	}
+	&:checked ~ .category-list [for=expand-category]{
+		display: none;
+	}
+}
+
+/* 功能：在分类问题下不显示关注问题新增的回答 */
+.question-list:not(:empty) ~ .new-answer-in-following-question{
+	display: none;
+}
+{% endcapture %}
+{{ scss | scssify }}
+/*
+.item-root{
+	display: flex;
+	text-decoration: none;
+}
+.item-root > :first-child{
+	border-radius: 2em;
+	margin: .8em 1em;
+	min-width: 3em;
+	min-height: 3em;
+	max-height: 3em;
+	position: relative;
+}
+.item-root > :not(:first-child){
+	flex: 1;
+	padding: .8em 1em .8em 0;
+	border-bottom: 1px solid #d3d3d3;
+	color: #000;
+	line-height: 1.5em;
+}
+.item-root [category]{
+	font-weight: bold;
+}
+[category=invite]:after{
+	content: '邀请';
+}
+[category=like]:after{
+	content: '赞同与感谢';
+}
+[category=reply]:after{
+	content: '评论与回复';
+}
+.item-root [title]{
+	color: #808080;
+}
+.item-root [question]{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.item-root [time]{
+	color: #bfbfbf;
+}*/
