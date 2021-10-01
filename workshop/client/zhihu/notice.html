@@ -40,7 +40,9 @@ function onHelperMain(){
 			}
 		});
 	});
-	setTimeout(location.reload, 7200000);
+	setTimeout(function(){
+		location.reload();
+	}, 7200000);
 }
 function Listsub(e){
 	var a = ct('a.item-root' + (e.subtype? '.' + e.subtype: ''));
