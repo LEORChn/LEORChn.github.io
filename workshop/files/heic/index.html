@@ -38,7 +38,7 @@ pre{
 			<option value="image/jpeg" checked>JPG</option>
 			<option value="image/png">PNG</option>
 		</select>
-		<input type="file" multiple style="max-width: 150px">
+		<input type="file" id="ui_file_in" multiple style="max-width: 150px">
 		<span id="ui_stat">工具加载中，请稍候。</span>
 		<canvas id="background_canvas" style="display: none"></canvas><!--width="1000" height="1000"-->
 		<br>
@@ -90,11 +90,11 @@ function checkready(){
 	ui_stat.innerText = '就绪.';
 }
 function main(){ // 测试环境使用，用于每次刷新后自动填充测试文件
-	$('input').onchange.bind({
+	ui_file_in.onchange.bind({
 		files: f
 	})();
 }
-$('input').onchange = function(){ // 用户选择文件后开始执行
+ui_file_in.onchange = function(){ // 用户选择文件后开始执行
 	var pending_files = this.files.map(function(e){
 		return e; // 把文件数组转为普通数组，这样才可以执行修改数组
 	});
@@ -108,7 +108,10 @@ $('input').onchange = function(){ // 用户选择文件后开始执行
 	var fr = new FileReader();
 	function next_file(){ // 批处理采用消息队列形式
 		processing_file = pending_files.shift();
-		if(!processing_file) return processed_files == 1? 0: upstat('全部处理完成');
+		if(!processing_file){
+			ui_file_in.value = '';
+			return processed_files == 1? 0: upstat('全部处理完成');
+		}
 		upstat('文件读取中');
 		fr.readAsArrayBuffer(processing_file);
 	}
