@@ -76,7 +76,16 @@ Object.assign.weakly(String.prototype, { // =====-----<  String  >-----===== //
 		
 	},
 	format: function(){
-		
+		_this = this;
+		var args = arr(arguments);
+		if(args[0].constructor === Array) args = args[0];
+		args.foreach(function(e, i){
+			_this = _this.replace(new RegExp("\\{" + i + "\\}", "gm"), e);
+		});
+		// 检查有没有没替换的可能
+		var res = /\{(\d+)\}/gm.exec(_this);
+		if(res) console.warn('文本：'+this.left(10)+'... 格式化时可能出现问题，未包含第'+res[1]+'号参数。');
+		return _this;
 	},
 	copy: function(){
 		
@@ -272,7 +281,7 @@ function sameas(name){
 
 function registForArrayLike(){
 	var listObj = [
-		Array, String, HTMLCollection, NodeList
+		Array, String, HTMLCollection, NodeList, FileList
 	];
 	for(var i=0; i<listObj.length; i++){
 		Object.assign.weakly(listObj[i].prototype, {

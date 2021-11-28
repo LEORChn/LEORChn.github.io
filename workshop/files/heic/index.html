@@ -1,0 +1,174 @@
+---
+---
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<title>HEIF - High Efficiency Image File Format</title>
+<style>
+a:not(:hover){
+	text-decoration: none;
+}
+pre{
+	font-size: 16px;
+	position: absolute;
+	white-space: pre-wrap;
+	line-height: 1.3;
+	z-index: -1;
+}
+#ui_imgs span{
+	position: absolute;
+	background: rgba(255,255,255,.8);
+	padding: 5px;
+}
+#ui_imgs img{
+	display: block;
+	max-width: calc(100vw - 32px);
+	max-height: calc(95vh - 16px);
+}
+</style>
+	</head>
+	<body>
+		<a href="https://leorchn.github.io/workshop/">&lt; 返回瑞兽谷</a>
+		<br>
+		批量转到
+		<select id="ui_format">
+			<option value="image/jpeg" checked>JPG</option>
+			<option value="image/png">PNG</option>
+		</select>
+		<input type="file" multiple style="max-width: 150px">
+		<span id="ui_stat">工具加载中，请稍候。</span>
+		<canvas id="background_canvas" style="display: none"></canvas><!--width="1000" height="1000"-->
+		<br>
+		<div id="ui_imgs"></div>
+{% capture md %}
+## JavaScript 实例：HEIC 转到 JPEG、PNG
+### 依赖
+
+1. libheif 1.11.0 （核心功能。2021.11.27 从 heic2jpg.online 采集）
+2. LEORChn base.js （提供一些语法糖，快速实现部分功能）
+
+### 库代码的改动
+
+因为需要实现用户体验提升（防止界面卡死）因此对 libheif 库代码做了部分改动。
+
+具体改动为：
+* 将 HeifImage 类从私有内部类公开到可供外部访问。
+
+如果要获得原版，请访问文件名：libheif.1.11.0.min.origin.js
+
+### 优势
+
+* 本工具支持多选文件进行转换。
+* 本工具支持输出为 JPG 或 PNG 格式，但请在选择文件前设置。
+* 若为 Chromium 内核浏览器，可以在转换后直接把图像拖到文件夹内即可保存。其他浏览器也可以尝试看看能不能进行这样的操作。
+
+备注：如果把自然风景等 **色彩过于丰富的图像** 转为 PNG 格式，可能导致浏览器占用过高或崩溃。建议先转为 JPG 进行预览，然后再决定。
+
+### 内部实现步骤
+
+1. 因为 heic 格式普及率较低，所以浏览器没有自带相关功能。而软件解码需要耗时较长，如果不放在 Worker 里则会导致浏览器假死
+2. 创建一个 Worker，使其能够输入文件IO的 ArrayBuffer 参数，并输出一个用 HeifImage 类的克隆对象封装的、已解码用于 RAM 的图像数据
+3. 因为克隆对象会丢失原本的函数方法，因此传递到外部后，须要重新给这个克隆对象写入 HeifImage 类的相关函数方法。这也是我修改了库代码的原因
+4. 把解码后的图像数据输入给 Canvas，让 Canvas 转换图片到指定的格式（JPG、PNG 等）并用于在硬盘上存储
+
+### 还能继续改进的地方
+
+1. 封装。甚至把 FileReader 也封装到 Worker 里。
+2. 改进 Worker 输出。因为目前为止，所需的 libheic.js 里部分步骤仍然需要与 Worker 之外的 Canvas 进行交互。我能想到的就是破解 HeifImage.prototype.display 的运行逻辑，使之能输出 ImageData 或者 ImageBitmap 等无需前台逻辑的数据类型。
+{% endcapture %}
+{{ md | markdownify }}
+		
+		<script src="/js/3/libheif.1.11.0.min.js"></script>
+		<script src="/js/base.js"></script>
+		<script>
+setTimeout(checkready, 1000);
+function checkready(){
+	if(!pl) return setTimeout(checkready, 1000);
+	ui_stat.innerText = '就绪.';
+}
+function main(){ // 测试环境使用，用于每次刷新后自动填充测试文件
+	$('input').onchange.bind({
+		files: f
+	})();
+}
+$('input').onchange = function(){ // 用户选择文件后开始执行
+	var pending_files = this.files.map(function(e){
+		return e; // 把文件数组转为普通数组，这样才可以执行修改数组
+	});
+	var processing_file = null,
+		processed_files = 0;
+	ui_imgs.clearChildren();
+	function upstat(msg){
+		var p_ed_files = processed_files + (processing_file? 1: 0);
+		ui_stat.innerText = `(${p_ed_files}/${p_ed_files + pending_files.length}) ${msg}`;
+	}
+	var fr = new FileReader();
+	function next_file(){ // 批处理采用消息队列形式
+		processing_file = pending_files.shift();
+		if(!processing_file) return processed_files == 1? 0: upstat('全部处理完成');
+		upstat('文件读取中');
+		fr.readAsArrayBuffer(processing_file);
+	}
+	next_file();
+	fr.onload = function(){
+		upstat('解码中'); // 在这之后的代码不会在当前线程占用过多CPU时间，因此可以快速更新
+		worker.postMessage(fr.result); // 硬盘数据发送到后台工作线程
+		worker.onmessage = function(e){
+			var i = e.data[0],
+				img = e.data[1],
+				canv = background_canvas;
+			
+			upstat(`图像分辨率 ${i[0].w}x${i[0].h}`);
+			canv.width = i[0].w;
+			canv.height = i[0].h;
+			
+			'free _ensureImage get_width get_height is_primary display'.split(' ').foreach(function(e){
+				img[0][e] = libheif.HeifImage.prototype[e];
+			}); // 给克隆对象写入 HeifImage 相关函数方法
+			
+			var ctx = canv.getContext('2d'),
+				imgData = ctx.createImageData(i[0].w, i[0].h);
+			
+			img[0].display(imgData, function(e){ // 把解码后的原始图像数据输到 canvas 里
+				ctx.putImageData(e, 0, 0);
+				
+				ui_imgs.appendChildren(
+					ct('span', processing_file.name),
+					ct('img').setAttr('src', canv.toDataURL(ui_format.value)) // 用 canvas 转码到能存储在硬盘的格式
+				);
+				processed_files++;
+				next_file();
+			});
+			
+		};
+	};
+	
+};
+
+var worker = (decodeHeic.toString() + `
+importScripts('${$('script').src}');
+onmessage = function(e){
+	decodeHeic(e.data);
+}
+`).toWorker(); // 用下面这个函数创建一个后台工作线程，以免在解码时出现网页卡死现象
+function decodeHeic(arraybuffer){
+	var dec = new libheif.HeifDecoder();
+	var img = dec.decode(new Uint8Array(arraybuffer, 0, arraybuffer.byteLength));
+	
+	console.time('get image resolution');
+	var i = img.map(function(e){
+		return {
+			w: e.get_width(),
+			h: e.get_height()
+		};
+	});
+	console.timeEnd('get image resolution');
+	
+	postMessage([i, img]);
+};
+		</script>
+	</body>
+</html>

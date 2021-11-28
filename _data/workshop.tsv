@@ -1,4 +1,5 @@
 group	create	update	url	name	desc
+workshop	2021-11-27	2021-11-28	files/heic	HEIC	iOS 11 照片格式批量转换为 JPG
 seat	2021-8-19	2021-8-23	crc2buid	CRC2BUID	CRC32 转 数字
 spider	2021-8-16	2021-8-22	col2017	生物分类2017	Catalogue of Life: 2017<br>The browser helper is required.
 seat	2021-8-11	2021-8-14	pinyin2familyname	Pinyin2FamilyName	
