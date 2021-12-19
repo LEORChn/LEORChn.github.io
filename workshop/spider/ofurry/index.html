@@ -1,0 +1,79 @@
+<body></body>
+<script src="/js/base.js"></script>
+<script src="/js/3/jszip.3.3.0.min.js"></script>
+<script>
+
+var z = new JSZip();
+var crew_log = [],
+	roles_log = [];
+var laststatus = '',
+	lastroles = {},
+	lastroles_text = '';
+
+function onHelperMain(){
+	setTimeout(claw, 5000);
+	setInterval(claw, 120000);
+}
+function claw(){
+	http('get https://api.ofurry.com/getRoleInfo?type=0&_=' + Date.now(), function(){
+		if(laststatus != this.responseText){
+			laststatus = this.responseText;
+			crew_log.push({
+				ts: Date.now(),
+				text: laststatus
+			});
+			console.info(laststatus.length, [laststatus]);
+		}
+		claw_roles();
+	});
+}
+function claw_roles(){
+	var roles = JSON.parse(laststatus).content;
+	var roleids = map(function(e){
+		return e.roleId;
+	});
+	roleids.foreach(function(e){
+		var api = `/getRoleInfo?type=1&roleId=${e}&_=${Date.now()}`;
+		http('get https://api.ofurry.com' + api, function(e){
+			
+		});//https://api.ofurry.com/getRoleInfo?type=1&roleId=1000017&_=16552
+	});
+}
+function renderImages1(){
+  var d = JSON.parse(crew_log[10].text);
+  var imgs = d.content.map(function(e){
+    return [e.roleAvatar].concat(e.roleImages);
+  });
+  var view = $('#imgs') || ct('div#imgs');
+  view.clearChildren().appendChildren(
+    imgs.map(function(e){
+      return ct('div').appendChildren(
+        e.map(function(e){
+          return ct('img').setAttr('src', e).setAttr('href', e);
+        })
+      )
+    })
+  );
+  document.body.appendChildren(view);
+}
+//renderImages()
+</script>
+<script>
+/*
+function claw(){
+	var request = 'post https://api.ofurry.com/getRoleInfo',
+		header = 'Content-Type: application/json',
+		payload = '{"type":0}';
+	http(request, header, payload, function(){
+		if(laststatus != this.responseText){
+			laststatus = this.responseText;
+			crew_log.push({
+				ts: Date.now(),
+				text: laststatus
+			});
+			console.info(laststatus.length, [laststatus]);
+		}
+	});
+}
+*/
+</script>

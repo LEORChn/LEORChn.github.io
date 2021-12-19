@@ -17,3 +17,6 @@ update	host	rule	desc
 2021-9-5		#layui-layer-shade1	在使用堡塔国内版后端管理面板时免受登录提示干扰
 2021-9-5		#layui-layer1[style*='420px'][style*='425px']	在使用堡塔国内版后端管理面板时免受登录提示干扰
 2021-9-9	stackoverflow.com	#noscript-warning	在发生网络问题时隐藏顶部红条，因为这个红条的提示内容是无用的
+2021-12-6	web.archive.org	body>#donate_banner, body>#donato	在隐身模式下免受捐款提示干扰
+2021-12-12	github.com	li:not(:nth-child(4)) .HeaderMenu-summary	针对个人免费使用而优化顶部导航
+2021-12-12	github.com	li:not(:nth-child(5)) a.HeaderMenu-link	针对个人免费使用而优化顶部导航
