@@ -1,4 +1,5 @@
 update	host	rule	desc
+2021-12-23	archive.org	#donate_banner	在隐身模式下免受捐款提示干扰
 2021-12-12	github.com	li:not(:nth-child(4)) .HeaderMenu-summary	针对个人免费使用而优化顶部导航
 2021-12-12	github.com	li:not(:nth-child(5)) a.HeaderMenu-link	针对个人免费使用而优化顶部导航
 2021-12-6	web.archive.org	body>#donate_banner, body>#donato	在隐身模式下免受捐款提示干扰
