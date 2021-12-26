@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>web auto save</title>
+</head>
+<body>
+	<a href="https://leorchn.github.io/workshop/">&lt; &#36820;&#22238;&#29790;&#20861;&#35895;</a>
+	<form method="post" action="https://web.archive.org/save/https://leorchn.com/archive/www.bilibili.com/read/readlist/u4776884/" target="anotherwindow">
+		<input type="hidden" name="url" value="https://leorchn.com/archive/www.bilibili.com/read/readlist/u4776884/">
+		<input type="hidden" value="on" name="capture_outlinks">
+		<input type="hidden" value="on" name="capture_all">
+		<input type="hidden" value="on" name="capture_screenshot">
+		<input type="hidden" value="on" name="wm-save-mywebarchive">
+		<input type="button" value="开始" onclick="openwindow()">
+	</form>
+<h2>Web-Archive 自动备份</h2>
+<h3>注意事项</h3>
+<ol>
+	<li>
+		如果要运行，点一下开始就行。
+		<br>
+		一般来说只能电脑端运行，因为电脑支持多窗口前台运行。
+	</li>
+	<li>请留意浏览器的标签页休眠功能，注意将瑞兽谷加入白名单。</li>
+	<li>
+		窗口最小化可能会导致休眠，所以尽量不要最小化。
+		<br>
+		如果觉得窗口看着不舒服，可以丢到屏幕外面去，这不算最小化。
+	</li>
+	<li>
+		请注意检查自己的网络。
+		<br>
+		虽然长时间断网不会导致本程序异常至无法恢复，但确实没法在这期间正常使用功能。
+	</li>
+	<li>如果要修改列表网址，请编辑源码。</li>
+	<li>
+		Web Archive 的 Save Page Now 机器人只能同时备份随机 100 个外链，
+		<br>
+		这也是我做出这个工具的原因，我想要备份的外链太多了。
+	</li>
+</ol>
+<style>
+a:not(:hover){
+	text-decoration: none;
+}
+li{
+	font-size: 16px;
+	line-height: 1.5;
+}
+</style>
+</body>
+<script src="/js/base.js"></script>
+<script src="/js/stats.js" async></script>
+<script src="/js/date.js"></script>
+<script>
+var win, theinterval;
+function openwindow(){
+	if(isSubWindowAlive()) return;
+	win = open('', 'anotherwindow', 'location=no,width=300,height=400');
+	theinterval = setInterval(start, 50 * 60 * 1000);
+	setTimeout(start, 3000);
+	win.document.write('<h2>正在启动，请稍等</h2>');
+}
+function start(){
+	if(!isSubWindowAlive()) return clearTimeout(theinterval);
+	document.title = new Date().format('@M-d H:mm');
+	$('form').submit();
+}
+window.onbeforeunload = function(){
+	if(isSubWindowAlive()) win.close();
+};
+function isSubWindowAlive(){
+	return win && !win.closed;
+}
+</script>
+</html>
