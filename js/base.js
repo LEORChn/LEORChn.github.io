@@ -56,7 +56,7 @@ Object.assign.weakly(window, { // global vars
 			}
 		}
 		if(innerText || innerText === '' || innerText === 0){
-			if(entity) entity.innerText = innerText;
+			if(entity) entity[entity.nodeName == 'INPUT'? 'value': 'innerText'] = innerText;
 			else entity = document.createTextNode(innerText);
 		}
 		return entity;
@@ -69,11 +69,11 @@ Object.assign.weakly(window, { // global vars
 });
 
 Object.assign.weakly(String.prototype, { // =====-----<  String  >-----===== //
-	left: function(){ // named from vb
-		
+	left: function(n){ // named from vb
+		return this.slice(0, n);
 	},
-	right: function(){ // named from vb
-		
+	right: function(n){ // named from vb
+		return this.slice(-n);
 	},
 	format: function(){
 		_this = this;
@@ -130,6 +130,14 @@ Object.assign.weakly(Number.prototype, { // =====-----<  Number  >-----===== //
 			return (Math.pow(16, bit) + _this).toString(16);
 		}
 		return _this & Math.pow(16, bit) - 1;
+	},
+	toFileSize: function(fix){
+		var _this = this, result;
+		'Byte K M G T P E Z Y'.split(' ').foreach(function(e, i){
+			if(_this > 1024) _this /= 1024;
+			else return result = `${_this.toFixed(i? fix || 2: 0)} ${i? e + 'iB': e}`;
+		});
+		return result;
 	}
 });
 
@@ -184,6 +192,12 @@ Object.assign.weakly(Blob.prototype, {
 	// 由于File 继承 Blob，因此也可以对 File 使用这些函数
 	toURL: function(){
 		return URL.createObjectURL(this);
+	},
+	toDownload: function(filename){
+		return new URL(this.toURL()).toAnchor(filename).setAttr('download', filename);
+	},
+	text: function(){ // TODO: Blob.text() 原生支持 Chrome 76、Firefox 69。如果稍加小心，可以兼容到 IE 10
+		return new Promise(function(){});
 	}
 });
 
@@ -195,6 +209,10 @@ Object.assign.weakly(URL.prototype, {
 		a.href = this.href;
 		return a;
 	}
+});
+
+Object.assign.weakly(Object, {
+	values: Polyfill_Object_values // 仅需 Chrome 54、Edge 14
 });
 
 Function.prototype.__defineGetter__('innerText', function(){
@@ -231,6 +249,7 @@ Object.assign.weakly(HTMLElement.prototype, {
 		return this;
 	},
 	setAttr: function(key, value){
+		if(!key) return this;
 		this.setAttribute(key, value === undefined? '': value);
 		return this;
 	}
@@ -303,9 +322,14 @@ function registForArrayLike(){
 			contains: generalContains // named from java
 		});
 	}
-	[Uint8Array, Uint16Array, Uint32Array].foreach(function(e){
+	[Uint8Array, Uint16Array, Uint32Array, Int8Array].foreach(function(e){
 		Object.assign(e.prototype, { // map 要硬气
 			map: Polyfill_Array_map
+		});
+		Object.assign.weakly(e.prototype, {
+			slice: function(begin, end){ // TypedArray.slice 仅需 Chrome 45、Edge 14
+				return new self[type(this)](Array.prototype.slice.call(this, begin, end));
+			}
 		});
 	});
 }
@@ -395,6 +419,12 @@ function Polyfill_Array_map(callback){ // 腻子代码 https://developer.mozilla
 		k++;
 	}
 	return A;
+}
+function Polyfill_Object_values(obj){ // 腻子代码 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/values
+	if(obj !== Object(obj)) throw new TypeError('Object.values called on a non-object');
+	var val = [];
+	for(var key in obj) if(Object.prototype.hasOwnProperty.call(obj, key)) val.push(obj[key]);
+	return val;
 }
 
 function registerForWorkerCompatibility(){ // 这个方法仅保证本库能在 Worker 环境中初始化，而不保证所有功能都可用
