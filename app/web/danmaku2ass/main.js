@@ -157,16 +157,19 @@ function main(){
 					});
 					var a = ct('a');
 					a.href = URL.createObjectURL(blob);
-					a.download = fname.replace(/\.(\S+)$/, '.ass');
+					a.download = fname.replace(/\.[^\.]+$/, '.ass'); // 2021-1-7 3:47
 					a.click();
 				};
 				td_ass.appendChild(downass);
 				
-				// 预览视频 - todo
-				var preview = ct('input');
-				preview.type = 'button';
-				preview.value = '预览视频';
-				td_preview.appendChild(preview);
+				// 分析视频帧断层
+				var analysis = ct('input');
+				analysis.type = 'button';
+				analysis.value = '分析并下载';
+				analysis.onclick = function(){
+					flvanalysis(e);
+				};
+				td_preview.appendChild(analysis);
 				break;
 			default:
 				return;
@@ -261,10 +264,10 @@ function main(){
 		
 		var _this = e;
 		e.mainobj.readAsText(function(t){
-			var availble_line = /(\d+:\d{2}:\d{2})\s:\s(.{4}):/,
+			var availble_line = /(\d+:\d{1,2}:\d{1,2})\s:\s(.{4}):/,
 					availble_first,
 					availble_last,
-					welcome_shipmember = /歡迎.{2}:\s*(.*?)進入直播間/,
+					welcome_shipmember = /歡迎.{2}:\s*(.*?)\s{0,}進入直播間/,
 					dmk_detail = /收到彈幕:(.*?)\s*說:\s(.*)/;
 			
 			// ===== 文件行读取模式 开始 ===== //
