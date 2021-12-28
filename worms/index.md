@@ -37,10 +37,10 @@ title: 百战天虫游戏一览
 
 {% include ui/os switch="" %}\*若购买 Switch 版本，将不能与 Windows 玩家联机。
 
-| [{% include ui/os steam="" %}Steam购买](https://store.steampowered.com/app/327030) | 发售 | 2020-7-10起 |
-| ------------------------------------------------------------ | ---- | ----------- |
-| 原价                                                         | 129  | 118         |
-| 最低折价                                                     | 32   | 29          |
+| [{% include ui/os steam="" %}Steam购买](https://store.steampowered.com/app/327030) | 发售             | 2020.7.10起     |
+| ------------------------------------------------------------ | ---------------- | --------------- |
+| 原价                                                         | 129              | 118             |
+| 最低折价                                                     | 32<br />（25折） | 23<br />（2折） |
 
 [《百战天虫：战争武器》百科页面](wmd/)
 
@@ -70,14 +70,13 @@ title: 百战天虫游戏一览
 
 ### {% include ui/os android="" %}Android
 
-|                                  | 中文 | 系统 | 日期   | 版本       | Play                                                         |
-| -------------------------------- | ---- | ---- | ------ | ---------- | ------------------------------------------------------------ |
-| Worms 4                          |      | 2.3+ |        | 1.0.432182 | 已下架[^w4play]                                              |
-| Worms 3                          |      | 2.3+ | 2018-2 | 2.06       | [查看](https://play.google.com/store/apps/details?id=com.worms3.app) |
-| Worms 2<br><sup>Armageddon</sup> |      | 2.2+ | 2014-1 | 1.4.0      | [查看](https://play.google.com/store/apps/details?id=com.worms2armageddon.app) |
-| Worms[^wnaea]                    | √    | 1.6+ | 2012-1 | 1.2.95     |                                                              |
+|                                  | 中文 | 系统           | 日期              | 版本                  | Play                                                         |
+| -------------------------------- | ---- | -------------- | ----------------- | --------------------- | ------------------------------------------------------------ |
+| Worms 4                          |      | 2.3+<br />4.1+ | -<br />2021.12.13 | 1.0.432182<br />2.0.6 | -<br />[查看](https://play.google.com/store/apps/details?id=com.worms4.app) |
+| Worms 3                          |      | 2.3+           | 2018.2            | 2.06                  | [查看](https://play.google.com/store/apps/details?id=com.worms3.app) |
+| Worms 2<br><sup>Armageddon</sup> |      | 2.2+           | 2014.1            | 1.4.0                 | [查看](https://play.google.com/store/apps/details?id=com.worms2armageddon.app) |
+| Worms[^wnaea]                    | √    | 1.6+           | 2012.1            | 1.2.95                |                                                              |
 
-[^w4play]: Worms 4 已经从Google Play下架。
 [^wnaea]: 该版本与美国艺电合作完成。
 
 ### {% include ui/os javame="" %}Java ME
