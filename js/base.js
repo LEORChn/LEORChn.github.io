@@ -64,8 +64,12 @@ Object.assign.weakly(window, { // global vars
 			console.warn('ct() didnt create an Element but TextNode.\nPlease check the first symbol of css parameter is write for TagName of an Element.\ne.g. should not a space character.');
 			return true;
 		}
+	},
+	importScripts: function(){ // 在 worker 环境下不会生效
+		arr(arguments).foreach(function(e){
+			document.body.appendChildren(ct('script').setAttr('src', e));
+		});
 	}
-	
 });
 
 Object.assign.weakly(String.prototype, { // =====-----<  String  >-----===== //
@@ -220,6 +224,15 @@ Function.prototype.__defineGetter__('innerText', function(){
 	return re? re[1]: '';
 });
 
+Storage.prototype.__defineGetter__('size', function(){
+	if(!('length' in this)) return 0;
+	var total = 0, _this = this;
+	new Array(this.length).fill(0).map(function(e, i){
+		total += _this[_this.key(i)].length;
+	});
+	return total;
+});
+
 Object.assign.weakly(HTMLElement.prototype, {
 	$: function(e){ // named from jQuery
 		return this.querySelector(e);
@@ -252,6 +265,15 @@ Object.assign.weakly(HTMLElement.prototype, {
 		if(!key) return this;
 		this.setAttribute(key, value === undefined? '': value);
 		return this;
+	},
+	initChildren: function(){
+		var path = this;
+		arr(arguments).foreach(function(e){
+			var c = path.$(e);
+			if(!c) path.appendChild(c = ct(e));
+			path = c;
+		});
+		return path;
 	}
 });
 
