@@ -7,8 +7,19 @@ var laststatus = '',
 	lastroles_textmd5 = '';
 var starttime = Date.now();
 function backup(){
-	localStorage['ofur_crew_' + starttime] = JSON.stringify(crew_log);
+	//localStorage['ofur_crew_' + starttime] = JSON.stringify(crew_log);
 	localStorage['ofur_roles_' + starttime] = JSON.stringify(roles_log);
+	var crewzip = new JSZip();
+	crewzip.file(Date.now() + '.txt', JSON.stringify(crew_log));
+	crewzip.generateAsync({
+		type: "base64",
+	    compression: "DEFLATE",
+	    compressionOptions: {
+	        level: 9
+	    }
+	}).then(function(e){
+		localStorage['ofur_crew_' + starttime] = e;
+	});
 }
 function claw(){
 	getRoleInfo(0, null, function(){
