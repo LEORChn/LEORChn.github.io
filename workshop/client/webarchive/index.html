@@ -60,7 +60,7 @@ var win, theinterval;
 function openwindow(){
 	if(isSubWindowAlive()) return;
 	win = open('', 'anotherwindow', 'location=no,width=300,height=400');
-	theinterval = setInterval(start, 50 * 60 * 1000);
+	theinterval = setInterval(start, 3600 * 1000);
 	setTimeout(start, 3000);
 	win.document.write('<h2>正在启动，请稍等</h2>');
 }
