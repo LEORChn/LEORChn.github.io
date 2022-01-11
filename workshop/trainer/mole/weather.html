@@ -31,11 +31,18 @@ td:not(:first-child){
 img{
 	width: 1em;
 }
+.rainy{
+	background-color: rgb(128,179,220);
+}
+.snowy{
+	background-color: #888;
+}
 </style>
 	</head>
 	<body>
 		<div id="offical">
 			<iframe src="https://www.gankeapp.com/moleWeather?from=molewx" scrolling="no"></iframe>
+			<!-- 模拟客户端：https://www.gankeapp.com/moleWeather?from=android -->
 		</div>
 	</body>
 	<script src="/js/base.js"></script>
@@ -56,15 +63,14 @@ function fetchWeatherInfo(){
 			)
 		);
 		offical.appendChild(table);
+		var d = ' 晴天 下雨 下雪'.split(' '),
+			w = ' sunny rainy snowy'.split(' ');
 		j.data.map(function(e, i){ // 拿到数据直接一个筛选
 			if(i < 2) return; // 筛掉公告等
 			return e.map(function(e, i){
 				if(i > 6) return; // 筛掉时段说明
 				return i? 
-					({
-						'晴天': 1,
-						'下雨': 2
-					})[e]:
+					d.indexOf(e):
 					getDate(e);
 			}).filter(function(e){
 				return e; // 清空垃圾：时段说明
@@ -77,8 +83,8 @@ function fetchWeatherInfo(){
 					e.map(function(e){
 						return ct('td').appendChildren(type(e) == 'Date'?
 							ct('', `${e.getMonth() + 1}.${e.getDate()}`): // 写日期
-							ct('img').setAttr('src', ['', 'sunny.png', 'rainy.png'][e]) // 写图标
-						)
+							ct('img').setAttr('src', w[e] + '.png') // 写图标
+						).setAttr('class', w[e])
 					})
 				)
 			);
@@ -118,7 +124,7 @@ function updateWeatherUI(){
 }
 function getDate(n){ // 从1900年以来经过的天数（踏马的你后端用VB6写的？）
 	var d = new Date('1900-01-01');
-	return new Date(d.getTime() + n * 86400000 - 480 * 60000); // 服务器时差+480分钟所以写死
+	return new Date(d.getTime() + (n - 1) * 86400000 - 480 * 60000); // 服务器时差+480分钟所以写死
 }
 </script>
 </html>
