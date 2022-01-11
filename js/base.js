@@ -20,10 +20,7 @@ Object.assign.weakly(window, { // global vars
 	$$: function(e){ // named from jQuery
 		return document.querySelectorAll(e);
 	},
-	type: function(e){
-		var t = typeof(e);
-		return t == 'object'? e == null? 'Null': e.constructor.name: t.replace(t[0], t[0].toUpperCase());
-	},
+	type: generalType,
 	arr: function(e){
 		return Array.prototype.slice.call(e);
 	},
@@ -146,14 +143,6 @@ Object.assign.weakly(Number.prototype, { // =====-----<  Number  >-----===== //
 });
 
 Object.assign.weakly(Array.prototype, { // =====-----<  Array  >-----===== //
-	foreach: function(func){
-		for(var i=0; i < this.length; i++)
-			try{
-				if(func(this[i], i, this)) return true;
-			}catch(e){
-				console.warn(e);
-			}
-	},
 	unique: function(){
 		var _this = this;
 		return this.filter(function(e, i){
@@ -182,6 +171,7 @@ Object.assign.weakly(Array.prototype, { // =====-----<  Array  >-----===== //
 	fill: Polyfill_Array_fill, // 腻子代码 Chrome < 45
 	includes: generalContains,
 	contains: generalContains // named from java
+	// TODO: 精简这两行
 });
 
 Object.assign.weakly(Event.prototype, {
@@ -276,6 +266,38 @@ Object.assign.weakly(HTMLElement.prototype, {
 		return path;
 	}
 });
+Object.assign.weakly(HTMLTableElement.prototype, {
+	theadSort: function(){ // TODO: 在重新排序前解除单元格合并
+		this.$('tr').children.foreach(function(e){
+			e.onclick = startSort;
+		});
+		function startSort(){
+			var isAsc = this.getAttribute('order') != 'asc'; // 首次排序时使用升序，asc
+			this.setAttr('order', !(isAsc ^= true)? 'asc': 'desc');
+			var index = this.parentNode.children.indexOf(this),
+				tr = this.parentNode,
+				t = tr.parentNode;
+			while(type(t) != 'HTMLTableElement') t = this.parentNode; // 如果开发者或用户乱搞 DOM 结构导致 tr 在 table 内，那么这里会报错
+			t.$$('tr').filter(function(e){
+				return e != tr;
+			}).map(function(e){
+				var c = e.children;
+				return {
+					name: c.length < index + 1? '': c[index].innerText, // 针对可能不合规的单元格做强制兼容
+					tr: e
+				}
+			}).sort(function(a, b){ // a-b=升序 b-a=降序
+				// TODO: 更换为 Win7 文件名排序法
+				var objsIsAsc = [a.name, b.name].sort()[0] == a.name;
+				return objsIsAsc ^ isAsc? -1: 1; // 一样的话那么就是升序，不一样就降序
+			}).foreach(function(e, i){
+				if(e.tr == tr) return;
+				e.tr.parentNode.appendChild(e.tr);
+			});
+			
+		}
+	}
+});
 
 Object.assign.weakly(window, { // old css
 	fv: old('fv'),
@@ -313,6 +335,10 @@ function old(fn){
 function generalContains(s){ // 用于字符串和数组的，判断自身是否包含给定参数值的函数
 	return this.indexOf(s) != -1;
 }
+function generalType(e){
+	var t = typeof(e);
+	return t == 'object'? e == null? 'Null': e.constructor.name: t.replace(t[0], t[0].toUpperCase());
+}
 
 function sameas(name){
 	return function(){
@@ -326,6 +352,14 @@ function registForArrayLike(){
 	];
 	for(var i=0; i<listObj.length; i++){
 		Object.assign.weakly(listObj[i].prototype, {
+			indexOf: function(e){
+				var index = -1;
+				this.foreach(function(c, i){
+					if(e != c) return;
+					return (index = i) +1; // 防止因 index == 0 而导致无法短路
+				});
+				return index;
+			},
 			map: function(e){
 				return arr(this).map(e);
 			},
@@ -333,12 +367,14 @@ function registForArrayLike(){
 				return arr(this).filter(e);
 			},
 			foreach: function(func){
-				for(var i=0; i < this.length; i++)
+				if(generalType(func) != 'Function') return;
+				for(var i=0; i < this.length; i++){
 					try{
 						if(func(this[i], i, this)) return true;
 					}catch(e){
 						console.warn(e);
 					}
+				}
 			},
 			includes: generalContains,
 			contains: generalContains // named from java
