@@ -7,33 +7,40 @@
 // @include           https://127.0.0.1:1101/workshop/*
 // @include           https://127.0.0.1:81/workshop/*
 // @namespace         https://greasyfork.org/users/159546
-// @version           1.1.5
+// @version           1.1.6
 // @author            LEORChn
 // @run-at            document-end
 // @grant             GM_xmlhttpRequest
 //         trainer
-// @connect           gateway.live-a-hero.jp
-// @connect           raw.githubusercontent.com
-// @connect           d1itvxfdul6wxg.cloudfront.net
+// @connect           live-a-hero.jp
+// @connect           githubusercontent.com
+// @connect           cloudfront.net
+// @connect           zhihu.com
 // @connect           uni-market.com
 // @connect           gankeapp.com
+// @connect           housamo.jp
+//         
 //         spider
 // @connect           catalogueoflife.org
+// @connect           ofurry.com
+// @connect           lncn.org
 
+//         other
 // @connect           baidu.com
 // @connect           bilibili.com
 
 // @connect           qq.com
 
-// @connect           zhihu.com
 
 // @connect           people.com.cn
+// @connect           127.0.0.1
 // ==/UserScript==
 
 unsafeWindow['http'] = http;
 unsafeWindow['httpj'] = httpj;
+unsafeWindow['$__GM__'] = this;
 try{
-    unsafeWindow.onHelperMain();
+    (unsafeWindow.onHelperMain || (function(){}))();
 }catch(e){
     console.log('error from helper: ', e);
 }
@@ -76,12 +83,16 @@ function http(){
 		}
 		pointer++;
 	});
-    console.log('%c'+method+' '+url+(headers? '\n'+headers: '')+(formdata? '\n\n'+formdata: ''), 'color:#ccc');
+    var parsedHeader = getHeaders(headers);
+    headers = Object.keys(parsedHeader).map(function(e){
+        return `\n${e}: ${parsedHeader[e]}`;
+    });
+    console.log(`%c${method} ${url}${headers}${formdata? '\n\n'+formdata: ''}`, 'color:#ccc');
     GM_xmlhttpRequest({
         method: method,
         url: url,
         data: formdata,
-        headers: getHeaders(headers),
+        headers: parsedHeader,
         responseType: responseType,
         onload: dofun,
         onerror: dofail,

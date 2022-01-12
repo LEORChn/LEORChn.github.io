@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<title>SamoTrainer</title>
+</head>
+<body>
+	<div id="what_is_loading"></div>
+	<!--
+	<input type="button" value="gateway/list" onclick="gateway.list()">
+	-->
+<script>
+var loading = setInterval(function(e){
+	if('onHelperMain' in self){
+		clearInterval(loading);
+	}else{
+		var e = document.body.querySelectorAll('script');
+		what_is_loading.innerText = 'Loading: ' + e[e.length - 1].src;
+	}
+}, 200);
+</script>
+<script src="/js/3/gibberish-aes.1.0.0.min.js"></script>
+<script src="/js/base.js"></script>
+<script src="/js/stats.js"></script>
+<script src="meta.js"></script>
+<script>
+/*	=== Interfaces ===
+	source: https://github.com/chedandan/Hou撒摸AutoLogin/blob/main/Login.py
+	---
+	account/login	每日签到？所加密的内容看起来挺少
+	user/status	玩家基础状态？例如等级、经验和体力。所加密的内容看起来挺少
+	mypage/status	玩家的物品和卡片？所加密的内容看起来很多
+*/
+what_is_loading.innerText = 'Waiting for helper...';
+var presets = {
+	0: 'U2FsdGVkX18QhpYpJHkSxvtIaiGtkqeAHQkNvp2xi0Feobg8j0Tw5W3nA34HkMS4cO7tdPNBzW8whgACKcw0lY7t0Nh61lrLkrVumNvZ4cI=',
+	1: 'U2FsdGVkX19i5y566DHHHBkd/FGrlkt6Np54ls6wpIcq8k/YzbaRDO3skedt8fsHfY0BxPuxQc9hzVrb2IwDI1oxwR0QaulaiGqb+c4MStg=',
+	z: ''
+}, trainer = {};
+
+function onHelperMain(){
+	what_is_loading.innerText = 'Trainer is loaded.';
+	try{
+		var re = /@connect\s+.*?(o\.jp|usam|ho){3}/; // @hide to foreigner
+		if(!re.test($__GM__.GM_info.scriptMetaStr)) throw new Error();
+		header.update();
+		setTimeout(start, 10000);
+	}catch(e){
+		what_is_loading.innerText = 'Your helper is out of date, please update it.';
+	}
+}
+function start(){
+	Object.keys(presets).foreach(function(e){
+		try{
+			trainer[e] = new Trainer(GibberishAES.dec(presets[e], top._GET('preset')));
+		}catch(e){}
+	});
+	setInterval(daemonProxy(), 3600 * 1000);
+	function daemonProxy(){
+		return (daemon(), daemonProxy);
+	}
+}
+var apiTime = Date.now();
+function daemon(){
+	Object.keys(trainer).foreach(function(e){
+		e = trainer[e];
+		e.login();
+		setTimeout(function(){
+			e.user();
+			e.mypage();
+		}, 10000);
+	});
+	if(Date.now() - apiTime < 86400 * 1000) return;
+	apiTime = Date.now();
+	header.update();
+}
+function Trainer(auth_key){
+	if(this == self) return;
+	var key, log = {
+		fail: {}
+	};
+	Object.assign(this, {
+		key:    key = auth_key,
+		login:  login.bind(this),
+		user:   user.bind(this),
+		mypage: mypage.bind(this),
+		stats:  log
+	});
+	function login(){
+		http(`post ${api.elb}/account/login`, header.POST, `auth_key=${key}`, function(){
+			log.login = this;
+		}, function(){
+			console.error(log.fail.login = this);
+		});
+	}
+	function user(){
+		http(`get ${api.elb}/user/status?auth_key=${key}`, header.GET, function(){
+			log.user = this;
+		}, function(){
+			console.error(log.fail.user = this);
+		});
+	}
+	function mypage(){
+		http(`get ${api.elb}/mypage/status?auth_key=${key}`, header.GET, function(){
+			log.mypage = this;
+		}, function(){
+			console.error(log.fail.mypage = this);
+		});
+	}
+}
+</script>
+</body>
+</html>
