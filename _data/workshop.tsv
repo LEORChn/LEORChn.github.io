@@ -1,6 +1,7 @@
 group	create	update	url	name	desc
 trainer	2022-1-12	2022-1-13	housamo	东放	怎么说，虽然早在19年过年期间退游了，但在我心里仍然藕断丝连。。在撬锁前只能实现自动签到。
 client	2021-12-22	2021-12-26	webarchive	Web auto save	一个利用了保存外链的功能实现网页存档的辅助工具。
+spider	2021-12-18	2022-1-14	ofurry	0furry	其自称 “furry 元宇宙”。但截至22年1月14日，其仅仅只是使用 uni-app 完成了一个兽设展示墙的功能。<br>我想，如果他至少用 WebGL 等技术做出了 3D 场景或开放世界，或许能更受人敬仰。
 workshop	2021-11-27	2021-11-28	files/heic	HEIC	iOS 11 照片格式批量转换为 JPG
 seat	2021-8-19	2021-8-23	crc2buid	CRC2BUID	CRC32 转 数字
 spider	2021-8-16	2021-8-22	col2017	生物分类2017	Catalogue of Life: 2017<br>The browser helper is required.

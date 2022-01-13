@@ -1,10 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<title>0furry</title>
+	<link rel="shortcut icon" href="favicon.jpg" />
+</head>
 <body></body>
 <script src="/js/base.js"></script>
+<script src="/js/date.js"></script>
 <script src="/js/3/md5.2.18.0.min.js"></script>
 <script src="/js/3/jszip.3.3.0.min.js"></script>
 <script src="data.js"></script>
 <script src="img.js"></script>
 <script>
+var disable_claw   = _GET('disable').contains('claw'),
+	disable_backup = _GET('disable').contains('backup');
+if(disable_claw) hbody.appendChild(ct('', '已禁用爬虫。'));
+if(disable_backup) hbody.appendChild(ct('', '已禁用新建备份。'));
+hbody.initChildren('div#usage');
+hbody.initChildren('pre#hint_data_no_longer_clawable').innerHTML = `
+	本工具所针对的站点于 2021年12月18日正式开启服务。
+	但站长认为可信度较低，预计 1年内可能不再提供服务。
+	
+	望知悉，本工具必须依赖该网站运行；
+	因此如果该网站停止运行，本工具也无法继续提供服务。
+	
+	---
+	另附：注意到官方QQ群<span style="display:none">868659087</span>的创建日期为 2018年8月25日
+	这个信息为整个事件增加了一些耐人寻的趣味。
+	
+	这是一个自称“furry 元宇宙”的应用。
+	但截至22年1月14日，其仅仅只是使用 uni-app 完成了一个兽设展示墙的功能。
+	我想，如果他至少用 WebGL 等技术做出了 3D 场景或开放世界，或许能更受人敬仰。
+	<p style="display:none">
+		群主：659256283
+		管理：258838948、1107280580、3130053705
+		前宣传兼团队内唯一 Furry：火麟 2298204887
+	</p>
+`.replace(/\n[^\n\S]+/g, '<br>').trim();
+
 function onHelperMain(){
 	setTimeout(daemon_proxy, 5000);
 	setInterval(daemon_proxy, 120000);
@@ -13,13 +47,44 @@ function onHelperMain(){
 	}
 }
 function daemon(){
-	claw();   // data.js
-	backup(); // data.js
+	if(!disable_claw)   claw();   // data.js
+	if(!disable_backup) backup(); // data.js
 	show_usage();
 	show_leaks();
 }
-//show_leaks();
+
 function show_leaks(){
+	var t = hbody.initChildren('div#usage', 'table#leaks').clearChildren().appendChildren(
+		ct('tr').appendChildren(
+			'id name last-active avatar imgs'.split(' ').map(function(e){
+				return ct('th', e);
+			})
+		)
+	).appendChildren(Object.keys(lastroles).map(function(e){
+		var c = lastroles[e].content,
+			id = e,
+			name = c.roleName,
+			lastactive = 'long long ago',
+			avatar = '',
+			imgs = c.roleImages.length || '';
+		crew_log.reverse().foreach(function(e){
+			try{
+				if(JSON.parse(e.text).content.filter(function(e){
+					return e.roleId == parseInt(id);
+				}).length == 0) return;
+				return lastactive = new Date(e.ts).format('yyyy-M-d h:mm');
+			}catch(e){}
+		});
+		return ct('tr').appendChildren(
+			[id, name, lastactive, avatar, imgs].map(function(e){
+				return ct('td', e);
+			})
+		)
+	})).setAttr('rules', 'all').theadSort();
+	(t.$('tr:last-child td:nth-child(2)') || { style: {} }).style.backgroundColor = '#ccf';
+	t.$('th:nth-child(3)').click();
+}
+function show_leaks1(){ // 旧版的表格实现
 	var root = hbody.initChildren('div#usage', 'table#leaks');
 	if(!root.children.length) root.appendChildren(
 		ct('tr').appendChildren(
@@ -92,7 +157,6 @@ function show_usage(){
 		)
 	);
 }
-//renderImages()
 function crew_export(){
 	hbody.appendChild(JSON.stringify(crew_log).toBlob().toDownload());
 }
@@ -118,13 +182,12 @@ function export_all_changes(){
 	return roles;
 }
 </script>
-<script>
-/*
-*/
-</script>
 <style>
 #localstorage td:nth-child(2){
 	text-align: right;
+}
+table{
+	font-size: 12px;
 }
 table img{
 	max-height: 50px;
@@ -132,4 +195,8 @@ table img{
 tr[deleted]{
   background: rgba(255,0,0,.1)
 }
+td{
+	padding: .1em .3em;
+}
 </style>
+</html>
