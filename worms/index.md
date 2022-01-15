@@ -5,7 +5,7 @@ title: 百战天虫游戏一览
 
 百战天虫系列游戏（Worms）由 Team17 开发。
 
-与**美国艺电公司、THQ Wireless**合作完成部分手持设备版本。
+[资源下载区](res/)
 
 ## 最新
 
@@ -81,12 +81,7 @@ title: 百战天虫游戏一览
 
 ### {% include ui/os javame="" %}Java ME
 
-|                                         | 触屏         | 日期   | 版本   | 合作方       |
-| --------------------------------------- | ------------ | ------ | ------ | ------------ |
-| Worms 2011<br><sup>Armageddon</sup>     |              | 2014-6 | 4.0.53 | 美国艺电     |
-| Worms 2010                              |              | 2010-2 | 4.2.64 | 美国艺电     |
-| Worms 2008<br><sup>A Space Oddity</sup> | √[^w08touch] | 2012-4 | 4.1.29 | THQ Wireless |
-| Worms Fort 3D<br><sup>Under Siege</sup> |              | 2006-2 | 1.0.31 | THQ Wireless |
+详见 [资源下载区](res/)
 
 [^datedisplay]: 显示的日期为游戏文件最新版的日期，而不是第一版本的发布日期。
 [^w08touch]: 屏幕大小限制：180x320，否则显示位置与触摸位置可能会出现偏移。
@@ -98,6 +93,8 @@ title: 百战天虫游戏一览
 [![我的虫时代](logo_myworms.png)我的虫时代](https://myworms.cn)
 
 [{% include ui/os steam="" %}百战天虫重装上阵中国组](https://steamcommunity.com/groups/worms_reloaded_cn)
+
+[中国虫盟（镜像）](https://web.archive.org/web/20051126053446/http://bbs.cnworms.com/)
 
 ## 备注
 
