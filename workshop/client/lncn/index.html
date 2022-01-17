@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+	<!-- First version: 2021.10.27 15.52 -->
+	<head>
+		<meta name="referrer" content="no-referrer">
+<style>
+.version{
+	vertical-align: bottom;
+}
+</style>
+	</head>
+	<body>
+		<pre style="white-space: pre-wrap">
+<div id="timerupdate"># 启用 JavaScript 才能使用自动更新。</div>
+<span id="randomhosts"></span>
+<span id="writehosts"></span>
+#
+# 为什么还要额外进行这项设置？
+#
+# 因为确实没办法。
+# 由于普遍的网络限制原因，该域名不能直接访问
+# 如果域名不能直接访问，可以直接访问 IP。但该 IP 是使用了 Cloudflare
+# 于是就必须要用 IP + Host头 的形式来访问。但浏览器会验证 HTTPS 证书，该证书中不包含对该 IP 的认证，就读不到信息
+# 想要不验证证书，就要降级到 HTTP，但浏览器限制 HTTPS 页面不能发起降级网络请求
+# 于是必须要用 APP 的形式，或者反代，或者引导用户修改系统设置。
+#
+# 考虑到反代可能导致我自己的服务器陷入困境，而且我也懒得做 APP，所以只能屈尊让用户修改系统了。反正也是一次性的。。
+</pre>
+		<script src="/js/base.js"></script>
+		<script src="/js/3/aes.2018.js"></script>
+		<script src="/js/stats.js" async></script>
+	</body>
+<script>
+var lastUpdated = 0;
+
+var baseip = 0xA29FD00A;
+var url = atob('bG5jbi5vcmc=');
+randomhosts.outerHTML = toIP(baseip + r(0, 3) * 256 + r(0, 90)) + ' ' + url; // 写出一段刷新后随机分配的 hosts 规则
+writehosts.outerHTML = '###  ' + url + new Array(4).fill(0).map(function(e, i){
+	var ipPart = baseip + 256 * i;
+	return `\n# ${toIP(ipPart)} - ${toIP(ipPart + 90)}`
+}).join('') + '\n###'; // 写出一段 human-readable 的 hosts 规则
+
+timerupdate.innerText = '# 安装瑞兽谷辅助脚本才能使用自动更新。';
+function onHelperMain(){
+	timerupdate.innerText = '';
+	document.title = url;
+	setInterval(daemon, 15*60000);
+	daemon();
+}
+function daemon(){
+	var ui_update_1st = timerupdate.initChildren('div.version'),
+		ui_update_2nd = timerupdate.initChildren('div.updating');
+	ui_update_1st.innerText = '# ';
+	ui_update_2nd.innerText = '# 更新中...';
+	http('get https://' + url, function(){
+		var t = this.responseText,
+			re = /\.__NUXT__=(.*?)\};/g,
+			res = re.exec(t);
+		if(!res){
+			var errinfo = new Date().format('M-d H:mm') + ' 读取列表失败：未找到特定格式';
+			if(!$('.error')){
+				hbody.prependChildren(
+					ct('span.error', errinfo).setAttr('style', 'color: red')
+				);
+			}else{
+				$('.error').innerText = errinfo;
+			}
+			return;
+		}
+		(`self${res[0]}postMessage(self.__NUXT__);`).toWorker().onmessage = function(e){
+			function str2arr(e){
+				return e.charCodeAt(0);
+			}
+			var ssrs = e.data.state.ssrInfo;
+			var key = ssrs.code.length == 16? ssrs.code: atob(ssrs.code);
+			var a = new aesjs.ModeOfOperation.ecb(aesjs.utils.utf8.toBytes(key)),
+				b = atob(ssrs.ssrs).map(str2arr),
+				c = JSON.parse(aesjs.utils.utf8.fromBytes(a.decrypt(b)).replace(/[\x00-\x2f]*$/g, ''));
+			var replaceTable = {
+				'月': '-',
+				'日': '',
+				'点': ':',
+				'分': ''
+			};
+			var update = new Date().getFullYear() + '-' + ssrs.date;
+			for(var e in replaceTable){
+				update = update.replace(e, replaceTable[e]);
+			}
+			
+			self.ssu = [Function, function(){
+				copy(c.map(function(e){
+					return e.ssUrl;
+				}).join('\n'))
+			}, function(){
+				copy(c.map(function(e){
+					return e.url;
+				}).join('\n'))
+			}];
+			ui_update_1st.clearChildren().appendChildren([`# ${update} `, '一键SS', 'SSR'].map(function(e, i){
+				return i?
+					ct('input', e).setAttr('type', 'button').setAttr('onclick', `self.ssu[${i}]()`):
+					ct('', e);
+			}));
+			ui_update_2nd.innerText = `# ${new Date().format('yyyy-MM-dd hh:mm')} have a nice day :)`;
+//			$$('div').foreach(function(e){ // 删除div与节点文本之间的空行
+//				if(e.nextSibling && e.nextSibling.nodeName == '#text') e.nextSibling.textContent = e.nextSibling.textContent.trim();
+//			});
+		};
+	}, function(){
+		ui_update_2nd.innerText = `# ${new Date().format('yyyy-MM-dd hh:mm')} 请注意网络问题。`;
+	});
+}
+function toIP(n){
+	return n.toString(2).padLeft(32).replace(/\d{8}/g, function(e, i){return (i? '.': '') + parseInt(e, 2)});
+}
+function r(a, b){
+	a = parseInt(a);
+	b = parseInt(b);
+	return Math.round((b - a) * Math.random()) + a;
+}
+function copy(t){
+	switch(type(t)){
+		case 'String':
+			var ta = ct('textarea');
+			ta.value = t;
+			hbody.appendChildren(t = ta);
+		case 'HTMLTextAreaElement':
+			t.select();
+	}
+	try{
+		if(!document.execCommand('copy')) throw new Error('');
+		t.remove();
+	}catch(e){
+		t.remove();
+		alert('浏览器不支持点击复制到剪贴板');
+	}
+}
+/* ---< deprecated daemon solution >---
+function onNextTimer(){
+	var nextUpdateTime = 15*60000; // Math.max(0, (86400000 - (Date.now() - lastUpdated)) * 2 / 3) + 600000;
+	// 最新方案：每15分钟尝试更新
+	// ===== 以下为弃用方案 =====
+	// 1.当前时间减去数据更新时间，获得时间差
+	// 2.用一天时间减去时间差，获得今天剩余时间
+	// 3.将剩余时间取3分之2，再加10分钟即为下次更新时间（如果距离上次更新时间已超过24小时，则固定为10分钟）
+	// 比如：10分钟前更新，那么就是约16小时3分钟后尝试获取更新
+	// 比如：12小时前更新，那么就是8小时10分钟后尝试获取更新
+	setTimeout(onHelperMain, nextUpdateTime);
+	pl('下次更新：' + new Date(nextUpdateTime + Date.now()).toString());
+}
+*/
+</script>
+</html>
