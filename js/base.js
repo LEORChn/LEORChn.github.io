@@ -205,6 +205,38 @@ Object.assign.weakly(URL.prototype, {
 	}
 });
 
+Object.assign.weakly(Date.prototype, {
+	format: function(fmt){
+		function _(r){
+			fmt = fmt.replace(o.r, r);
+		}
+	  	var o = {
+			'wc': `周${'日一二三四五六'.split('')[this.getDay()]}`,  // 周天
+			'y+'   : this.getFullYear(),         // 年
+			'M+'   : this.getMonth() + 1,        // 月份
+			'd+'   : this.getDate(),             // 日
+			'[Hh]+': this.getHours(),            // 小时
+			'm+'   : this.getMinutes(),          // 分
+			's+'   : this.getSeconds(),          // 秒
+			'q+': (this.getMonth() + 3) / 3 | 0, // 季度
+			get r(){
+				return RegExp.$1
+			},
+			get rl(){
+				return o.r.length
+			}
+	  	};
+		if(/(S+)/.test(fmt)){
+			_(`${this.getMilliseconds()}`.padLeft(3));
+		}
+		for(var k in o){
+			if(!new RegExp(`(${k})`).test(fmt)) continue;
+			_(o.rl > 1? `00${o[k]}`.right(o.rl): o[k]);
+		}
+		return fmt;
+	}
+});
+
 Object.assign.weakly(Object, {
 	values: Polyfill_Object_values // 仅需 Chrome 54、Edge 14
 });
@@ -271,6 +303,7 @@ Object.assign.weakly(HTMLTableElement.prototype, {
 		this.$('tr').children.foreach(function(e){
 			e.onclick = startSort;
 		});
+		return this;
 		function startSort(){
 			var isAsc = this.getAttribute('order') != 'asc'; // 首次排序时使用升序，asc
 			this.setAttr('order', !(isAsc ^= true)? 'asc': 'desc');
@@ -294,7 +327,6 @@ Object.assign.weakly(HTMLTableElement.prototype, {
 				if(e.tr == tr) return;
 				e.tr.parentNode.appendChild(e.tr);
 			});
-			
 		}
 	}
 });
