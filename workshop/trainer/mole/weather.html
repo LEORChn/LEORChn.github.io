@@ -53,7 +53,7 @@ function onHelperMain(){
 	fetchWeatherInfo();
 }
 function fetchWeatherInfo(){
-	httpj('get https://www.gankeapp.com/common_data/mole_weather', function(j){
+	httpj('get https://www.gankeapp.com/server/data/common/mole_weather?_=' + Date.now(), function(j){
 		offical.clearChildren();
 		var table = ct('table').setAttr('rules', 'all').appendChildren(
 			ct('tr').appendChildren(
