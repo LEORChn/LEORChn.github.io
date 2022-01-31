@@ -1,0 +1,44 @@
+<body>
+	<input type="file">
+	<textarea></textarea>
+	<input type="button" value="Gen" onclick="gen()">
+</body>
+<script src="pako.es5.min.js"></script>
+<script src="/js/3/md5.2.18.0.min.js"></script>
+<script src="/js/base.js"></script>
+<script>
+var ff;
+var savedata;
+$('input').onchange = function(){
+	ff = this.files[0];
+	this.value = '';
+	start();
+};
+function start(){
+	var fr = new FileReader();
+	fr.onload = function(){
+		if(type(fr.result) == 'String'){
+			var s = fr.result;
+			$('textarea').innerText = s;
+			savedata = JSON.parse(s);
+			return;
+		}
+		var u8 = new Uint8Array(fr.result);
+		try{
+			var decoded_bin = pako.inflate(u8);
+			var json_bin = new TextDecoder().decode(decoded_bin);//.slice(0, decoded_bin.length - 33);
+			$('textarea').value = json_bin;
+			//fr.readAsText(new Blob([json_bin]));
+		}catch(e){
+			pl(e);
+		}
+	};
+	fr.readAsArrayBuffer(ff);
+}
+function gen(){
+	var s = $('textarea').value;
+	var uint = pako.deflate(new TextEncoder().encode(s));
+	//pl(s, uint);
+	hbody.appendChild(new Blob([uint]).toDownload('data.sav'));
+}
+</script>

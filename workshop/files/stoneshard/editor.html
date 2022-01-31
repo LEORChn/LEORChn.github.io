@@ -1,0 +1,53 @@
+<body>
+	<input type="slide" min="0" max="100" path="characterDataMap.">
+</body>
+<script>
+var datakey = {
+	characterDataMap: {
+		// 常驻
+		LVL: '等级',
+		XP：经验
+		STR：力量
+		PRC：感知
+		AGL: 敏捷
+		Vitality：活力
+		WIL: '意志'
+		
+		// 翻页面板 1
+		// 生存
+		MP: 精力
+		// 翻页面板 2
+		Body: { // 身体状况 数值 0-100
+			head
+			tors
+			lhand
+			rhand
+			legs
+			rlegs
+		}
+		Hunger：饥饿 0-50
+		Thirsty: 口渴 0-50
+		迷醉
+		疼痛
+		Immunity：免疫 // 不确定
+		Morale:斗志 // 不确定
+		Sanity:神智
+		// 翻页面板 3
+		// 地图
+		locationTitleKey
+	},
+	inventoryDataList:{
+		@map:{
+			0: '' 物品ID
+			1: {} 详细信息
+			2: int 格子位置，左上角为0，如果已装备则为 -4
+			3: 0
+			4: int 充能数量，无限使用或一次性均为 1，可装备物品则为 -4
+			5: -4 堆叠上限 比如钱=100，钱袋=0，其他不适用物品则为 -4
+			6: 0 // 0或1 已装备物品
+			7: 0
+			8: 'N/A' 已装备位置
+		}
+	}
+}
+</script>
