@@ -2,6 +2,22 @@
 	<input type="file">
 	<textarea></textarea>
 	<input type="button" value="Gen" onclick="gen()">
+	<div>
+		<input id="_salt0" size="32" value="stOne!characters_v1!">
+	</div>
+	<div>
+		<input id="_salt1" size="32" placeholder="salt">
+	</div>
+	<div>
+		<input id="_salt2" size="32" value="!">
+	</div>
+	<div>
+		<input id="_salt3" size="32" placeholder="salt">
+	</div>
+	<div>
+		<input id="_salt4" size="32" value="!shArd">
+		<span id="_md5result"></span>
+	</div>
 </body>
 <script src="pako.es5.min.js"></script>
 <script src="/js/3/md5.2.18.0.min.js"></script>
@@ -14,6 +30,17 @@ $('input').onchange = function(){
 	this.value = '';
 	start();
 };
+$$('textarea, textarea ~ div > input').foreach(function(e){
+	e.oninput = md5update;
+});
+function md5update(){
+	var ta = $('textarea').value,
+		res = ta.left(ta.lastIndexOf('}') + 1),
+		salt = new Array(5).fill(0).map(function(e, i){
+			return window['_salt' + i].value;
+		}).join('');
+	_md5result.innerText = `${md5(res + salt)}\n${res.length}/${ta.length}\n${salt}`;
+}
 function start(){
 	var fr = new FileReader();
 	fr.onload = function(){
@@ -26,6 +53,7 @@ function start(){
 		var u8 = new Uint8Array(fr.result);
 		try{
 			var decoded_bin = pako.inflate(u8);
+			pl(decoded_bin);
 			var json_bin = new TextDecoder().decode(decoded_bin);//.slice(0, decoded_bin.length - 33);
 			$('textarea').value = json_bin;
 			//fr.readAsText(new Blob([json_bin]));
