@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>Wifi Master</title>
+	<script src="/js/stats.js" async></script>
+<style>
+
+</style>
+</head>
+<body>
+
+</body>
+<script src="/js/base.js"></script>
+<script src="/js/3/gibberish-aes.1.0.0.min.js"></script>
+<script>
+function onHelperMain(){
+	var postdata = {
+		origChanId: 'xiaomi',
+		appId:      'A0008',
+		ts:         '1459936625905',
+		netModel:   'w',
+		chanId:     'guanwang',
+		imei:       '357541051318147',
+		qid:        '',
+		mac:        'e8:92:a4:9b:16:42',
+		capSsid:    'hijack',
+		lang:       'cn',
+		longi:      '103.985752',
+		nbaps:      '',
+		capBssid:   'b0:d5:9d:45:b9:85',
+		bssid:      'b0:d5:9d:56:82:10',
+		mapSP:      't',
+		userToken:  '',
+		verName:    '4.1.8',
+		ssid:       '360免费WiFi-10',
+		verCode:    '3028',
+		uhid:       'a0000000000000000000000000000001',
+		lati:       '30.579577',
+		dhid:       '9374df1b6a3c4072a0271d52cbb2c7b6'
+	};
+	pl(AES);
+	pl(postdata);
+	//http()
+}
+</script>
+</html>
