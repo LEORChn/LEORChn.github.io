@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>RenPy View</title>
+	<script src="/js/stats.js" async></script>
+<style>
+body{
+	padding-left: 200px;
+}
+#ui_filelist{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 200px;
+	height: 100vh;
+	background: #fff;
+}
+#ui_filelist > *{
+	cursor: default;
+}
+#ui_filelist > *:hover{
+	color: blue;
+	font-weight: bold;
+}
+#ui_filelist[dragselect] > *{
+	pointer-events: none;
+	user-select: none;
+	-webkit-user-select: none;
+}
+#ui_filelist_rectselection{
+	display: none;
+	z-index: 9999;
+	border: solid 1px rgb(51,153,255);
+	background: rgba(51,153,255, .5);
+}
+table > tr:first-child td{ /* 表格头禁止换行 */
+	white-space: nowrap;
+}
+td:first-child{ /* 行号 */
+	vertical-align: top;
+	text-align: right;
+}
+td:not(:first-child){ /* 自由文本，去除空格限制 */
+	white-space: pre-wrap;
+}
+td{ /* 轻微的美化表格 */
+	padding: .1em .3em;
+}
+</style>
+</head>
+<body>
+	<div id="ui_filelist">
+		<div id="ui_filelist_rectselection"></div>
+	</div>
+	<table rules="all"></table>
+</body>
+<script src="/js/base.js"></script>
+<script src="/js/3/md5.2.18.0.min.js"></script>
+<script src="dragselection.js"></script>
+<script src="renpy.js"></script>
+<script>
+var fs = {};
+var rpy = new Renpy();
+function main(){
+	fs = files2fs(f.filter(function(e){
+		return e.name.endsWith('rpy');
+	}));
+	var innerkey = fs[Object.keys(fs)[0]];
+	Object.keys(innerkey).foreach(function(e){
+		var k = innerkey[e];
+		if(type(k) != 'File') return;
+		var li = ct('div', k.name);
+		ui_filelist.appendChildren(li);
+		setDragSelectionChildrenClickHandler(li, openfile);
+		rpy.parse(k);
+		function openfile(){
+			var r = rpy.data, // RenPy Parser parsed data
+				fn = this.innerText; // File Name
+			$('table').clearChildren().appendChildren(
+				ct('tr').appendChildren(
+					'行号 原文 leorchn tirnan-camp mortar'.split(' ').map(function(e){
+						return ct('th', e);
+					})
+				),
+				ct('tbody').appendChildren(
+					r[fn + '_tl_keys'].map(function(e){
+						var kv = r[fn + '_tl'][e];
+						return ct('tr').appendChildren(
+							[kv[0], kv[2], '', '', ''].map(function(e){
+								return ct('td', e)
+							})
+						).setAttr('speaker', kv[1]);
+					})
+				)
+			);
+		};
+	});
+	setDragSelectionHandler(ui_filelist, ui_filelist_rectselection, function(){
+		// 这里的拖拽多选不需要兼容手机端，因为手机端压根无法选择文件夹
+		// 备注：win平板可能会有些痛苦，但如果他能用双指表示滚动那其实还行
+	});
+}
+function files2fs(files){
+	var fs = {};
+	files.foreach(function(e){
+		var fspath = fs, paths = e.webkitRelativePath.split('/');
+		paths.pop();
+		paths.foreach(function(e){
+			if(!(e in fspath)) fspath[e] = {};
+			fspath = fspath[e];
+		});
+		fspath[e.name] = e;
+	});
+	return fs;
+}
+</script>
+</html>

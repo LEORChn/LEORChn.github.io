@@ -191,7 +191,14 @@ Object.assign.weakly(Blob.prototype, {
 		return new URL(this.toURL()).toAnchor(filename).setAttr('download', filename);
 	},
 	text: function(){ // TODO: Blob.text() 原生支持 Chrome 76、Firefox 69。如果稍加小心，可以兼容到 IE 10
-		return new Promise(function(){});
+		var _this = this;
+		return new Promise(function(ok, fail){
+			var fr = new FileReader();
+			fr.onload = function(){
+				ok(new TextDecoder().decode(fr.result));
+			};
+			fr.readAsArrayBuffer(_this);
+		});
 	}
 });
 
