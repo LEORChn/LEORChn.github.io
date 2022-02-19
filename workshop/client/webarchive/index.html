@@ -9,13 +9,22 @@
 <body>
 	<a href="https://leorchn.github.io/workshop/">&lt; &#36820;&#22238;&#29790;&#20861;&#35895;</a>
 	<form method="post" action="https://web.archive.org/save/https://leorchn.com/archive/www.bilibili.com/read/readlist/u4776884/" target="anotherwindow">
-		<input type="hidden" name="url" value="https://leorchn.com/archive/www.bilibili.com/read/readlist/u4776884/">
+		<label>
+			<input type="radio" name="url" value="https://leorchn.com/archive/www.bilibili.com/read/readlist/u4776884/">
+			furdex
+		</label>
+		<label>
+			<input type="radio" name="url" alt="ConstomURL" checked>
+			<input type="text" id="ui_constom_url" oninput="syntaxCheck()" size="48" placeholder="Costom URL">
+		</label>
 		<input type="hidden" value="on" name="capture_outlinks">
 		<input type="hidden" value="on" name="capture_all">
 		<input type="hidden" value="on" name="capture_screenshot">
 		<input type="hidden" value="on" name="wm-save-mywebarchive">
+		<br>
 		<input type="button" value="开始" onclick="openwindow()">
 	</form>
+	<div id="ui_syntax_hint">你输入的网址不符合 /^https?:\/\//i，你确定这样没问题吧？只是随口一说。</div>
 <h2>Web-Archive 自动备份</h2>
 <h3>注意事项</h3>
 <ol>
@@ -50,6 +59,10 @@ li{
 	font-size: 16px;
 	line-height: 1.5;
 }
+#ui_syntax_hint{
+	display: none;
+	color: red;
+}
 </style>
 </body>
 <script src="/js/base.js"></script>
@@ -67,7 +80,16 @@ function openwindow(){
 function start(){
 	if(!isSubWindowAlive()) return clearTimeout(theinterval);
 	document.title = new Date().format('@M-d H:mm');
-	$('form').submit();
+	$('input[alt=ConstomURL]').value = ui_constom_url.value;
+	var fm = $('form');
+	fm.action = 'https://web.archive.org/save/' + fm.elements.url.value;
+	fm.submit();
+}
+function syntaxCheck(){
+	var text = ui_constom_url.value;
+	var usethis = false;
+	if($('input[alt=ConstomURL]').checked) usethis = true;
+	ui_syntax_hint.style.display = usethis && !/^https?:\/\//i.test(text)? 'block': '';
 }
 window.onbeforeunload = function(){
 	if(isSubWindowAlive()) win.close();
