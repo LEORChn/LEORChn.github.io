@@ -14,7 +14,7 @@
 			furdex
 		</label>
 		<label>
-			<input type="radio" name="url" alt="ConstomURL" checked>
+			<input type="radio" id="ui_curl_alt" onchange="syntaxCheck()" name="url" checked>
 			<input type="text" id="ui_constom_url" oninput="syntaxCheck()" size="48" placeholder="Costom URL">
 		</label>
 		<input type="hidden" value="on" name="capture_outlinks">
@@ -80,16 +80,16 @@ function openwindow(){
 function start(){
 	if(!isSubWindowAlive()) return clearTimeout(theinterval);
 	document.title = new Date().format('@M-d H:mm');
-	$('input[alt=ConstomURL]').value = ui_constom_url.value;
+	ui_curl_alt.value = ui_constom_url.value;
 	var fm = $('form');
 	fm.action = 'https://web.archive.org/save/' + fm.elements.url.value;
 	fm.submit();
 }
 function syntaxCheck(){
-	var text = ui_constom_url.value;
-	var usethis = false;
-	if($('input[alt=ConstomURL]').checked) usethis = true;
-	ui_syntax_hint.style.display = usethis && !/^https?:\/\//i.test(text)? 'block': '';
+	var usethis = ui_curl_alt.checked,
+		text = ui_constom_url.value,
+		syntax_illegal = !/^https?:\/\//i.test(text);
+	ui_syntax_hint.style.display = usethis && syntax_illegal? 'block': '';
 }
 window.onbeforeunload = function(){
 	if(isSubWindowAlive()) win.close();
@@ -98,4 +98,48 @@ function isSubWindowAlive(){
 	return win && !win.closed;
 }
 </script>
+<details>
+	<summary>一份写给某橘猫的笔记</summary>
+	<pre>
+1.设置一个接口作为【网址列表】用于被 web archive 请求。比如：https://leorchn.com/savetheurls/
+2.在你的服务器上存储一个数值，用于记录请求次数。初始化 = 0
+3.这个接口每被请求一次，应该执行:
+<code class="language-javascript">
+var urls = DB.urls, // 取出所有需要备份的网址
+	countURLs = urls.length, // 获得网址的总数量
+	requestedTimes = DB.requestedTimes, // 取出本接口的已调用次数
+	startIndex = (requestedTimes % Math.ceil(countURLs / 100)) * 100; // 根据本接口的已调用次数计算所需要取出的100个网址，实际上这里存储的是第一个网址的下标
+
+DB.requestedTimes = requestedTimes + 1; // 回写已调用次数
+
+var indexRange = [startIndex, startIndex + 99]; // 没有实际作用，只是告诉你此时可能是 [0,99] 或 [100,199] 以此类推
+
+return urls.filter(function(e, i){ // 过滤出应该取出的网址
+	return i >= startIndex && i <= startIndex + 99; // 取出这些范围的网址。范围参考 indexRange
+}).map(function(e, i){
+	return `&lt;a href="${e}">${i}</a>`; // 格式化网址后返回作为body，这里的数据是会返回给 web archive
+	// 备注：上一行这个 i 属于个人喜好，对功能影响不大
+});
+</code>
+
+4.打开浏览器的不同实例。比如 Chrome + Firefox + Edge 的普通和隐身模式都分别算一个实例。
+
+5.确保每个实例都已经登录了【不同的】web archive 帐号。
+否则无法备份【网址列表】中的链接，或者被提示【同时会话达到上限】错误
+
+5.每个实例都来到本工具页面，分别填写不一样的列表网址，比如
+
+https://leorchn.com/savetheurls/?thread=1
+https://leorchn.com/savetheurls/?thread=2
+https://leorchn.com/savetheurls/?thread=3
+https://leorchn.com/savetheurls/?thread=4
+
+7.好，可以按【开始】了。
+不要最小化窗口，否则可能受到浏览器节能策略影响。
+	</pre>
+</details>
+<style>
+	@import "/css/prism-ultraedit.css";
+</style>
+<script src="/js/3/prism.1.27.0.js"></script>
 </html>
