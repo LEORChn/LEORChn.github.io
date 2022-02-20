@@ -1,0 +1,41 @@
+.treeview .folder, .treeview .file{
+	padding-left: 16px;
+}
+.treeview .folder:before, .treeview .file:before{
+	content: '';
+	position: absolute;
+	display: block;
+	width: 16px;
+	height: 16px;
+	margin-left: -16px;
+	background-repeat: no-repeat;
+}
+.treeview .file:before{
+	background-image: url(file.png);
+}
+.treeview .folder:before{
+	background-image: url(folder.png);
+}
+.treeview .folder.open:before{
+	background-image: url(folder-open.png);
+}
+.treeview .folder>:first-child, .treeview .file>:first-child{
+	position: relative;
+}
+.treeview .folder>:first-child:hover, .treeview .file>:first-child:hover{
+	background-color: #eee;
+}
+.treeview .name{
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+.treeview .desc{
+	position: absolute;
+	right: 0;
+	font-size: 12px;
+	color: #888;
+	font-family: monospace;
+}
+.treeview .collapse, .treeview .collapse:checked~.children{
+	display: none;
+}

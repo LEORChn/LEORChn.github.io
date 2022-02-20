@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<title>Torrent Compare</title>
+<style>
+@import "treeview.css";
+a:not(:hover){
+	text-decoration: none;
+}
+pre{
+	font-size: 16px;
+	position: absolute;
+	white-space: pre-wrap;
+	line-height: 1.3;
+	z-index: -1;
+}
+table td:nth-child(2){
+	word-break: break-all;
+}
+[hashing-progress]:not(:empty):before{
+	content: '文件校验进度';
+	display: inline-block;
+}
+[missing-file]:not(:empty):before{
+	content: '缺失文件列表';
+	display: block;
+}
+</style>
+	</head>
+	<body>
+		<a href="https://leorchn.github.io/workshop/">&lt; 返回瑞兽谷</a>
+		<br>
+		<input type="file" id="ui_file_in" multiple style="max-width: 150px">
+		<span id="ui_stat">工具加载中，请稍候。</span>
+		<br>
+		<div hashing-progress></div>
+		<table rules="all">
+			<tr><td>Index</td><td>Files</td></tr>
+			<tbody failed-log><tr></tr></tbody>
+		</table>
+		<div missing-file></div>
+{% capture md %}
+## 种子校验
+
+### 初衷
+
+这个软件在开发之前，我有将近 500 GB 的文件是从吸血雷上下载来的，
+
+但我突然发现，虽然是同一个磁力链，种子文件却并不完全相同，即使是在二进制数据区域；
+
+让比特彗星校验时，同样的，也有些文件并没有校验成功。
+
+究竟谁对谁错？我决定开发出这个软件并拭目以待。
+
+### 用法
+
+1. 将种子文件重命名到与文件夹相同（但保留后缀名）
+2. 上传此文件夹
+3. 等待校验
+{% endcapture %}
+{{ md | markdownify }}
+		
+		<script src="/js/base.js"></script>
+		<script src="/js/3/jssha.js"></script>
+		<script src="treeview.js"></script>
+		<script src="webtorrent.js"></script>
+		<script>
+var wt = null;
+var realfs = null,
+	torrentfiles = null;
+setTimeout(checkready, 1000);
+function checkready(){
+	if(!pl) return setTimeout(checkready, 1000);
+	ui_stat.innerText = '就绪.';
+}
+function main(){ // 测试环境使用，用于每次刷新后自动填充测试文件
+	ui_file_in.onchange.bind({
+		files: f
+	})();
+}
+ui_file_in.onchange = function(){ // 用户选择文件后开始执行
+	var torrent, fail_reason = 0, fail_reasons = [
+		'输入的文件夹内需要有一个同名种子文件。',
+		'需要输入文件夹。'
+	];
+	f.foreach(function(e){
+		if(!e.webkitRelativePath) return fail_reason = 1;
+		var p = e.webkitRelativePath.split('/');
+		if(p.length == 2 && p[1].toLowerCase().endsWith('.torrent') && p[0] == p[1].left(p[0].length)){
+			return torrent = e; // 确保：同名种子在根目录
+		}
+	});
+	if(!torrent) return alert(fail_reasons[fail_reason]);
+	
+	realfs = files2fs(f); // 必须先准备好实际文件，然后再解析种子
+	
+	var t = new WebTorrent();
+	var pieceLength = 0, pieceLengthLast = 0;
+	var b = t.add(torrent, function(t){
+		var torrentPieces = wt = t._hashes.map(function(e){
+			return {
+				hash: e,
+				shift: 0,
+				files: []
+			};
+		}),
+			pieceIndex = 0,
+			pieceContainer = 0,
+			pieceSize = pieceLength = t.pieceLength; // 种子分片大小
+		pieceLengthLast = t.lastPieceLength; // 种子分片最后一片大小
+		
+		t.files.foreach(function(e, i){
+			//debugger;
+			var afile = {
+				name: e.name,
+				size: e.length,
+				webkitRelativePath: e.path
+			};
+			var lastSize = e.length,
+				shift = 0; // 如果该文件较大，需要在分片信息内标注：对该文件的偏移
+			while(lastSize > 0){ // 必须要给当前文件予以足够的 pieces 分配完空间才能 break
+				var tp = torrentPieces[pieceIndex],
+					move_allowed = Math.min(lastSize, pieceSize - pieceContainer);
+				lastSize -= move_allowed;
+				pieceContainer += move_allowed;
+				if(!tp.files.contains(afile)){
+					tp.files.push(afile);
+					if(tp.files.length == 1) tp.shift = shift;
+				}
+				shift += move_allowed;
+				if(pieceContainer == pieceSize){
+					pieceIndex++;
+					pieceContainer = 0;
+				}
+			}
+			//debugger;
+		});
+		later();
+	});
+	function later(){
+		worker.onmessage = function(e){
+			e = e.data;
+			switch(e.type){
+				case 'STEP_PROCESSED_PIECE':
+					$('[hashing-progress]').innerText = ` ${(100 * e.pieceIndex / wt.length).toFixed(3)}% (${e.pieceIndex} / ${wt.length})`;
+					
+					if(e.pieceHash != e.torrentHash){
+						pl(e.pieceIndex);
+						$('[failed-log]').prependChildren(
+							ct('tr').appendChildren(
+								ct('td', e.pieceIndex),
+								ct('td').appendChildren(
+									e.files.map(function(e){
+										return ct('div', e.webkitRelativePath)
+									})
+								)
+							)
+						);
+					}
+			}
+		};
+		worker.postMessage([wt, realfs, pieceLength, pieceLengthLast]);
+	}
+};
+
+var worker = `
+importScripts('${location.origin}/js/3/jssha.js');
+importScripts('${location.origin}/js/base.worker.js');
+function pm(type, obj){
+	postMessage(obj? Object.assign(obj, {
+		type: type
+	}): { type: type });
+}
+onmessage = function(e){
+	var f = null, // 当前正在检索的文件
+		fr = new FileReader(),
+		sha = null, // new jsSHA(...)
+		pointer = null,
+		torrentPieces = e.data[0], // [torrentPieces, realfs, pieceLength, lastPieceLength]
+		realfs = e.data[1],
+		pieceIndex = 0,
+		pieceLength = e.data[2],
+		pieceLengthLast = e.data[3],
+		pieceRemain = 0,
+		tp = null,
+		missingFiles = [];
+	fr.onload = onload;
+	seekNewPeice();
+	function seekNewPeice(){
+		var debugpoint = 0;
+		tp = torrentPieces[pieceIndex];
+		pieceIndex++; // 就应该在 MAX_SEEK_BYTES 赋值之前更改
+		if(pieceIndex < debugpoint) return seekNewPeice();
+		pieceRemain = pieceIndex == torrentPieces.length? pieceLengthLast: pieceLength;
+		if(tp.files.filter(function(e){
+			var ex = getFile(e);
+			if(!ex) missingFiles.push(e); // 文件不存在，将此文件添加到 “缺失文件” 列表
+			else e.file = ex; // 文件存在，创建个链接
+			return ex;
+		}).length != tp.files.length){
+			return notfoundfile(); // 该分片因为有新文件被添加到 “缺失文件” 列表中而停止验证
+		}else if(missingFiles.length && tp.files.contains(missingFiles[missingFiles.length])){
+			return notfoundfile(); // 该分片因为有文件在 “缺失文件” 列表中而停止验证
+		}
+		sha = new jsSHA('SHA-1', 'UINT8ARRAY');
+		pointer = tp.shift;
+		f = tp.files[0].file;
+		fr.readAsArrayBuffer(f.slice(pointer, pointer + pieceRemain));
+	}
+	function onload(){
+		var result = new Uint8Array(fr.result);
+		pointer += result.length;
+		pieceRemain -= result.length;
+		sha.update(result);
+		if(pieceRemain == 0){ // 达到分片检索边界
+			var sh = sha.getHash('HEX').toUpperCase(),
+				th = tp.hash.toUpperCase();
+			//if(sh != th) pl(tp.files);
+			pm('STEP_PROCESSED_PIECE', {
+				pieceIndex: pieceIndex - 1,
+				pieceHash: sha.getHash('HEX').toUpperCase(),
+				torrentHash: tp.hash.toUpperCase(),
+				files: tp.files
+			});
+			return seekNewPeice();
+		}else if(pointer >= f.size){ // 达到文件检索边界
+			pointer = 0;
+			var foundfile = false;
+			f = tp.files.filter(function(e){
+				if(foundfile) return !(foundfile = false);
+				if(e.file == f) foundfile = true;
+			})[0].file;
+			fr.readAsArrayBuffer(f.slice(pointer, pointer + pieceRemain));
+		}else{
+			debugger;
+			pl('so... here you reached that the program did nothing.');
+		}
+	}
+	function notfoundfile(){
+		pm('STEP_PROCESSED_PIECE', {
+			pieceIndex: pieceIndex - 1,
+			pieceHash: '',
+			torrentHash: tp.hash.toUpperCase(),
+			files: tp.files.filter(function(e){
+				return missingFiles.contains(e);
+			})
+		});
+		seekNewPeice();
+	}
+	function getFile(e){
+		var fspath = realfs, paths = e.webkitRelativePath.split('/');
+		paths.pop();
+		var isnotfound = paths.foreach(function(e){
+			if(!(e in fspath)) return 1;
+			fspath = fspath[e];
+		});
+		if(isnotfound || !(e.name in fspath)) return null;
+		return fspath[e.name];
+	}
+};
+`.toWorker();
+function files2fs(files){
+	var fs = {};
+	files.foreach(function(e){
+		var fspath = fs, paths = e.webkitRelativePath.split('/');
+		paths.pop();
+		paths.foreach(function(e){
+			if(!(e in fspath)) fspath[e] = {};
+			fspath = fspath[e];
+		});
+		fspath[e.name] = e;
+	});
+	return fs;
+}
+		</script>
+	</body>
+</html>
