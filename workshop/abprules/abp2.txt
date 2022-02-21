@@ -1,7 +1,7 @@
 ---
 ---
 [Adblock Plus 2.0]
-! Title: 额外规则 - 屏蔽那些可能不是广告但仍然碍眼的东西
+! Title: 瑞兽谷额外规则 - 针对不被认定为广告的界面干扰，打造良好体验
 ! Homepage: https://leorchn.github.io/workshop/abprules/
 ! Expires: 2 days
 ! Version: {{     site.data.adblockplus | size }}

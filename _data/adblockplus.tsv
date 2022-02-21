@@ -1,4 +1,10 @@
 update	host	rule	desc
+2022-2-21	fanyi.baidu.com	.app-guide	覆盖全屏的电脑客户端广告，卷土重来是吧
+2022-2-21	fanyi.baidu.com	header	手机版专享，还给用户快速响应，拒绝布局偏移
+2022-2-21	bootcdn.cn	nav, h1 ~ p, .mostused-packages	位于顶部的普通布局，但更激进的屏蔽
+2022-2-21	bootcdn.cn	head ~ div	位于顶部的警告弹窗太高，看一次就差不多得了
+2022-2-21	dytt89.com	.noticeFixedBox	悬浮中间的下载手机客户端提示，看一次就差不多得了
+2022-2-21	t.bilibili.com	.comment-send-lite	悬浮底部的视野阻挡物（指评论输入区）
 2021-12-23	archive.org	#donate_banner	在隐身模式下免受捐款提示干扰
 2021-12-12	github.com	li:not(:nth-child(4)) .HeaderMenu-summary	针对个人免费使用而优化顶部导航
 2021-12-12	github.com	li:not(:nth-child(5)) a.HeaderMenu-link	针对个人免费使用而优化顶部导航
