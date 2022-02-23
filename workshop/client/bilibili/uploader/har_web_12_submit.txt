@@ -1,0 +1,34 @@
+post https://member.bilibili.com/x/vu/web/add/v3?t=1645552058844&csrf=92b6321a591243502251e32c85ef6185
+accept: application/json, text/plain, */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+cache-control: no-cache
+content-length: 573
+content-type: application/json;charset=UTF-8
+cookie: _uuid=91C12542-4429-BEF2-BB4E-2ECE6F54EF3068978infoc; buvid3=022CCD35-E2D9-46EC-A82F-17965737A13413429infoc; blackside_state=1; rpdid=|(umYk~~YYRm0J'uYkJJl)k~k; buvid_fp_plain=022CCD35-E2D9-46EC-A82F-17965737A13413429infoc; video_page_version=v_old_home_1; fingerprint3=e546c41fb461e865dc708c8d30601224; fingerprint_s=c54c156b991535fb4d8d2f7e07e19b6f; sid=9yk6xxr7; fingerprint=befb0b501c5eeb71177db453e0750bd6; DedeUserID=3084436; DedeUserID__ckMd5=01a326e4f24a397c; SESSDATA=9d0488eb%2C1656706338%2C07b32*11; bili_jct=92b6321a591243502251e32c85ef6185; dy_spec_agreed=1; LIVE_BUVID=AUTO9916415872005914; buvid4=B34D225F-EC99-533A-0124-1FE9CF0AFD3353284-022012419-22RLc00gP/lqJ6F6J9XZCQ%3D%3D; buvid_fp=5d55b482544f9173879b84a8099ebba1; CURRENT_FNVAL=4048; i-wanna-go-back=-1; b_ut=5; innersign=1; CURRENT_QUALITY=80; bp_t_offset_3084436=629770290110822920; bp_video_offset_3084436=630049656348344336; PVID=3; b_lsid=8FE4DD104_17F228AC640
+origin: https://member.bilibili.com
+pragma: no-cache
+referer: https://member.bilibili.com/york/videoup?new
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Microsoft Edge";v="98"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: same-origin
+user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50
+
+{
+t: 1645552058844
+csrf: 92b6321a591243502251e32c85ef6185
+}
+{"copyright":1,"videos":[{"filename":"n220222a22segpe4arlw5q143h3jgcaq","title":"日常多P broken_video","desc":"","cid":514771795}],"cover":"https://archive.biliimg.com/bfs/archive/5fb796ce4b4392b31dd2a21afbf921f82eaeaf86.jpg","interactive":0,"tid":21,"title":"日常多P #15","tag":"记录","mission_id":0,"topic_id":0,"desc_format_id":0,"desc":"1","dynamic":"","act_reserve_create":0,"dolby":0,"no_reprint":1,"up_selection_reply":false,"up_close_reply":false,"up_close_danmu":false,"subtitle":{"open":1,"lan":""},"open_elec":1,"csrf":"92b6321a591243502251e32c85ef6185"}
+
+response:
+{
+code: 0
+data:
+	aid: 681787419
+	bvid: "BV19S4y1F7SS"
+message: "0"
+ttl: 1
+}

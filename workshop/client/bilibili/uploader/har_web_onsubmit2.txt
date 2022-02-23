@@ -1,0 +1,23 @@
+post https://member.bilibili.com/x/vu/web/add/v3?t=1645382106405&csrf=26f449ecb751f3732af425adc90ddd44
+Host: member.bilibili.com
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0
+Accept: application/json, text/plain, */*
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate, br
+Referer: https://member.bilibili.com/york/videoup?new
+Content-Type: application/json;charset=utf-8
+Content-Length: 549
+Origin: https://member.bilibili.com
+Connection: keep-alive
+Cookie: 
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+Pragma: no-cache
+Cache-Control: no-cache
+TE: trailers
+
+{"copyright":1,"videos":[{"filename":"n220221a230i4cbumq8sgpng3cci7ub3","title":"broken_video","desc":"","cid":513531625}],"cover":"https://archive.biliimg.com/bfs/archive/ef9f184b17f0824e1a904ab1600effd3bc933151.jpg","interactive":0,"tid":21,"title":"P #15","tag":"°U","mission_id":0,"topic_id":0,"desc_format_id":0,"desc":"1","dynamic":"","act_reserve_create":0,"dolby":0,"no_reprint":1,"up_selection_reply":false,"up_close_reply":false,"up_close_danmu":false,"subtitle":{"open":1,"lan":""},"open_elec":1,"csrf":"26f449ecb751f3732af425adc90ddd44"}
+
+response:
+{"code":10009,"message":"同一个视频，不能短时间同时提交到不同稿件，请先查看稿件列表是否第一次提交的稿件已经存在。如需在另一个稿件包含该视频，请分开上传提交。","ttl":1}

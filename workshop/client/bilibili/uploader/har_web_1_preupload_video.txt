@@ -1,0 +1,47 @@
+get https://member.bilibili.com/preupload?upcdn=bda2&probe_version=20211012&name=%E6%97%A5%E5%B8%B8%E5%A4%9AP+broken_video.mp4&r=upos&profile=ugcfx%2Fbup&ssl=0&version=2.10.4.0&build=2100400&size=250859&webVersion=2.0.0
+accept: application/json, text/plain, */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+cache-control: no-cache
+cookie: 
+pragma: no-cache
+referer: https://member.bilibili.com/york/videoup?new
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Microsoft Edge";v="98"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: same-origin
+user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50
+
+{
+upcdn: bda2
+probe_version: 20211012
+name: »’≥£∂‡P broken_video.mp4
+r: upos
+profile: ugcfx/bup
+ssl: 0
+version: 2.10.4.0
+build: 2100400
+size: 250859
+webVersion: 2.0.0
+}
+
+response:
+{
+OK: 1
+auth: "ak=1494471752&cdn=%2F%2Fupos-sz-upcdnbda2.bilivideo.com&os=upos&sign=ee08e09b5f288663e08cb3b54ef3f612&timestamp=1645538701.755&uid=3084436&uip=116.253.153.231&uport=43534&use_dqp=0"
+biz_id: 514771795
+chunk_retry: 10
+chunk_retry_delay: 3
+chunk_size: 10485760
+endpoint: "//upos-sz-upcdnbda2.bilivideo.com"
+endpoints:
+	0: "//upos-sz-upcdnbda2.bilivideo.com"
+	1: "//upos-sz-upcdnqn.bilivideo.com"
+expose_params: null
+threads: 3
+timeout: 1200
+uip: "116.253.153.231"
+upos_uri: "upos://ugcfx/n220222a22segpe4arlw5q143h3jgcaq.mp4"
+}

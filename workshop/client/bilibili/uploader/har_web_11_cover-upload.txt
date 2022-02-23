@@ -1,0 +1,30 @@
+post https://member.bilibili.com/x/vu/web/cover/up?t=1645551689198
+accept: application/json, text/plain, */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+cache-control: no-cache
+content-length: 15343
+content-type: application/x-www-form-urlencoded
+cookie: 
+origin: https://member.bilibili.com
+pragma: no-cache
+referer: https://member.bilibili.com/york/videoup?new
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Microsoft Edge";v="98"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: same-origin
+user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50
+
+cover=data%3Aimage%2Fjpeg%3Bbase64%2C%2F9j%2F4AAQSk...
+cover: data:image/jpeg;base64,/9j/4AAQSk...
+
+response:
+{
+code: 0
+data:
+	url: "https://archive.biliimg.com/bfs/archive/5fb796ce4b4392b31dd2a21afbf921f82eaeaf86.jpg"
+message: "0"
+ttl: 1
+}

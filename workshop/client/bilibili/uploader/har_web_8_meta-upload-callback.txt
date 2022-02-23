@@ -1,0 +1,27 @@
+post https://upos-sz-upcdnbda2.bilivideo.com/fxmeta/n220222a22bu44ukwjavexy5z3sqreo7.txt?output=json&name=BUploader_5_cu2gq_1645538702_meta.txt&profile=&uploadId=a8144219dfe902becdd50be381932b0c&biz_id=
+accept: */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+cache-control: no-cache
+content-length: 42
+content-type: application/json; charset=UTF-8
+origin: https://member.bilibili.com
+pragma: no-cache
+referer: https://member.bilibili.com/
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Microsoft Edge";v="98"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: cross-site
+user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50
+x-upos-auth: ak=1494471752&cdn=%2F%2Fupos-sz-upcdnbda2.bilivideo.com&os=upos&sign=913889f804c998c0ff1ab001d45919e9&timestamp=1645538702.303&uid=3084436&uip=116.253.153.231&uport=43534&use_dqp=0
+
+{
+output: json
+name: BUploader_5_cu2gq_1645538702_meta.txt
+profile: 
+uploadId: a8144219dfe902becdd50be381932b0c
+biz_id: 
+}
+{"parts":[{"partNumber":1,"eTag":"etag"}]}

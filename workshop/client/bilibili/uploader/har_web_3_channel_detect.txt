@@ -1,0 +1,36 @@
+get https://member.bilibili.com/x/vupre/web/archive/typeid/v2?title=&filename=0&desc=&vfea=&t=1645538702195
+accept: application/json, text/plain, */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+cache-control: no-cache
+cookie: 
+pragma: no-cache
+referer: https://member.bilibili.com/york/videoup?new
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Microsoft Edge";v="98"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: same-origin
+user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50
+
+{
+title: 
+filename: 0
+desc: 
+vfea: 
+t: 1645538702195
+}
+
+response:
+{
+code: 0
+data:
+	0: {id: 162, parent: 160, parent_name: "生活", name: "绘画", description: "绘画爱好者们关于绘画技巧、绘图过程的分享交流场所",…}
+	1: {id: 21, parent: 160, parent_name: "生活", name: "日常", description: "一般日常向的生活类视频", desc: "一般日常向的生活类视频",…}
+	2: {id: 17, parent: 4, parent_name: "游戏", name: "单机游戏", description: "以单机或其联机模式为主要内容的相关视频",…}
+	3: {id: 218, parent: 217, parent_name: "动物圈", name: "喵星人",…}
+	4: {id: 171, parent: 4, parent_name: "游戏", name: "电子竞技", description: "电子竞技游戏项目为主要内容的相关视频",…}
+message: "0"
+ttl: 1
+}

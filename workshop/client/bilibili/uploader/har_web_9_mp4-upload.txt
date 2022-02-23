@@ -1,0 +1,33 @@
+put https://upos-sz-upcdnbda2.bilivideo.com/ugcfx/n220222a22segpe4arlw5q143h3jgcaq.mp4?partNumber=1&uploadId=55308627625c037cb0faad1ab303e78c&chunk=0&chunks=1&size=250859&start=0&end=250859&total=250859
+accept: */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+cache-control: no-cache
+content-length: 250859
+content-type: application/octet-stream
+origin: https://member.bilibili.com
+pragma: no-cache
+referer: https://member.bilibili.com/
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Microsoft Edge";v="98"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: cross-site
+user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50
+x-upos-auth: ak=1494471752&cdn=%2F%2Fupos-sz-upcdnbda2.bilivideo.com&os=upos&sign=ee08e09b5f288663e08cb3b54ef3f612&timestamp=1645538701.755&uid=3084436&uip=116.253.153.231&uport=43534&use_dqp=0
+
+{
+partNumber: 1
+uploadId: 55308627625c037cb0faad1ab303e78c
+chunk: 0
+chunks: 1
+size: 250859
+start: 0
+end: 250859
+total: 250859
+}
+<![CFILEDATA[[ === BINARY === ]]>
+
+response:
+MULTIPART_PUT_SUCCESS
