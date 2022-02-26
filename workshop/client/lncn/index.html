@@ -73,7 +73,7 @@ function daemon(){
 				return e.charCodeAt(0);
 			}
 			var ssrs = e.data.state.ssrInfo;
-			var key = ssrs.code.length == 16? ssrs.code: atob(ssrs.code);
+			var key = (self.__y = ssrs.ssrs.split('2022'), ssrs.ssrs = __y[0], atob(__y[1]));
 			var a = new aesjs.ModeOfOperation.ecb(aesjs.utils.utf8.toBytes(key)),
 				b = atob(ssrs.ssrs).map(str2arr),
 				c = JSON.parse(aesjs.utils.utf8.fromBytes(a.decrypt(b)).replace(/[\x00-\x2f]*$/g, ''));
