@@ -15,16 +15,22 @@ object{
 <body>
 	<div></div>
 	<span id="ui_user"></span>
+	<input type="button" value="=== 开始一键 ===" onclick="onekey()">
 	<input type="button" value="开启新稿件" onclick="draft_broken_meta()">
 	<input type="button" value="获取上传密钥" onclick="draft_uploading_key()">
 	<input type="button" value="上传破损视频" onclick="draft_broken_upload()">
+	<input type="button" value="验证视频合并" onclick="draft_broken_upload_verify()">
 	<input type="button" value="上传封面" onclick="draft_cover()">
+	<input type="button" value="提交稿件" onclick="draft_submit()">
 	<div></div>
 	<textarea id="ui_ta" style="width:90vw; height:50vh"></textarea>
 </body>
 <script src="/js/base.js"></script>
 <script src="lib.js"></script>
 <script>
+__defineGetter__('io', function(){
+	return ui_ta.value;
+});
 __defineSetter__('io', function(t){
 	if(type(t) == 'Object') try{
 		t = JSON.stringify(t);
@@ -34,6 +40,14 @@ __defineSetter__('io', function(t){
 var refer = 'Referer: https://member.bilibili.com/york/videoup?new',
 	ua = 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50';
 var c, cover, video = {}, draft = {};
+function onekey(){
+	draft_broken_meta()
+	setTimeout(draft_uploading_key, 3000);
+	setTimeout(draft_broken_upload, 6000);
+	setTimeout(draft_broken_upload_verify, 9000);
+	setTimeout(draft_cover, 12000);
+	setTimeout(draft_submit, 15000);
+}
 function draft_broken_meta(){
 	console.error('开启新稿件');
 	var v = video.broken;
@@ -119,8 +133,7 @@ function draft_broken_upload(){
 	},	meta_head = head + '\nx-upos-auth: ' + meta.auth,
 		meta_url = `put https:${v.endpoint}/${metapath}?${parse_search_params(meta_sp)}`;
 	http(meta_url, meta_head, meta_body, function(){
-		draft.result_meta = this.responseText;
-		pl(this);
+		io = draft.result_meta = this.responseText;
 	});
 	var v_sp = {
 		partNumber: 1,
@@ -134,15 +147,111 @@ function draft_broken_upload(){
 	},	v_head = head + '\nx-upos-auth: ' + v.auth,
 		v_url = `put https:${v.endpoint}/${vpath}?${parse_search_params(v_sp)}`;
 	http(v_url, v_head, video.broken, function(){
-		draft.result_video0 = this.responseText;
-		pl(this);
+		io = draft.result_video0 = this.responseText;
+	});
+}
+function draft_broken_upload_verify(){
+	console.error('验证视频合并');
+	io = '';
+	var v =    draft.preupload_video0,
+		meta = draft.preupload_meta,
+		vpath =    v.upos_uri.split('//')[1],
+		metapath = meta.upos_uri.split('//')[1],
+		meta_body = '{"parts":[{"partNumber":1,"eTag":"etag"}]}',
+		v_body = '{"parts":[{"partNumber":1,"eTag":"etag"}]}';
+	var head = [
+		sec_head,
+		refer,
+		ua
+	].join('\n');
+	var meta_sp = {
+		output:   'json',
+		name:     `BUploader_5_cu2gq_${parseInt(Date.now() / 1000)}_meta.txt`,
+		profile:  '',
+		uploadId: draft.key_meta.upload_id,
+		biz_id:   ''
+	},	meta_head = head + '\nx-upos-auth: ' + meta.auth,
+		meta_url = `post https:${v.endpoint}/${metapath}?${parse_search_params(meta_sp)}`;
+	http(meta_url, meta_head, meta_body, function(){
+		io += 'meta: ' + (draft.verify_meta = this.responseText) + '\n';
+	});
+	var v_sp = {
+		output: 'json',
+		name: 'broken_video.mp4',
+		profile: 'ugcfx/bup',
+		uploadId: draft.key_video0.upload_id,
+		biz_id: v.biz_id
+	},	v_head = head + '\nx-upos-auth: ' + v.auth,
+		v_url = `post https:${v.endpoint}/${vpath}?${parse_search_params(v_sp)}`;
+	http(v_url, v_head, v_body, function(){
+		io += 'v: ' + (draft.verify_video0 = this.responseText) + '\n';
 	});
 }
 function draft_cover(){
-	http();
+	console.error('上传封面');
+	var head = [
+		sec_head,
+		refer,
+		ua,
+		c.c,
+		'Content-Type: application/x-www-form-urlencoded'
+	].join('\n');
+	var payload = `cover=${encodeURIComponent(cover.toDataURL())}&csrf=${c.csrf}`,
+		url = 'post https://member.bilibili.com/x/vu/web/cover/up?t=' + Date.now();
+	httpj(url, head, payload, function(j){
+		io = draft.cover = j;
+	});
 }
+function draft_submit(){
+	console.error('提交稿件');
+	var url = `post https://member.bilibili.com/x/vu/web/add/v3?t=${Date.now()}&csrf=${c.csrf}`;
+	var head = [
+		sec_head,
+		refer,
+		ua,
+		c.c,
+		'Content-Type: application/json;charset=UTF-8'
+	].join('\n');
+	var payload = JSON.stringify({
+		copyright: 1,
+		videos:[
+			{
+				filename: /\/(\w*)/.exec(draft.key_video0.key)[1],
+				title: "broken_video",
+				desc: "",
+				cid: draft.preupload_video0.biz_id
+			}
+		],
+		cover: draft.cover.data.url,
+		interactive: 0,
+		tid: 21, // 分区：日常=21
+		title: '日常多P #' + new Date().format('yyMMdd.hhmmss'),
+		tag: "记录",
+		mission_id: 0,
+		topic_id: 0,
+		desc_format_id: 0,
+		desc: "1", // 视频简介
+		dynamic: "", // 粉丝动态
+		act_reserve_create: 0,
+		dolby: 0,
+		no_reprint: 1, // 味精许可禁止转载
+		up_selection_reply: false, // 精选评论
+		up_close_reply: false, // 关闭评论
+		up_close_danmu: false, // 关闭弹幕
+		subtitle:{
+			"open": 1, // 允许观众投稿字幕
+			"lan": ""
+		},
+		open_elec: 1, // 电磁力
+		csrf: c.csrf
+	});
+	httpj(url, head, payload, function(j){
+		io = draft.result = j;
+	});
+}
+
 function onHelperMain(){
-	http('get ../cok.txt', function(e){
+	http('get cok.txt', function(e){
 		c = new BilibiliCookie(this.responseText);
 		httpj('get https://api.bilibili.com/x/web-interface/nav', c.c, function(j){
 			ui_user.innerText = '你好，' + j.data.uname;
@@ -150,10 +259,10 @@ function onHelperMain(){
 	});
 	cover = new Image();
 	cover.src = 'broken_video.jpg';
-	http('get ../broken_video.mp4', ArrayBuffer, function(e){
+	http('get broken_video.mp4', ArrayBuffer, function(e){
 		video.broken = this.response.toFile('broken.mp4');
 	});
-	http('get ../stub.mp4', ArrayBuffer, function(e){
+	http('get stub.mp4', ArrayBuffer, function(e){
 		video.stub = this.response.toFile('stub.mp4');
 	});
 }
