@@ -1,0 +1,125 @@
+get https://member.bilibili.com/x/vupre/web/archive/view?history=&bvid=BV19S4y1F7SS&topic_grey=1
+accept: application/json, text/plain, */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+cache-control: no-cache
+cookie: 
+pragma: no-cache
+referer: https://member.bilibili.com/video/upload.html?type=edit&bvid=BV19S4y1F7SS
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Microsoft Edge";v="98"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: same-origin
+user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50
+
+response:
+{"code":0,"message":"0","ttl":1,"data":{"act_reserve_binded":null,"act_reserve_create":false,"arc_elec":{"show":true,"state":0,"total":0,"count":0,"reason":""},"archive":{"aid":681787419,"bvid":"BV19S4y1F7SS","mid":3084436,"tid":21,"tp_info":{"parent_tp":{"id":160,"parent":0,"name":"生活"},"tp":{"id":21,"parent":160,"name":"日常"}},"title":"日常多P #15","author":"","cover":"http://i2.hdslb.com/bfs/archive/5fb796ce4b4392b31dd2a21afbf921f82eaeaf86.jpg","reject_reason":"","reject_reason_url":"","tag":"记录","duration":89,"copyright":1,"no_reprint":1,"ugcpay":0,"order_id":0,"order_name":"","adorder_id":0,"adorder_name":"","adorder_no":"","online_time":0,"desc":"1","mission_id":0,"mission_name":"","attribute":0,"state":-16,"state_desc":"转码失败","state_panel":4,"source":"","desc_format_id":0,"attrs":{"is_coop":0,"is_owner":1,"is_dynamic":0,"is_360":-1,"no_public":0,"live":0},"porder":null,"dynamic":"","poi_object":null,"dtime":0,"ptime":1645552058,"ctime":1645552058,"ugcpay_info":null,"staffs":[],"vote":null,"activity":null,"interactive":0,"hl":null,"no_background":0,"dynamic_video":0,"no_public":0,"is_360":-1,"bs_editor":0,"up_from":0,"desc_v2":null,"dynamic_v2":null,"topic_id":0,"topic_name":"","topic_stat":0},"in_season":false,"origin_state":0,"reply":{"aid":681787419,"state":1,"up_selection":false},"show_staff":false,"staffs":[],"subtitle":{"allow":true,"lan":"","lan_doc":""},"tip":{"id":69,"type":7,"title":"手机投稿功能上线啦！现在可以随时随地创作上传视频作品啦！点击查看更多详情","content":"手机投稿功能上线啦！现在可以随时随地创作上传视频作品啦！点击查看更多详情","link":"https://www.bilibili.com/blackboard/topic/activity-SyZEdQMe7.html","dateline":1527656400},"videos":[{"aid":681787419,"bvid":"BV19S4y1F7SS","title":"日常多P broken_video","desc":"","filename":"n220222a22segpe4arlw5q143h3jgcaq","cid":514771795,"duration":0,"index":1,"status":-16,"status_desc":"","reject_reason":"转码失败：该文件格式无法被识别，请检查是否上传了错误文件并尝试重新上传","reject_reason_url":"","fail_code":1,"fail_desc":"","xcode_state":1,"ctime":1645552058},{"aid":681787419,"bvid":"BV19S4y1F7SS","title":"VID_20211129_123313","desc":"","filename":"n220223a23kgypsctxr03m3qeeyazrmb","cid":514891466,"duration":89,"index":2,"status":0,"status_desc":"","reject_reason":"","reject_reason_url":"","fail_code":0,"fail_desc":"","xcode_state":6,"ctime":1645552535}],"watermark":{"id":0,"mid":0,"uname":"","state":0,"type":0,"position":0,"url":"","md5":"","info":"","tip":"","ctime":"0001-01-01T00:00:00Z","mtime":"0001-01-01T00:00:00Z"}}}
+
+{
+code: 0
+data: 
+	act_reserve_binded: null
+	act_reserve_create: false
+	arc_elec: {show: true, state: 0, total: 0, count: 0, reason: ""}
+	archive: 
+		activity: null
+		adorder_id: 0
+		adorder_name: ""
+		adorder_no: ""
+		aid: 681787419
+		attribute: 0
+		attrs: {is_coop: 0, is_owner: 1, is_dynamic: 0, is_360: -1, no_public: 0, live: 0}
+		author: ""
+		bs_editor: 0
+		bvid: "BV19S4y1F7SS"
+		copyright: 1
+		cover: "http://i2.hdslb.com/bfs/archive/5fb796ce4b4392b31dd2a21afbf921f82eaeaf86.jpg"
+		ctime: 1645552058
+		desc: "1"
+		desc_format_id: 0
+		desc_v2: null
+		dtime: 0
+		duration: 89
+		dynamic: ""
+		dynamic_v2: null
+		dynamic_video: 0
+		hl: null
+		interactive: 0
+		is_360: -1
+		mid: 3084436
+		mission_id: 0
+		mission_name: ""
+		no_background: 0
+		no_public: 0
+		no_reprint: 1
+		online_time: 0
+		order_id: 0
+		order_name: ""
+		poi_object: null
+		porder: null
+		ptime: 1645552058
+		reject_reason: ""
+		reject_reason_url: ""
+		source: ""
+		staffs: []
+		state: -16
+		state_desc: "转码失败"
+		state_panel: 4
+		tag: "记录"
+		tid: 21
+		title: "日常多P #15"
+		topic_id: 0
+		topic_name: ""
+		topic_stat: 0
+		tp_info: {parent_tp: {id: 160, parent: 0, name: "生活"}, tp: {id: 21, parent: 160, name: "日常"}}
+		ugcpay: 0
+		ugcpay_info: null
+		up_from: 0
+		vote: null
+	in_season: false
+	origin_state: 0
+	reply: {aid: 681787419, state: 1, up_selection: false}
+	show_staff: false
+	staffs: []
+	subtitle: {allow: true, lan: "", lan_doc: ""}
+	tip: {id: 69, type: 7, title: "手机投稿功能上线啦！现在可以随时随地创作上传视频作品啦！点击查看更多详情",…}
+	videos: [{aid: 681787419, bvid: "BV19S4y1F7SS", title: "日常多P broken_video", desc: "",…},…]
+	0:
+		aid: 681787419
+		bvid: "BV19S4y1F7SS"
+		cid: 514771795
+		ctime: 1645552058
+		desc: ""
+		duration: 0
+		fail_code: 1
+		fail_desc: ""
+		filename: "n220222a22segpe4arlw5q143h3jgcaq"
+		index: 1
+		reject_reason: "转码失败：该文件格式无法被识别，请检查是否上传了错误文件并尝试重新上传"
+		reject_reason_url: ""
+		status: -16
+		status_desc: ""
+		title: "日常多P broken_video"
+		xcode_state: 1
+	1:
+		aid: 681787419
+		bvid: "BV19S4y1F7SS"
+		cid: 514891466
+		ctime: 1645552535
+		desc: ""
+		duration: 89
+		fail_code: 0
+		fail_desc: ""
+		filename: "n220223a23kgypsctxr03m3qeeyazrmb"
+		index: 2
+		reject_reason: ""
+		reject_reason_url: ""
+		status: 0
+		status_desc: ""
+		title: "VID_20211129_123313"
+		xcode_state: 6
+	watermark: {id: 0, mid: 0, uname: "", state: 0, type: 0, position: 0, url: "", md5: "", info: "", tip: "",…}
+	message: "0"
+	ttl: 1

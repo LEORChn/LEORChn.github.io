@@ -1,0 +1,59 @@
+https://member.bilibili.com/x/vu/web/edit?csrf=92b6321a591243502251e32c85ef6185
+accept: application/json, text/plain, */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+cache-control: no-cache
+content-length: 865
+content-type: application/json;charset=UTF-8
+cookie: 
+origin: https://member.bilibili.com
+pragma: no-cache
+referer: https://member.bilibili.com/video/upload.html?type=edit&bvid=BV1CZ4y1k7mW
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="98", "Microsoft Edge";v="98"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: same-origin
+user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50
+
+{"copyright":1,"videos":[{"filename":"n220226a23i5pqp7wphl282p3n23alnr","title":"broken_video","desc":"","cid":516980862,"editor":{"fonts":"","stickers":"","web_cover_template":""}},{"filename":"n220226qn2c79pfqk7weji33fdgys5y5","title":"stub","desc":"","cid":516981342,"editor":{"fonts":"","stickers":"","web_cover_template":""}},{"filename":"n220226a2xjlgtm556egj3eb1kwoxlkm","title":"日常多P broken_video","desc":"","cid":517453864,"editor":{"fonts":"","stickers":"","web_cover_template":""}}],"no_reprint":1,"interactive":0,"tid":21,"cover":"//i2.hdslb.com/bfs/archive/0755d454991df3e90d8f2ffb717ee972251ab638.jpg","title":"日常多P #220226.062016","tag":"记录","desc_format_id":0,"desc":"1","dynamic":"","open_elec":1,"subtitle":{"open":1,"lan":""},"handle_staff":false,"is_360":-1,"act_reserve_create":0,"origin_state":0,"aid":381832552,"topic_grey":1}
+act_reserve_create: 0
+aid: 381832552
+copyright: 1
+cover: "//i2.hdslb.com/bfs/archive/0755d454991df3e90d8f2ffb717ee972251ab638.jpg"
+desc: "1"
+desc_format_id: 0
+dynamic: ""
+handle_staff: false
+interactive: 0
+is_360: -1
+no_reprint: 1
+open_elec: 1
+origin_state: 0
+subtitle: {open: 1, lan: ""}
+lan: ""
+open: 1
+tag: "记录"
+tid: 21
+title: "日常多P #220226.062016"
+topic_grey: 1
+videos: [{filename: "n220226a23i5pqp7wphl282p3n23alnr", title: "broken_video", desc: "", cid: 516980862,…},…]
+0: {filename: "n220226a23i5pqp7wphl282p3n23alnr", title: "broken_video", desc: "", cid: 516980862,…}
+cid: 516980862
+desc: ""
+editor: {fonts: "", stickers: "", web_cover_template: ""}
+filename: "n220226a23i5pqp7wphl282p3n23alnr"
+title: "broken_video"
+1: {filename: "n220226qn2c79pfqk7weji33fdgys5y5", title: "stub", desc: "", cid: 516981342,…}
+cid: 516981342
+desc: ""
+editor: {fonts: "", stickers: "", web_cover_template: ""}
+filename: "n220226qn2c79pfqk7weji33fdgys5y5"
+title: "stub"
+2: {filename: "n220226a2xjlgtm556egj3eb1kwoxlkm", title: "日常多P broken_video", desc: "", cid: 517453864,…}
+cid: 517453864
+desc: ""
+editor: {fonts: "", stickers: "", web_cover_template: ""}
+filename: "n220226a2xjlgtm556egj3eb1kwoxlkm"
+title: "日常多P broken_video"
