@@ -6,27 +6,6 @@
  *   
  */
 (function(){
-var importScripts_preset = {
-	// compatibility
-	babel: [
-		'babel.browser.5.8.23.min',
-		'babel.polyfill.7.6.0.min'
-	],
-	// cryption and hashing
-	aes: 'aes.2018',
-	sha: 'jssha',
-	md5: 'md5.2.18.0.min',
-	// ui
-	highlight: 'prism.1.27.0',
-	mermaid: 'mermaid.5.15.0.min',
-	// data processor
-	pinyin: 'pinyin-pro.3.3.0.lite',
-	qr: 'webqr.min',
-	// file format
-	heif: 'libheif.1.11.0.min',
-	sql: 'sql.js.asm.worker.1.6.1.min',
-	zip: 'jszip.3.3.0.min'
-};
 
 registerObjectAssign(); // Compat target: IE 9
 registerForWorkerCompatibility(); // 检测 Worker 环境，仅用于使本库能正常初始化。不保证某些功能可以正常运行
@@ -82,11 +61,6 @@ Object.assign.weakly(window, { // global vars
 			console.warn('ct() didnt create an Element but TextNode.\nPlease check the first symbol of css parameter is write for TagName of an Element.\ne.g. should not a space character.');
 			return true;
 		}
-	},
-	importScripts: function(){ // 在 worker 环境下不会生效
-		arr(arguments).foreach(function(e){
-			document.body.appendChildren(ct('script').setAttr('src', e));
-		});
 	}
 });
 
@@ -211,42 +185,8 @@ Object.assign.weakly(Blob.prototype, {
 	toDownload: function(filename){
 		return new URL(this.toURL()).toAnchor(filename).setAttr('download', filename);
 	},
-	toFile: function(name){
-		return Object.assign(this, {
-			name: name || '',
-			lastModified: Date.now(),
-			lastModifiedDate: new Date(),
-			webkitRelativePath: ''
-		});
-	},
-	toArrayBuffer: function(){ // this.toArrayBuffer().then()
-		var fr = new FileReader();
-		fr.readAsArrayBuffer(this);
-		return new Promise(function(ok){
-			var itv = setInterval(function(){
-				if(fr.readyState != 2) return;
-				clearInterval(itv);
-				ok(fr.result);
-			}, 200);
-		});
-	},
 	text: function(){ // TODO: Blob.text() 原生支持 Chrome 76、Firefox 69。如果稍加小心，可以兼容到 IE 10
-		var _this = this;
-		return new Promise(function(ok, fail){
-			var fr = new FileReader();
-			fr.onload = function(){
-				ok(new TextDecoder().decode(fr.result));
-			};
-			fr.readAsArrayBuffer(_this);
-		});
-	}
-});
-Object.assign.weakly(ArrayBuffer.prototype, {
-	toBlob: function(mimetype){
-		return new Blob([this], {type: mimetype || ''});
-	},
-	toFile: function(name, mimetype){
-		return this.toBlob(mimetype).toFile(name);
+		return new Promise(function(){});
 	}
 });
 
@@ -301,15 +241,6 @@ Function.prototype.__defineGetter__('innerText', function(){
 	return re? re[1]: '';
 });
 
-Storage.prototype.__defineGetter__('size', function(){
-	if(!('length' in this)) return 0;
-	var total = 0, _this = this;
-	new Array(this.length).fill(0).map(function(e, i){
-		total += _this[_this.key(i)].length;
-	});
-	return total;
-});
-
 Object.assign.weakly(HTMLElement.prototype, {
 	$: function(e){ // named from jQuery
 		return this.querySelector(e);
@@ -351,50 +282,6 @@ Object.assign.weakly(HTMLElement.prototype, {
 			path = c;
 		});
 		return path;
-	}
-});
-Object.assign.weakly(HTMLTableElement.prototype, {
-	theadSort: function(){ // TODO: 在重新排序前解除单元格合并
-		this.$('tr').children.foreach(function(e){
-			e.onclick = startSort;
-		});
-		return this;
-		function startSort(){
-			var isAsc = this.getAttribute('order') != 'asc'; // 首次排序时使用升序，asc
-			this.setAttr('order', !(isAsc ^= true)? 'asc': 'desc');
-			var index = this.parentNode.children.indexOf(this),
-				tr = this.parentNode,
-				t = tr.parentNode;
-			while(type(t) != 'HTMLTableElement') t = this.parentNode; // 如果开发者或用户乱搞 DOM 结构导致 tr 在 table 内，那么这里会报错
-			t.$$('tr').filter(function(e){
-				return e != tr;
-			}).map(function(e){
-				var c = e.children;
-				return {
-					name: c.length < index + 1? '': c[index].innerText, // 针对可能不合规的单元格做强制兼容
-					tr: e
-				}
-			}).sort(function(a, b){ // a-b=升序 b-a=降序
-				// TODO: 更换为 Win7 文件名排序法
-				var objsIsAsc = [a.name, b.name].sort()[0] == a.name;
-				return objsIsAsc ^ isAsc? -1: 1; // 一样的话那么就是升序，不一样就降序
-			}).foreach(function(e, i){
-				if(e.tr == tr) return;
-				e.tr.parentNode.appendChild(e.tr);
-			});
-		}
-	}
-});
-
-Object.assign.weakly(HTMLImageElement.prototype, {
-	toDataURL: function(mimetype){
-		if(!(this.width && this.height)) return '';
-		var cv = ct('canvas');
-		cv.width = this.width;
-		cv.height = this.height;
-		var ctx = cv.getContext('2d');
-		ctx.drawImage(this, 0, 0, this.width, this.height);
-		return cv.toDataURL('image/' + (mimetype || 'jpeg'));
 	}
 });
 
@@ -512,7 +399,6 @@ function registerObjectAssign(){ // 腻子代码 https://developer.mozilla.org/e
 					}
 				}
 			}
-			return target;
 		}
 	});
 	registerObjectAssignWeakly();
@@ -536,7 +422,6 @@ function registerObjectAssign(){ // 腻子代码 https://developer.mozilla.org/e
 						to[nextKey] = nextSource[nextKey];
 					}
 				}
-				return target;
 			}
 		});
 	}
