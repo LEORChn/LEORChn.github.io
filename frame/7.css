@@ -1,0 +1,41 @@
+/* https://web.archive.org/web/20201129175109/https://ipid.github.io/win7ui */
+/* 列表 */
+.tabview > .list{
+	padding-bottom: 21px;
+	user-select: none;
+	-webkit-user-select: none;
+}
+.tabview > .list > label{
+	display: block;
+	display: inline-block;
+	float: left;
+	box-shadow: inset -1px 0px #fdfdfd, inset 1px 1px 1px #f7f7f7;
+	padding: 2px 4px 1px 5px;
+	border: 1px solid #898c95;
+	border-bottom: none;
+	background: linear-gradient(to bottom, #f2f2f2 0%, #ebebeb 50%, #ddd 50%, #cfcfcf 100%);
+	margin-top: 3px;
+	font-size: 12px;
+}
+.tabview > .list:not([javascript]) > :first-child,
+.tabview > .list > [active]{
+	background: #fff;
+	padding: 2px 4px 4px 5px;
+	border-bottom: 1px solid #fff;
+	margin-top: 0;
+}
+.tabview > .list[javascript] > :not([active]):hover,
+.tabview > .list[javascript] > :not([active]):focus{
+	background: linear-gradient(to bottom, #eaf6fd 0%, #d9f0fc 50%, #bee6fd 50%, #a7d9f5 100%);
+	border-color: #3c7fb1;
+}
+
+/* 面板 */
+.tabview > input:not(:checked) + *,
+.tabview > input{
+	display: none;
+}
+.tabview > :not(.list){
+	background: #fff;
+	border: 1px solid #898c95;
+}

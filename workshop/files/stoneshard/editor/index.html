@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>StoneShave Edit</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<script src="/js/stats.js" async></script>
+	<script src="/frame/7.js" async defer></script>
+<style>
+@import "/frame/7.css";
+
+td{
+	width: 3em;
+	height: 3em;
+}
+.storage-contain{
+	font-size: 12px;
+	display: inline-block;
+	border: solid 1px;
+	overflow: hidden;
+	width: calc(30em + 4 * 5px);
+	height: calc(15em + 4 * 5px);
+}
+.storage-contain > *{
+	width: 35em;
+}
+.tabview > div:not(.list){
+	padding: 8px;
+}
+</style>
+</head>
+<body>
+	<div id="ui_gamedatetime">游戏世界时间：</div>
+	<div class="tabview">
+		<div class="list">
+			<label>人物属性</label>
+			<label checked>物品库存</label>
+			<label>技能树</label>
+			<label>地图物件</label>
+			<label>快捷操作</label>
+		</div>
+		<div>人物属性</div>
+		<div>
+			<div>装备栏</div>
+			<span class="storage-contain" path="storage.equipment"></span>
+		</div>
+		<div>技能树</div>
+		<div>地图</div>
+		<div>
+			快捷操作
+			<fieldset>
+				<legend>大地图点亮</legend>
+				<label><input type="radio" name="worldmaplight" value="0" checked>不执行修改</label>
+				<label><input type="radio" name="worldmaplight" value="1">所有传言点</label>
+				<label><input type="radio" name="worldmaplight" value="9">所有传言点周围</label>
+				<label><input type="radio" name="worldmaplight" value="50">一半</label>
+				<label><input type="radio" name="worldmaplight" value="75">四分之三</label>
+				<label><input type="radio" name="worldmaplight" value="100">全部</label>
+				<br>
+				备注：选择点亮并生成的存档，已点亮的区域将不能再撤回到未点亮。
+			</fieldset>
+		</div>
+	</div>
+</body>
+<script src="/js/base.js"></script>
+<script src="/js/3/md5.2.18.0.min.js"></script>
+<script src="../pako.es5.min.js"></script>
+<script src="codec.js"></script>
+<script src="panel.storage.js"></script>
+<script>
+function main(){
+	filesInput(f);
+	fs.character_2.exitsave_1['data.sav'].load();
+}
+function parseToUI(e){
+	var d = e.timeDataMap; // timeDataMap
+	ui_gamedatetime.innerText = `游戏世界时间：第${d.months + 1}月第${d.days + 1}天 ${d.hours}:${d.minutes}:${d.seconds}`;
+	e.inventoryDataList.foreach(function(e){ // inventoryDataList
+		if(e[8] == 'N/A') return; // TODO:目前只是做装备栏上能用的
+		storage_slots.__data.equipment[e[8]] = e;
+	});
+	storageUpdate();
+	pl(window.ee = e);
+}
+/*	save.map = {
+		valid // 可用性，角色未永久死亡 = 1
+		dateTime // 日期时间（有个存档显示4万多，该不会是指实际游玩时间吧）
+		nameKey // 角色模板，只能使用内置值
+		prologue // 新手教程，估计可用值为 1 或 0
+		locationTitleKey // 当前所在地点，只能使用内置值
+		avatar // 头像，只能使用内置值
+		permadeath // 真实模式，关闭 = 0，估计开启=1
+	}
+*/
+</script>
+</html>
