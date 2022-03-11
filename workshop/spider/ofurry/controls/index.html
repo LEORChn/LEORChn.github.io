@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>Controls</title>
+	<script src="/js/stats.js" async></script>
+	<link rel="shortcut icon" href="../favicon.jpg" />
+<style>
+
+</style>
+</head>
+<body>
+
+</body>
+<script src="/js/base.js"></script>
+<script>
+hbody.appendChildren(Object.keys(localStorage).filter(function(e){
+	return e.startsWith('ofur_');
+}).map(function(e){
+	var c = localStorage[e];
+	var iszip = c.startsWith('UEsD');
+	var a =  ct('a').setAttr('href', iszip?
+		'data:application/zip;base64,' + c:
+		'data:text/plain;charset=utf-8,' + encodeURIComponent(c));
+	a.download = a.downloads = a.innerText = e + (iszip? '.zip': '.json');
+	return ct('div').appendChildren(a);
+}));
+</script>
+</html>
