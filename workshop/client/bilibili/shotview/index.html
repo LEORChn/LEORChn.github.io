@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="referrer" content="no-referrer">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>Video Shot View</title>
+	<script src="/js/stats.js" async></script>
+<style>
+::-webkit-scrollbar{
+	width: 7px;
+	height: 7px;
+	background-color: #fff
+}
+::-webkit-scrollbar-thumb{
+	background-color: #888;
+	border-radius: 10px
+}
+body{
+	margin: 0;
+	padding: 0;
+}
+img{
+	max-width: calc(100vw - 7px);
+}
+</style>
+</head>
+<body>
+
+</body>
+<script src="/js/base.js"></script>
+<script>
+function onHelperMain(){
+	var bv = _GET('bv') || '',
+		p = Math.max(parseInt(_GET('p')) || 1, 1); // max=限制最小为1
+	if(!bv.startsWith('BV')) return document.write('bv属性无效.');
+	var url = `get https://api.bilibili.com/x/player/pagelist?bvid=${bv}&jsonp=jsonp`;
+	httpj(url, function(j){
+		pl(j);
+		p = Math.min(p, j.data.length + 1); // min=限制最大为最大分集数
+		pl(p);
+		loadimage(bv, j.data[p - 1].cid);
+	});
+}
+function loadimage(bv, cid){
+	var url = `get https://api.bilibili.com/x/player/videoshot?cid=${cid}&bvid=${bv}&jsonp=jsonp`;
+	httpj(url, function(j){
+		pl(j);
+		hbody.appendChildren(j.data.image.map(function(e){
+			return ct('img').setAttr('src', e);
+		}));
+	});
+}
+</script>
+</html>
