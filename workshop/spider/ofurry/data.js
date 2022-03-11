@@ -3,6 +3,7 @@ var crew_log = [],
 	roles_log = [];
 var laststatus = '',
 	lastroleids = [],
+	latestroleid = 0,
 	lastroles = {},
 	lastroles_textmd5 = '';
 var starttime = Date.now();
@@ -48,6 +49,12 @@ function claw(){
 }
 var roles_outofdate = Date.now();
 function claw_roles(){
+	var nowlatestid = Math.max.apply(null, lastroleids);
+	if(Date.now() - starttime > 7200000 && latestroleid < nowlatestid){
+		roles_outofdate = 0;
+		latestroleid = nowlatestid;
+		// 这个块在开始2小时之后才被允许运行，届时有新注册就会马上结束冷却，并读取新注册的详细信息
+	}
 	if(Date.now() < roles_outofdate) return;
 	roles_outofdate = Date.now() + 3600000;
 	var roles = JSON.parse(laststatus).content;
