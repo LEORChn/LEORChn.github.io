@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="referrer" content="no-referrer">
+	<meta name="referrer" content="same-origin" version="61">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>Video Preview</title>
+	<script src="/js/stats.js" async></script>
+<style>
+#ui_panel_show,
+#ui_panel_show:not(:checked) ~ #ui_panel_launchpad{
+	display: none;
+}
+#ui_panel_launchpad{
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+#ui_panel_launchpad > label{
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, .5);
+	z-index: -1;
+}
+#ui_shotview{
+	width: 80vw;
+	height: 94vh;
+	margin: 3vh 0 0 10vw;
+	border: none;
+	background: #fff;
+}
+#ui_shotview_title{
+	position: absolute;
+	margin: 3vh 0 0 10vw;
+	color: #fff;
+	background-color: rgba(0, 0, 0, .5);
+}
+.video{
+	display: inline-block;
+	width: 190px;
+	cursor: pointer;
+	vertical-align: top;
+}
+.video:hover{
+	background: rgba(0, 0, 0, .1);
+}
+.video > img{
+	max-width: 100%;
+}
+.video > span{
+	display: -webkit-box;
+	height: calc(3em * 1.2);
+}
+</style>
+</head>
+<body>
+	<input id="ui_url">
+	<div id="ui_v_collections"></div>
+	<div id="ui_v_collection"></div>
+	<div id="ui_v_public"></div>
+	<input type="checkbox" id="ui_panel_show">
+	<div id="ui_panel_launchpad">
+		<label for="ui_panel_show"></label>
+		<span id="ui_shotview_title"></span>
+	</div>
+</body>
+<script src="/js/base.js"></script>
+<script>
+function onHelperMain(){
+	ui_url.setAttr('placeholder', '请粘贴空间地址');
+	readCollection(419220, 210480);
+}
+ui_url.oninput = function(){
+	var uid = (/space\.bilibili\.com\/(\d+)/.exec(this.value) || [0, 0])[1];
+	if(!uid) return;
+	readCollections(uid);
+};
+var dat_collections;
+function readCollections(uid){
+	var url = `get https://api.bilibili.com/x/polymer/space/seasons_series_list?mid=${uid}&page_num=1&page_size=20 `
+	httpj(url, function(j){
+		pl(dat_collections = j);
+		ui_v_collections.clearChildren().appendChildren(
+			j.data.items_lists.series_list.map(function(e){
+				return ct('div', e.meta.description)
+			})
+		);
+		ui_v_collection.clearChildren().appendChildren(
+			j.data.items_lists.series_list[0].archives.map(function(e){
+				var v = ct('div.video').appendChildren(
+					ct('img').setAttr('src', e.pic.replace('http:', '')).setAttr('referrerpolicy', 'no-referrer'),
+					ct('span', e.title)
+				).setAttr('bv', e.bvid);
+				v.onclick = openPreview;
+				return v;
+			})
+		);
+	});
+}
+function readCollection(uid, cid){
+	var url = `get https://api.bilibili.com/x/series/archives?mid=${uid}&series_id=${cid}&only_normal=true&sort=desc&pn=1&ps=30`;
+	httpj(url, function(j){
+		pl(dat_collections = j);
+		ui_v_collection.clearChildren().appendChildren(
+			j.data.archives.map(function(e){
+				var v = ct('div.video').appendChildren(
+					ct('img').setAttr('src', e.pic.replace('http:', '')).setAttr('referrerpolicy', 'no-referrer'),
+					ct('span', e.title)
+				).setAttr('bv', e.bvid);
+				v.onclick = openPreview;
+				return v;
+			})
+		);
+	});
+}
+function openPreview(bv){
+	try{
+		bv = this.getAttribute('bv');
+	}catch(e){}
+	if(!bv) return;
+	if(!$('#ui_shotview')) ui_panel_launchpad.appendChildren(ct('iframe#ui_shotview'));
+	ui_shotview.src = '../shotview/?bv=' + bv;
+	ui_panel_show.checked = true;
+	try{
+		ui_shotview_title.innerText = this.innerText.trim();
+	}catch(e){}
+}
+</script>
+</html>
