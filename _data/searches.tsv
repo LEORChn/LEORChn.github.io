@@ -5,11 +5,16 @@ name	desc	feature	url	post_body
 #	url:-x-	如果url并非以双斜杠开头，那么就表示method不为get
 TinEye	反找原图	w	post //tineye.com/search	url=%s
 TinEye	反找原图	wf	post //tineye.com/search	image=%s
-npm	npmjs		//www.npmjs.com/search	q=%s
+BootCDN	JavaScript中国区		//api.bootcdn.cn/libraries.min.json	
+Staticfile	JavaScript中国区		//api.cdnjs.com/libraries/	search=%s
+npm	JavaScript开发者		//www.npmjs.com/search	q=%s
+
 萌娘百科	网络流行语		//zh.moegirl.org.cn/index.php	search=%s
 小鸡词典	网络流行语		//jikipedia.com/search	phrase=%s
-发表情	表情搜索		//www.fabiaoqing.com/search/bqb/keyword/%s
+发表情	表情包搜索		//www.fabiaoqing.com/search/bqb/keyword/%s
+逗比拯救世界	表情包搜索		//www.dbbqb.com/s	w=%s
 ehentai		w	//e-hentai.org	f_search=%s
 exhentai		w	//exhentai.org	f_search=%s
-Apkpure	Google Play	w	//apkpure.com/cn/search	q=%s
-BootCDN	中国区JS加速		//api.bootcdn.cn/libraries.min.json	
+ApkPure	Google Play	w	//apkpure.com/cn/search	q=%s
+Twitter	微博客	w	//twitter.com/search	q=%s
+Plurk	微博客	w	//www.plurk.com/search	q=%s
