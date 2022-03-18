@@ -1,0 +1,15 @@
+name	desc	feature	url	post_body
+#	feature:w	表示该搜索方法在中国大陆不可直接访问
+#	feature:f	表示该搜索方法需要输入文件
+#	feature:a	表示该搜索方法可能提供网页缓存
+#	url:-x-	如果url并非以双斜杠开头，那么就表示method不为get
+TinEye	反找原图	w	post //tineye.com/search	url=%s
+TinEye	反找原图	wf	post //tineye.com/search	image=%s
+npm	npmjs		//www.npmjs.com/search	q=%s
+萌娘百科	网络流行语		//zh.moegirl.org.cn/index.php	search=%s
+小鸡词典	网络流行语		//jikipedia.com/search	phrase=%s
+发表情	表情搜索		//www.fabiaoqing.com/search/bqb/keyword/%s
+ehentai		w	//e-hentai.org	f_search=%s
+exhentai		w	//exhentai.org	f_search=%s
+Apkpure	Google Play	w	//apkpure.com/cn/search	q=%s
+BootCDN	中国区JS加速		//api.bootcdn.cn/libraries.min.json	
