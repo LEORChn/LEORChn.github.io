@@ -423,6 +423,22 @@ window.PromiseQueue = function(){
 	}
 };
 
+self.XML = self.XML || {};
+Object.assign.weakly(XML, {
+	parser: new DOMParser(),
+	parse: function(str){
+		var d = XML.parser.parseFromString(str, 'text/xml');
+		d.$  = d.querySelector.bind(d);
+		d.$$ = d.querySelectorAll.bind(d);
+		d.$$('*').foreach(function(e){
+			e.$  = e.querySelector.bind(e);
+			e.$$ = e.querySelectorAll.bind(e);
+			if(!('innerText' in e)) e.__defineGetter__('innerText', e.__lookupGetter__('textContent'));
+		});
+		return d;
+	}
+});
+
 function old(fn){
 	return document[({
 		fv: 'getElementById',

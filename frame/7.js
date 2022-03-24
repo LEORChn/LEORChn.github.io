@@ -1,12 +1,12 @@
 
 addEventListener('load', function(){
 	$$('.tabview').foreach(function(e){
-		var tabname = 'tabs_' + (Date.now() + Math.random());
+		var tabname = 'tabs_' + (Date.now() / 1e8 + Math.random());
 			divs = e.$$('.list ~ div'),
 			chked = e.$$('.list > label[checked]');
 		e.$$('.list > label').foreach(function(label, i){
 			if(divs.length <= i) return console.warn('7.js 错误：标签页标签数量比实际页面多'); // panel is not enough? check out your HTML code!
-			var id = Date.now() + Math.random(); // 给每个标签设置不同的ID
+			var id = Date.now() / 1e8 + Math.random(); // 给每个标签设置不同的ID
 			label.setAttr('for', id);
 			// 在每个面板前插入 radio input
 			e.insertBefore(ct('input').setAttr('type', 'radio').setAttr('name', tabname).setAttr('id', id), divs[i]);
